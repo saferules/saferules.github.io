@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>switch 语句不应被分号隔断 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>switch 语句不应被分号隔断</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_switch_semicolon</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_switch_emptyBlock.html">next</a> › <a class="nav-link" href="./ID_do_deprecated.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+switch 语句不应被分号隔断。
+
+示例：
+<div class="code">switch (v);  //<span class="comment"> Non-compliant</span>
+</div>
+这种无意义的 switch 语句应及时去除或补全代码。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-670
+
+</p>
+</article>
+</html>

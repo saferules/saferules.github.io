@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>条件编译代码块应在同一文件中 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>条件编译代码块应在同一文件中</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_incompleteDirective</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_warningDisabled.html">next</a> › <a class="nav-link" href="./ID_directiveInMacroArgument.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+#if、#ifdef 与对应的 #else、#elif、#endif 应在同一文件中，否则会增加代码的维护成本。
+
+示例：
+<div class="code">//<span class="comment"> a.h</span>
+#ifdef M      //<span class="comment"> Non-compliant</span>
+....
+
+//<span class="comment"> b.h</span>
+#else         //<span class="comment"> Non-compliant</span>
+....
+
+//<span class="comment"> c.h</span>
+#include &quot;a.h&quot;
+#include &quot;b.h&quot;
+#endif           //<span class="comment"> Non-compliant</span>
+</div>
+示例代码将 #ifdef、#else、#endif 分成了三个文件，使这些文件的依赖关系变得复杂，也使单个文件失去了可读性。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 19.17
+MISRA C 2012 20.14
+MISRA C++ 2008 16-1-2
+
+</p>
+</article>
+</html>

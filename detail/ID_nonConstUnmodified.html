@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>相关对象未被修改时应使用 const 声明 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>相关对象未被修改时应使用 const 声明</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonConstUnmodified</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_abusedAuto.html">next</a> › <a class="nav-link" href="./ID_forbidVolatile.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+用 const 显式区分数据是只读的还是可写的，细化数据的访问方式可显著提高可读性，并保护数据不被错误修改，有助于编译器优化。
+
+下列情况应使用 const 声明：
+ ● 不需要被修改的非参数对象应声明为常量对象
+ ● 通过指针或引用访问对象但不修改对象时，应声明为常量指针或引用
+ ● 成员函数访问非静态成员对象但不修改相关对象时，应声明为常量成员函数
+
+示例：
+<div class="code">double pi = 3.14;   //<span class="comment"> Non-compliant</span>
+
+class Circle {
+    double r;
+
+public:
+    Circle(double);
+    Circle(Circle&amp;) = default;   //<span class="comment"> Non-compliant</span>
+
+    double area() {              //<span class="comment"> Non-compliant</span>
+        return pi * r * r;
+    }
+};</div>
+例中 pi 未被修改，应作为常量；拷贝构造函数的参数未被修改，应声明为常量引用；成员函数 area 未修改成员对象，应声明为常量成员函数：
+<div class="code">const double pi = 3.14;   //<span class="comment"> Compliant</span>
+
+class Circle {
+    ....
+    Circle(const Circle&amp;) = default;   //<span class="comment"> Compliant</span>
+
+    double area() const {              //<span class="comment"> Compliant</span>
+        return pi * r * r;
+    }
+};</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_constStrToNonConstPtr.html" target="_blank" class="related-link">ID_constStrToNonConstPtr</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines Con.1
+C++ Core Guidelines Con.2
+C++ Core Guidelines Con.3
+C++ Core Guidelines Con.4
+MISRA C 2012 18.3
+MISRA C++ 2008 7-1-1
+MISRA C++ 2008 7-1-2
+
+</p>
+</article>
+</html>

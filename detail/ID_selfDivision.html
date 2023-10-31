@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>除法和求余运算符左右子表达式不应相同 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>除法和求余运算符左右子表达式不应相同</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_selfDivision</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_selfSubtraction.html">next</a> › <a class="nav-link" href="./ID_selfAssignment.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+除法或求余运算符左右子表达式相同，结果总为 1 或 0 以及产生除零异常，往往是某种笔误。
+
+示例：
+<div class="code">int foo(int* p) {
+    return p[0] % p[0];  //<span class="comment"> Non-compliant</span>
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-682
+
+</p>
+</article>
+</html>

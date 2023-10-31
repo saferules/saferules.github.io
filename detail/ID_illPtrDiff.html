@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不在同一数组或对象中的地址不可相减或比较大小 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不在同一数组或对象中的地址不可相减或比较大小</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illPtrDiff</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illBoolOperation.html">next</a> › <a class="nav-link" href="./ID_unexpectedPrecedence.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+不在同一数组或对象中的地址之间没有逻辑关系，这种地址相减或比较大小属于逻辑错误，也会导致标准未定义或未声明的行为。
+
+对于 C++ 语言，即使在同一对象中：
+ ● 静态成员之间
+ ● 静态成员与非静态成员之间
+ ● 由 access-specifier 分隔的成员之间
+
+也不应对地址求差值或比较大小。
+
+示例：
+<div class="code">bool b;
+ptrdiff_t d;
+
+int i, j;
+b = &amp;j &gt; &amp;i;   //<span class="comment"> Non-compliant, undefined in C, unspecified in C++</span>
+d = &amp;j - &amp;i;   //<span class="comment"> Non-compliant, undefined in C and C++ if overflow</span>
+
+struct A {
+    int i, j;
+} a;
+b = &amp;a.j &gt; &amp;a.i;   //<span class="comment"> Compliant, ‘b’ is true</span>
+d = &amp;a.j - &amp;a.i;   //<span class="comment"> Compliant, ‘d’ is 1</span>
+
+int x[8];
+int y[8];
+d = &amp;y[1] - &amp;x[0];   //<span class="comment"> Non-compliant, undefined behavior if overflow</span>
+d = &amp;x[1] - &amp;x[0];   //<span class="comment"> Compliant, ‘d’ is 1</span>
+
+class B {
+    static int i;
+    int j;
+public:                   //<span class="comment"> access-specifier</span>
+    int k;
+    int foo() {
+        return &amp;i &lt; &amp;j    //<span class="comment"> Non-compliant, unspecified</span>
+            || &amp;j &lt; &amp;k;   //<span class="comment"> Non-compliant, unspecified</span>
+    }
+};
+</div>
+另外，指针与空指针之间也不应相减或比较大小：
+<div class="code">int* p = &amp;foo;
+bool b = p &lt; NULL;              //<span class="comment"> Non-compliant</span>
+ptrdiff_t d = p - (int*)NULL;   //<span class="comment"> Non-compliant</span></div>
+指针与空指针比较大小是一种常见笔误，对此本规则特化为 <a href="./ID_oddPtrZeroComparison.html" target="_blank" class="dashed-link">ID_oddPtrZeroComparison</a>。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_oddPtrZeroComparison.html" target="_blank" class="related-link">ID_oddPtrZeroComparison</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.5.6(9)-undefined
+ISO/IEC 9899:1999 6.5.8(5)-undefined
+ISO/IEC 9899:2011 6.5.6(9)-undefined
+ISO/IEC 9899:2011 6.5.8(5)-undefined
+ISO/IEC 14882:2003 5.7(6)-undefined
+ISO/IEC 14882:2003 5.9(2)-unspecified
+ISO/IEC 14882:2011 5.7(6)-undefined
+ISO/IEC 14882:2011 5.9(2)-unspecified
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.62
+MISRA C 2004 17.3
+MISRA C 2012 18.3
+MISRA C++ 2008 5-0-16
+MISRA C++ 2008 5-0-17
+MISRA C++ 2008 5-0-18
+
+</p>
+</article>
+</html>

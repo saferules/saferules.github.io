@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>switch 语句的每个非空分枝都应该用无条件的 break 或 return 语句终止 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>switch 语句的每个非空分枝都应该用无条件的 break 或 return 语句终止</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_switch_breakOmitted</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_switch_brace.html">next</a> › <a class="nav-link" href="./ID_switch_missingDefault.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在 switch 语句的分枝中，break 或 return 语句的缺失是导致错误的常见原因。
+
+示例：
+<div class="code">switch (a)
+{
+case 0:
+    b = 1;
+    break;  //<span class="comment"> Compliant</span>
+case 1:
+    b = 2;  //<span class="comment"> Non-compliant, missing ‘break’</span>
+default:
+    b = 3;
+    break;  //<span class="comment"> Compliant</span>
+}
+</div>
+相连的 case 标签不受本规则约束，但最好配有注释：
+<div class="code">switch (c)
+{
+case 0:     //<span class="comment"> Compliant</span>
+case 1:
+    ....
+    break;
+}
+</div>
+少数情况下，如果确实不能有 break 或 return 语句，应添加注释说明情况，或在 C++ 代码中用 [[fallthrough]] 注明：
+<div class="code">switch (v)
+{
+case 1:
+    do_something();
+    [[fallthrough]];   //<span class="comment"> Compliant, since C++17</span>
+default:
+    do_something_default();
+    break;
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.8.4.2(7)
+ISO/IEC 9899:2011 6.8.4.2(7)
+ISO/IEC 14882:2003 6.4.2(6)
+ISO/IEC 14882:2011 6.4.2(6)
+ISO/IEC 14882:2017 10.6.5(1 2 3)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-484
+C++ Core Guidelines ES.78
+MISRA C 2004 15.2
+MISRA C 2012 16.3
+MISRA C++ 2008 6-4-5
+
+</p>
+</article>
+</html>

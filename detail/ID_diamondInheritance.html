@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免多重继承自同一非虚基类 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免多重继承自同一非虚基类</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_diamondInheritance</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_missingCopyConstructor.html">next</a> › <a class="nav-link" href="./ID_missingVirtualDestructor.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+当派生类有多个基类，这些基类又派生自同一非虚基类时，派生类对象会持有该非虚基类的多个实例，造成逻辑和存储上的冗余。
+
+示例：
+<div class="code">struct A {
+    int i = 0;
+};
+
+class B: public A {};
+class C: public A {};
+class D: public B, public C {};   //<span class="comment"> Non-compliant</span>
+
+void foo(D&amp; d) {
+    d.i = 1;       //<span class="comment"> Compile error</span>
+    d.B::i = 1;    //<span class="comment"> Odd</span>
+    d.C::i = 1;    //<span class="comment"> Odd</span>
+}</div>
+在 D 类对象 d 中，基类 A 的成员 i 有两个不同的实例，d 不能直接访问 i，只能通过 d.B::i 或 d.C::i 这种怪异的方式访问。
+
+将共同的基类设为虚基类可以解决这种问题： 
+<div class="code">class B: virtual public A {};
+class C: virtual public A {};
+class D: public B, public C {};   //<span class="comment"> Compliant</span>
+
+void foo(D&amp; d) {
+    d.i = 1;       //<span class="comment"> OK</span>
+}
+</div>
+注意，直接将虚基类指针转为派生类指针会导致标准未定义的行为，如：
+<div class="code">void bar(A* a) {
+    B* p = (B*)a;  //<span class="comment"> Undefined behavior</span>
+    ....
+}</div>
+这种转换一般不会通过编译，但标准并未要求编译器必须阻止这种转换，改用 dynamic_cast 可解决这些问题：
+<div class="code">void bar(A* a) {
+    B* p = dynamic_cast&lt;B*&gt;(a);  //<span class="comment"> OK</span>
+    ....
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_diamondExceptionInheritance.html" target="_blank" class="related-link">ID_diamondExceptionInheritance</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.2.9(5 8)-undefined
+ISO/IEC 14882:2003 10.1(4 5 6)
+ISO/IEC 14882:2011 5.2.9(11 12)-undefined
+ISO/IEC 14882:2011 10.1(4 5 6 7)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.137
+
+</p>
+</article>
+</html>

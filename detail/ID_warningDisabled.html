@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>对编译警告的屏蔽应慎重 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>对编译警告的屏蔽应慎重</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_warningDisabled</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_warningDefault.html">next</a> › <a class="nav-link" href="./ID_incompleteDirective.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+编译器一般允许使用预编译指令屏蔽某些编译警告，但对于反映风险或安全问题的警告不应屏蔽。
+
+示例：
+<div class="code">#ifdef _MSC_VER
+#pragma warning(disable: 4172)  //<span class="comment"> Non-compliant</span>
+#elif defined __GNUC__
+#pragma GCC diagnostic ignored &quot;-Wreturn-local-addr&quot;  //<span class="comment"> Non-compliant</span>
+#endif
+</div>
+示例代码屏蔽了 Visual Studio C4172 和 GCC -Wreturn-local-addr 对应的警告，当局部变量的地址被返回时编译器不会给出警告，但这种警告是不应该被屏蔽的，详见 <a href="./ID_localAddressFlowOut.html" target="_blank" class="dashed-link">ID_localAddressFlowOut</a>。
+
+本规则集合提到的部分问题编译器也可以给出警告，这种警告均不应被屏蔽。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_warningDefault.html" target="_blank" class="related-link">ID_warningDefault</a>
+
+</p>
+
+
+
+</article>
+</html>

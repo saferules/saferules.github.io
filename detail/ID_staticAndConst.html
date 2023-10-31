@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>全局对象不应同时被 static 和 const 等关键字限定 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>全局对象不应同时被 static 和 const 等关键字限定</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_staticAndConst</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidUsingDirectives.html">next</a> › <a class="nav-link" href="./ID_nonConstGlobalObject.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在 C++ 语言中，由 const 或 constexpr 关键字限定的全局对象已具有内部链接性（internal linkage），不应再被 static 关键字限定。
+
+示例：
+<div class="code">static const int i = 123;   //<span class="comment"> Non-compliant, redundant ‘static’</span>
+</div>
+应改为：
+<div class="code">const int i = 123;   //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_staticInHeader.html" target="_blank" class="related-link">ID_staticInHeader</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 7.1.1(6)
+ISO/IEC 14882:2011 7.1.1(7)
+
+</p>
+
+
+</article>
+</html>

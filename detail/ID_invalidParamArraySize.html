@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应将数组作为函数的形式参数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应将数组作为函数的形式参数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_invalidParamArraySize</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_badParmN.html">next</a> › <a class="nav-link" href="./ID_missingParamName.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+数组作为形式参数时，其大小声明起不到实际的限制作用。
+
+示例：
+<div class="code">int foo(int a[100]);   //<span class="comment"> Non-compliant</span>
+
+int bar() {
+    int a[50] = {};
+    return foo(a);     //<span class="comment"> It can be compiled</span>
+}
+</div>
+建议在 C++ 代码中采用数组引用或模板的方式：
+<div class="code">void foo(int (&amp;a)[100]);     //<span class="comment"> Compliant</span>
+
+template &lt;size_t size&gt;
+void foo(int (&amp;a)[size]) {   //<span class="comment"> Compliant</span>
+    ....
+}
+</div>
+例外：
+<div class="code">int foo(int a[], int n);   //<span class="comment"> Let it go</span></div>
+用空的方括号声明数组，并用另一个参数表示数组大小的情况可不受本规则限制。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7.5.3(7)
+ISO/IEC 9899:2011 6.7.6.3(7)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines I.13
+C++ Core Guidelines R.14
+MISRA C++ 2008 5-2-12
+
+</p>
+</article>
+</html>

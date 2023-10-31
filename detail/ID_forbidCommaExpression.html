@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>禁用逗号表达式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>禁用逗号表达式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidCommaExpression</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_literal_suspiciousChar.html">next</a> › <a class="nav-link" href="./ID_oddSubscripting.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+逗号表达式将多个语句合成一个表达式，不利于阅读且易形成笔误。
+
+示例：
+<div class="code">fun1(), fun2();                     //<span class="comment"> Non-compliant, bad</span>
+cond? foo(), bar(): baz(), qux();   //<span class="comment"> Non-compliant, very bad</span>
+</div>
+逗号表达式会使代码的静态结构含混不明，总有更合理的方法替代逗号表达式： 
+<div class="code">fun1();
+fun2();      //<span class="comment"> Compliant</span>
+
+if (cond) {
+    foo();
+    bar();   //<span class="comment"> Compliant</span>
+} else {
+    baz();
+    qux();   //<span class="comment"> Compliant</span>
+}
+</div>
+逗号表达式也易被误用，如：
+<div class="code">a = b++, b * 2;      //<span class="comment"> Non-compliant</span>
+x, y, z = 1, 2, 3;   //<span class="comment"> Non-compliant</span>
+delete p, q;         //<span class="comment"> Non-compliant</span>
+foo((a, b), c);      //<span class="comment"> Non-compliant</span>
+return i, j, k;      //<span class="comment"> Non-compliant</span>
+</div>
+又如：
+<div class="code">for (a = 0, b = 0; a &lt; 100; a++, b++)  {   //<span class="comment"> Let it go?</span>
+    ....
+}</div>
+在 for 语句的第 1 个和第 3 个表达式中使用逗号表达式为惯用方式，但这种方式并不值得提倡，审计工具不妨通过配置决定是否放过这种方式。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">allowCommaExpressionInForIteration: 是否放过 for 语句中的逗号表达式
+</p>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 12.10
+MISRA C 2012 12.3
+MISRA C++ 2008 5-18-1
+
+</p>
+</article>
+</html>

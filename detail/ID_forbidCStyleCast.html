@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>在 C++ 代码中禁用 C 风格类型转换 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>在 C++ 代码中禁用 C 风格类型转换</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidCStyleCast</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_bufferOverflow.html">next</a> › <a class="nav-link" href="./ID_forbidReinterpretCast.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+C 风格类型转换易造成数据丢失或逻辑错误，在 C++ 代码中应使用 static_cast、dynamic_cast 等方法代替 C 风格类型转换。
+
+示例：
+<div class="code">class A { .... };
+class B { .... };
+
+void foo(A* a) {
+    B* b = (B*)a;  //<span class="comment"> Non-compliant, an error value with no logical meaning</span>
+    ....
+}
+
+void bar(A* a) {
+    B* b = dynamic_cast&lt;B*&gt;(a);  //<span class="comment"> Compliant, prevent errors at compile time</span>
+    ....
+}</div>
+例中 A 和 B 是两种不相关的类型，用 C 语言的转换方式是可以转换成功的，但并没有逻辑意义，在 C++ 代码中应使用 static_cast 或 dynamic_cast 等方法在编译时或运行时保障转换的有效性。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.49
+MISRA C++ 2008 5-2-4
+
+</p>
+</article>
+</html>

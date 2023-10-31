@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不可臆断返回值的意义 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不可臆断返回值的意义</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_wrongUseOfReturnValue</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_objectSlicing.html">next</a> › <a class="nav-link" href="./ID_returnValueIgnored.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+应遵循接口文档使用接口，不可臆断返回值的意义，否则造成逻辑错误。
+
+示例：
+<div class="code">void foo(const string&amp; s) {
+    if (s.find(&quot;bar&quot;)) {      //<span class="comment"> Non-compliant</span>
+        ....
+    }
+}</div>
+例中 find 函数返回 &quot;bar&quot; 在 s 中的位置，当 s 中不存在 &quot;bar&quot; 时返回 string::npos，将 find 函数的返回值转为 bool 型是没有逻辑意义的。
+
+应改为：
+<div class="code">void foo(const string&amp; s) {
+    if (s.find(&quot;bar&quot;) != string::npos) {   //<span class="comment"> Compliant</span>
+        ....
+    }
+}</div>
+想当然地认为返回 0 表示失败或不存在，非 0 表示成功或存在，是造成错误的常见原因。
+
+又如：
+<div class="code">bool gt(const char* a, const char* b) {
+    return strcmp(a, b) == 1;             //<span class="comment"> Non-compliant</span>
+}</div>
+strcmp 函数的返回值可以是等于、大于或小于 0 的任意整数，分别对应字符串的等于、大于或小于关系，认为其只能返回 0、1 或 -1 是一种常见的误解。
+
+应改为：
+<div class="code">bool gt(const char* a, const char* b) {
+    return strcmp(a, b) &gt; 0;              //<span class="comment"> Compliant</span>
+}</div>
+strcmp、wcscmp 以及 memcmp 等函数不应与 0 之外的任何值比较。
+
+下列函数的返回值不应与 0 比较，也不应转为 bool 型：
+ ● open、create 等 Linux 系统调用，失败时返回负数，成功时返回非负数
+ ● CreateFile、CreateNamedPipe 等 Windows API，失败时返回 INVAL<a href="./ID_HANDLE_VALUE.html" target="_blank" class="dashed-link">ID_HANDLE_VALUE</a>，而不是 0
+ ● HRESULT 型 Windows API 返回值，负数表示失败、非负数表示成功
+
+另外，有相当一部分函数成功时返回 0，失败时返回非 0，如 access、chmod、rename 等 Linux 系统调用，不可将其返回值当作 bool 型使用。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.21.4
+ISO/IEC 9899:2011 7.24.4
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-253
+
+</p>
+</article>
+</html>

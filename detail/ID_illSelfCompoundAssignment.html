@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>&=、|=、-=、/=、%= 左右子表达式不应相同 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>&=、|=、-=、/=、%= 左右子表达式不应相同</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illSelfCompoundAssignment</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_oddNullAssignment.html">next</a> › <a class="nav-link" href="./ID_suspiciousCompoundAssignment.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+&amp;=、|= 左右子表达式如果相同则没有任何效果，-=、/=、%= 左右子表达式相同则结果总为 1 或 0，这种表达式往往意味着笔误或逻辑错误。
+
+示例（设 a 为变量或表达式）：
+<div class="code">a &amp;= a;  //<span class="comment"> Non-compliant, no effect</span>
+a |= a;  //<span class="comment"> Non-compliant, no effect</span>
+</div>
+如果目的是清零或置 1，也不建议使用下列表达式：
+<div class="code">a -= a;  //<span class="comment"> Non-compliant, tedious</span>
+a /= a;  //<span class="comment"> Non-compliant, low efficiency</span>
+a %= a;  //<span class="comment"> Non-compliant, low efficiency</span>
+</div>
+对于高级语言来说，应该直接将变量赋值为 0 或 1，而不是采用更繁琐甚至低效的方式。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-682
+
+</p>
+</article>
+</html>

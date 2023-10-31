@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>访问共享数据应遵循合理的同步机制 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>访问共享数据应遵循合理的同步机制</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_dataRaces</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_TOCTOU.html">next</a> › <a class="nav-link" href="./ID_forbidSignalFunction.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果一份数据同时被多个线程、进程或中断处理过程读写，会产生不确定的结果，这种情况称为“<a href="https://en.cppreference.com/w/cpp/language/memory_model#Threads_and_data_races" target="_blank" class="dashed-link">数据竞争（data race）</a>”，会导致标准未定义的行为，应落实合理的同步机制来控制访问共享数据的先后顺序。
+
+示例：
+<div class="code">int foo() {
+    static int id = 0;
+    return id++;        //<span class="comment"> Data races in multithreading</span>
+}</div>
+这个函数意在每次被调用都可以返回不同的整数，但如果多个线程同时执行 id++，会使读取、计算、写入等步骤交织在一起，得到错误的结果，这是一种典型的数据竞争。
+
+应改为：
+<div class="code">int foo() {
+    static atomic&lt;int&gt; id(0);
+    return id.fetch_add(1);    //<span class="comment"> OK</span>
+}</div>
+其中 atomic 是 C++ 标准原子类，fetch_add 将对象持有的整数增 1 并返回之前的值，这个过程不会被多个线程同时执行，只能依次执行，从而保证了返回值的唯一性和正确性。
+
+对共享数据访问次序的控制称为“<a href="https://en.wikipedia.org/wiki/Synchronization_(computer_science)" target="_blank" class="dashed-link">同步（synchronization）</a>”，可使用锁、条件变量、原子操作等方法实现对线程的同步。与共享数据相关，但未落实同步机制的函数不应在多线程环境中使用，如：
+<div class="code">asctime         //<span class="comment"> use asctime_r or asctime_s instead</span>
+ctime           //<span class="comment"> use ctime_r or ctime_s instead</span>
+localtime       //<span class="comment"> use localtime_r or localtime_s instead</span>
+gmtime          //<span class="comment"> use gmtime_r or gmtime_s instead</span>
+strtok          //<span class="comment"> use strtok_r or strtok_s instead</span>
+strerror        //<span class="comment"> use strerror_r or strerror_s instead</span>
+tmpnam          //<span class="comment"> use tmpnam_r or tmpnam_s instead</span>
+setlocale       //<span class="comment"> use mutex to protect multithreaded access</span>
+rand, srand     //<span class="comment"> use random, srandom or BCryptGenRandom instead</span></div>
+与线程同步不同，中断处理过程的同步较为特殊，可参见 <a href="./ID_sig_dataRaces.html" target="_blank" class="dashed-link">ID_sig_dataRaces</a> 的进一步讨论。
+
+考虑比数据竞争更高层面的问题，如果程序的正确性依赖进线程处理数据的特定时序，一旦这种特定时序被打破便会产生错误或漏洞，攻击者可以抢在某关键过程前后通过修改共享数据达到攻击目的，这种情况称为“<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" class="dashed-link">竞态条件（race condition）</a>”，如：
+<div class="code">int* p = get_shared();   //<span class="comment"> #0, ‘p’ points to shared data</span>
+if (*p == 0) {           //<span class="comment"> #1, ‘*p’ is unreliable</span>
+    ....
+}
+else if (*p == 1) {      //<span class="comment"> #2, ‘*p’ is unreliable</span>
+    ....
+}
+else {                   //<span class="comment"> #3</span>
+    ....
+}</div>
+如果 p 指向共享数据，那么攻击者可以通过修改共享数据实现对程序流程的劫持，比如在 #0 处 *p 的值本为 0，攻击者在 #1 之前改变 *p 的值，迫使流程向 #2 或 #3 处跳转。
+
+关于竞态条件的进一步讨论可参见 <a href="./ID_TOCTOU.html" target="_blank" class="dashed-link">ID_TOCTOU</a>、<a href="./ID_forbidSignalFunction.html" target="_blank" class="dashed-link">ID_forbidSignalFunction</a> 等规则。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_sig_dataRaces.html" target="_blank" class="related-link">ID_sig_dataRaces</a>
+<a href="./ID_sig_nonAsyncSafeCall.html" target="_blank" class="related-link">ID_sig_nonAsyncSafeCall</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:2011 5.1.2.4(3)-undefined
+ISO/IEC 9899:2011 5.1.2.4(20)-undefined
+ISO/IEC 9899:2011 5.1.2.4(25)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-362
+C++ Core Guidelines CP.2
+SEI CERT CON33-C
+SEI CERT CON43-C
+
+</p>
+</article>
+</html>

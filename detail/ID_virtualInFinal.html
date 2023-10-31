@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>final 类中不应声明虚函数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>final 类中不应声明虚函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_virtualInFinal</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_improperBitfieldType.html">next</a> › <a class="nav-link" href="./ID_virtualComparison.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+final 类不再产生派生类，其中的虚函数也不会再被重写，故不应声明虚函数。
+
+示例：
+<div class="code">class A final {
+public:
+    virtual int foo();  //<span class="comment"> Non-compliant, a new virtual function in a final class</span>
+};
+
+class B {
+public:
+    virtual int bar();
+};
+
+class C final: public B {
+public:
+    virtual int bar();  //<span class="comment"> Non-compliant, use keyword ‘override’ or ‘final’</span>
+};</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 9(3)
+ISO/IEC 14882:2017 12(3)
+
+</p>
+
+
+</article>
+</html>

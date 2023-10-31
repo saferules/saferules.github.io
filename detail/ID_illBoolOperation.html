@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>bool 值不应参与位运算、大小比较、数值增减 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>bool 值不应参与位运算、大小比较、数值增减</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illBoolOperation</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illFormedCompoundAssignment.html">next</a> › <a class="nav-link" href="./ID_illPtrDiff.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+bool 值只能为真或假，不具有“大小”等数值意义，bool 值参与位运算、大小比较、数值增减是不合理的。
+
+示例：
+<div class="code">bool foo(unsigned flags, unsigned flag) {
+    return flags &amp; flag != 0;               //<span class="comment"> Non-compliant</span>
+}
+</div>
+由于 != 的优先级高于 &amp;，所以例中的 return 语句相当于先判断 flag 是否为 0，再将这个 bool 型的结果与 flags 按位与，这是没有意义的。
+
+应改为：
+<div class="code">bool foo(unsigned flags, unsigned flag) {
+    return (flags &amp; flag) != 0;             //<span class="comment"> Compliant</span>
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.2.6(1 2)
+ISO/IEC 14882:2003 5.3.2(1 2)
+ISO/IEC 14882:2003 D.1-deprecated
+ISO/IEC 14882:2011 5.2.6(1 2)
+ISO/IEC 14882:2011 5.3.2(1 2)
+ISO/IEC 14882:2011 D.1-deprecated
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-682
+CWE-783
+CWE-1024
+CWE-1025
+MISRA C 2004 12.7
+MISRA C 2012 10.1
+MISRA C++ 2008 5-0-21
+
+</p>
+</article>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>C++ 代码不应引用 C 头文件 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>C++ 代码不应引用 C 头文件</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidCHeaderInCpp</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_badName.html">next</a> › <a class="nav-link" href="./ID_forbiddenHeader.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+为了与 C 语言兼容，C++ 标准库也会提供 C 头文件，但在这种 C 头文件在 C++ 标准中是已过时的。
+
+C 标准头文件均有对应的 C++ 版本，C++ 版本提供了更适合 C++ 代码的命名空间、模板以及函数重载等功能。C 标准不在 C++ 标准之内，在 C++ 代码中不建议使用 C 标准库的功能，如果确有必要，应使用 C++ 版本的头文件。
+
+本规则是 <a href="./ID_forbiddenHeader.html" target="_blank" class="dashed-link">ID_forbiddenHeader</a> 的特化。
+
+示例：
+<div class="code">#include &lt;assert.h&gt;    //<span class="comment"> Non-compliant, use &lt;cassert&gt;</span>
+#include &lt;ctype.h&gt;     //<span class="comment"> Non-compliant, use &lt;cctype&gt;</span>
+#include &lt;errno.h&gt;     //<span class="comment"> Non-compliant, use &lt;cerrno&gt;</span>
+#include &lt;float.h&gt;     //<span class="comment"> Non-compliant, use &lt;cfloat&gt;</span>
+#include &lt;limits.h&gt;    //<span class="comment"> Non-compliant, use &lt;climits&gt;</span>
+#include &lt;locale.h&gt;    //<span class="comment"> Non-compliant, use &lt;clocale&gt;</span>
+#include &lt;math.h&gt;      //<span class="comment"> Non-compliant, use &lt;cmath&gt;</span>
+#include &lt;setjmp.h&gt;    //<span class="comment"> Non-compliant, use &lt;csetjmp&gt;</span>
+#include &lt;signal.h&gt;    //<span class="comment"> Non-compliant, use &lt;csignal&gt;</span>
+#include &lt;stdarg.h&gt;    //<span class="comment"> Non-compliant, use &lt;cstdarg&gt;</span>
+#include &lt;stddef.h&gt;    //<span class="comment"> Non-compliant, use &lt;cstddef&gt;</span>
+#include &lt;stdio.h&gt;     //<span class="comment"> Non-compliant, use &lt;cstdio&gt;</span>
+#include &lt;stdlib.h&gt;    //<span class="comment"> Non-compliant, use &lt;cstdlib&gt;</span>
+#include &lt;string.h&gt;    //<span class="comment"> Non-compliant, use &lt;cstring&gt;</span>
+#include &lt;time.h&gt;      //<span class="comment"> Non-compliant, use &lt;ctime&gt;</span>
+#include &lt;wchar.h&gt;     //<span class="comment"> Non-compliant, use &lt;cwchar&gt;</span>
+#include &lt;wctype.h&gt;    //<span class="comment"> Non-compliant, use &lt;cwctype&gt;</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_forbiddenHeader.html" target="_blank" class="related-link">ID_forbiddenHeader</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:1998 D.5-deprecated
+ISO/IEC 14882:2003 D.5-deprecated
+ISO/IEC 14882:2011 D.5-deprecated
+ISO/IEC 14882:2017 D.5-deprecated
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 18-0-1
+
+</p>
+</article>
+</html>

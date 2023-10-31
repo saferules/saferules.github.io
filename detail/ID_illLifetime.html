@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免异步终止共享对象的生命周期 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免异步终止共享对象的生命周期</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illLifetime</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_spuriouslyWakeUp.html">next</a> › <a class="nav-link" href="./ID_asynchronousTermination.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+共享对象的使用情况在异步过程中是难以掌控的，贸然终止共享对象的生命周期往往会导致标准未定义的行为。
+
+示例：
+<div class="code">void foo(mutex* pm) {
+    lock(pm);
+    ....
+}
+
+void bar() {
+    mutex m;
+    beginThread(foo, &amp;m);   //<span class="comment"> Non-compliant, ‘m’ is a local object</span>
+    beginThread(foo, &amp;m);   //<span class="comment"> Non-compliant</span>
+}</div>
+设例中 beginThread 创建执行 foo 函数的线程，bar 与 foo 是异步过程，共享对象 m 在 bar 返回后失效，如果 foo 继续访问共享对象就会出错，bar 应等待线程执行完毕或调整共享对象的生命周期。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_asynchronousTermination.html" target="_blank" class="related-link">ID_asynchronousTermination</a>
+<a href="./ID_localAddressFlowOut.html" target="_blank" class="related-link">ID_localAddressFlowOut</a>
+<a href="./ID_danglingDeref.html" target="_blank" class="related-link">ID_danglingDeref</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 30.4.1.2.1(5)-undefined
+ISO/IEC 14882:2017 33.4.3.2.1(5)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT CON31-C
+SEI CERT CON50-CPP
+
+</p>
+</article>
+</html>

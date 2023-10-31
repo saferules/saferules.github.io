@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免重复的函数实现 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免重复的函数实现</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_functionRepetition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_if_semicolon.html">next</a> › <a class="nav-link" href="./ID_mixedAsm.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+重复的或过于相似的代码不利于维护。
+
+示例：
+<div class="code">struct A {
+    int a[10];
+    ....
+    int* foo() {     //<span class="comment"> Non-compliant, almost identical to ‘foo() const’</span>
+        int* p = a;
+        for (int i = 1; i != 10; i++) {
+            if (a[i] &gt; *p) {
+                p = &amp;a[i];
+            }
+        }
+        return p;
+    }
+    const int* foo() const {     //<span class="comment"> Non-compliant, almost identical to ‘foo()’</span>
+        const int* p = a;
+        for (int i = 1; i != 10; i++) {
+            if (a[i] &gt; *p) {
+                p = &amp;a[i];
+            }
+        }
+        return p;
+    }
+};</div>
+例中 foo() 返回数组中最大元素的地址，代码与 foo() const 几乎完全相同，当需求有变化时，需要同时修改两个函数，极易造成意料之外的差异，显然是不利于维护的。
+
+本例可通过模板和自动类型推理将公有代码抽取出来：
+<div class="code">template &lt;class T&gt;
+auto* foo_impl(T* t) {   //<span class="comment"> The common function extracted</span>
+    auto* p = t-&gt;a;
+    for (auto i = 1; i != 10; i++) {
+        if (t-&gt;a[i] &gt; *p) {
+            p = &amp;t-&gt;a[i];
+        }
+    }
+    return p;
+}
+
+struct A {
+    ....
+    int* foo() {
+        return foo_impl(this);   //<span class="comment"> Compliant</span>
+    }
+    const int* foo() const {
+        return foo_impl(this);   //<span class="comment"> Compliant</span>
+    }
+};</div>
+这样，foo() 与 foo() const 的代码便得到了简化，虽然简化后仍然是相同的，但仅为接口调用，可以接受。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">tokenCountThreshold: 符号数量阈值，小于此阈值的函数不参与比较
+repetitionRateThreshold: 函数相似度阈值，超过则报出
+</p>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1041
+C++ Core Guidelines ES.3
+
+</p>
+</article>
+</html>

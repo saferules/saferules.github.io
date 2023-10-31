@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>case 和 default 标签应直接从属于 switch 语句 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>case 和 default 标签应直接从属于 switch 语句</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_switch_badFormedCase</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_switch_uselessFallThrough.html">next</a> › <a class="nav-link" href="./ID_switch_invalidStatement.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+不直接从属于 switch 语句的 case 或 default 标签用于非结构性跳转，是公认的不良实现。
+
+关于非结构性跳转的进一步讨论可参见 <a href="./ID_forbidGoto.html" target="_blank" class="dashed-link">ID_forbidGoto</a>。
+
+示例：
+<div class="code">switch (v)
+{
+case 1:         //<span class="comment"> Compliant </span>
+    if (cond)
+    {
+case 2:         //<span class="comment"> Non-compliant </span>
+        ....
+    }
+    else
+    {
+default:        //<span class="comment"> Non-compliant </span>
+        ....
+    }
+}</div>
+例中 case 1 直接从属于 switch 语句，而 case 2 和 default 直接从属于 if 语句，当 v 的值不是 1 时，会绕过 if 语句的条件判断，产生非结构性跳转，与 goto 语句的问题一样，很容易导致逻辑混乱且不利于维护。
+
+虽然有些编程技巧会将 case 置于循环中，如“<a href="https://en.wikipedia.org/wiki/Duff's_device" target="_blank" class="dashed-link">Duff’s device</a>”等，但当今主流的编程语言均已不再提倡非结构性跳转。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_forbidGotoBlocks.html" target="_blank" class="related-link">ID_forbidGotoBlocks</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 15.1
+MISRA C 2012 16.2
+MISRA C++ 2008 6-4-4
+
+</p>
+</article>
+</html>

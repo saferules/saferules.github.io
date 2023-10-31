@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>关注 TODO、FIXME、XXX、BUG 等特殊注释 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>关注 TODO、FIXME、XXX、BUG 等特殊注释</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_specialComment</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nestedComment.html">next</a> › <a class="nav-link" href="./ID_warningDefault.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+TODO、FIXME、XXX、BUG 等特殊注释表示代码中存在问题，这种问题不应被遗忘，应有计划地予以解决。
+
+及时记录问题是一种好习惯，而且最好有署名和日期。
+
+示例：
+<div class="code">void foo() {
+    /*
+     * Some plans...         //<span class="comment"> Bad, easy to forget</span>
+     */
+}
+
+void foo() {
+    /* TODO:
+     * Some plans...  -- my name, date     //<span class="comment"> Good</span>
+     */
+}</div>
+审计工具不妨定期搜索这些关键词对应的注释，以供相关人员核对问题解决情况。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">specialCommentPatterns: 特殊注释的模式字符串（如正则表达式等），供审计工具查找
+</p>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-546
+
+</p>
+</article>
+</html>

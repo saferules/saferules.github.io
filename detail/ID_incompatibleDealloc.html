@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>资源的分配与回收方法应配套使用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>资源的分配与回收方法应配套使用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_incompatibleDealloc</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_crossModuleTransfer.html">next</a> › <a class="nav-link" href="./ID_incompleteNewDeletePair.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+使用了某种分配方法，就应使用与其配套的回收方法，否则会引发严重错误。
+
+示例：
+<div class="code">void foo() {
+    T* p = new T;
+    ....
+    free(p);   //<span class="comment"> Non-compliant, use ‘delete’ instead</span>
+}
+
+void bar(size_t n) {
+    char* p = (char*)malloc(n);
+    ....
+    delete[] p;   //<span class="comment"> Non-compliant, use ‘free’ instead</span>
+}</div>
+不同的分配回收方法属于不同的资源管理体系，用 new 分配的资源应使用 delete 回收，malloc 分配的应使用 free 回收。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_incompleteNewDeletePair.html" target="_blank" class="related-link">ID_incompleteNewDeletePair</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.20.3.2(2)-undefined
+ISO/IEC 9899:2011 7.22.3.3(2)-undefined
+ISO/IEC 14882:2003 3.7.3.2(3)
+ISO/IEC 14882:2011 3.7.4.2(3)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT MEM51-CPP
+
+</p>
+</article>
+</html>

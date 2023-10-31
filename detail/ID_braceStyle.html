@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>大括号应遵循统一风格 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>大括号应遵循统一风格</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_braceStyle</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_assignmentAsSubExpression.html">next</a> › <a class="nav-link" href="./ID_spaceStyle.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+大括号应遵循统一的换行和缩进风格，否则不利于阅读和维护，甚至形成笔误。
+
+命名空间、类、函数体、复合语句等不同类别的大括号，换行方式可以不同，但同类大括号的换行方式应该是一致的，本规则暂不限定具体风格，但强调一致性。
+
+示例：
+<div class="code">void foo() {     //<span class="comment"> Non-compliant, missing a unified style</span>
+    if (cond)
+    {
+        ....
+    }
+    else {
+        ....
+    }
+}
+
+void bar()       //<span class="comment"> Non-compliant, missing a unified style</span>
+{
+    if (cond) {
+        ....
+    } else
+    {
+        ....
+    }
+}</div>
+例中大括号换行的方式不一致，代码显得很混乱。
+
+本规则是 <a href="./ID_if_mayBeElseIf.html" target="_blank" class="dashed-link">ID_if_mayBeElseIf</a> 的泛化，该规则描述了一种由换行造成的错误。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_if_mayBeElseIf.html" target="_blank" class="related-link">ID_if_mayBeElseIf</a>
+
+</p>
+
+
+
+</article>
+</html>

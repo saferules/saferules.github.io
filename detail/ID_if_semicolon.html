@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>if 语句不应被分号隔断 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>if 语句不应被分号隔断</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_if_semicolon</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_if_identicalCondition.html">next</a> › <a class="nav-link" href="./ID_functionRepetition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+if 语句不应被分号隔断。
+
+示例：
+<div class="code">if (condition);  //<span class="comment"> Non-compliant, see the semicolon</span>
+{
+    ....
+}
+</div>
+一个分号使整个 if 语句失效，这可能是笔误，也可能是需求变化不再需要条件判断了，在维护过程中加入了分号，形成了令人费解的残留代码，也不能排除是有人恶意篡改了代码，应立即修正。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-670
+
+</p>
+</article>
+</html>

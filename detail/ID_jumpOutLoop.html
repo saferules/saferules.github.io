@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免使用跳转语句退出循环 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免使用跳转语句退出循环</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_jumpOutLoop</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illIdentical.html">next</a> › <a class="nav-link" href="./ID_redundantJump.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+循环的退出条件应与其控制表达式一致，使代码具有清晰的静态结构，否则可读性较差，尤其在多个嵌套的作用域中使用 break、goto 或 return 等跳转语句，会使代码难以理解。
+
+示例：
+<div class="code">while (cond) {
+    if (x) {
+        if (y) {
+            break;   //<span class="comment"> Bad</span>
+        }
+        ....
+    } else {
+        ....
+        break;   //<span class="comment"> Bad</span>
+    }
+}</div>
+例中循环条件散落在循环体内，而且循环的主体逻辑被各种跳转语句“割裂”，是不利于阅读和维护的。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_tooManyExit.html" target="_blank" class="related-link">ID_tooManyExit</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 14.6
+MISRA C 2012 15.4
+MISRA C++ 2008 6-6-4
+
+</p>
+</article>
+</html>

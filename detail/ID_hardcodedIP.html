@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>与网络地址相关的信息不应写入代码 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>与网络地址相关的信息不应写入代码</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_hardcodedIP</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-security1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_deprecatedErrno.html">next</a> › <a class="nav-link" href="./ID_addressExposure.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在代码中记录网络地址不利于维护和移植，也容易暴露产品的网络结构，属于安全隐患。
+
+示例：
+<div class="code">string host = &quot;10.16.25.93&quot;;    //<span class="comment"> Non-compliant</span>
+foo(&quot;172.16.10.36:8080&quot;);       //<span class="comment"> Non-compliant</span>
+bar(&quot;https://192.168.73.90&quot;);   //<span class="comment"> Non-compliant</span>
+</div>
+应从配置文件中获取地址，并配以加密措施：
+<div class="code">MyConf cfg;
+string host = cfg.host();   //<span class="comment"> Compliant</span>
+foo(cfg.port());            //<span class="comment"> Compliant</span>
+bar(cfg.url());             //<span class="comment"> Compliant</span>
+</div>
+特殊的 IP 地址可不受本规则限制，如：
+<div class="code">0.0.0.0
+255.255.255.255
+127.0.0.1-127.255.255.255</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_addressExposure.html" target="_blank" class="related-link">ID_addressExposure</a>
+
+</p>
+
+
+
+</article>
+</html>

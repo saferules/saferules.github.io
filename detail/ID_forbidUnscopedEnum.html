@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>用 enum class 取代 enum - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>用 enum class 取代 enum</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidUnscopedEnum</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidNonBasicField.html">next</a> › <a class="nav-link" href="./ID_forbidUnnamedEnum.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+传统 C 枚举没有有效的类型和作用域控制，极易造成类型混淆和名称冲突，在 C++ 代码中建议改用 enum class。
+
+示例：
+<div class="code">enum E {      //<span class="comment"> Non-compliant</span>
+    e0 = 0,
+    e1 = 1,
+    e2 = -1
+};
+
+E foo();
+
+void bar() {
+    if (foo()) {   //<span class="comment"> ‘e1’ or ‘e2’??</span>
+        ....
+    }
+}</div>
+传统 C 枚举值与 int 等类型可以随意转换，如果 e0 和 e2 表示某种错误情况，e1 表示正确情况，那么 bar 函数中对 foo 返回值的判断就是错误的，这也是一种常见问题，C++11 提出了 enum class 的概念加强了类型检查，提倡在新项目中尽量使用 enum class。
+
+应改为：
+<div class="code">enum class E {   //<span class="comment"> Compliant</span>
+    e0 = 0,
+    e1 = 1,
+    e2 = -1
+};
+
+void bar() {
+    if (foo() == E::e1) {   //<span class="comment"> OK</span>
+        ....
+    }
+    if (foo()) {   //<span class="comment"> Compile error, cannot cast the enum class casually</span>
+        ....
+    }
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 7.2(2)
+ISO/IEC 14882:2017 10.2(2)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines Enum.3
+
+</p>
+</article>
+</html>

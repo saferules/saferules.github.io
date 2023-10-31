@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>在 C++ 代码中不应使用宏 offsetof - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>在 C++ 代码中不应使用宏 offsetof</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_deprecatedOffsetof</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_missingHeaderGuard.html">next</a> › <a class="nav-link" href="./ID_badVaArgType.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+宏 offsetof 很难适用于具有 C++ 特性的类，在 C++ 代码中不应使用。
+
+如果 offsetof 用于：
+ ● 非“standard-layout”类型
+ ● 计算静态成员或成员函数的偏移量
+
+会导致标准未定义的行为。
+
+示例：
+<div class="code">struct A {
+    int i;
+    virtual int f();
+};
+
+int foo() {
+    return offsetof(A, i);  //<span class="comment"> Non-compliant, undefined behavior</span>
+}
+
+struct B {
+    static int i;
+    int f();
+};
+
+int bar() {
+    return offsetof(B, i);  //<span class="comment"> Non-compliant, undefined behavior</span>
+}
+
+int baz() {
+    return offsetof(B, f);  //<span class="comment"> Non-compliant, undefined behavior</span>
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 18.1(5)-undefined
+ISO/IEC 14882:2011 18.2(4)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 18-2-1
+SEI CERT EXP59-CPP
+
+</p>
+</article>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免无效的 using directive - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免无效的 using directive</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_usingSelf</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_topInlineNamespace.html">next</a> › <a class="nav-link" href="./ID_forbidUsingDirectives.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+用 using directive 引用当前命名空间属于无效代码，可能意味着某种错误。
+
+示例：
+<div class="code">namespace NS
+{
+    using namespace NS;  //<span class="comment"> Non-compliant, meaningless</span>
+}</div>
+
+</div>
+
+
+
+
+</article>
+</html>

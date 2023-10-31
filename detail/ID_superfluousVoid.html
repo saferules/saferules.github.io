@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>C++ 代码中参数列表如果为空不应声明为“(void)” - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>C++ 代码中参数列表如果为空不应声明为“(void)”</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_superfluousVoid</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidStaticArrSize.html">next</a> › <a class="nav-link" href="./ID_missingVoid.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+与 C 语言不同，在 C++ 语言中空括号和“(void)”均表示没有参数，所以应采用更简洁的方式。
+
+示例：
+<div class="code">struct A {
+    int foo(void);  //<span class="comment"> Verbose</span>
+    int bar();      //<span class="comment"> OK</span>
+};</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_missingVoid.html" target="_blank" class="related-link">ID_missingVoid</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 C.1.6 Clause 8
+ISO/IEC 14882:2011 C.1.7 Clause 8
+ISO/IEC 14882:2017 C.1.7 Clause 11
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines NL.25
+
+</p>
+</article>
+</html>

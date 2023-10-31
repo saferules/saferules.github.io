@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>禁止 goto 语句向前跳转 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>禁止 goto 语句向前跳转</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidGotoBack</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidGoto.html">next</a> › <a class="nav-link" href="./ID_forbidGotoBlocks.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+向先于当前 goto 语句定义的标签跳转，可读性较差，是公认的不良实现。
+
+示例：
+<div class="code">int foo() {
+    int i = 0, j = 0;
+L:
+    j += 1;
+    i += j;
+    if (j &gt; 100) {
+        goto M;      //<span class="comment"> Compliant</span>
+    }
+    goto L;          //<span class="comment"> Non-compliant</span>
+M:
+    return i;
+}</div>
+例中 goto M 向后跳转符合本规则要求，而 goto L 向前跳转不符合要求，应改用循环等结构性语句。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_forbidGotoBlocks.html" target="_blank" class="related-link">ID_forbidGotoBlocks</a>
+<a href="./ID_forbidGoto.html" target="_blank" class="related-link">ID_forbidGoto</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 15.2
+MISRA C++ 2008 6-6-2
+
+</p>
+</article>
+</html>

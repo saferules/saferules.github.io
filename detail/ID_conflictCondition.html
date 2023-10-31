@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>逻辑子表达式之间不应存在矛盾 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>逻辑子表达式之间不应存在矛盾</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_conflictCondition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_invalidCondition.html">next</a> › <a class="nav-link" href="./ID_illIdentical.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+相互矛盾的逻辑子表达式会使整个表达式的结果恒为真或恒为假，导致逻辑错误。
+
+示例：
+<div class="code">a == 1 &amp;&amp; a == 2   //<span class="comment"> always false</span>
+a != 1 || a != 2   //<span class="comment"> always true</span></div>
+同一变量不可能同时等于不同的值，这种表达式是无效的。
+
+又如：
+<div class="code">a &gt; b &amp;&amp; a &lt;= b   //<span class="comment"> always false</span>
+a &gt; b || a &lt;= b   //<span class="comment"> always true</span>
+
+a == b &amp;&amp; a != b   //<span class="comment"> always false</span>
+a == b || a != b   //<span class="comment"> always true</span>
+
+a &lt; -128 &amp;&amp; a &gt; 127     //<span class="comment"> always false</span>
+a &gt;= -128 || a &lt;= 127   //<span class="comment"> always true</span></div>
+这种表达式均为常见笔误，应及时修正。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_redundantCondition.html" target="_blank" class="related-link">ID_redundantCondition</a>
+<a href="./ID_simplifiableCondition.html" target="_blank" class="related-link">ID_simplifiableCondition</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-570
+CWE-571
+
+</p>
+</article>
+</html>

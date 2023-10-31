@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免动态内存分配 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免动态内存分配</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_dynamicAllocation</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nullDerefAllocRet.html">next</a> › <a class="nav-link" href="./ID_unnecessaryAllocation.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+标准库提供的动态内存分配方法，其算法或策略不在使用者的控制之内，很多细节是标准没有规定的，而且也是内存耗尽等问题的根源，有高可靠性要求的嵌入式系统应避免动态内存分配。
+
+在内存资源有限的环境中，由于难以控制具体的分配策略，很可能会导致已分配的空间用不上，未分配的空间不够用的情况。而在资源充足的环境中，也应尽量避免动态分配，如果能在栈上创建对象，就不应采用动态分配的方式，以提高效率并降低资源管理的复杂性。
+
+示例：
+<div class="code">void foo() {
+    std::vector&lt;int&gt; v;   //<span class="comment"> Non-compliant</span>
+    ....
+}</div>
+例中 vector 容器使用了动态内存分配方法，容量的增长策略可能会导致内存空间的浪费，甚至使程序难以稳定运行。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.20.3
+ISO/IEC 9899:2011 7.22.3
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines R.5
+MISRA C 2004 20.4
+MISRA C 2012 21.3
+MISRA C++ 2008 18-4-1
+
+</p>
+</article>
+</html>

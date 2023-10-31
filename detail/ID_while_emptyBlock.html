@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>while 循环体不应为空 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>while 循环体不应为空</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_while_emptyBlock</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_while_brace.html">next</a> › <a class="nav-link" href="./ID_while_scope.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+空的 while 循环将功能全部压缩到了条件表达式中，各子句的职责划分不明确，可读性较差。
+
+示例：
+<div class="code">while (flg.test_and_set());     //<span class="comment"> Non-compliant</span>
+i = (i * j) % n;                //<span class="comment"> The indent is odd here</span>
+flg.clear();</div>
+示例代码循环检测并设置某标志位，这些功能被压缩到了循环条件中，而且容易使人误以为下一行代码也与循环有关。
+
+应改为：
+<div class="code">while (true) {                  //<span class="comment"> Compliant</span>
+    if (!flg.test_and_set()) {
+        break;
+    }
+}
+i = (i * j) % n;
+flg.clear();</div>
+循环体的内容才是循环主体功能的体现，不应为空。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1071
+C++ Core Guidelines ES.85
+
+</p>
+</article>
+</html>

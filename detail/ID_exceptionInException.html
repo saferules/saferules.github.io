@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>异常类的构造函数和异常信息相关的函数不应抛出异常 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>异常类的构造函数和异常信息相关的函数不应抛出异常</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_exceptionInException</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_throwInHash.html">next</a> › <a class="nav-link" href="./ID_throwWhileThrowing.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+创建、复制异常对象以及获取异常信息时不应再抛出异常，否则不利于异常的定位与处理。
+
+示例：
+<div class="code">class Exception {
+    string msg;
+
+public:
+    Exception(const char* s) {
+        if (!s) {
+            throw AnotherException();  //<span class="comment"> Non-compliant</span>
+        }
+        msg.assign(s);
+    }
+
+    const char* what() const {
+        if (msg.empty()) {
+            throw AnotherException();  //<span class="comment"> Non-compliant</span>
+        }
+        return msg.c_str();
+    }
+};</div>
+例中在异常类的构造函数和 what 函数中抛出异常是不符合要求的，而且要注意 string 的构造及拷贝构造函数需要动态内存分配，当分配失败时也会抛出异常，有高可靠性要求的软件系统需要规避。
+
+自定义的异常类可从标准异常类派生，成员也应尽量简单，如：
+<div class="code">class Exception: public logic_error {
+public:
+    explicit Exception(const string&amp; msg):
+        logic_error(msg)
+    {}
+};</div>
+其中 logic_error 是标准异常类，在实际代码中也可以选择 runtime_error 等其他标准异常类作为基类。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_throwWhileThrowing.html" target="_blank" class="related-link">ID_throwWhileThrowing</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 18.6.1
+ISO/IEC 14882:2011 18.8.1
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 15-1-1
+
+</p>
+</article>
+</html>

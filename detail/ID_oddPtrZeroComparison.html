@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>指针与空指针不应比较大小 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>指针与空指针不应比较大小</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_oddPtrZeroComparison</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_this_zeroComparison.html">next</a> › <a class="nav-link" href="./ID_oddPtrCharComparison.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+指针与空指针比较大小往往意味着逻辑错误，而且只有指向同一数组或对象的指针才能比较大小，否则会导致标准未定义的行为，空指针不指向任何数组或对象，故不应比较指针与空指针的大小。
+
+指针与空指针之间只应使用 == 或 != 比较，其他比较运算符均不符合要求。
+
+本规则是 <a href="./ID_illPtrDiff.html" target="_blank" class="dashed-link">ID_illPtrDiff</a> 的特化。
+
+示例（设 p 为指针）：
+<div class="code">p &lt; NULL       //<span class="comment"> Non-compliant, may be always false</span>
+p &gt;= 0         //<span class="comment"> Non-compliant, may be always true</span>
+p &gt; nullptr    //<span class="comment"> Non-compliant, use p != nullptr instead</span>
+p &lt;= 0         //<span class="comment"> Non-compliant, use p == 0 instead</span>
+
+p == NULL      //<span class="comment"> Compliant</span>
+p != nullptr   //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_illPtrDiff.html" target="_blank" class="related-link">ID_illPtrDiff</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.5.8(5)-undefined
+ISO/IEC 9899:2011 6.5.8(5)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1025
+
+</p>
+</article>
+</html>

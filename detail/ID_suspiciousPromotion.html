@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>按位取反需避免由类型提升产生的多余数据 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>按位取反需避免由类型提升产生的多余数据</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_suspiciousPromotion</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_invalidCommaSubExpression.html">next</a> › <a class="nav-link" href="./ID_illShiftCount.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+8 位或 16 位整数按位取反时会被提升为 int 等类型，可能会产生非预期的多余数据。
+
+示例：
+<div class="code">uint8_t a = 0xCD;
+uint8_t b = (~a) &gt;&gt; 4;   //<span class="comment"> Rather suspicious, ‘b’ is 0xF3 </span></div>
+经“<a href="https://en.cppreference.com/w/c/language/conversion#Integer_promotions" target="_blank" class="dashed-link">类型提升</a>”，例中 ~a 在 16 位环境中为 0xFF32，在 32 位环境中为 0xFFFFFF32，高位的数据很可能是多余的。
+
+应在取反后立即转为目标类型：
+<div class="code">uint8_t a = 0xCD;
+uint8_t b = uint8_t(~a) &gt;&gt; 4;   //<span class="comment"> OK, ‘b’ is 0x03</span></div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 5-0-10
+
+</p>
+</article>
+</html>

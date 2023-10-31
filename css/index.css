@@ -1,0 +1,143 @@
+@import "./common.css";
+
+h2 {
+    border-left: 0.8em solid #0074F4;
+    padding-left: 0.5em;
+}
+header {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px dashed #aaa;
+}
+nav {
+    color: #aaa;
+    padding: 8px;
+    font-size: 14px;
+    text-align: right;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+nav a {
+    color: #999;
+    font-weight: bold;
+}
+nav a:hover {
+    color: #218bff;
+}
+a {
+    color: #218bff;
+    text-decoration: none;
+}
+article {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    min-height: 100%;
+}
+.article-wrapper {
+    padding-bottom: 25px;
+}
+footer {
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    margin-top: -25px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 14px;
+    color: #bbb;
+    background: #F1F1F2;
+    font-weight: bold;
+}
+footer a {
+    color: #bbb;
+    text-decoration: none;
+}
+footer a:hover {
+    color: #aaa;
+}
+#header-wrapper {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#main-logo {
+    padding: 0;
+    margin: 0;
+    margin-right: -12px;
+    padding-left: 32px;
+    display: inline-block;
+    vertical-align: middle;
+}
+#titles {
+    display: inline-block;
+    vertical-align: middle;
+}
+#main-title {
+    font-size: 3.0em;
+    font-weight: bold;
+    margin: 0;
+}
+#sub-title {
+    color: #888;
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 16px;
+}
+#introduction {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+#rules-toc {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 80px;
+}
+#rules-toc ul {
+    color: #218bff;
+    padding-bottom: 8px;
+    font-size: 16px;
+    font-weight: normal;
+}
+#rules-toc ul li {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+#rules-toc ol {
+    color: #218bff;
+    padding-bottom: 8px;
+    font-size: 16px;
+    font-weight: normal;
+    counter-reset: item;
+}
+.chapter {
+    font-size: 20px;
+    font-weight: bold;
+}
+.section {
+    font-weight: bold;
+}
+#rules-toc ol li {
+    display: block;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 0;
+    padding-right: 0;
+}
+#rules-toc ol li:before {
+    content: counters(item, ".") " ";
+    counter-increment: item;
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+    margin-right: 10px;
+}

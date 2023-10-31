@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>类的非常量数据成员不应定义为 protected - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>类的非常量数据成员不应定义为 protected</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_protectedData</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_mixPublicPrivateData.html">next</a> › <a class="nav-link" href="./ID_nonPrivateData.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+protected 数据成员在派生类中仍可被随意读写，破坏了封装理念。
+
+本规则是 <a href="./ID_nonPrivateData.html" target="_blank" class="dashed-link">ID_nonPrivateData</a> 的特化，关于封装的进一步讨论可参见 <a href="./ID_nonPrivateData.html" target="_blank" class="dashed-link">ID_nonPrivateData</a>。
+
+常量数据成员不可被改变，所以可不受本规则约束。
+
+示例：
+<div class="code">class A {
+    ....
+protected:
+    int data;   //<span class="comment"> Non-compliant</span>
+};
+</div>
+应改为由接口访问：
+<div class="code">class A {
+    ....
+protected:
+    int access_data();   //<span class="comment"> Interfaces for data</span>
+private:
+    int data;   //<span class="comment"> Compliant</span>
+};</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_mixPublicPrivateData.html" target="_blank" class="related-link">ID_mixPublicPrivateData</a>
+<a href="./ID_nonPrivateData.html" target="_blank" class="related-link">ID_nonPrivateData</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.9
+C++ Core Guidelines C.133
+
+</p>
+</article>
+</html>

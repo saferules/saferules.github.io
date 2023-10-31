@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>与标准库相关的 hash 过程不应抛出异常 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>与标准库相关的 hash 过程不应抛出异常</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_throwInHash</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_throwInNoexcept.html">next</a> › <a class="nav-link" href="./ID_exceptionInException.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+对象的 hash 过程中不应抛出异常，否则相关的容器和算法无法正常工作。
+
+示例：
+<div class="code">struct U {   //<span class="comment"> User defined type</span>
+    int* p;
+};
+
+template &lt;&gt; struct std::hash&lt;U&gt; {   //<span class="comment"> Hash specialization</span>
+    using argument_type = U;
+    using result_type = size_t;
+
+    size_t operator()(const U&amp; u) const {
+        if (!u.p) {
+            throw Exception();   //<span class="comment"> Non-compliant</span>
+        }
+        return hash&lt;int*&gt;()(u.p);
+    }
+};</div>
+标准库规定容器的 find、count 等方法应通过返回值表示对象存在与否，然而如果 hash 过程抛出异常，这些方法也会抛出异常，相当于打破了这种约定，易造成意料之外的结果。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.89
+
+</p>
+</article>
+</html>

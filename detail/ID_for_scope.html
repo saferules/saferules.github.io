@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>for 语句作用域的范围不应有误 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>for 语句作用域的范围不应有误</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_for_scope</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_for_simplification.html">next</a> › <a class="nav-link" href="./ID_for_uncondBroken.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+for 语句作用域的范围不应有误。
+
+示例：
+<div class="code">for (....)
+    statement1; statement2;  //<span class="comment"> Non-compliant</span>
+
+for (....)
+    statement1;
+    statement2;  //<span class="comment"> Non-compliant</span>
+</div>
+例中 statement2 不在 for 循环的作用域中，但看起来又和 for 循环相关，这种问题多数是由宏展开或无效的缩进造成的。为了避免这种问题，for 语句应使用大括号括起来。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_for_brace.html" target="_blank" class="related-link">ID_for_brace</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-483
+
+</p>
+</article>
+</html>

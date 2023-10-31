@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应存在拼写错误 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应存在拼写错误</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_misspelling</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_qualifierRepeated.html">next</a> › <a class="nav-link" href="./ID_duplicatedName.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+代码中不应存在拼写错误，尤其是供他人调用的代码，如命名空间名称、公共接口名称等，更不应存在拼写错误。
+
+拼写错误会使用户对代码的质量产生疑虑，而且相关代码被大量引用后也不便于改正。
+
+示例：
+<div class="code">class A {
+public:
+    virtual void destory() = 0;  //<span class="comment"> Non-compliant, should be ‘destroy’</span>
+};</div>
+例中“destory”函数的名称有拼写错误，应改为“destroy”。
+
+</div>
+
+
+
+
+</article>
+</html>

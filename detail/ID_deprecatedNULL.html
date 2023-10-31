@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>在 C++ 代码中用 nullptr 代替 NULL - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>在 C++ 代码中用 nullptr 代替 NULL</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_deprecatedNULL</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_redundantParentheses.html">next</a> › <a class="nav-link" href="./ID_mixNullptrAndNULL.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+标识符 NULL 由实现定义，在 C++ 语言中往往等同于常量 0，无法有效区分整数与指针，用 nullptr 可避免这种问题。
+
+示例：
+<div class="code">void foo(int) {
+    cout &lt;&lt; &quot;foo-1\n&quot;;
+}
+
+void foo(int*) {
+    cout &lt;&lt; &quot;foo-2\n&quot;;
+}
+
+int main() {
+    foo(NULL);  //<span class="comment"> Non-compliant, what is output?</span>
+}</div>
+NULL 表示空指针，所以应该调用参数为指针的重载函数，但不同的编译器对这段代码有不同的处理，有的无法通过编译，有的编译执行后会输出 foo-1，用 nullptr 代替 NULL 可解决这种问题。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 C.2.2.3(1)-implementation
+ISO/IEC 14882:2011 2.14.7(1)
+ISO/IEC 14882:2011 C.3.2.4(1)-implementation
+ISO/IEC 14882:2017 C.5.2.7(1)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.47
+
+</p>
+</article>
+</html>

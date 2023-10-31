@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>include 指令中不应使用绝对路径 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>include 指令中不应使用绝对路径</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidAbsPathInHeaderName</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_badIncludePosition.html">next</a> › <a class="nav-link" href="./ID_forbidBackslashInHeaderName.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+绝对路径使代码过分依赖编译环境，意味着项目的编译设置不完善，应使用相对路径。
+
+示例：
+<div class="code">#include &quot;C:\\foo\\bar.h&quot;   //<span class="comment"> Non-compliant</span>
+#include &quot;/foo/bar.h&quot;       //<span class="comment"> Non-compliant</span></div>
+
+</div>
+
+
+
+
+</article>
+</html>

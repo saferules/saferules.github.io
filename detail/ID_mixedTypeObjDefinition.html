@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应将类型定义和对象声明写在一个语句中 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应将类型定义和对象声明写在一个语句中</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_mixedTypeObjDefinition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_mixedDeclarations.html">next</a> › <a class="nav-link" href="./ID_missingArraySize.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+将类型定义和对象声明写在一个语句中可读性较差，应分开书写。
+
+示例：
+<div class="code">struct T {
+    ....
+} obj, *ptr, fun();   //<span class="comment"> Non-compliant</span>
+</div>
+应改为：
+<div class="code">struct T {
+    ....
+};
+
+T obj;   //<span class="comment"> Compliant</span>
+T* ptr;   //<span class="comment"> Compliant</span>
+T fun();   //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.7
+
+</p>
+</article>
+</html>

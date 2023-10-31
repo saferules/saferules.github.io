@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应对枚举对象声明位域 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应对枚举对象声明位域</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidEnumBitfield</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidBitfield.html">next</a> › <a class="nav-link" href="./ID_singleSignedBitfield.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+枚举类型是否有符号由实现定义，而且符号位与位域结合易导致意料之外的错误。
+
+示例：
+<div class="code">enum E {
+    A, B, C, D
+};
+
+struct X {
+    E e: 2;   //<span class="comment"> Non-compliant</span>
+};
+
+int main() {
+    X x;
+    x.e = D;
+    if (x.e == D) {    //<span class="comment"> What is output?</span>
+        cout &lt;&lt; &quot;OK&quot;;
+    } else {
+        cout &lt;&lt; &quot;Oops&quot;;
+    }
+}</div>
+可能输出 Oops。例中枚举项的取值范围是 [0, 3]，位域长度为 2 即可满足这个范围，但如果位域有符号位，会导致意料之外的问题，如用 D 对 x.e 赋值，但 x.e == D 的结果却是 false （因为 D 的值为 3 而 x.e 的值为 -1）。
+
+例外：
+<div class="code">enum E: unsigned {   //<span class="comment"> Explicit underlying type</span>
+    A, B, C, D
+};
+
+struct X {
+    E e: 2;   //<span class="comment"> Compliant</span>
+};</div>
+在遵循 C++11 及之后标准的代码中，如果显式指定了枚举类型的的底层类型，可不受本规则限制。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_improperBitfieldType.html" target="_blank" class="related-link">ID_improperBitfieldType</a>
+<a href="./ID_singleSignedBitfield.html" target="_blank" class="related-link">ID_singleSignedBitfield</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7.2.2(4)-implementation
+ISO/IEC 9899:2011 6.7.2.2(4)-implementation
+ISO/IEC 14882:2011 7.2(6)-implementation
+ISO/IEC 14882:2017 10.2(7)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 9-6-3
+
+</p>
+</article>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>case 标签的值不可超出 switch 条件的范围 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>case 标签的值不可超出 switch 条件的范围</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_switch_caseOutOfRange</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_switch_invalidStatement.html">next</a> › <a class="nav-link" href="./ID_switch_emptyBlock.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果 case 标签的值超出了 switch 条件的范围，会导致相应分枝永远不会被执行。
+
+示例：
+<div class="code">void foo(char c)
+{
+    switch (c)
+    {
+    case 100:    //<span class="comment"> Compliant</span>
+        ....
+        break;
+    case 256:    //<span class="comment"> Non-compliant, unreachable branch</span>
+        ....
+        break;
+    }
+}</div>
+例中变量 c 的值不可能为 256，所以 case 256 对应的分枝永远不会被执行。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_illComparison.html" target="_blank" class="related-link">ID_illComparison</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-561
+
+</p>
+</article>
+</html>

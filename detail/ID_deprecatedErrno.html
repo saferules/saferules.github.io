@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>选择安全的异常处理方式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>选择安全的异常处理方式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_deprecatedErrno</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-security1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_missingHardening.html">next</a> › <a class="nav-link" href="./ID_hardcodedIP.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+避免使用 errno 和与其相同的模式，应根据实际需求选择通过函数返回值或 C++ 异常机制来处理异常情况。
+
+errno 被设定的位置和被读取的位置相距较远，不遵循固定的静态结构，极易误用，是不安全的异常处理方式，对异常情况的错误处理往往会成为业务漏洞，使攻击者轻易地实现其目的。
+
+示例：
+<div class="code">void foo() {
+    if (somecall() == FAILED) {
+        printf(&quot;somecall failed\n&quot;);
+        if (errno == SOME_VALUE) {     //<span class="comment"> Non-compliant</span>
+            .... 
+        }
+    }
+}</div>
+例中 somecall 执行异常，通过 errno 获取异常信息，但 errno 的值会被 printf 修改，相应的异常处理也失去了意义。
+
+又如：
+<div class="code">void bar(const char* s) {
+    int i = atoi(s);
+    if (errno) {        //<span class="comment"> Non-compliant</span>
+        ....
+    }
+}</div>
+errno 并不能反映所有异常情况，atoi 等函数与 errno 无关，例中 errno 的值来自函数外部难以预料的位置，相应的异常处理也将是错误的。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines E.28
+MISRA C 2004 20.5
+MISRA C++ 2008 19-3-1
+
+</p>
+</article>
+</html>

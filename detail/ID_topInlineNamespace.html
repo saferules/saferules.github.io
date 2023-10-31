@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应定义全局 inline 命名空间 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应定义全局 inline 命名空间</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_topInlineNamespace</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_stdNamespaceModified.html">next</a> › <a class="nav-link" href="./ID_usingSelf.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+定义全局 inline 命名空间相当于没有命名空间，应在普通命名空间之内使用 inline 命令空间。
+
+示例：
+<div class="code">namespace V0 {
+    int foo();
+}
+
+inline namespace V1 {  //<span class="comment"> Non-compliant</span>
+    int foo();
+}
+</div>
+应该用普通命名空间加以限定：
+<div class="code">namespace NS
+{
+    namespace V0 {
+        int foo();
+    }
+
+    inline namespace V1 {  //<span class="comment"> Compliant</span>
+        int foo();
+    }
+}</div>
+
+</div>
+
+
+
+
+</article>
+</html>

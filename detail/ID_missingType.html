@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应省略声明对象或函数的类型 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应省略声明对象或函数的类型</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_missingType</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unportableType.html">next</a> › <a class="nav-link" href="./ID_privateNotUsed.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+C90 允许省略对象或函数的类型声明，但实践表明这并不是一种良好的编程方式，可读性较差。
+
+本规则仅针对 C 语言，C++ 语言不存在这种问题。
+
+示例：
+<div class="code">extern a;     //<span class="comment"> Non-compliant</span>
+const b;      //<span class="comment"> Non-compliant</span>
+fun(void);    //<span class="comment"> Non-compliant</span>
+typedef tp;   //<span class="comment"> Non-compliant</span></div>
+例中 a、b、fun、tp 的类型被省略，默认为 int，应改为：
+<div class="code">extern int a;     //<span class="comment"> Compliant</span>
+const int b;      //<span class="comment"> Compliant</span>
+int fun(void);    //<span class="comment"> Compliant</span>
+typedef int tp;   //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 8.2
+MISRA C 2012 8.1
+
+</p>
+</article>
+</html>

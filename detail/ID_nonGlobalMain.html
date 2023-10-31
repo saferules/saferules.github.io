@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>main 函数只应处于全局作用域中 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>main 函数只应处于全局作用域中</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonGlobalMain</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_usingNamespaceInHeader.html">next</a> › <a class="nav-link" href="./ID_missingNamespace.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+main 函数作为程序的入口，链接器需对其特殊处理，不应受命名空间等作用域的限制。
+
+示例：
+<div class="code">int main() {   //<span class="comment"> Compliant</span>
+    ....
+}
+
+namespace {
+    int main() {   //<span class="comment"> Non-compliant</span>
+        ....
+    }
+}
+
+namespace NS {
+    int main() {   //<span class="comment"> Non-compliant</span>
+        ....
+    }
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 3.6.1(1)
+ISO/IEC 14882:2011 3.6.1(1)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 7-3-2
+
+</p>
+</article>
+</html>

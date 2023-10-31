@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>SIGFPE、SIGILL、SIGSEGV 等信号的处理函数不可返回 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>SIGFPE、SIGILL、SIGSEGV 等信号的处理函数不可返回</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_sig_illReturn</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidSignalFunction.html">next</a> › <a class="nav-link" href="./ID_sig_nonAsyncSafeCall.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+与计算异常相关的信号由不可恢复的错误引起，相关信号处理函数应终止程序的执行，否则导致标准未定义的行为。
+
+示例：
+<div class="code">#include &lt;signal.h&gt;
+
+void handler(int signum) {
+    ....
+    return;   //<span class="comment"> Non-compliant</span>
+}
+
+int main() {
+    signal(SIGFPE, handler);
+    ....
+}</div>
+当发生除 0 等计算异常时，程序会收到 SIGFPE 信号，这种信号对应的处理函数应使用 abort、_Exit 等函数终止程序的执行，不可正常返回，否则可能会造成更严重的损失。
+
+应改为：
+<div class="code">void handler(int signum) {
+    ....
+    _Exit(1);   //<span class="comment"> Compliant</span>
+}
+</div>
+或使用 sigsetjmp 和 siglongjmp 使流程跳转到主程序中的预定位置：
+<div class="code">sigjmp_buf buf;
+
+void handler(int x) {
+    siglongjmp(buf, 1);   //<span class="comment"> Compliant</span>
+}
+
+int main() {
+    signal(SIGFPE, handler);
+    if (sigsetjmp(buf, 1)) {
+        ....                   //<span class="comment"> #1, Normal procedure</span>
+        return 0;              //<span class="comment"> Normal exit</span>
+    } else {
+        ....                   //<span class="comment"> #2, handle error</span>
+        return 1;              //<span class="comment"> Abnormal exit</span>
+    }
+}</div>
+在这种模式下，#1 实现程序的功能，如果收到了 SIGFPE 信号，流程就会跳转到 #2。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.14.1.1(3)-undefined
+ISO/IEC 9899:2011 7.14.1.1(3)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT SIG35-C
+
+</p>
+</article>
+</html>

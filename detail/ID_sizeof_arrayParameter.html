@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>sizeof 不应作用于数组参数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>sizeof 不应作用于数组参数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_sizeof_arrayParameter</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_sizeof_oddExpression.html">next</a> › <a class="nav-link" href="./ID_unsuitableForward.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+当函数的形式参数为数组时，实际上是一个指针，对这种参数使用 sizeof 无法获取到数组大小，往往意味着错误。
+
+示例：
+<div class="code">void fun(char arr[32]) {
+    memset(arr, 0, sizeof(arr));  //<span class="comment"> Non-compliant</span>
+}</div>
+例中参数 arr 是一个指针，而不是一个真实的数组。
+
+在 C++ 代码中，如果有必要将参数设为数组，建议使用引用的方式，如：
+<div class="code">void fun(char (&amp;arr)[32]) {
+    memset(arr, 0, sizeof(arr));  //<span class="comment"> Compliant</span>
+}</div>
+这样 sizeof(arr) 的结果就会和预期一致。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7.5.3(7)
+ISO/IEC 9899:2011 6.7.6.3(7)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-467
+
+</p>
+</article>
+</html>

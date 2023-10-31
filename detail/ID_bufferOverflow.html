@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免缓冲区溢出 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免缓冲区溢出</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_bufferOverflow</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_arrayIndexOverflow.html">next</a> › <a class="nav-link" href="./ID_forbidCStyleCast.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+“缓冲区（buffer）”的本意是指内存等高速设备上的区域，程序在这种区域内接收或处理数据，之后再一并输出到网络或磁盘等低速环境，起到提高效率的作用，故称缓冲区。连续的内存区域均可称为缓冲区，在 C/C++ 语言中对应数组等结构。
+
+缓冲区之外可能是程序的其他数据，也可能是函数返回地址、资源分配信息等重要数据，对缓冲区的越界读写往往意味着逻辑错误，而且会使程序遭到破坏。
+
+示例：
+<div class="code">void foo(const char* s) {
+    char buf[100];
+    strcpy(buf, s);   //<span class="comment"> Non-compliant</span>
+    ....
+}
+
+int main() {
+    foo(userInput());
+}</div>
+例中 userInput 函数返回用户输入的字符串，其长度不确定，而缓冲区 buf 的长度为 100 字节，如果用户输入超过这个长度就会使程序遭到破坏，这种问题称为“<a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" class="dashed-link">缓冲区溢出（buffer overflow）</a>”，也是程序遭受攻击的常见原因。
+
+缓冲区溢出可造成严重危害，如：
+ ● 破坏堆栈或段结构，扰乱程序执行
+ ● 改写关键信息，篡改程序行为
+ ● 注入并运行恶意代码
+ ● 攻击高权限进程获取非法权限
+
+所以将读写限定在缓冲区边界之内是十分重要的，示例代码应改为：
+<div class="code">void foo(const char* s) {
+    char buf[100] = &quot;&quot;;
+    strncpy(buf, s, sizeof(buf) - 1);   //<span class="comment"> Compliant</span>
+    ....
+}</div>
+strncpy 与 strcpy 不同，当源字符串长度超过指定限制时会结束复制，但要注意 strncpy 对空字符的处理。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_arrayIndexOverflow.html" target="_blank" class="related-link">ID_arrayIndexOverflow</a>
+<a href="./ID_unsafeStringFunction.html" target="_blank" class="related-link">ID_unsafeStringFunction</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-119
+CWE-125
+CWE-787
+CWE-788
+
+</p>
+</article>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应转换无 public 继承关系的指针或引用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应转换无 public 继承关系的指针或引用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_castNonPublicInheritance</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nonPODBinaryCast.html">next</a> › <a class="nav-link" href="./ID_castNoInheritance.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+public 继承表示派生类是基类的某种扩展，而非 public 继承往往表示派生类是基类的某种例外，基类的方法不再适用于派生类的对象。
+
+示例：
+<div class="code">class A { .... };
+class B: private A { .... };
+
+void bar(A* a);
+
+void foo(B* b) {
+    bar((A*)b);    //<span class="comment"> Non-compliant</span>
+}</div>
+例中派生类 B 是对基类 A 的改造，再用 A 类方法处理 B 类对象是有问题的。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_castNoInheritance.html" target="_blank" class="related-link">ID_castNoInheritance</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 4.10(3)
+ISO/IEC 14882:2011 4.10(3)
+
+</p>
+
+
+</article>
+</html>

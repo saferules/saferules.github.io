@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>声明和定义内部链接的对象和函数时均应使用 static 关键字 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>声明和定义内部链接的对象和函数时均应使用 static 关键字</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_missingStatic</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_badSpecifierPosition.html">next</a> › <a class="nav-link" href="./ID_this_notUsed.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+声明和定义内部链接的对象和函数时均应使用 static 关键字，不可使用 extern 关键字，否则极易引起误解。
+
+示例：
+<div class="code">extern int a;   //<span class="comment"> Non-compliant</span>
+....
+static int a;   //<span class="comment"> ‘a’ is a static object</span>
+static int b;   //<span class="comment"> ‘b’ is a static object</span>
+....
+extern int b;   //<span class="comment"> Non-compliant</span></div>
+例中 a、b 是内部链接的静态对象，在定义的前后不可再用 extern 声明，否则极易与全域对象混淆。
+
+又如：
+<div class="code">int foo(int);          //<span class="comment"> Bad, missing ‘static’</span>
+
+static int foo(int) {
+    ....
+}
+
+static int bar(int);
+
+int bar(int) {         //<span class="comment"> Bad, missing ‘static’</span>
+    ....
+}</div>
+在声明和定义内部链接的函数时，均应使用 static 关键字，否则也易引起误解。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 8.11
+MISRA C 2012 8.8
+MISRA C++ 2008 3-3-2
+
+</p>
+</article>
+</html>

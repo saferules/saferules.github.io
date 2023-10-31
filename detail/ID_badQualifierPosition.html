@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>const、volatile 限定类型时的位置应统一 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>const、volatile 限定类型时的位置应统一</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_badQualifierPosition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_sandwichedModifier.html">next</a> › <a class="nav-link" href="./ID_qualifierInvalid.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+语言允许 const、volatile 等关键字出现在类型名称的左侧，也可以出现在其右侧，甚至可以出现在基本类型名称的中间，应对其位置进行统一规范以提高可读性。
+
+可从下列方案中选择一种作为规范，即统一要求 const、volatile：
+ 1. 出现在类型名称的左侧
+ 2. 出现在类型名称的右侧
+ 3. 出现在指针类型名称的右侧，非指针类型名称的左侧
+
+示例：
+<div class="code">//<span class="comment"> Non-compliant, inconsistent positions of cv-qualifiers</span>
+const long long i = 0;
+unsigned int const j = 0;
+const int volatile k = 0;</div>
+例中 const、volatile 的位置不统一是不符合要求的。
+
+const、volatile 出现在类型名称右侧时，和 * 号一起易被误用，如：
+<div class="code">char const const * p = &quot;....&quot;;   //<span class="comment"> Wrong, redundant const-qualifiers</span>
+char const * const q = &quot;....&quot;;   //<span class="comment"> Right</span>
+</div>
+const、volatile 出现在类型名称左侧时，如果类型为指针类型，则易引起误解，如：
+<div class="code">typedef int* ptr;
+const ptr cp = &amp;x;
+*cp = 1;             //<span class="comment"> Looks a bit strange</span></div>
+可参见 <a href="./ID_qualifierForPtrAlias.html" target="_blank" class="dashed-link">ID_qualifierForPtrAlias</a> 的进一步讨论。
+
+如果约定 const、volatile 出现左侧表示类型为对象类型，右侧表示类型为指针类型，有助于提高可读性：
+<div class="code">typedef int obj;
+typedef int* ptr;
+
+const obj i = 0;    //<span class="comment"> Indicates that ‘obj’ is an object type</span>
+ptr const p = &amp;x;   //<span class="comment"> Indicates that ‘ptr’ is a pointer type</span>
+</div>
+审计工具不妨通过配置决定具体检查方案。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">positionScheme: const、volatile 的位置方案，对应说明中的 1、2、3 号方案
+volatileInFront: volatile 是否应写在 const 的前面，如果值为 false 则应写在后面，不设此项则不考虑相关顺序
+</p>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_sandwichedModifier.html" target="_blank" class="related-link">ID_sandwichedModifier</a>
+<a href="./ID_badSpecifierPosition.html" target="_blank" class="related-link">ID_badSpecifierPosition</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7(1)
+ISO/IEC 9899:1999 6.7.2(1)
+ISO/IEC 9899:2011 6.7(1)
+ISO/IEC 9899:2011 6.7.2(1)
+ISO/IEC 14882:2003 A.6
+ISO/IEC 14882:2011 A.6
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines NL.26
+
+</p>
+</article>
+</html>

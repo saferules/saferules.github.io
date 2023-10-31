@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>表达式中的宏参数应该用括号括起来 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>表达式中的宏参数应该用括号括起来</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_macro_paramNotEnclosed</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_stmtNotEnclosed.html">next</a> › <a class="nav-link" href="./ID_macro_expNotEnclosed.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+由于宏只做文本处理，不考虑运算符优先级等问题，故应将宏参数用括号括起来，否则易产生意料之外的错误。
+
+示例：
+<div class="code">#define SUM(a, b) (a + b)  //<span class="comment"> Non-compliant</span>
+</div>
+应改为：
+<div class="code">#define SUM(a, b) ((a) + (b))  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.10.3.5(4)
+ISO/IEC 9899:2011 6.10.3.5(4)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-783
+MISRA C++ 2008 16-0-6
+
+</p>
+</article>
+</html>

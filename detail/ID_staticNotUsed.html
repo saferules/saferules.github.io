@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应存在没有被用到的静态声明 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应存在没有被用到的静态声明</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_staticNotUsed</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_privateNotUsed.html">next</a> › <a class="nav-link" href="./ID_labelNotUsed.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+没有被用到的静态声明往往是没有意义的，应删除或修正引用关系。
+
+类的静态成员可不受本规则限制。
+
+示例：
+<div class="code">static int foo();   //<span class="comment"> Compliant, used</span>
+static int bar();   //<span class="comment"> Non-compliant, unused</span>
+
+int main() {
+    return foo();
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_unreachableCode.html" target="_blank" class="related-link">ID_unreachableCode</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 0-1-10
+
+</p>
+</article>
+</html>

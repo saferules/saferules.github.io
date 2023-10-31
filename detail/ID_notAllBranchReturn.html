@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>有返回值的函数其所有分枝都应显式返回 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>有返回值的函数其所有分枝都应显式返回</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_notAllBranchReturn</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_localAddressFlowOut.html">next</a> › <a class="nav-link" href="./ID_unreachableCode.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果有返回值的函数在某个分枝没有使用 return 语句显式返回，会导致标准未定义的行为。
+
+示例：
+<div class="code">int fun() {
+    if (condition1) {
+        return 1;
+    }
+    else if (condition2) {
+    }                        //<span class="comment"> Non-compliant, no return value</span>
+    else {
+        return 3; 
+    }
+}</div>
+当条件符合 condition2 时，fun 函数的调用者将得到一个错误的返回值。
+
+例外：
+<div class="code">int main() {
+    printf(&quot;Hi~\n&quot;);
+}   //<span class="comment"> Compliant</span></div>
+标准规定未显式返回的 main 函数会返回 0，故 main 函数不受本规则约束。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 5.1.2.2.3(1)
+ISO/IEC 9899:1999 6.9.1(12)-undefined
+ISO/IEC 9899:2011 5.1.2.2.3(1)
+ISO/IEC 9899:2011 6.9.1(12)-undefined
+ISO/IEC 14882:2003 3.6.1(5)
+ISO/IEC 14882:2003 6.6.3(2)-undefined
+ISO/IEC 14882:2011 3.6.1(5)
+ISO/IEC 14882:2011 6.6.3(2)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-394
+MISRA C 2004 16.8
+MISRA C 2012 17.4
+MISRA C++ 2008 8-4-3
+
+</p>
+</article>
+</html>

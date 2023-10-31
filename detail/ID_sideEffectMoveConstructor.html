@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>移动构造函数应避免实现数据移动之外的功能 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>移动构造函数应避免实现数据移动之外的功能</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_sideEffectMoveConstructor</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_this_selfJudgement.html">next</a> › <a class="nav-link" href="./ID_sideEffectCopyConstructor.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+移动构造函数的执行在某些情况下可被省略，其执行次数可能与预期不符，数据移动之外的功能也可能无法生效。
+
+示例：
+<div class="code">class A {
+    int* dat;
+    static int cnt;
+
+public:
+    A();
+   ~A();
+    A(A&amp;&amp; a) {
+        dat = a.dat;      //<span class="comment"> Compliant</span>
+        a.dat = nullptr;  //<span class="comment"> Compliant</span>
+        cnt++;            //<span class="comment"> Non-compliant</span>
+    }
+};</div>
+例中移动构造函数对静态成员有所读写，这种数据移动之外的功能是不符合要求的。
+
+如果按下列方式使用相关类：
+<div class="code">A foo();
+
+int main() {
+    A a{foo()};   //<span class="comment"> Copy/move elision</span>
+    ....
+}</div>
+用 foo 函数返回的临时对象构造对象 a，理论上应执行移动构造函数，但标准允许编译器将临时对象直接作为对象 a，移动和拷贝构造函数均可省略以提高效率，这种优化称为“<a href="https://en.wikipedia.org/wiki/Copy_elision" target="_blank" class="dashed-link">copy/move elision</a>”，移动或复制之外的功能会因此无法生效。在 C++17 之前，是否执行这种优化由实现定义，从 C++17 开始，在某些情况下必须执行这种优化，具体可参见“<a href="https://en.cppreference.com/w/cpp/language/copy_elision#Mandatory_elision_of_copy.2Fmove_operations" target="_blank" class="dashed-link">mandatory copy elision</a>”。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_sideEffectCopyConstructor.html" target="_blank" class="related-link">ID_sideEffectCopyConstructor</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 12.8(31)-implementation
+ISO/IEC 14882:2017 15.8.3(1)-implementation
+
+</p>
+
+
+</article>
+</html>

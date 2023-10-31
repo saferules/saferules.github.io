@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>空格应遵循统一风格 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>空格应遵循统一风格</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_spaceStyle</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_braceStyle.html">next</a> › <a class="nav-link" href="./ID_signalInMultiThreading.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+与运算符、标点符、关键字相关的空格应遵循统一风格，过于随意的空格会干扰阅读，甚至形成笔误。
+
+本规则暂不限定具体风格，但强调一致性，同类运算符、标点符、关键字的空格方式应保持一致，tab 等变长空白符不应用作空格。
+
+示例：
+<div class="code">a= 0;                   //<span class="comment"> Bad</span>
+b = a +1;               //<span class="comment"> Bad</span>
+c =~ a;                 //<span class="comment"> Bad</span>
+while (d --&gt; 0)         //<span class="comment"> Bad</span>
+
+a == 0 ? foo() :bar();  //<span class="comment"> Bad</span>
+baz (1 , 2 ,3);         //<span class="comment"> Bad</span>
+
+if (cond)
+if(cond)                //<span class="comment"> Missing a unified style</span></div>
+例中运算符和关键字相关的空格风格不一致，代码显得很混乱。
+
+本规则是 <a href="./ID_stickyAssignmentOperator.html" target="_blank" class="dashed-link">ID_stickyAssignmentOperator</a> 的泛化，该规则描述了一种由空格造成的错误。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_stickyAssignmentOperator.html" target="_blank" class="related-link">ID_stickyAssignmentOperator</a>
+
+</p>
+
+
+
+</article>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>对用户落实有效的权限管理 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>对用户落实有效的权限管理</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_improperAuthorization</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-security1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_dangerousName.html">next</a> › <a class="nav-link" href="./ID_unlimitedAuthority.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+需落实有效的权限管理，相关措施包括但不限于：
+ ● 落实授权与认证机制，提供多因素认证
+ ● 遵循最小特权原则，对资源和相关算法设置合理的访问或执行权限
+ ● 避免仅在客户端认证而非服务端认证
+ ● 检查请求是否符合用户的权限设定，拒绝无权限的请求
+ ● 用户放弃某项权限后，应确保相关权限不再生效
+ ● 遵循合理的“认证 - 执行”顺序，避免复杂度攻击或早期放大攻击
+ ● 保证信道完整性，对相关用户进行充分的身份认证，避免中间人攻击
+ ● 验证通信通道的源和目的地，拒绝非预期的请求和应答
+ ● 避免攻击者使用重放攻击等手段绕过身份认证或干扰正常运营
+ ● 避免不恰当地信任反向 DNS（关注 DNS Cache Poisoning）
+ ● 避免过于严格且易触发的账户锁定机制，使攻击者通过锁定账户干扰正常运营
+
+权限管理与安全直接相关，应落实严格的评审、测试以及攻防演练。
+
+示例：
+<div class="code">Result foo() {
+    auto req = getRequest();
+    auto res = sqlQuery(
+        &quot;select * from db where key=&#x27;%s&#x27;&quot;, req[&quot;key&quot;]   //<span class="comment"> Non-compliant</span>
+    );
+    return res;
+}</div>
+设例中 req 对应用户请求，sqlQuery 将请求中的 key 字段替换格式化占位符后执行查询，这个模式存在多种问题，应先判断用户是否具有读取数据库相关字段的权限，而且还应判断 req[&quot;key&quot;] 的值是否安全，详见 <a href="./ID_hijack.html" target="_blank" class="dashed-link">ID_hijack</a>。
+
+又如：
+<div class="code">void bar(User* user) {
+    auto buf = read_large_file();
+    if (is_admin(user)) {           //<span class="comment"> Non-compliant</span>
+        do_something(buf);
+    }
+}</div>
+设例中 read_large_file 读取大型文件，is_admin 进行身份认证，在身份认证之前访问资源使得攻击者不必获取有效账号即可消耗系统资源，从而对系统造成干扰，所以应该在访问资源之前进行身份认证。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-285
+CWE-350
+
+</p>
+</article>
+</html>

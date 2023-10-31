@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>抽象类禁用拷贝和移动赋值运算符 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>抽象类禁用拷贝和移动赋值运算符</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_unsuitableAssignOperator</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_tooManyFields.html">next</a> › <a class="nav-link" href="./ID_roughTemplateConstructor.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+抽象类只能作为基类，没有独立的对象，调用拷贝或移动赋值运算符会造成数据不完整。
+
+示例：
+<div class="code">struct A {
+    virtual ~A() = 0;
+    A&amp; operator = (const A&amp;);   //<span class="comment"> Non-compliant</span>
+    A&amp; operator = (A&amp;&amp;);        //<span class="comment"> Non-compliant</span>
+    ....
+};
+
+void foo(A&amp; x, A&amp; y) {
+    x = y;               //<span class="comment"> Incomplete assignment</span>
+}</div>
+例中 foo 函数的参数只能是 A 的派生类对象，派生类对象调用基类的拷贝赋值运算符会得到不完整的复制结果。
+
+应改为：
+<div class="code">struct A {
+    virtual ~A() = 0;
+    A&amp; operator = (const A&amp;) = delete;   //<span class="comment"> Compliant</span>
+    A&amp; operator = (A&amp;&amp;) = delete;        //<span class="comment"> Compliant</span>
+    ....
+};</div>
+将抽象类的拷贝和移动赋值运算符设为 =delete 或 private，可在编译期阻止不完整的复制和移动。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.67
+MISRA C++ 2008 12-8-2
+
+</p>
+</article>
+</html>

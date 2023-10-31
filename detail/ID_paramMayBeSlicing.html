@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>多态类的对象作为参数时不应采用值传递的方式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>多态类的对象作为参数时不应采用值传递的方式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_paramMayBeSlicing</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_paramNotUsed.html">next</a> › <a class="nav-link" href="./ID_inconsistentParamName.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+将派生类对象通过传值的方式转换为基类对象后，不再遵循多态机制，易产生意料之外的错误，应采用指针或引用的方式传递多态类对象。
+
+示例：
+<div class="code">class A {
+public:
+    virtual int fun();
+};
+
+void foo(A);   //<span class="comment"> Non-compliant</span>
+
+void bar(A&amp;);  //<span class="comment"> Compliant</span>
+void baz(A*);  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_objectSlicing.html" target="_blank" class="related-link">ID_objectSlicing</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.145
+C++ Core Guidelines ES.63
+
+</p>
+</article>
+</html>

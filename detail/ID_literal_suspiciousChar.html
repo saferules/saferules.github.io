@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>转义字符的反斜杠不可误写成斜杠 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>转义字符的反斜杠不可误写成斜杠</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_literal_suspiciousChar</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_literal_hardCodeChar.html">next</a> › <a class="nav-link" href="./ID_forbidCommaExpression.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+将转义字符的反斜杠误写成斜杠是常见笔误，但仍可通过编译，造成不易察觉的问题。
+
+本规则是 <a href="./ID_literal_multicharacter.html" target="_blank" class="dashed-link">ID_literal_multicharacter</a> 的特化。
+
+示例：
+<div class="code">char a = &#x27;/t&#x27;;   //<span class="comment"> Non-compliant</span>
+char b = &#x27;\t&#x27;;   //<span class="comment"> Compliant</span></div>
+例中 &#x27;/t&#x27; 是错误的，但可以作为“多字符常量”通过编译，值由实现定义。
+
+又如：
+<div class="code">const char* p = strchr(str, &#x27;/t&#x27;);   //<span class="comment"> Non-compliant</span>
+</div>
+在某些环境中执行结果和下列代码一样：
+<div class="code">const char* p = strchr(str, &#x27;/&#x27;);
+</div>
+字符 t 将被忽略，造成逻辑错误，&#x27;/t&#x27; 应改为 &#x27;\t&#x27;。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_literal_multicharacter.html" target="_blank" class="related-link">ID_literal_multicharacter</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.4.4.4(10)-implementation
+ISO/IEC 9899:2011 6.4.4.4(10)-implementation
+ISO/IEC 14882:2011 2.13.2(1)-implementation
+ISO/IEC 14882:2011 2.14.3(1)-implementation
+ISO/IEC 14882:2017 5.13.3(2)-implementation
+
+</p>
+
+
+</article>
+</html>

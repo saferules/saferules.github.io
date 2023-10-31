@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>include 指令应符合标准格式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>include 指令应符合标准格式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illFormedInclude</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nonStandardCharInHeaderName.html">next</a> › <a class="nav-link" href="./ID_forbidMallocAndFree.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+#include 后只应为 &lt; 头文件路径 &gt; 或 &quot; 头文件路径 &quot;，否则会导致标准未定义的行为。
+
+示例：
+<div class="code">#include &lt;string.h&gt;         //<span class="comment"> Compliant</span>
+#include &quot;string.h&quot;         //<span class="comment"> Compliant </span>
+
+#define HEADER &quot;string.h&quot;
+#include HEADER             //<span class="comment"> Compliant</span>
+
+#include stdlib.h           //<span class="comment"> Non-compliant, undefined behavior</span></div>
+例中对 string.h 的引用符合标准，而对 stdlib.h 的引用会导致标准未定义的行为。
+
+注意，由引号标识的头文件路径并非字符串常量，不应对其使用字符串常量的特性，如：
+<div class="code">#include &quot;stdlib&quot; &quot;.h&quot;      //<span class="comment"> Non-compliant, implementation defined</span></div>
+是否会将引号中的内容连接成一个路径是由实现定义的，这种代码是不可移植的。
+
+另外，如下形式的代码也是不符合标准的：
+<div class="code">#include L&quot;foo&quot;             //<span class="comment"> Non-compliant</span>
+#include u&quot;bar&quot;             //<span class="comment"> Non-compliant</span>
+#include U&quot;baz&quot;             //<span class="comment"> Non-compliant</span>
+#include R&quot;(..\foo\bar)&quot;    //<span class="comment"> Non-compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_nonStandardCharInHeaderName.html" target="_blank" class="related-link">ID_nonStandardCharInHeaderName</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.10.2
+ISO/IEC 9899:2011 6.10.2
+ISO/IEC 14882:2003 2.8
+ISO/IEC 14882:2003 16.2(4)-undefined
+ISO/IEC 14882:2003 16.2(4)-implementation
+ISO/IEC 14882:2011 2.9
+ISO/IEC 14882:2011 16.2(4)-undefined
+ISO/IEC 14882:2011 16.2(4)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 19.3
+MISRA C 2012 20.3
+MISRA C++ 2008 16-2-6
+
+</p>
+</article>
+</html>

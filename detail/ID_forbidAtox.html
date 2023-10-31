@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>禁用 atof、atoi、atol 以及 atoll 等函数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>禁用 atof、atoi、atol 以及 atoll 等函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidAtox</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_implementationDefinedFunction.html">next</a> › <a class="nav-link" href="./ID_forbidCStringFormat.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+当字符串无法被正确转为数值时，stdlib.h 或 cstdlib 中的 atof、atoi、atol 以及 atoll 等函数会导致标准未定义的行为。
+
+对于 C 语言应改用 strtof、strtol 等函数，对于 C++ 语言应改用标准流转换的方式。
+
+示例：
+<div class="code">cout &lt;&lt; atoi(&quot;abcdefg&quot;) &lt;&lt; &#x27;\n&#x27;;        //<span class="comment"> Non-compliant</span>
+cout &lt;&lt; atoi(&quot;100000000000&quot;) &lt;&lt; &#x27;\n&#x27;;   //<span class="comment"> Non-compliant</span>
+</div>
+例中字符串“abcdefg”不表示数字，字符串“100000000000”超出了正常 int 型变量的范围，这些情况会导致标准未定义的行为。
+
+更严重的问题是无法通过这种函数判断转换是否成功，这种不确定性也意味着代码在实现上存在缺陷。
+
+C++ 标准流转换示例：
+<div class="code">int foo(const char* s) {
+    int v = 0;
+    stringstream ss(s);
+    ss &gt;&gt; v;
+    if (ss.fail()) {              //<span class="comment"> Or use ‘!ss.eof() || ss.fail()’</span>
+        throw some_exception();
+    }
+    return v;
+}</div>
+本例通过 ss.fail() 判断字符串前面的字符是否可以转为 int 型变量，也可通过 !ss.eof() || ss.fail() 判断字符串整体是否可以转为 int 型变量。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.20.1(1)-undefined
+ISO/IEC 9899:2011 7.22.1(1)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 20.10
+MISRA C 2012 21.7
+MISRA C++ 2008 18-0-2
+
+</p>
+</article>
+</html>

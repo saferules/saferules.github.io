@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>数据成员之间的填充数据不应被忽视 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>数据成员之间的填充数据不应被忽视</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_ignorePaddingData</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_returnNonConstData.html">next</a> › <a class="nav-link" href="./ID_tooManyFields.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+成员之间存在填充数据，且没有声明对齐方式时，填充数据的长度是由实现定义的，这种数据不应在不同的环境之间传输，而且应注意成员的声明顺序，避免由填充数据造成的空间浪费。
+
+关于填充数据的具体组织方式，详见“<a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" class="dashed-link">内存对齐</a>”。
+
+示例：
+<div class="code">struct T {
+    int8_t  a;
+    int32_t b;
+} obj;
+
+recv(sockfd, &amp;obj, sizeof obj, flags);   //<span class="comment"> Non-compliant</span></div>
+例中成员 a 和 b 之间存在填充数据，但没有声明对齐方式，直接在网络上传输这种类型的对象是不符合要求的，如果发送端的对齐方式与接收端不一致就会造成混乱。
+
+应在发送端和接收端统一声明对齐方式：
+<div class="code">struct alignas(4) T {   //<span class="comment"> Or use _Alignas in C</span>
+    int8_t  a;
+    int32_t b;
+};
+</div>
+注意，敏感数据可能会残留在填充数据中，所以当存储或传输对象前有必要清理填充数据的值，如：
+<div class="code">T obj;
+memset(&amp;obj, 0, sizeof(obj));   //<span class="comment"> Required</span>
+....
+fwrite(&amp;obj, sizeof(obj), 1, fp);</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_accessPaddingData.html" target="_blank" class="related-link">ID_accessPaddingData</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:2011 6.2.8(1)-implementation
+ISO/IEC 14882:2011 3.11(1)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT DCL39-C
+
+</p>
+</article>
+</html>

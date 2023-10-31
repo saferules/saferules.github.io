@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>同类枚举项的值不应相同 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>同类枚举项的值不应相同</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_duplicateEnumerator</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_casualInitialization.html">next</a> › <a class="nav-link" href="./ID_unsuitableStructTag.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+枚举项用于标记不同的事物，名称不同但值相同的枚举项往往意味着错误。
+
+示例：
+<div class="code">enum Color {
+    red = 1,
+    yellow = 2,
+    blue = 2,    //<span class="comment"> Non-compliant, see ‘yellow’</span>
+};</div>
+例中三个枚举项应分别表示三种颜色，但 blue 与 yellow 的值相同会造成逻辑错误。
+
+又如：
+<div class="code">enum Fruit {
+    apple,
+    pear,
+    grape,
+    favorite = grape,  //<span class="comment"> Non-compliant</span>
+};</div>
+例中 Fruit 定义了三种水果，而 favorite 表示最喜欢的水果，与其他枚举项不是同一层面的概念，不应聚为一类。
+
+应采用更结构化的方式：
+<div class="code">enum Fruit {
+    apple, pear, grape
+};
+
+Fruit favorite () {
+    return grape;
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines Enum.8
+MISRA C 2012 8.12
+
+</p>
+</article>
+</html>

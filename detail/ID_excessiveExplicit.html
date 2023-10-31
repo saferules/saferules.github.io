@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应过度使用 explicit 关键字 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应过度使用 explicit 关键字</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_excessiveExplicit</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_roughTemplateAssignOperator.html">next</a> › <a class="nav-link" href="./ID_missingExplicitConvertor.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+对类的拷贝、移动以及不接受 1 个参数的构造函数一般不用 explicit 限定，否则有损代码的易用性和可扩展性。
+
+示例：
+<div class="code">class A {
+public:
+    explicit A(const A&amp;);  //<span class="comment"> In general, ‘explicit’ is not required</span>
+    explicit A(A&amp;&amp;);       //<span class="comment"> Ditto</span>
+    explicit A(int, int);  //<span class="comment"> Ditto</span>
+    ....
+};</div>
+当类的拷贝、移动构造函数被 explicit 限定时，无法再按值传递参数或按值返回对象，当不接受 1 个参数的构造函数被 explicit 限定时，无法再用初始化列表定义临时对象，如下代码将无法通过编译：
+<div class="code">void foo(A);
+void bar(const A&amp;);
+
+A a(1, 2);
+
+foo(a);       //<span class="comment"> Compile error</span>
+bar({3, 4});  //<span class="comment"> Compile error</span></div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.46
+
+</p>
+</article>
+</html>

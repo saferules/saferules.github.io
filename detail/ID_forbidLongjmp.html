@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>禁用 setjmp、longjmp - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>禁用 setjmp、longjmp</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidLongjmp</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_uncondJump.html">next</a> › <a class="nav-link" href="./ID_forbidGoto.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+setjmp、longjmp 可以在函数间跳转，进一步破坏了结构化编程理念，非框架代码不应使用。
+
+setjmp 与 longjmp 由类型为 jmp_buf 的参数关联，只能在同一线程中使用，如果调用 longjmp 时没有对应的 setjmp，或 setjmp 所在函数已经结束执行，会导致标准未定义的行为，而且要注意 setjmp、longjmp 无法与 C++ 对象自动析构等机制兼容，极易造成意料之外的错误。
+
+示例：
+<div class="code">jmp_buf buf;
+
+float div(int a, int b) {
+    if (b == 0) {
+        longjmp(buf, 1);     //<span class="comment"> Non-compliant</span>
+    }
+    return (float)a / b;
+}
+
+int main() {
+    if (setjmp(buf) == 0) {          //<span class="comment"> Non-compliant</span>
+        printf(&quot;%f\n&quot;, div(3, 0));
+    } else {
+        return 1;
+    }
+}</div>
+setjmp 返回 0 表示设置跳转位置成功，之后如果调用 longjmp 会跳回 setjmp 的位置，这时 setjmp 返回非 0 值，这种机制在 C 语言中可以用作异常处理，也可以实现“协程”等概念，但会严重地降低代码可读性，在普通的业务逻辑或算法实现中不应使用。
+
+另外，函数间跳转与编译器的优化机制有冲突，如：
+<div class="code">jmp_buf buf;
+
+void foo() { longjmp(buf, 1); }
+
+void bar() {
+    int i = 1;            //<span class="comment"> Missing ‘volatile’</span>
+    if (!setjmp(buf)) {
+        i++;
+        foo();
+    } else {
+        printf(&quot;%d\n&quot;, i);
+    }
+}</div>
+在启用优化时和关闭优化时可能会有不同的输出，启用优化时局部变量 i 可能直接存于寄存器，当通过 longjmp 跳转回 bar 函数时，i++ 的结果会丢失。将局部变量用 volatile 限定可解决这种问题，但很容易遗漏或产生无必要的限定。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.13.2.1(2)-undefined
+ISO/IEC 14882:2011 18.10(4)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines SL.C.1
+MISRA C 2004 20.7
+MISRA C 2012 21.4
+MISRA C++ 2008 17-0-5
+SEI CERT ERR52-CPP
+
+</p>
+</article>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免引用危险符号名称 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免引用危险符号名称</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_dangerousName</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-security1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_dangerousFunction.html">next</a> › <a class="nav-link" href="./ID_improperAuthorization.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+弱加密、弱哈希、弱随机、不安全的协议等相关库、函数、类、宏、常量等名称不应出现在代码中。
+
+这种危险符号名称主要来自：
+ ● 低质量随机数生成算法，如 srand、rand 等
+ ● 不再适用的哈希算法，如 MD2、MD4、MD5、MD6、RIPEMD 以及 SHA-1 等
+ ● 非加密协议，如 HTTP、FTP 等
+ ● 低版本的传输层安全协议，如 TLSv1.2 之前的版本
+ ● 弱加密算法，如 DES、3DES 等
+
+示例：
+<div class="code">#include &lt;openssl/md5.h&gt;   //<span class="comment"> Non-compliant, obsolete hash algorithm</span>
+
+const string myUrl = &quot;http://foo/bar&quot;;   //<span class="comment"> Non-compliant, use https instead</span>
+
+void foo() {
+    MD5_CTX c;       //<span class="comment"> Non-compliant</span>
+    MD5_Init(&amp;c);    //<span class="comment"> Non-compliant, obsolete hash algorithm</span>
+    ....
+}
+
+void bar() {
+    srand(0);        //<span class="comment"> Non-compliant, unsafe random seed</span>
+    EVP_des_ecb();   //<span class="comment"> Non-compliant, unsafe encryption algorithm</span>
+    ....
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-326
+CWE-327
+
+</p>
+</article>
+</html>

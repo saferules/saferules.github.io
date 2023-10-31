@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>全局对象只应为常量 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>全局对象只应为常量</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonConstGlobalObject</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_staticAndConst.html">next</a> › <a class="nav-link" href="./ID_nonConstNonStaticGlobalObject.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+非常量全局对象对外部的读写没有限制，破坏了面向对象的封装理念，不利于维护。
+
+全局对象的初始化顺序和依赖关系也是开发与维护的难点，建议只允许基本类型的常量作为全局对象。
+
+进一步讨论可参见 <a href="./ID_nonPrivateData.html" target="_blank" class="dashed-link">ID_nonPrivateData</a>、<a href="./ID_relyOnExternalObject.html" target="_blank" class="dashed-link">ID_relyOnExternalObject</a>。
+
+示例：
+<div class="code">char foo;               //<span class="comment"> Non-compliant</span>
+extern char bar;        //<span class="comment"> Non-compliant, worse</span>
+const char baz = &#x27;c&#x27;;   //<span class="comment"> Compliant</span>
+
+void fun() {
+    do_something(foo, bar);
+}
+</div>
+应将全局对象和相关函数封装成类：
+<div class="code">class A {
+    char foo;   //<span class="comment"> Compliant</span>
+    char bar;   //<span class="comment"> Compliant</span>
+public:
+    void fun() {
+        do_something(foo, bar);
+    }
+};
+</div>
+如果变量 foo、bar 确有全局意义，多个模块都需要访问，不妨将其单件化：
+<div class="code">A&amp; getGlobal() {
+    static A obj;
+    return obj;     //<span class="comment"> The object must be initialized before returning</span>
+}</div>
+用 getGlobal 函数获取对象，再由其成员函数对数据进行读写，有效实现封装理念，而且可以保证对象在使用之前已被初始化。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">onlyConstBasicTypeAllowed: 是否只允许基本类型的常量作为全局对象
+</p>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_nonPrivateData.html" target="_blank" class="related-link">ID_nonPrivateData</a>
+<a href="./ID_relyOnExternalObject.html" target="_blank" class="related-link">ID_relyOnExternalObject</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines I.2
+C++ Core Guidelines CP.3
+C++ Core Guidelines R.6
+
+</p>
+</article>
+</html>

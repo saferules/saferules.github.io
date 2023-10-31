@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>switch 语句应该用大括号括起来 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>switch 语句应该用大括号括起来</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_switch_brace</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_switch_forbidNest.html">next</a> › <a class="nav-link" href="./ID_switch_breakOmitted.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+switch 语句应为包含多条语句的复合语句，且用大括号括起来，否则不应选用 switch 语句。
+
+示例：
+<div class="code">switch (v)   //<span class="comment"> Non-compliant</span>
+    case 0:
+        foo(v);
+</div>
+应改为 if 语句：
+<div class="code">if (v == 0) {   //<span class="comment"> Compliant</span>
+    foo(v);
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_if_brace.html" target="_blank" class="related-link">ID_if_brace</a>
+<a href="./ID_switch_onlyDefault.html" target="_blank" class="related-link">ID_switch_onlyDefault</a>
+<a href="./ID_switch_onlyOneCase.html" target="_blank" class="related-link">ID_switch_onlyOneCase</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 14.8
+MISRA C 2012 15.6
+MISRA C++ 2008 6-3-1
+
+</p>
+</article>
+</html>

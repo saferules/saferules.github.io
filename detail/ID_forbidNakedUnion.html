@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>禁用在类之外定义的联合体 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>禁用在类之外定义的联合体</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidNakedUnion</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidUnion.html">next</a> › <a class="nav-link" href="./ID_forbidNonBasicField.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+联合体各成员共享存储地址，易引发意料之外的错误。如果一定要使用联合体，需对其进行一定的封装，避免对成员的错误访问。
+
+不应出现：
+ ● 在命名空间作用域内定义的联合体
+ ● 在类中定义的具有 public 访问权限的联合体
+
+示例：
+<div class="code">union U {      //<span class="comment"> Non-compliant, global union</span>
+    ....
+};
+
+class A {
+public:
+    union {    //<span class="comment"> Non-compliant, public union</span>
+        ....
+    };
+};
+
+class B {
+public:
+    ....       //<span class="comment"> Interfaces about the union</span>
+private:
+    union {    //<span class="comment"> Compliant, the union is under control</span>
+        ....
+    };
+};</div>
+类的 public 数据成员本来就违反了封装原则，如果这种数据成员又处于联合体中，会进一步增加风险。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_forbidUnion.html" target="_blank" class="related-link">ID_forbidUnion</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.181
+MISRA C 2004 18.4
+MISRA C 2012 19.2
+MISRA C++ 2008 9-5-1
+
+</p>
+</article>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免使用已过时的标准库组件 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免使用已过时的标准库组件</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_obsoleteStdFunction</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_exceptionUnsafe.html">next</a> › <a class="nav-link" href="./ID_unportableType.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+已过时的标准库组件会被语言标准弃用，应改用更完善的替代方法。
+
+下列 C++ 标准库组件已过时：
+ ● 类型 auto_ptr
+ ● 类型 binder1st、binder2nd 和函数 bind1st、bind2nd
+ ● 类型 const_mem_fun1_ref_t、const_mem_fun1_t、const_mem_fun_ref_t、const_mem_fun_t
+ ● 类型 ios_base 的成员 io_state、open_mode、seek_dir、streamoff、streampos
+ ● 类型 mem_fun1_ref_t、mem_fun1_t、mem_fun_ref_t、mem_fun_ref、mem_fun_t 和函数 mem_fun
+ ● 类型 pointer_to_binary_function、pointer_to_unary_function 和函数 ptr_fun
+ ● 函数 random_shuffle
+ ● 类型 strstream、strstreambuf、istrstream、ostrstream
+ ● 类型 unary_function、binary_function
+ ● 类型 unexpected_handler 和函数 unexpected、set_unexpected、get_unexpected
+
+示例：
+<div class="code">auto_ptr&lt;T&gt; a(new T);      //<span class="comment"> Non-compliant</span>
+auto_ptr&lt;T&gt; b;             //<span class="comment"> Non-compliant</span>
+void foo(auto_ptr&lt;T&gt; p);   //<span class="comment"> Non-compliant</span>
+
+b = a;    //<span class="comment"> ‘a’ is invalid after the assignment</span>
+foo(b);   //<span class="comment"> ‘b’ is invalid after the call</span>
+....      //<span class="comment"> Undefined behavior if dereference ‘a’ or ‘b’</span></div>
+auto_ptr 对象的赋值或传参都会引起资源所有权的转移，如 b = a 会使 a 的资源被转移到 b 中，foo(b) 会使 b 的资源转移到参数中，这种方式很容易使人误解，故 auto_ptr 被 C++11 标准判为已过时，并从 C++17 标准中移出。
+
+可使用 unique_ptr 代替 auto_ptr：
+<div class="code">unique_ptr&lt;T&gt; a = make_unique&lt;T&gt;();
+unique_ptr&lt;T&gt; b;
+
+b = a;         //<span class="comment"> Compile error</span>
+b = move(a);   //<span class="comment"> OK, explicit moving</span></div>
+unique_ptr 禁止资源所有权隐式转移，语义更为明确。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_obsoleteFunction.html" target="_blank" class="related-link">ID_obsoleteFunction</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 D.6-deprecated
+ISO/IEC 14882:2011 D.7-deprecated
+ISO/IEC 14882:2011 D.8-deprecated
+ISO/IEC 14882:2011 D.9-deprecated
+ISO/IEC 14882:2011 D.10-deprecated
+ISO/IEC 14882:2011 D.11-deprecated
+ISO/IEC 14882:2017 20.5.4.3.1(1)
+
+</p>
+
+
+</article>
+</html>

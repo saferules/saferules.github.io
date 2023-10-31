@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>while 语句的条件不应为赋值表达式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>while 语句的条件不应为赋值表达式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_while_assignment</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_while_scope.html">next</a> › <a class="nav-link" href="./ID_while_uncondBroken.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+虽然语言允许在 while 语句的条件中赋值，但 = 和 == 极易混淆，建议所有产生 bool 型结果的表达式，都不要包含赋值运算符。
+
+示例：
+<div class="code">while (x = 123)  //<span class="comment"> Non-compliant</span>
+{
+    ....
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_if_assignment.html" target="_blank" class="related-link">ID_if_assignment</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-480
+CWE-783
+
+</p>
+</article>
+</html>

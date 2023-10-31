@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>资源应接受对象化管理 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>资源应接受对象化管理</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_ownerlessResource</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_incompleteNewDeletePair.html">next</a> › <a class="nav-link" href="./ID_illAccess.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+使资源接受对象化管理，免去繁琐易错的手工分配回收过程，是 C++ 程序设计的重要方法。
+
+将资源分配的结果直接在程序中传递是非常不安全的，极易产生泄漏或死锁等问题。动态申请的资源如果只用普通变量引用，不受对象的构造或析构机制控制，则称为“无主”资源，在 C++ 程序设计中应当避免。
+
+应尽量使用标准库提供的容器或智能指针，避免显式使用资源管理接口。本规则集合示例中的 new/delete、lock/unlock 意在代指一般的资源操作，仅作示例，在实际代码中应尽量避免。
+
+示例：
+<div class="code">void foo(size_t size) {
+    int* p = new int[size];   //<span class="comment"> Bad, ownerless</span>
+    ....                      //<span class="comment"> If any exception is thrown, or a wrong jump, leak</span>
+    delete[] p;
+}
+
+struct X {
+    int* p;
+};
+
+void bar() {
+    X x;
+    x.p = new int[123];   //<span class="comment"> Bad, ‘X’ has no destructor, ‘x’ is not an owner</span>
+    ....
+}
+
+class Y {
+    int* p;
+
+public:
+    Y(size_t n): p(new int[n]) {}
+   ~Y() { delete[] p; }
+};
+
+void baz() {
+    Y y(123);   //<span class="comment"> Good, ‘y’ is the owner of the resource</span>
+    ....
+}</div>
+例中 foo 和 bar 函数的资源管理方式是不符合 C++ 理念的，baz 函数中的 y 对象负责资源的分配与回收，称 y 对象具有资源的所有权，相关资源的生命周期与 y 的生命周期一致，有效避免了资源泄漏或错误回收等问题。
+
+资源的所有权可以发生转移，但应保证转移前后均有对象负责管理资源，并且在转移过程中不会产生异常。进一步理解对象化管理方法，可参见“<a href="https://en.cppreference.com/w/cpp/language/raii" target="_blank" class="dashed-link">RAII（Resource Acquisition Is Initialization）</a>”等机制。
+
+与资源相关的系统接口不应直接被业务代码引用，如：
+<div class="code">void foo(const TCHAR* path) {
+    HANDLE h;
+    WIN32_FIND_DATA ffd;
+
+    h = FindFirstFile(path, &amp;ffd);  //<span class="comment"> Bad, ownerless</span>
+    ....
+    CloseHandle(h);  //<span class="comment"> Is it right?</span>
+}</div>
+例中 Windows API FindFirstFile 返回资源句柄，是“无主”资源，很可能被后续代码误用或遗忘。
+
+应进行合理封装：
+<div class="code">class MY_FIND_DATA
+{
+    struct HANDLE_DELETER
+    {
+        using pointer = HANDLE;
+        void operator()(pointer p) { FindClose(p); }
+    };
+    WIN32_FIND_DATA ffd;
+    unique_ptr&lt;HANDLE, HANDLE_DELETER&gt; uptr;
+
+public:
+    MY_FIND_DATA(const TCHAR* path): uptr(FindFirstFile(path, &amp;ffd)) {}
+    ....
+    HANDLE handle() { return uptr.get(); }
+};</div>
+本例将 FindFirstFile 及其相关数据封装成一个类，由 unique_ptr 对象保存 FindFirstFile 的结果，FindClose 是资源的回收方法，将其作为 unique_ptr 对象的组成部分，使资源可以被自动回收。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines R.11
+C++ Core Guidelines R.12
+
+</p>
+</article>
+</html>

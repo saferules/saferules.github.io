@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>局部名称不应被覆盖 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>局部名称不应被覆盖</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_hideLocal</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_hideMember.html">next</a> › <a class="nav-link" href="./ID_reservedName.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+不应在嵌套的作用域中声明相同的名称，否则干扰阅读，极易引起误解。
+
+示例：
+<div class="code">int foo() {
+    int i = 0;       //<span class="comment"> Declares an object ‘i’</span>
+    if (cond) {
+        int i = 1;   //<span class="comment"> Non-compliant, hides previous ‘i’</span>
+        ....
+    }
+    return i;
+}</div>
+在一个函数中出现了多个名为 i 的变量，当实际代码较为复杂时，很容易出现意图与实现不符的问题。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1109
+C++ Core Guidelines ES.12
+MISRA C 2004 5.2
+MISRA C 2012 5.3
+MISRA C++ 2008 2-10-2
+
+</p>
+</article>
+</html>

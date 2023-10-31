@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>sizeof 不可作用于 void - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>sizeof 不可作用于 void</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_sizeof_void</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_badAssertion.html">next</a> › <a class="nav-link" href="./ID_sizeof_NULL.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+void 表示不存在的类型，也是不完整的类型，sizeof 作用于 void 是没意义的，属于语言运用错误，也可能是 sizeof(void*) 的笔误。
+
+示例：
+<div class="code">size_t a = sizeof(void);   //<span class="comment"> Non-compliant</span>
+size_t b = sizeof(void*);  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.2.5(19)
+ISO/IEC 9899:1999 6.3.2.2(1)
+ISO/IEC 9899:2011 6.2.5(19)
+ISO/IEC 9899:2011 6.3.2.2(1)
+
+</p>
+
+
+</article>
+</html>

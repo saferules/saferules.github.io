@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>减法运算符左右子表达式不应相同 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>减法运算符左右子表达式不应相同</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_selfSubtraction</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_selfExclusiveOr.html">next</a> › <a class="nav-link" href="./ID_selfDivision.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+与自身做减法，结果总为 0，往往是某种笔误。
+
+示例：
+<div class="code">int *p0, *p1;
+....
+ptrdiff_t d = p0 - p0;  //<span class="comment"> Non-compliant</span></div>
+例中减法表达式是没有意义的，很可能是 p1 被误写成了 p0。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-682
+
+</p>
+</article>
+</html>

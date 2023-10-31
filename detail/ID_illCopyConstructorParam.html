@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>拷贝构造函数的参数应为同类对象的 const 左值引用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>拷贝构造函数的参数应为同类对象的 const 左值引用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illCopyConstructorParam</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nonStdCopyAssignmentParam.html">next</a> › <a class="nav-link" href="./ID_nonStdAssignmentRetType.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果构造函数的参数不是同类对象的左值引用，则不构成拷贝构造函数，拷贝构造函数不应具备复制之外的功能，故其参数不应被修改，应受 const 关键字限制。
+
+拷贝构造函数可能会被优化而导致复制之外的功能不生效，可参见 <a href="./ID_sideEffectCopyConstructor.html" target="_blank" class="dashed-link">ID_sideEffectCopyConstructor</a> 的进一步讨论。
+
+示例：
+<div class="code">struct A {
+    A(A);    //<span class="comment"> Non-compliant, logic and compile error</span>
+    A(A&amp;);   //<span class="comment"> Non-compliant, missing ‘const’</span>
+};</div>
+拷贝构造函数不可按值传递参数，否则会再次调用拷贝构造函数，从而陷入无限递归。
+
+应改为：
+<div class="code">struct A {
+    A(const A&amp;);   //<span class="comment"> Compliant</span>
+};</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_sideEffectCopyConstructor.html" target="_blank" class="related-link">ID_sideEffectCopyConstructor</a>
+<a href="./ID_nonStdCopyAssignmentParam.html" target="_blank" class="related-link">ID_nonStdCopyAssignmentParam</a>
+<a href="./ID_nonConstUnmodified.html" target="_blank" class="related-link">ID_nonConstUnmodified</a>
+
+</p>
+
+
+
+</article>
+</html>

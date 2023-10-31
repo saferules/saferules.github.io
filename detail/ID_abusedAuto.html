@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>合理使用 auto 关键字 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>合理使用 auto 关键字</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_abusedAuto</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_deprecatedSpecifier.html">next</a> › <a class="nav-link" href="./ID_nonConstUnmodified.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+auto 关键字隐藏了类型名称，在使用时需注意不应降低可读性。
+
+非局部对象不宜用 auto 声明，如接口的返回类型、参数、全局对象等。如果局部对象的类型对程序的行为有显著影响，也不宜用 auto 声明。
+
+示例：
+<div class="code">auto foo() {
+    ....
+}
+
+auto bar() {
+    auto x = foo();
+    ....
+    return x;
+}
+
+auto obj = bar();  //<span class="comment"> What the hell is ‘obj’??</span>
+</div>
+如果想确定 obj 对象的类型，必须通读所有与之相关的代码，可读性很差。
+
+将代码中所有可以替换成 auto 的标识符全部替换成 auto，其结果是不可想象的，与 Python 等语言不同，C++ 语言存在重载、模板等多种严格依赖于类型的特性，如果类型名称不明确，必然会造成阅读和维护等方面的障碍。
+
+下面给出 auto 关键字的合理用法：
+<div class="code">Type* a = static_cast&lt;Type*&gt;(ptr);               //<span class="comment"> Repeated type name</span>
+unique_ptr&lt;Type[]&gt; b = make_unique&lt;Type[]&gt;(10);  //<span class="comment"> Repeated type name</span>
+</div>
+重复的类型名称使代码变得繁琐，这种情况使用 auto 是更好的方法：
+<div class="code">auto* a = static_cast&lt;Type*&gt;(ptr);  //<span class="comment"> OK</span>
+auto b = make_unique&lt;Type[]&gt;(10);   //<span class="comment"> OK</span>
+</div>
+又如：
+<div class="code">vector&lt;Type&gt; v{ .... };
+vector&lt;Type&gt;::iterator i = v.begin();  //<span class="comment"> Verbose</span>
+</div>
+begin 函数返回迭代器是一种常识，且迭代器类型名称往往较长，这种情况应使用 auto：
+<div class="code">auto i = v.begin();  //<span class="comment"> OK</span>
+</div>
+又如：
+<div class="code">struct SomeClass {
+    struct Sub {
+        ....
+    };
+    Sub foo();
+};
+
+SomeClass::Sub SomeClass::foo() {  //<span class="comment"> Repeated ‘SomeClass’</span>
+    ....
+}</div>
+重复的类作用域声明十分繁琐，可用 auto 关键字配合后置返回类型改善：
+<div class="code">auto SomeClass::foo() -&gt; Sub {  //<span class="comment"> OK</span>
+    ....
+}</div>
+总之，使用 auto 关键字的目的应是提高可读性，而不是单纯地简化代码。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_roughAuto.html" target="_blank" class="related-link">ID_roughAuto</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.11
+
+</p>
+</article>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>启用平台和编译器提供的防御机制 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>启用平台和编译器提供的防御机制</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_missingHardening</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-security1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_resourceLeak.html">next</a> › <a class="nav-link" href="./ID_deprecatedErrno.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+针对一些常见攻击，平台和编译器会提供防御机制，如：
+ ● <a href="https://en.wikipedia.org/wiki/Executable_space_protection" target="_blank" class="dashed-link">数据执行保护（NX、DEP）</a>
+ ● <a href="https://en.wikipedia.org/wiki/Buffer_overflow_protection" target="_blank" class="dashed-link">栈溢出防护（CANARY、GS）</a>
+ ● <a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization" target="_blank" class="dashed-link">地址空间布局随机化（ASLR、PIE）</a>
+
+程序应利用这种机制加强自身的安全性，进一步可参见“<a href="https://en.wikipedia.org/wiki/Hardening_(computing)" target="_blank" class="dashed-link">security hardening</a>”。
+
+示例：
+<div class="code">//<span class="comment"> In test.c</span>
+#include &lt;stdio.h&gt;
+
+int main(void) {
+    printf(&quot;%p\n&quot;, main);
+}
+</div>
+如果在 Linux 等平台上按如下方式编译：
+<div class="code">cc test.c -o test</div>
+各函数的地址在虚拟内存中是固定的，易被攻击者猜中，进而施展攻击手段。
+
+当平台启用了“<a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization" target="_blank" class="dashed-link">ASLR</a>”机制，再按如下方式编译：
+<div class="code">cc test.c -o test -fPIE -pie</div>
+可使程序各结构的地址随机化，函数的地址在每次运行时均不相同，有效提高了攻击难度。
+
+如无特殊原因，在编译程序时不应屏蔽这种防御机制，如：
+<div class="code">cc test.c -o test -z execstack           # Non-compliant, disable NX
+cc test.c -o test -z norelro             # Non-compliant, disable RELRO
+cc test.c -o test -fno-stack-protector   # Non-compliant, disable CANARY</div>
+如果必须屏蔽，应落实相关的评审与测试。
+
+</div>
+
+
+
+
+</article>
+</html>

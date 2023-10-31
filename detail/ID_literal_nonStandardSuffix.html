@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应使用非标准常量后缀 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应使用非标准常量后缀</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_literal_nonStandardSuffix</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_literal_oddConcat.html">next</a> › <a class="nav-link" href="./ID_literal_forbidOct.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+整数常量后缀应为 L、LL、UL、ULL，浮点数常量的后缀应为 L、f 或 F，非标准后缀不具备可移植性。
+
+在 C++ 代码中，用户自定义后缀不受本规则限制。
+
+示例：
+<div class="code">unsigned int a = 100ui32;  //<span class="comment"> Non-compliant, not common between compilers</span>
+long long b = 100i64;      //<span class="comment"> Non-compliant</span></div>
+例中 ui32、i64 为 MSVC 编译器特有的后缀，应改为：
+<div class="code">unsigned int a = 100U;  //<span class="comment"> Compliant</span>
+long long b = 100LL;    //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_literal_confusingSuffix.html" target="_blank" class="related-link">ID_literal_confusingSuffix</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.4.4.1(5)
+ISO/IEC 9899:1999 6.4.4.2(4)
+ISO/IEC 9899:2011 6.4.4.1(5)
+ISO/IEC 9899:2011 6.4.4.2(4)
+ISO/IEC 14882:2003 2.14.2(2)
+ISO/IEC 14882:2003 2.14.4(1)
+ISO/IEC 14882:2011 2.14.2(2)
+ISO/IEC 14882:2011 2.14.4(1)
+ISO/IEC 14882:2017 5.13.2(2)
+ISO/IEC 14882:2017 5.13.4(1)
+
+</p>
+
+
+</article>
+</html>

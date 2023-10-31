@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>在构造函数中不应使用动态类型 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>在构造函数中不应使用动态类型</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_virtualCallInConstructor</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_virtualCallInDestructor.html">next</a> › <a class="nav-link" href="./ID_disorderedInitialization.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+对象的动态类型在其构造过程中不生效。
+
+执行基类构造函数时，派生类对象尚未构造完毕，基类构造函数不能使用派生类动态类型。
+
+对于正在构造的对象，不应：
+ ● 调用派生类重写的虚函数
+ ● 通过 typeid 判断对象的动态类型
+ ● 通过 dynamic_cast 转换对象的动态类型
+
+注意，如果在构造函数中调用未实现的纯虚函数会导致标准未定义的行为。
+
+示例：
+<div class="code">struct A {
+    int tag;
+    A();
+    virtual ~A() = default;
+};
+
+struct B: public A {
+};
+
+A::A() {
+    if (typeid(*this) == typeid(B)) {   //<span class="comment"> Non-compliant, always false</span>
+        tag = 2;
+    } else {
+        tag = 1;
+    }
+}
+
+B b;  //<span class="comment"> ‘b.tag’ is 1</span></div>
+在基类 A 的构造函数中判断动态类型是无效的。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 10.4(6)-undefined
+ISO/IEC 14882:2011 10.4(6)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.82
+MISRA C++ 2008 12-1-1
+Effective C++ item 9
+
+</p>
+</article>
+</html>

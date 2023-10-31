@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>include 指令应位于文件的起始部分 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>include 指令应位于文件的起始部分</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_badIncludePosition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbiddenHeader.html">next</a> › <a class="nav-link" href="./ID_forbidAbsPathInHeaderName.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+include 指令之前的代码只应为预编译指令或注释，否则不利于阅读和维护。
+
+用于包含模板实现文件的 include 指令可不受本规则限制，但相关文件的命名应与普通头文件有所区别。
+
+示例：
+<div class="code">#include &quot;a.h&quot;   //<span class="comment"> Compliant</span>
+extern int i;
+#include &quot;b.h&quot;   //<span class="comment"> Non-compliant</span>
+extern
+#include &quot;c.h&quot;   //<span class="comment"> Non-compliant, undefined behavior</span></div>
+如果声明的一部分在头文件内，另一部分在头文件外，会导致标准未定义的行为。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.1.2(4)
+ISO/IEC 9899:2011 7.1.2(4)
+ISO/IEC 14882:2003 17.4.2.1(3)
+ISO/IEC 14882:2011 17.6.2.2(3)
+ISO/IEC 14882:2017 20.5.2.2(3)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 20.1
+MISRA C++ 2008 16-0-1
+
+</p>
+</article>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免使用已过时的接口 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免使用已过时的接口</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_obsoleteFunction</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-security1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unsafeStringFunction.html">next</a> › <a class="nav-link" href="./ID_dangerousFunction.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+避免使用在相关标准中已过时的接口，应改用更完善的替代方法以规避风险，提高可移植性。
+
+对于过时的 C++ 标准库接口，本规则特化为 <a href="./ID_obsoleteStdFunction.html" target="_blank" class="dashed-link">ID_obsoleteStdFunction</a>。
+
+示例：
+<div class="code">asctime         //<span class="comment"> Use ‘strftime’ instead</span>
+bcmp            //<span class="comment"> Use ‘memcmp’ instead</span>
+bcopy           //<span class="comment"> Use ‘memmove’ or ‘memcpy’ instead</span>
+bsd_signal      //<span class="comment"> Use ‘sigaction’ instead</span>
+bzero           //<span class="comment"> Use ‘memset’ instead</span>
+ctime           //<span class="comment"> Use ‘strftime’ instead</span>
+gethostbyaddr   //<span class="comment"> Use ‘getnameinfo’ instead</span>
+gethostbyname   //<span class="comment"> Use ‘getaddrinfo’ instead</span>
+getwd           //<span class="comment"> Use ‘getcwd’ instead</span>
+mktemp          //<span class="comment"> Use ‘mkstemp’ instead</span>
+usleep          //<span class="comment"> Use ‘nanosleep’ instead</span>
+utime           //<span class="comment"> Use ‘utimensat’ instead</span>
+vfork           //<span class="comment"> Use ‘fork’ instead</span>
+wcswcs          //<span class="comment"> Use ‘wcsstr’ instead</span>
+
+pthread_attr_getstackaddr   //<span class="comment"> Use ‘pthread_attr_getstack’ instead</span>
+pthread_attr_setstackaddr   //<span class="comment"> Use ‘pthread_attr_setstack’ instead</span>
+
+CreateToolbarEx      //<span class="comment"> Use ‘CreateWindowEx’ instead</span>
+InitCommonControls   //<span class="comment"> Use ‘InitCommonControlsEx’ instead</span>
+NtQuerySystemTime    //<span class="comment"> Use ‘GetSystemTimeAsFileTime’ instead</span>
+RegCreateKey         //<span class="comment"> Use ‘RegCreateKeyEx’ instead</span>
+WinExec              //<span class="comment"> Use ‘CreateProcess’ instead</span></div>
+例中 C89 引入的 ctime、asctime 等函数在 POSIX.1-2008 标准中已过时，应改用 strftime 函数；RegCreateKey 等 16 位 Windows API 在 32 和 64 位平台中不应再被使用。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_obsoleteStdFunction.html" target="_blank" class="related-link">ID_obsoleteStdFunction</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-477
+
+</p>
+</article>
+</html>

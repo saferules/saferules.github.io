@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应在模块之间传递非标准布局类型的对象 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应在模块之间传递非标准布局类型的对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_ABIConflict</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_memberDeallocation.html">next</a> › <a class="nav-link" href="./ID_crossModuleTransfer.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+非标准布局类型的运行时特性依赖编译器的具体实现，在不同编译器生成的模块间传递这种类型的对象会导致运行时错误。
+
+“标准布局（standard-layout）”类型的主要特点：
+ ● 没有虚函数也没有虚基类
+ ● 所有非静态数据成员均具有相同的访问权限
+ ● 所有非静态数据成员和位域都在同一个类中声明
+ ● 不存在相同类型的基类对象
+ ● 没有非标准布局的基类
+ ● 没有非标准布局和引用类型的非静态数据成员
+
+除非模块均由同一编译器的同一版本生成，否则不具备上述特点的对象不应在模块之间传递。
+
+示例：
+<div class="code">//<span class="comment"> a.dll</span>
+class A {
+    ....
+public:
+    virtual void foo();   //<span class="comment"> Non standard-layout</span>
+};
+
+void bar(A&amp;);
+
+//<span class="comment"> b.exe</span>
+int main() {
+    A a;
+    bar(a);   //<span class="comment"> Non-compliant</span>
+}</div>
+设例中 a.dll 和 b.exe 由不同的编译器生成，b.exe 中定义的 a 对象被传递给了 a.dll 中定义的接口，由于存在虚函数，不同的编译器对 a 对象的内存布局会有不同的解读，从而造成冲突。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 9(7)
+ISO/IEC 14882:2017 12(7)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT EXP60-CPP
+
+</p>
+</article>
+</html>

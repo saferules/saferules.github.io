@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>宏定义中的 # 和 ## 运算符不应嵌套使用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>宏定义中的 # 和 ## 运算符不应嵌套使用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_macro_complexConcat</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_const.html">next</a> › <a class="nav-link" href="./ID_macro_stmtNotEnclosed.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+# 和 ## 运算符的求值顺序在标准中是未声明的，不应嵌套使用。
+
+示例：
+<div class="code">#define M0(a, b) #a ## b          //<span class="comment"> Non-compliant</span>
+#define M1(a, b, c) a ## b ## c   //<span class="comment"> Non-compliant</span>
+
+#define M2(a) #a                  //<span class="comment"> Compliant</span>
+#define M3(a, b) M2(a ## b)       //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.10.3.2(2)-unspecified
+ISO/IEC 9899:1999 6.10.3.3(3)-unspecified
+ISO/IEC 9899:2011 6.10.3.2(2)-unspecified
+ISO/IEC 9899:2011 6.10.3.3(3)-unspecified
+ISO/IEC 14882:2003 16.3.2(2)-unspecified
+ISO/IEC 14882:2003 16.3.3(3)-unspecified
+ISO/IEC 14882:2011 16.3.2(2)-unspecified
+ISO/IEC 14882:2011 16.3.3(3)-unspecified
+ISO/IEC 14882:2017 19.3.2(2)-unspecified
+ISO/IEC 14882:2017 19.3.3(3)-unspecified
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 19.12
+MISRA C 2012 20.11
+MISRA C++ 2008 16-3-1
+
+</p>
+</article>
+</html>

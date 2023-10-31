@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>override 或 final 关键字不应与 virtual 关键字同时出现在声明中 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>override 或 final 关键字不应与 virtual 关键字同时出现在声明中</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_redundantVirtual</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_invalidFinal.html">next</a> › <a class="nav-link" href="./ID_redundantOverride.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+只应在定义新的虚函数时使用 virtual 关键字，重写虚函数应使用 override 或 final 关键字，不应再出现 virtual 关键字。
+
+示例：
+<div class="code">class A {
+public:
+    virtual int foo();   //<span class="comment"> Compliant, a new virtual function</span>
+    virtual int bar();   //<span class="comment"> Compliant, a new virtual function</span>
+};
+
+class B: public A {
+public:
+    virtual int foo() final;     //<span class="comment"> Non-compliant, ‘virtual’ is redundant</span>
+    virtual int bar() override;  //<span class="comment"> Non-compliant, ‘virtual’ is redundant</span>
+};</div>
+去掉多余的 virtual 关键字使代码更简洁：
+<div class="code">class B: public A {
+public:
+    int foo() final;     //<span class="comment"> Compliant</span>
+    int bar() override;  //<span class="comment"> Compliant</span>
+};</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.128
+
+</p>
+</article>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>析构函数不可抛出异常 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>析构函数不可抛出异常</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_throwInDestructor</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_throwInDelete.html">next</a> › <a class="nav-link" href="./ID_throwOutOfMain.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+析构函数抛出异常会违反异常处理机制。
+
+当抛出异常时，从异常被抛出到异常被处理之间的对象，也就是从“throw”到“catch”各层调用栈中的对象会被自动析构，如果这个过程中某个对象的析构函数又抛出异常便违反了异常处理机制，这种情况将直接引发 std::terminate 函数的执行，所以从析构函数抛出的异常可能无法被捕获和处理，也可能导致程序异常终止。
+
+示例（设 E0 和 E1 是不相关的异常类）：
+<div class="code">class A {
+    ....
+public:
+   ~A() try {
+        if (cond0) {
+            throw E0();    //<span class="comment"> Non-compliant, propagate out</span>
+        }
+        else if (cond1) {
+            throw E1();    //<span class="comment"> OK, digested by itself</span>
+        }
+    }
+    catch (const E1&amp;) {
+        ....
+    }
+};</div>
+建议将析构函数声明为 noexcept。
+
+与析构相关的过程也不应抛出异常：
+ ● 资源回收
+ ● delete、delete[] 运算符
+ ● 具有 free、clear、release 等语义的函数
+
+另外，具有 swap、hash 等语义以及移动构造或赋值相关的过程也不应抛出异常，详见相关规则。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_throwInDelete.html" target="_blank" class="related-link">ID_throwInDelete</a>
+<a href="./ID_throwInHash.html" target="_blank" class="related-link">ID_throwInHash</a>
+<a href="./ID_throwInSwap.html" target="_blank" class="related-link">ID_throwInSwap</a>
+<a href="./ID_throwInMove.html" target="_blank" class="related-link">ID_throwInMove</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 15.2(3)
+ISO/IEC 14882:2011 3.7.4.2(3)-undefined
+ISO/IEC 14882:2011 15.2(3)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.36
+C++ Core Guidelines C.37
+MISRA C++ 2008 15-5-1
+SEI CERT DCL57-CPP
+
+</p>
+</article>
+</html>

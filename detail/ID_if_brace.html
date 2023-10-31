@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>if 分枝中的语句应该用大括号括起来 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>if 分枝中的语句应该用大括号括起来</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_if_brace</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_if_missingEndingElse.html">next</a> › <a class="nav-link" href="./ID_if_tooManyElseIf.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+组成 if 分枝的语句应为大括号括起来的复合语句，即使该复合语句只包含一条语句。
+
+示例：
+<div class="code">if (cond1)           //<span class="comment"> Non-compliant</span>
+    if (cond2)       //<span class="comment"> Non-compliant</span>
+        action1();
+else                 //<span class="comment"> Non-compliant</span>
+    action2();
+</div>
+根据缩进，这段代码想表达的逻辑应是：
+<div class="code">if (cond1) {
+    if (cond2) {
+        action1();
+    }
+} else {
+    action2();
+}</div>
+但 C/C++ 规定 else 子句与最近的 if 子句配对，所以实际逻辑是：
+<div class="code">if (cond1) {
+    if (cond2) {
+        action1();
+    } else {
+        action2();
+    }
+}</div>
+这显然是与预期不符的。
+
+又如：
+<div class="code">if (cond)      //<span class="comment"> Non-compliant</span>
+    y = 2;
+else           //<span class="comment"> Non-compliant</span>
+    x = 3;
+    y = 1;
+</div>
+例中 y = 1; 看起来应该是 else 分枝的一部分，但它实际上并不在 else 的作用范围之内，所以用大括号括起来可避免此类问题：
+<div class="code">if (cond) {    //<span class="comment"> Compliant</span>
+    y = 2;
+} else {       //<span class="comment"> Compliant</span>
+    x = 3;
+    y = 1;
+}
+</div>
+例外：
+<div class="code">if (cond1) {
+    ....
+} else if (cond2) {   //<span class="comment"> Compliant</span>
+    ....
+}</div>
+直接与 if 语句相连的 else 子句不受本规则约束。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_do_brace.html" target="_blank" class="related-link">ID_do_brace</a>
+<a href="./ID_for_brace.html" target="_blank" class="related-link">ID_for_brace</a>
+<a href="./ID_while_brace.html" target="_blank" class="related-link">ID_while_brace</a>
+<a href="./ID_switch_brace.html" target="_blank" class="related-link">ID_switch_brace</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 14.9
+MISRA C 2012 15.6
+MISRA C++ 2008 6-4-1
+
+</p>
+</article>
+</html>

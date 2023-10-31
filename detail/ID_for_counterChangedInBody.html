@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>for 循环变量不应在循环体内被改变 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>for 循环变量不应在循环体内被改变</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_for_counterChangedInBody</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_for_counterNested.html">next</a> › <a class="nav-link" href="./ID_for_floatCounter.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+用于控制循环次数的变量称为“循环变量”，为了使代码具有清晰的静态结构，循环变量只应在 for 语句的第 3 个表达式中被改变。 
+
+示例：
+<div class="code">for (int i = 0; i &lt; 8; i++) {
+    ....
+    if (cond) {
+        ++i;      //<span class="comment"> Non-compliant</span>
+    }
+    ....
+}</div>
+例中循环变量 i 在多处被改变，循环的执行次数和结束条件变得难以理解，易错且不利于维护。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.86
+MISRA C 2004 13.6
+MISRA C++ 2008 6-5-3
+
+</p>
+</article>
+</html>

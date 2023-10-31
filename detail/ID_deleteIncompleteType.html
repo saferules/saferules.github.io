@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>用 delete 释放对象需保证其类型完整 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>用 delete 释放对象需保证其类型完整</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_deleteIncompleteType</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_excessiveDelete.html">next</a> › <a class="nav-link" href="./ID_doubleFree.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果用 delete 释放不完整类型的对象，而对象完整类型声明中有 non-trivial 析构函数，会导致标准未定义的行为。
+
+示例：
+<div class="code">struct T;
+
+void foo(T* p) {
+    delete p;       //<span class="comment"> Non-compliant, undefined behavior</span>
+}
+
+struct T {
+   ~T();            //<span class="comment"> Non-trivial destructor</span>
+};</div>
+例中 delete 作用于不完整类型的指针 p，析构函数不会正确执行，应保证 T 在 foo 之前定义：
+<div class="code">struct T {
+   ~T();
+};
+
+void foo(T* p) {
+    delete p;       //<span class="comment"> Compliant</span>
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.3.5(5)-undefined
+ISO/IEC 14882:2011 5.3.5(5)-undefined
+
+</p>
+
+
+</article>
+</html>

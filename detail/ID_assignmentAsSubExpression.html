@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>赋值表达式不应作为子表达式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>赋值表达式不应作为子表达式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_assignmentAsSubExpression</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_incDecAsSubExpression.html">next</a> › <a class="nav-link" href="./ID_braceStyle.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+赋值及复合赋值表达式作为子表达式可读性较差，易产生求值顺序或运算符优先级相关的问题。
+
+示例（设 a、b、c 为变量）：
+<div class="code">a = b;    //<span class="comment"> Compliant</span>
+a += b;   //<span class="comment"> Compliant</span>
+
+while (a = b) {   //<span class="comment"> Non-compliant</span>
+    ....
+}
+if (a = b != 0) {   //<span class="comment"> Non-compliant</span>
+    ....
+}
+a += b += c;     //<span class="comment"> Non-compliant</span>
+fun(a = b, c);   //<span class="comment"> Non-compliant</span>
+</div>
+连续赋值是一种惯用方式，但不值得提倡，如：
+<div class="code">a = b = c;   //<span class="comment"> Let it go?</span></div>
+审计工具不妨通过配置决定是否放过这种方式。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">allowSuccessiveAssignment: 是否允许连续赋值
+</p>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_if_assignment.html" target="_blank" class="related-link">ID_if_assignment</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-481
+MISRA C 2004 13.1
+MISRA C 2012 13.4
+MISRA C++ 2008 6-2-1
+
+</p>
+</article>
+</html>

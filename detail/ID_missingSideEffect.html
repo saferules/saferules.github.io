@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应存在没有副作用的语句 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应存在没有副作用的语句</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_missingSideEffect</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unreachableCode.html">next</a> › <a class="nav-link" href="./ID_invalidWrite.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+不能对程序状态产生影响的语句称为无“<a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)" target="_blank" class="dashed-link">副作用（side effect）</a>”的语句，往往属于笔误或调试痕迹，应当修正或去除。
+
+示例（设 a、b、p 为变量或指针）：
+<div class="code">a == b;  //<span class="comment"> Non-compliant</span></div>
+单纯的判等是没有副作用的，很可能是赋值语句的笔误。
+
+<div class="code">*p++;    //<span class="comment"> Non-compliant</span></div>
+单纯从某个地址进行读取是没有副作用的，这是一种对运算符优先级理解不当造成的常见错误，应改为 (*p)++;
+
+<div class="code">p-&gt;fun;  //<span class="comment"> Non-compliant</span></div>
+由变量名或无实参列表的函数名作为一个语句是没有副作用的，此语句应改为正确的函数调用。
+
+<div class="code">+a;      //<span class="comment"> Non-compliant</span></div>
+正号是没有副作用的，此句很可能应为 ++a;
+
+如果语句为逻辑与表达式，左子表达式可以作为右子表达式的条件，故左子表达式可以无副作用，而右子表达式一定要有副作用，如：
+<div class="code">p &amp;&amp; p-&gt;fun();  //<span class="comment"> OK</span>
+p &amp;&amp; p-&gt;fun;    //<span class="comment"> Non-compliant</span>
+p-&gt;fun() &amp;&amp; p;  //<span class="comment"> Non-compliant</span>
+</div>
+如果语句为逻辑或表达式，则要求其左右子表达式均有副作用，如：
+<div class="code">p || p-&gt;fun();  //<span class="comment"> Non-compliant</span>
+p || p-&gt;fun;    //<span class="comment"> Non-compliant</span>
+p-&gt;fun() || p;  //<span class="comment"> Non-compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 5.1.2.3(2)
+ISO/IEC 9899:2011 5.1.2.3(2)
+ISO/IEC 14882:2003 1.9(7)
+ISO/IEC 14882:2011 1.9(12)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-482
+CWE-1164
+MISRA C 2004 14.2
+MISRA C 2012 2.2
+MISRA C++ 2008 0-1-9
+
+</p>
+</article>
+</html>

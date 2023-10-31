@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>指针不应与字符串常量直接比较 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>指针不应与字符串常量直接比较</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illPtrStrComparison</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_differentEnumComparison.html">next</a> › <a class="nav-link" href="./ID_illFloatComparison.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+直接比较指针和字符串常量的结果往往总是 false，应改用字符串比较函数。
+
+示例：
+<div class="code">bool is_name(const char* p) {
+    return p == &quot;bar&quot;;          //<span class="comment"> Non-compliant</span>
+}
+</div>
+如果例中 is_name 函数只接受常量字符串作为参数，该函数在某些环境中也可能正常工作，如：
+<div class="code">if (is_name(&quot;foo&quot;)) {   //<span class="comment"> May be false</span>
+    ....
+}
+if (is_name(&quot;bar&quot;)) {   //<span class="comment"> May be true</span>
+    ....
+}
+</div>
+然而相同的字符串常量是否一定拥有相同的地址呢？对这个问题不同的编译器有不同的实现，有可移植性要求的代码要规避这种问题，而且这种问题极易导致错误，一般的程序都应该避免这种问题。
+
+应改为：
+<div class="code">bool is_name(const char* p) {
+    return !strcmp(p, &quot;bar&quot;);   //<span class="comment"> Compliant</span>
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.4.5(6)-unspecified
+ISO/IEC 9899:2011 6.4.5(7)-unspecified
+ISO/IEC 14882:2003 2.13.4(2)-implementation
+ISO/IEC 14882:2011 2.14.5(12)-implementation
+ISO/IEC 14882:2017 5.13.5(16)-unspecified
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-595
+CWE-697
+CWE-1024
+CWE-1025
+
+</p>
+</article>
+</html>

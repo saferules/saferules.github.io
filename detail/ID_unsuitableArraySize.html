@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>局部数组不应过大 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>局部数组不应过大</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_unsuitableArraySize</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unnecessaryAllocation.html">next</a> › <a class="nav-link" href="./ID_stackAllocation.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+局部数组在栈上分配空间，如果占用空间过大会导致栈溢出错误。
+
+应关注具有较大数组的函数，评估其在运行时的最大资源消耗是否符合执行环境的要求。
+
+示例：
+<div class="code">void foo() {
+    int arr[1024][1024][1024];   //<span class="comment"> Non-compliant, too large</span>
+    ....
+}</div>
+在栈上分配空间难以控制失败情况，如果条件允许可改在堆上分配：
+<div class="code">void foo() {
+    int* arr = (int*)malloc(1024 * 1024 * 1024 * sizeof(int));   //<span class="comment"> Compliant</span>
+    if (arr) {
+        ....     //<span class="comment"> Normal procedure</span>
+    } else {
+        ....     //<span class="comment"> Handle allocation failures</span>
+    }
+}</div>
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">maxLocalArraySize: 函数内局部数组空间之和的上限，超过则报出
+</p>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-770
+SEI CERT MEM05-C
+
+</p>
+</article>
+</html>

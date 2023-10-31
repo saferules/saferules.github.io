@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>extern 关键字不应作用于类成员的声明或定义 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>extern 关键字不应作用于类成员的声明或定义</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_invalidExternSpecifier</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_missingExplicitOverride.html">next</a> › <a class="nav-link" href="./ID_inlineRedundant.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+extern 关键字作用于类成员的声明或定义是没有意义的，属于语言运用错误。
+
+示例：
+<div class="code">class A {
+    void foo();
+};
+
+extern void A::foo() {  //<span class="comment"> Non-compliant, invalid ‘extern’</span>
+    ....
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 9.2(6)
+ISO/IEC 14882:2011 9.2(6)
+ISO/IEC 14882:2017 12.2(9)
+
+</p>
+
+
+</article>
+</html>

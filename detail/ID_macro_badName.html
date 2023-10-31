@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>宏应遵循合理的命名方式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>宏应遵循合理的命名方式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_macro_badName</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_defineReserved.html">next</a> › <a class="nav-link" href="./ID_forbidCHeaderInCpp.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+宏的名称应采用全大写字母的形式，非宏名称则应包含小写字母。
+
+宏用于文本处理，不受语言规则限制，易被误用，在命名方式上将其与普通代码分开可引起使用者或维护者的注意，有助于规避错误。
+
+本规则是 <a href="./ID_badName.html" target="_blank" class="dashed-link">ID_badName</a> 的特化，宏名称同样受 <a href="./ID_badName.html" target="_blank" class="dashed-link">ID_badName</a> 的约束。
+
+示例：
+<div class="code">#define word_size 8   //<span class="comment"> Non-compliant, like a normal variable</span>
+#define WORD_SIZE 8   //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_badName.html" target="_blank" class="related-link">ID_badName</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.32
+C++ Core Guidelines ES.9
+
+</p>
+</article>
+</html>

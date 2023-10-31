@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>有符号整型对象的位域长度不应为 1 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>有符号整型对象的位域长度不应为 1</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_singleSignedBitfield</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidEnumBitfield.html">next</a> › <a class="nav-link" href="./ID_exceededBitfield.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+有符号整型对象的位域长度如果为 1 表示只有一个比特位，而该比特位是符号位，极易造成意料之外的错误。
+
+匿名成员的位域长度不受本规则限制。
+
+示例：
+<div class="code">struct X {
+    signed a: 1;     //<span class="comment"> Non-compliant</span>
+
+    signed  : 0;     //<span class="comment"> Compliant</span>
+    signed  : 1;     //<span class="comment"> Compliant</span>
+    signed b: 2;     //<span class="comment"> Compliant</span>
+
+    unsigned c: 1;   //<span class="comment"> Compliant</span>
+};
+
+int main() {
+    X x;
+    x.a = 1, x.b = 1, x.c = 1;
+    printf(&quot;%d %d %u\n&quot;, x.a, x.b, x.c);   //<span class="comment"> What is output?</span>
+}</div>
+输出 -1 1 1，x.b 和 x.c 为 1 与预期相符，x.a 预期是 1，但实际是 -1。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 6.2
+MISRA C++ 2008 9-6-4
+
+</p>
+</article>
+</html>

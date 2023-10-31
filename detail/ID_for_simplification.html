@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>for 语句没有明确的循环变量时应改用 while 语句 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>for 语句没有明确的循环变量时应改用 while 语句</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_for_simplification</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_for_emptyBlock.html">next</a> › <a class="nav-link" href="./ID_for_scope.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+for 语句一般用于实现具有明确循环次数和循环变量的迭代算法，循环变量即控制循环次数的变量。for 语句小括号内的三个表达式应分别专注于循环变量的初始化、循环条件的判断、循环变量的增减，这样可以使循环具有清晰的静态结构，便于阅读，利于维护。
+
+如果没有明确的循环变量，则应改用 while 循环，避免误导维护者。
+
+示例：
+<div class="code">int n = 0;
+for (; condition(); n++) {   //<span class="comment"> Non-compliant, ‘n’ is not a loop variable</span>
+    ....
+}</div>
+例中 n 不是循环变量，它可以记录循环次数，但与循环条件无关，应改为 while 循环：
+<div class="code">int n = 0;
+while (condition()) {   //<span class="comment"> Compliant</span>
+    ....
+    n++;
+}
+</div>
+如果 for 语句的第 1 个和第 3 个表达式为空，则更应改为 while 循环，使代码更简洁，如：
+<div class="code">for (; condition(); ) {   //<span class="comment"> Non-compliant</span>
+    ....
+}
+
+for (;;) {   //<span class="comment"> Non-compliant</span>
+    ....
+}
+</div>
+应改为：
+<div class="code">while (condition()) {   //<span class="comment"> Compliant</span>
+    ....
+}
+
+while (true) {   //<span class="comment"> Compliant</span>
+    ....
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.73
+
+</p>
+</article>
+</html>

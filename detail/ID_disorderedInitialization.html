@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>成员初始化应遵循声明的顺序 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>成员初始化应遵循声明的顺序</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_disorderedInitialization</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_virtualCallInConstructor.html">next</a> › <a class="nav-link" href="./ID_illMemberAccess.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+类成员的初始化顺序是按声明的顺序进行的，初始化前面的成员时不可使用后面成员的值。
+
+示例：
+<div class="code">struct A {
+    int* p;
+    size_t n;
+
+    A(size_t s): n(s), p(new int[n])  //<span class="comment"> Non-compliant</span>
+    {}
+};</div>
+虽然在初始化列表中 n 在 p 的前面，但 p 先于 n 声明，n 仍然在 p 之后被初始化，“p(new int[n])”会造成严重错误。
+
+应改为：
+<div class="code">struct A {
+    size_t n;
+    int* p;
+
+    A(size_t s): n(s), p(new int[n])  //<span class="comment"> Compliant</span>
+    {}
+};</div>
+调整了 n 和 p 的声明顺序，使 n 先于 p 初始化即可。
+
+如果使用后面成员的地址初始化前面的成员，则不受本规则约束，如：
+<div class="code">struct B {
+    int*&amp; a;
+    int*  b;
+    int   c[3];
+
+    B():
+        a(b),  //<span class="comment"> OK</span>
+        b(c)   //<span class="comment"> OK</span>
+    {}
+};</div>
+例中 a 为引用，b 的地址在初始化之前就确定了，所以“a(b)”没问题；c 为数组，也是一个地址，所以“b(c)”没有问题。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 12.6.2(5)
+ISO/IEC 14882:2011 12.6.2(10)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.47
+
+</p>
+</article>
+</html>

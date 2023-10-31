@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>类的非常量数据成员均应为 private - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>类的非常量数据成员均应为 private</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonPrivateData</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_protectedData.html">next</a> › <a class="nav-link" href="./ID_stdNamespaceModified.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+类的数据成员均应设为 private，对外统一由成员函数提供访问方法，且应避免返回 private 成员的非常量引用或指针。
+
+将类的所有接口都实现为成员函数，由成员函数按指定逻辑读写数据，以便保证有效地改变对象状态。良好的接口设计会对代码的职责进行合理划分，显著提升可维护性。理想状态下，当有错误需要修正或有功能需要调整时，只改动相关接口的实现即可，调用接口的代码不需要改动，从而将改动降到最低。这种设计的基础便是将数据设为 private，只能由本类的成员函数访问，否则数据可被各个模块随意读写，当有一处需要改动时，很难控制其影响范围。
+
+常量数据成员不可被改变，所以可不受本规则约束。
+
+示例：
+<div class="code">struct A {
+    int *p, n;   //<span class="comment"> Non-compliant</span>
+
+    A(int n): p(new int[n]), n(n) {}
+   ~A() { delete[] p; }
+};</div>
+例中类的数据成员 p 指向动态分配的内存区域，n 记录区域大小，p 和 n 之间存在紧密的逻辑关系，这种内在关系应由成员函数统一维护，不暴露给类的使用者，这便是面向对象的封装理念，也是 C++ 语言的核心理念之一。
+
+应改为：
+<div class="code">class A {
+    int *p, n;   //<span class="comment"> Compliant</span>
+
+public:
+    A(int n): p(new int[n]), n(n) {}
+   ~A() { delete[] p; }
+
+    int* begin() { return p; }     //<span class="comment"> Interfaces for members</span>
+    int* end() { return p + n; }
+};</div>
+这样数据成员不能被外界直接访问，成员之间的关系也不会被随意打破，显著提升可维护性。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_protectedData.html" target="_blank" class="related-link">ID_protectedData</a>
+<a href="./ID_mixPublicPrivateData.html" target="_blank" class="related-link">ID_mixPublicPrivateData</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 11-0-1
+
+</p>
+</article>
+</html>

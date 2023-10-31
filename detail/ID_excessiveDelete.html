@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>用 delete 释放对象不可多写中括号 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>用 delete 释放对象不可多写中括号</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_excessiveDelete</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_insufficientDelete.html">next</a> › <a class="nav-link" href="./ID_deleteIncompleteType.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+用 new 分配的对象应该用 delete 释放，不可用 delete[] 释放，否则导致标准未定义的行为。
+
+示例：
+<div class="code">auto* p = new X;  //<span class="comment"> One object</span>
+....
+delete[] p;       //<span class="comment"> Non-compliant, use ‘delete p;’ instead</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_insufficientDelete.html" target="_blank" class="related-link">ID_insufficientDelete</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.3.5(2)-undefined
+ISO/IEC 14882:2011 5.3.5(2)-undefined
+ISO/IEC 14882:2017 8.3.5(2)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.61
+
+</p>
+</article>
+</html>

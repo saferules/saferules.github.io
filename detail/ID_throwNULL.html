@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应抛出 NULL - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应抛出 NULL</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_throwNULL</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_throwNullptr.html">next</a> › <a class="nav-link" href="./ID_throwPointer.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+虽然 NULL 表示空指针，但在相当一部分实现中 throw NULL 相当于 throw 0，无法区分指针与整数。
+
+示例：
+<div class="code">void foo() {
+    throw NULL;  //<span class="comment"> Non-compliant</span>
+}
+
+void bar() {
+    try {
+        foo();
+    } catch (int) {  //<span class="comment"> Which handler?</span>
+        ....
+    } catch (int*) {
+        ....
+    }
+}</div>
+例中 throw NULL 意在抛出空指针，然而会被 catch(int) 子句捕获。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_deprecatedNULL.html" target="_blank" class="related-link">ID_deprecatedNULL</a>
+<a href="./ID_throwNonExceptionType.html" target="_blank" class="related-link">ID_throwNonExceptionType</a>
+<a href="./ID_throwPointer.html" target="_blank" class="related-link">ID_throwPointer</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 C.2.2.3(1)-implementation
+ISO/IEC 14882:2011 C.3.2.4(1)-implementation
+ISO/IEC 14882:2017 C.5.2.7(1)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-351
+MISRA C++ 2008 15-1-2
+
+</p>
+</article>
+</html>

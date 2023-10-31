@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>lambda 表达式的行数应在规定范围之内 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>lambda 表达式的行数应在规定范围之内</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_tooManyLambdaLines</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_tooManyParams.html">next</a> › <a class="nav-link" href="./ID_tooManyLines.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+复杂的 lambda 表达式与调用者的代码混在一起是难以阅读的，引入 lambda 表达式的目的应该是“化简”，否则应使用普通函数。
+
+示例：
+<div class="code">void foo()
+{
+    auto f0 = []() {
+        //<span class="comment"> ... Many lines ...</span>
+    };
+        //<span class="comment"> ... Many lambdas ...</span>
+        //<span class="comment"> ... Even lambdas nest lambdas ...</span>
+    auto f100 = []() {
+        //<span class="comment"> ...</span>
+    };
+    //<span class="comment"> Tut, tut, this is a function, not a namespace,</span>
+    //<span class="comment"> use common functions instead</span>
+}</div>
+建议 lambda 表达式不超过 5 行，一个函数中不应有多个复杂的 lambda 表达式。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">maxLambdaLineCount: lambda 表达式行数上限，超过则报出
+</p>
+
+
+
+
+</article>
+</html>

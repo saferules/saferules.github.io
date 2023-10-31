@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>switch 语句的条件不应为 bool 型 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>switch 语句的条件不应为 bool 型</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_switch_bool</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_switch_onlyDefault.html">next</a> › <a class="nav-link" href="./ID_switch_identicalBranch.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果条件为 bool 型，应改用 if-else 语句使代码的结构更清晰。
+
+示例：
+<div class="code">void foo(bool b)
+{
+    switch (b)   //<span class="comment"> Non-compliant</span>
+    {
+    case true:
+        ....
+        break;
+    case false:
+        ....
+        break;
+    }
+}
+</div>
+应改为：
+<div class="code">void foo(bool b)
+{
+    if (b)  //<span class="comment"> Compliant</span>
+    {
+        ....
+    }
+    else
+    {
+        ....
+    }
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 15.4
+MISRA C 2012 16.7
+MISRA C++ 2008 6-4-7
+
+</p>
+</article>
+</html>

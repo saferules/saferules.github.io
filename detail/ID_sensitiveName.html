@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>公共成员或全局对象不应记录敏感数据 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>公共成员或全局对象不应记录敏感数据</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_sensitiveName</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-security1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_hijack.html">next</a> › <a class="nav-link" href="./ID_unsafeCleanup.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+公共成员、全局对象可被外部代码引用，如果存有敏感数据则可能会被误用或窃取。
+
+示例：
+<div class="code">extern string password;   //<span class="comment"> Non-compliant</span>
+
+struct A {
+    string username;
+    string password;      //<span class="comment"> Non-compliant</span>
+};
+</div>
+至少应将相关成员改为 private：
+<div class="code">class A {
+public:
+    ....                  //<span class="comment"> Interfaces for accessing passwords safely</span>
+private:
+    string username;
+    string password;      //<span class="comment"> Compliant</span>
+};</div>
+敏感数据最好对引用者完全隐藏，避免被恶意分析、复制或序列化。使数据与接口进一步分离，可参见“<a href="https://en.cppreference.com/w/cpp/language/pimpl" target="_blank" class="dashed-link">Pimpl idiom</a>”等模式。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-766
+
+</p>
+</article>
+</html>

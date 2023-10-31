@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不可解引用未初始化的指针 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不可解引用未初始化的指针</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_wildPtrDeref</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_danglingDeref.html">next</a> › <a class="nav-link" href="./ID_nullDerefInExp.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+未初始化的指针具有不确定的值，对其解引用会导致标准未定义的行为，往往会造成严重错误。
+
+示例：
+<div class="code">int foo() {
+    int* p;      //<span class="comment"> Uninitialized</span>
+    return *p;   //<span class="comment"> Non-compliant</span>
+}</div>
+例中指针 p 定义后未被初始化，可能指向不可访问的空间，也可能指向已分配的空间，对其读写可能会导致崩溃，也可能会扰乱程序的行为，造成难以排查的错误。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_illAccess.html" target="_blank" class="related-link">ID_illAccess</a>
+<a href="./ID_localInitialization.html" target="_blank" class="related-link">ID_localInitialization</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.5.3.2(4)-undefined
+ISO/IEC 9899:2011 6.5.3.2(4)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-824
+C++ Core Guidelines ES.65
+
+</p>
+</article>
+</html>

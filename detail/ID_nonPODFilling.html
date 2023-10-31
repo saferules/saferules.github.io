@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>memset 等函数不应作用于非 POD 对象 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>memset 等函数不应作用于非 POD 对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonPODFilling</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_badLength.html">next</a> › <a class="nav-link" href="./ID_insufficientBuffer.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+memset、memcpy、memmove 等具有填充功能的函数不应作用于非“<a href="https://en.cppreference.com/w/cpp/named_req/PODType" target="_blank" class="dashed-link">POD</a>”对象，否则会破坏其数据的内在关系。
+
+本规则是 <a href="./ID_nonPODBinaryCast.html" target="_blank" class="dashed-link">ID_nonPODBinaryCast</a> 的特化。
+
+示例：
+<div class="code">class A {
+    ....
+public:
+    virtual ~A();
+};
+
+void foo(A&amp; a) {
+    memset(&amp;a, 0, sizeof(a));   //<span class="comment"> Non-compliant, the ‘vfptr’ is corrupted</span>
+}</div>
+例中 memset 填充非 POD 对象，其虚函数表指针会被破坏，造成严重的运行时错误。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_nonPODBinaryCast.html" target="_blank" class="related-link">ID_nonPODBinaryCast</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-463
+C++ Core Guidelines SL.con.4
+C++ Core Guidelines C.90
+
+</p>
+</article>
+</html>

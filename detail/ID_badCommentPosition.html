@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>注释应出现在合理的位置 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>注释应出现在合理的位置</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_badCommentPosition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_missingNewLineFileEnd.html">next</a> › <a class="nav-link" href="./ID_nestedComment.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+注释应出现在段落的前后或行尾，不应出现在行首或中间，否则干扰阅读，甚至会导致标准未定义的行为。
+
+示例：
+<div class="code">#/*comment*/include &quot;foo.h&quot;         //<span class="comment"> Non-compliant</span>
+#include &lt;bar.h /*comment*/&gt;        //<span class="comment"> Non-compliant, undefined behavior</span>
+
+/*comment*/ int main()              //<span class="comment"> Non-compliant</span>
+{
+    return a + b /*comment*/ + c;   //<span class="comment"> Non-compliant</span>
+}
+</div>
+应改为：
+<div class="code">#include &quot;foo.h&quot;    // comment      //<span class="comment"> Compliant</span>
+#include &lt;bar.h&gt;    // comment      //<span class="comment"> Compliant</span>
+
+/*
+ * comment                          //<span class="comment"> Compliant</span>
+ */
+int main()
+{
+    return a + b + c;  // comment   //<span class="comment"> Compliant</span>
+}
+</div>
+例外：
+<div class="code">void foo(int i = 0);                //<span class="comment"> Declaration</span>
+
+void foo(int i /*= 0*/) {           //<span class="comment"> Let it go</span>
+    ....
+}</div>
+如果参数有默认值，在函数实现中参数声明的结尾可用注释说明，不受本规则限制。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.4.7(3)-undefined
+ISO/IEC 9899:2011 6.4.7(3)-undefined
+ISO/IEC 14882:2003 2.8(2)-undefined
+ISO/IEC 14882:2011 2.9(2)-implementation
+
+</p>
+
+
+</article>
+</html>

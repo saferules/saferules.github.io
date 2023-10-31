@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>比较运算不可作为另一个比较运算的直接子表达式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>比较运算不可作为另一个比较运算的直接子表达式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_successiveComparison</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_returnValueIgnored.html">next</a> › <a class="nav-link" href="./ID_selfComparison.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在 C/C++ 语言中，连续的比较运算是没有意义的，本规则是 <a href="./ID_illBoolOperation.html" target="_blank" class="dashed-link">ID_illBoolOperation</a> 的特化。
+
+示例：
+<div class="code">bool foo(int a, int b, int c) {
+    return a &gt;= b &gt;= c;           //<span class="comment"> Non-compliant, logic error</span>
+}</div>
+例中 a &gt;= b 的结果为 bool 型，bool 型数据是没有大小概念的，这个结果再与 c 比较大小是没有意义的。
+
+例外：
+<div class="code">a &gt; b == true        //<span class="comment"> Compliant, but odd</span>
+a != b != true       //<span class="comment"> Compliant, but odd</span>
+(a &gt; b) == (c &gt; d)   //<span class="comment"> Compliant, but complex</span></div>
+如果是判断两个 bool 表达式是否相等，可不受本规则约束，但这种复杂的形式并不值得提倡。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_illBoolOperation.html" target="_blank" class="related-link">ID_illBoolOperation</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-697
+CWE-1024
+CWE-1025
+
+</p>
+</article>
+</html>

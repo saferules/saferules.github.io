@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>if 分枝和 else 分枝的代码不应完全相同 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>if 分枝和 else 分枝的代码不应完全相同</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_if_identicalBlock</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_if_identicalElseIfBlock.html">next</a> › <a class="nav-link" href="./ID_if_hiddenCondition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+if 分枝和 else 分枝完全相同会使条件判断失去意义，往往是由复制粘贴造成的错误。
+
+示例：
+<div class="code">if (condition) {
+    branch
+}
+else {
+    branch  //<span class="comment"> Non-compliant</span>
+}</div>
+例中 branch 表示完全相同的代码，需修正本应存在的差异，或去掉 if-else 结构。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_if_identicalElseIfBlock.html" target="_blank" class="related-link">ID_if_identicalElseIfBlock</a>
+<a href="./ID_if_identicalImplicitElseBlock.html" target="_blank" class="related-link">ID_if_identicalImplicitElseBlock</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-670
+
+</p>
+</article>
+</html>

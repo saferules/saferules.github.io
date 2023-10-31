@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>对象被移动后应重置状态再使用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>对象被移动后应重置状态再使用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_useAfterMove</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_throwInConstructor.html">next</a> › <a class="nav-link" href="./ID_memberDeallocation.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+对象被移动后在逻辑上不再有效，如果没有通过清空数据或重新初始化等方法更新对象的状态，不应再使用该对象。
+
+示例：
+<div class="code">#include &lt;vector&gt;
+
+using V = std::vector&lt;int&gt;;
+
+void foo(V&amp; a, V&amp; b)
+{
+    a = std::move(b);   //<span class="comment"> After moving, the state of ‘b’ is unspecified</span>
+    b.push_back(0);     //<span class="comment"> Non-compliant</span>
+}</div>
+例中容器 b 的数据被移动到容器 a，可能是通过交换的方法实现的，也可能是通过其他方法实现的，标准容器被移动后的状态在 C++ 标准中是未声明的，程序不应依赖未声明的状态。
+
+应改为：
+<div class="code">void foo(V&amp; a, V&amp; b)
+{
+    a = std::move(b);
+    b.clear();          //<span class="comment"> Clear</span>
+    b.push_back(0);     //<span class="comment"> Compliant</span>
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_unsuitableMove.html" target="_blank" class="related-link">ID_unsuitableMove</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 17.6.5.15(1)-unspecified
+ISO/IEC 14882:2017 20.5.5.15(1)-unspecified
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.56
+SEI CERT EXP63-CPP
+
+</p>
+</article>
+</html>

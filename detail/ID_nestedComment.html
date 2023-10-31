@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>注释不可嵌套 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>注释不可嵌套</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nestedComment</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_badCommentPosition.html">next</a> › <a class="nav-link" href="./ID_specialComment.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+嵌套的 /*...*/ 注释不符合标准，/* 与 */ 之间不应出现 /*，某些编译器可以接受嵌套，但不具备可移植性。
+
+示例：
+
+<div class="code">/*                         //<span class="comment"> #1</span>
+    /*                     //<span class="comment"> #2, Non-compliant</span>
+    nested comments
+     */                    //<span class="comment"> #3</span>
+*/                         //<span class="comment"> #4, Non-compliant</span>
+</div>
+根据标准，#1 处的 /* 与 #3 处的 */ 匹配，而 #4 处的 */ 处于失配状态。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.4.9(1)
+ISO/IEC 9899:2011 6.4.9(1)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 2.3
+MISRA C 2012 3.1
+MISRA C++ 2008 2-7-1
+
+</p>
+</article>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>对象初始化不可依赖自身的值 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>对象初始化不可依赖自身的值</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_selfDependentInitialization</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_plainNumericChar.html">next</a> › <a class="nav-link" href="./ID_invalidLocalDeclaration.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+对象初始化依赖自身的值属于逻辑错误，也是常见的笔误。
+
+示例：
+<div class="code">void foo(int i) {
+    if (i &gt; 0) {
+        int i = i + 1;  //<span class="comment"> Non-compliant</span>
+        ....
+    }
+}</div>
+例中局部变量 i 的初始化依赖自身的值，这种问题往往是错误地定义了与外层作用域中名称相同的对象。
+
+应改为：
+<div class="code">void foo(int i) {
+    if (i &gt; 0) {
+        int j = i + 1;  //<span class="comment"> OK</span>
+        ....
+    }
+}</div>
+
+</div>
+
+
+
+
+</article>
+</html>

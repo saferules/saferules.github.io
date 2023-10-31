@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>switch 语句中任何子句都应从属于某个 case 或 default 分枝 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>switch 语句中任何子句都应从属于某个 case 或 default 分枝</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_switch_invalidStatement</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_switch_badFormedCase.html">next</a> › <a class="nav-link" href="./ID_switch_caseOutOfRange.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+switch 语句中任何子句都应从属于某个 case 或 default 分枝，否则不会被执行。
+
+示例：
+<div class="code">switch (v)
+{
+    int i;    //<span class="comment"> Non-compliant</span>
+    i = 0;    //<span class="comment"> Non-compliant</span>
+case 1:
+    ....
+    break;
+default:
+    bar(i);   //<span class="comment"> Logic error, ‘i’ is not initialized</span>
+    break;
+}</div>
+例中对变量 i 的声明和赋值不从属于任何 case 或 default 分枝，是无效语句。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-561
+MISRA C 2012 16.1
+MISRA C++ 2008 6-4-3
+
+</p>
+</article>
+</html>

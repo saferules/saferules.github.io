@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>成员名称不应被覆盖 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>成员名称不应被覆盖</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_hideMember</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_hideGlobal.html">next</a> › <a class="nav-link" href="./ID_hideLocal.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+成员函数内的局部名称与成员名称相同会干扰阅读，易引起误解。
+
+示例：
+<div class="code">class A {
+    int i = 0;          //<span class="comment"> Member object ‘i’</span>
+
+public:
+    int foo() {
+        int i = 0;      //<span class="comment"> Non-compliant, hides the member ‘i’</span>
+        return bar(i);
+    }
+
+    int bar(int i) {    //<span class="comment"> Non-compliant, hides the member ‘i’</span>
+        return i + i;   //<span class="comment"> Which ‘i’ is used?</span>
+    }
+};
+</div>
+建议成员对象遵循统一的命名约定，如以“_”结尾或以“m_”开头，可有效规避这类问题：
+<div class="code">class A {
+    int i_ = 0;         //<span class="comment"> Member object ‘i_’</span>
+
+public:
+    int foo() {
+        int i = 0;      //<span class="comment"> Compliant</span>
+        return bar(i);
+    }
+
+    int bar(int i) {    //<span class="comment"> Compliant</span>
+        return i_ + i;
+    }
+};</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1109
+MISRA C 2004 5.2
+MISRA C 2012 5.3
+MISRA C++ 2008 2-10-2
+
+</p>
+</article>
+</html>

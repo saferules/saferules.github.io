@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应重载“逻辑与”和“逻辑或”运算符 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应重载“逻辑与”和“逻辑或”运算符</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_overloadLogicOperator</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_virtualAssignment.html">next</a> › <a class="nav-link" href="./ID_overloadComma.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+对“逻辑与”、“逻辑或”等运算符的重载会影响效率，甚至造成不符合预期的结果。
+
+C/C++ 标准明确规定了内置逗号、逻辑与、逻辑或等运算符的子表达式求值顺序。对于逻辑表达式，从左到右计算子表达式的值，当可以确定整个表达式的值时立即结束计算，如果还有其他子表达式未求值也不再计算了，这种规则称为“短路规则”，意在提高效率，然而运算符的重载却打破了这一规则。
+
+示例：
+<div class="code">class A {
+    int i;
+
+public:
+    A(int x = 0): i(x) {
+    }
+
+    bool valid() const {
+        return i != 0;
+    }
+
+    A&amp; assign(const A&amp; a) {
+        i = a.i;
+        return *this;
+    }
+};
+
+bool operator &amp;&amp; (const A&amp; a, const A&amp; b) {  //<span class="comment"> Non-compliant</span>
+    return a.valid() &amp;&amp; b.valid();
+}
+</div>
+注意表达式（设 a 和 b 为 A 类对象）：
+<div class="code">b &amp;&amp; a.assign(b)
+</div>
+按常理，此表达式的意思应该是如果 b 在某种意义上“有效”，就将 b 赋给 a，所以 b 的值应先被求出，但由于 &amp;&amp; 被重载成了一个函数，其左右子表达式成了函数的参数，“短路规则”不再有效，而且参数的求值顺序在标准中是未声明的，所以常规逻辑子表达式的求值顺序无法得到保证。目前 MSVC、g++ 等主流编译器默认都是从右到左计算参数的值，例中 a.assign(b) 会先被执行，造成完全不符合预期的结果。
+
+解决方法：
+<div class="code">class A {
+    ....
+
+public:
+    explicit operator bool() const {
+        return valid();
+    }
+};</div>
+去掉对 &amp;&amp; 的重载，在 A 中定义 bool 类型转换运算符，既可保证“短路规则”，又可保证求值顺序。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_overloadComma.html" target="_blank" class="related-link">ID_overloadComma</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.2.2(8)-unspecified
+ISO/IEC 14882:2011 5.2.2(8)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 5-2-11
+
+</p>
+</article>
+</html>

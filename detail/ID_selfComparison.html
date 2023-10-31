@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>比较运算符左右子表达式不应相同 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>比较运算符左右子表达式不应相同</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_selfComparison</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_successiveComparison.html">next</a> › <a class="nav-link" href="./ID_differentEnumComparison.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+与自身的比较是没意义的，往往是某种笔误。
+
+示例（设 a 为变量或表达式）：
+<div class="code">a == a   //<span class="comment"> Non-compliant</span>
+a != a   //<span class="comment"> Non-compliant</span>
+a &gt; a    //<span class="comment"> Non-compliant</span>
+a &gt;= a   //<span class="comment"> Non-compliant</span>
+a &lt; a    //<span class="comment"> Non-compliant</span>
+a &lt;= a   //<span class="comment"> Non-compliant</span>
+</div>
+例外：
+<div class="code">void foo(float a) {
+    if (a != a) {     //<span class="comment"> Let it go</span>
+        ....
+    }
+}</div>
+当 a != a 为真时表示 a 为无效值“<a href="https://en.wikipedia.org/wiki/NaN" target="_blank" class="dashed-link">NaN</a>”，这是判断浮点数是否有效的惯用方法，可不受本规则约束。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1025
+
+</p>
+</article>
+</html>

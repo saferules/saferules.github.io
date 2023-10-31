@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>const、volatile 限定指针类型的别名是可疑的 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>const、volatile 限定指针类型的别名是可疑的</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_qualifierForPtrAlias</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_qualifierInvalid.html">next</a> › <a class="nav-link" href="./ID_qualifierRepeated.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果用 const、volatile 限定指针类型的别名，很可能会造成意料之外的错误。
+
+示例：
+<div class="code">struct Type {
+    void foo();
+    void foo() const;
+};
+
+typedef Type* Alias;
+
+void bar(const Alias a) {  //<span class="comment"> Rather suspicious</span>
+    a-&gt;foo();              //<span class="comment"> Calls ‘void Type::foo();’</span>
+}</div>
+例中 Alias 是 Type* 的别名，“const Alias a”很容易引起误解，好像对象是不可被改变的，但实际上 a 的类型是 Type *const，const 限定的是指针而不是指针指向的对象，对象仍可被修改，其调用的函数也可能与预期不符。
+
+应避免为指针类型定义别名，否则应提供常量和非常量两种别名，如：
+<div class="code">typedef Type* Alias;
+typedef const Type* ConstAlias;
+
+void bar(ConstAlias a) {
+    a-&gt;foo();              //<span class="comment"> Calls ‘void Type::foo() const;’</span>
+}
+</div>
+注意，如果用 const、volatile 限定引用的别名则是错误的，详见 <a href="./ID_qualifierInvalid.html" target="_blank" class="dashed-link">ID_qualifierInvalid</a>。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_qualifierInvalid.html" target="_blank" class="related-link">ID_qualifierInvalid</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT DCL05-C
+
+</p>
+</article>
+</html>

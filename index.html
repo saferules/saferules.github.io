@@ -1,0 +1,698 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="keywords" content="C语言,C++语言,编程指南,编程规范,代码审计,培训"/>
+  <meta name="description" content="详细的 C/C++ 安全编程指南、教程、培训资料"/>
+  <link type="text/css" rel="stylesheet" href="./css/index.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="./favicon.png"/>
+</head>
+
+<title>360 安全规则集合 - C/C++ 编程指南</title>
+
+<article>
+
+<div class="article-wrapper">
+
+<header>
+  <div id="header-wrapper">
+    <a href="https://github.com/Qihoo360/safe-rules/" target="_blank">
+      <img id="main-logo" src="./img/main_logo.png"/>
+    </a>
+    <div id="titles">
+      <div id="main-title">360 安全规则集合 <img src="https://img.shields.io/badge/version-1.3.2-brightgreen"></div>
+      <div id="sub-title">详细的 C/C++ 安全编程指南</div>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a href="./detail/introduction.html" target="_blank">项目介绍</a>
+  •
+  <a href="#rules-toc">规则目录</a>
+  •
+  <a href="#appendix">附录</a>
+  •
+  <a href="https://github.com/Qihoo360/safe-rules/" target="_blank">GitHub Home</a>
+</nav>
+
+<div id="introduction">
+<p>&emsp;&emsp;针对 C 和 C++ 语言，本文收录了 487 种需要重点关注的问题，
+每个问题对应一条规则，可作为代码审计依据或编程规范条款，也可为相关培训提供指导意见。</p>
+<p>&emsp;&emsp;本文是适用于不同应用场景的规则集合，读者可从中选取某个子集以适应自身需求。</p>
+<h2 id="rules-class">规则分类</h2>
+<p>&emsp;&emsp;本文以 ISO/IEC 9899:2011、ISO/IEC 14882:2011 为依据，兼顾 C18、C++17 及历史标准，将规则分为：</p>
+<ol>
+  <li><a href="#security">Security</a>：敏感信息防护</li>
+  <li><a href="#resource">Resource</a>：资源管理</li>
+  <li><a href="#precompile">Precompile</a>：预处理、宏、注释</li>
+  <li><a href="#global">Global</a>：全局及命名空间作用域</li>
+  <li><a href="#type">Type</a>：类型设计与实现</li>
+  <li><a href="#declaration">Declaration</a>：声明</li>
+  <li><a href="#exception">Exception</a>：异常</li>
+  <li><a href="#function">Function</a>：函数实现</li>
+  <li><a href="#control">Control</a>：流程控制</li>
+  <li><a href="#expression">Expression</a>：表达式</li>
+  <li><a href="#literal">Literal</a>：常量</li>
+  <li><a href="#cast">Cast</a>：类型转换</li>
+  <li><a href="#buffer">Buffer</a>：缓冲区</li>
+  <li><a href="#pointer">Pointer</a>：指针</li>
+  <li><a href="#interruption">Interruption</a>：中断与信号处理</li>
+  <li><a href="#concurrency">Concurrency</a>：异步与并发</li>
+  <li><a href="#style">Style</a>：样式与风格</li>
+</ol>
+<h2>规则组成</h2>
+<ul>
+  <li>标识：规则的唯一标识，以“ID_”开头，描述违反规则的状况</li>
+  <li>标题：规则的定义和简要说明</li>
+  <li>说明：规则设立的原因、违反规则的后果</li>
+  <li>示例：规则相关的示例代码，指明符合规则（Compliant）的和违反规则（Non-compliant）的情况</li>
+  <li>相关：与当前规则有相关性的规则，可作为扩展阅读的线索</li>
+  <li>依据：规则依照的 ISO/IEC 标准条目</li>
+  <li>配置：某些规则的细节可灵活设置，审计工具可以此为参照实现定制化功能</li>
+  <li>参考：规则参考的其他规范条目，如 C++ Core Guidelines、MISRA、SEI CERT Coding Standards 等</li>
+</ul>
+<p>&emsp;&emsp;“依据”以“标准名称:版本 章节编号(段落编号)-性质”的格式引用标准，如“ISO/IEC 14882:2011 5.6(4)-undefined”，表示引用 ISO/IEC 14882:2011 标准的第 5 章第 6 节第 4 段说明的具有 undefined 性质的问题。<br/>
+“性质”一项分为：</p>
+<ul>
+  <li>undefined：可使程序产生未定义的行为，这种行为造成的后果是不可预期的</li>
+  <li>unspecified：可使程序产生未声明的行为，这种行为由编译器或环境定义，具有随意性</li>
+  <li>implementation：可使程序产生由实现定义的行为，这种行为由编译器或环境定义，有明确的文档支持</li>
+  <li>deprecated：已被废弃的或不建议继续使用的编程方式</li>
+</ul>
+<p>&emsp;&emsp;没有特殊说明的规则同时适用于 C 语言和 C++ 语言，只适用于某一种语言的规则会有相关说明。</p>
+</div>
+
+<div id="rules-toc">
+
+<h2>规则目录</h2>
+
+<ol>
+<li id="security" class="chapter">Security<ol>
+  <li><a href="./detail/ID_plainSensitiveInfo.html" target="_blank">敏感数据不可写入代码</a></li>
+  <li><a href="./detail/ID_secretLeak.html" target="_blank">敏感数据不可被系统外界感知</a></li>
+  <li><a href="./detail/ID_unsafeCleanup.html" target="_blank">敏感数据在使用后应被有效清理</a></li>
+  <li><a href="./detail/ID_sensitiveName.html" target="_blank">公共成员或全局对象不应记录敏感数据</a></li>
+  <li><a href="./detail/ID_hijack.html" target="_blank">预判用户输入造成的不良后果</a></li>
+  <li><a href="./detail/ID_unlimitedAuthority.html" target="_blank">对资源设定合理的访问权限</a></li>
+  <li><a href="./detail/ID_improperAuthorization.html" target="_blank">对用户落实有效的权限管理</a></li>
+  <li><a href="./detail/ID_dangerousName.html" target="_blank">避免引用危险符号名称</a></li>
+  <li><a href="./detail/ID_dangerousFunction.html" target="_blank">避免使用危险接口</a></li>
+  <li><a href="./detail/ID_obsoleteFunction.html" target="_blank">避免使用已过时的接口</a></li>
+  <li><a href="./detail/ID_unsafeStringFunction.html" target="_blank">禁用不安全的字符串函数</a></li>
+  <li><a href="./detail/ID_improperNullTermination.html" target="_blank">确保字符串以空字符结尾</a></li>
+  <li><a href="./detail/ID_divideByZero.html" target="_blank">避免除 0 等计算异常</a></li>
+  <li><a href="./detail/ID_variableFormatString.html" target="_blank">格式化字符串应为常量</a></li>
+  <li><a href="./detail/ID_addressExposure.html" target="_blank">与内存空间布局相关的信息不可被外界感知</a></li>
+  <li><a href="./detail/ID_hardcodedIP.html" target="_blank">与网络地址相关的信息不应写入代码</a></li>
+  <li><a href="./detail/ID_deprecatedErrno.html" target="_blank">选择安全的异常处理方式</a></li>
+  <li><a href="./detail/ID_missingHardening.html" target="_blank">启用平台和编译器提供的防御机制</a></li>
+</ol></li>
+<li id="resource" class="chapter">Resource<ol>
+  <li><a href="./detail/ID_resourceLeak.html" target="_blank">不可失去对已分配资源的控制</a></li>
+  <li><a href="./detail/ID_memoryLeak.html" target="_blank">不可失去对已分配内存的控制</a></li>
+  <li><a href="./detail/ID_illAccess.html" target="_blank">不可访问未初始化或已释放的资源</a></li>
+  <li><a href="./detail/ID_ownerlessResource.html" target="_blank">资源应接受对象化管理</a></li>
+  <li><a href="./detail/ID_incompleteNewDeletePair.html" target="_blank">资源的分配与回收方法应成对提供</a></li>
+  <li><a href="./detail/ID_incompatibleDealloc.html" target="_blank">资源的分配与回收方法应配套使用</a></li>
+  <li><a href="./detail/ID_crossModuleTransfer.html" target="_blank">不应在模块之间传递容器类对象</a></li>
+  <li><a href="./detail/ID_ABIConflict.html" target="_blank">不应在模块之间传递非标准布局类型的对象</a></li>
+  <li><a href="./detail/ID_memberDeallocation.html" target="_blank">对象申请的资源应在析构函数中释放</a></li>
+  <li><a href="./detail/ID_useAfterMove.html" target="_blank">对象被移动后应重置状态再使用</a></li>
+  <li><a href="./detail/ID_throwInConstructor.html" target="_blank">构造函数抛出异常需避免相关资源泄漏</a></li>
+  <li><a href="./detail/ID_doubleFree.html" target="_blank">资源不可被重复释放</a></li>
+  <li><a href="./detail/ID_deleteIncompleteType.html" target="_blank">用 delete 释放对象需保证其类型完整</a></li>
+  <li><a href="./detail/ID_excessiveDelete.html" target="_blank">用 delete 释放对象不可多写中括号</a></li>
+  <li><a href="./detail/ID_insufficientDelete.html" target="_blank">用 delete 释放数组不可漏写中括号</a></li>
+  <li><a href="./detail/ID_illDealloc.html" target="_blank">非动态申请的资源不可被释放</a></li>
+  <li><a href="./detail/ID_multiAllocation.html" target="_blank">在一个表达式语句中最多使用一次 new</a></li>
+  <li><a href="./detail/ID_copiedStream.html" target="_blank">流式资源对象不应被复制</a></li>
+  <li><a href="./detail/ID_variableLengthArray.html" target="_blank">避免使用变长数组</a></li>
+  <li><a href="./detail/ID_stackAllocation.html" target="_blank">避免使用在栈上分配内存的函数</a></li>
+  <li><a href="./detail/ID_unsuitableArraySize.html" target="_blank">局部数组不应过大</a></li>
+  <li><a href="./detail/ID_unnecessaryAllocation.html" target="_blank">避免不必要的内存分配</a></li>
+  <li><a href="./detail/ID_dynamicAllocation.html" target="_blank">避免动态内存分配</a></li>
+  <li><a href="./detail/ID_nullDerefAllocRet.html" target="_blank">判断资源分配函数的返回值是否有效</a></li>
+  <li><a href="./detail/ID_forbidMallocAndFree.html" target="_blank">C++ 代码中禁用 C 内存管理函数</a></li>
+</ol></li>
+<li id="precompile" class="chapter">Precompile<ol>
+<li class="section">Include<ol>
+  <li><a href="./detail/ID_illFormedInclude.html" target="_blank">include 指令应符合标准格式</a></li>
+  <li><a href="./detail/ID_nonStandardCharInHeaderName.html" target="_blank">include 指令中禁用不合规的字符</a></li>
+  <li><a href="./detail/ID_forbidBackslashInHeaderName.html" target="_blank">include 指令中不应使用反斜杠</a></li>
+  <li><a href="./detail/ID_forbidAbsPathInHeaderName.html" target="_blank">include 指令中不应使用绝对路径</a></li>
+  <li><a href="./detail/ID_badIncludePosition.html" target="_blank">include 指令应位于文件的起始部分</a></li>
+  <li><a href="./detail/ID_forbiddenHeader.html" target="_blank">禁用不合规的头文件</a></li>
+  <li><a href="./detail/ID_forbidCHeaderInCpp.html" target="_blank">C++ 代码不应引用 C 头文件</a></li>
+</ol></li>
+<li class="section">Macro-definition<ol>
+  <li><a href="./detail/ID_macro_badName.html" target="_blank">宏应遵循合理的命名方式</a></li>
+  <li><a href="./detail/ID_macro_defineReserved.html" target="_blank">不可定义具有保留意义的宏名称</a></li>
+  <li><a href="./detail/ID_macro_undefReserved.html" target="_blank">不可取消定义具有保留意义的宏名称</a></li>
+  <li><a href="./detail/ID_macro_expNotEnclosed.html" target="_blank">可作为子表达式的宏定义应该用括号括起来</a></li>
+  <li><a href="./detail/ID_macro_paramNotEnclosed.html" target="_blank">表达式中的宏参数应该用括号括起来</a></li>
+  <li><a href="./detail/ID_macro_stmtNotEnclosed.html" target="_blank">由多个语句组成的宏定义应该用 do-while(0) 括起来</a></li>
+  <li><a href="./detail/ID_macro_complexConcat.html" target="_blank">宏定义中的 # 和 ## 运算符不应嵌套使用</a></li>
+  <li><a href="./detail/ID_macro_const.html" target="_blank">不应使用宏定义常量</a></li>
+  <li><a href="./detail/ID_macro_typeid.html" target="_blank">不应使用宏定义类型</a></li>
+  <li><a href="./detail/ID_macro_function.html" target="_blank">可由函数实现的功能不应使用宏实现</a></li>
+  <li><a href="./detail/ID_macro_redefined.html" target="_blank">宏不应被重定义</a></li>
+  <li><a href="./detail/ID_macro_inBlock.html" target="_blank">只应在全局作用域中定义宏</a></li>
+  <li><a href="./detail/ID_macro_undef.html" target="_blank">避免宏被取消定义</a></li>
+</ol></li>
+<li class="section">Macro-usage<ol>
+  <li><a href="./detail/ID_macro_sideEffectArgs.html" target="_blank">宏的实参不应有副作用</a></li>
+  <li><a href="./detail/ID_macro_insufficientArgs.html" target="_blank">宏的实参个数不可小于形参个数</a></li>
+  <li><a href="./detail/ID_macro_redundantArgs.html" target="_blank">宏的实参个数不可大于形参个数</a></li>
+  <li><a href="./detail/ID_incompleteVaMacros.html" target="_blank">va_start 或 va_copy 应配合 va_end 使用</a></li>
+  <li><a href="./detail/ID_badVaArgType.html" target="_blank">va_arg 的类型参数应符合要求</a></li>
+  <li><a href="./detail/ID_deprecatedOffsetof.html" target="_blank">在 C++ 代码中不应使用宏 offsetof</a></li>
+</ol></li>
+<li class="section">Directive<ol>
+  <li><a href="./detail/ID_missingHeaderGuard.html" target="_blank">头文件不应缺少守卫</a></li>
+  <li><a href="./detail/ID_illFormedDirective.html" target="_blank">不应出现非标准格式的预编译指令</a></li>
+  <li><a href="./detail/ID_nonStdDirective.html" target="_blank">不应使用非标准预编译指令</a></li>
+  <li><a href="./detail/ID_forbidPragmaDirective.html" target="_blank">避免使用 pragma 指令</a></li>
+  <li><a href="./detail/ID_explicitLineDirective.html" target="_blank">非自动生成的代码中不应出现 line 指令</a></li>
+  <li><a href="./detail/ID_directiveInMacroArgument.html" target="_blank">宏的参数列表中不应出现预编译指令</a></li>
+  <li><a href="./detail/ID_incompleteDirective.html" target="_blank">条件编译代码块应在同一文件中</a></li>
+  <li><a href="./detail/ID_warningDisabled.html" target="_blank">对编译警告的屏蔽应慎重</a></li>
+  <li><a href="./detail/ID_warningDefault.html" target="_blank">在高级别的警告设置下编译</a></li>
+</ol></li>
+<li class="section">Comment<ol>
+  <li><a href="./detail/ID_specialComment.html" target="_blank">关注 TODO、FIXME、XXX、BUG 等特殊注释</a></li>
+  <li><a href="./detail/ID_nestedComment.html" target="_blank">注释不可嵌套</a></li>
+  <li><a href="./detail/ID_badCommentPosition.html" target="_blank">注释应出现在合理的位置</a></li>
+</ol></li>
+<li class="section">Other<ol>
+  <li><a href="./detail/ID_missingNewLineFileEnd.html" target="_blank">非空源文件应以换行符结尾</a></li>
+  <li><a href="./detail/ID_badBackslash.html" target="_blank">除转义字符、宏定义之外不应使用反斜杠</a></li>
+</ol></li>
+</ol></li>
+<li id="global" class="chapter">Global<ol>
+  <li><a href="./detail/ID_nameTooShort.html" target="_blank">全局名称应遵循合理的命名方式</a></li>
+  <li><a href="./detail/ID_missingNamespace.html" target="_blank">为代码设定合理的命名空间</a></li>
+  <li><a href="./detail/ID_nonGlobalMain.html" target="_blank">main 函数只应处于全局作用域中</a></li>
+  <li><a href="./detail/ID_usingNamespaceInHeader.html" target="_blank">头文件中不应使用 using directive</a></li>
+  <li><a href="./detail/ID_staticInHeader.html" target="_blank">头文件中不应使用静态声明</a></li>
+  <li><a href="./detail/ID_anonymousNamespaceInHeader.html" target="_blank">头文件中不应定义匿名命名空间</a></li>
+  <li><a href="./detail/ID_staticInAnonymousNamespace.html" target="_blank">匿名命名空间中不应使用静态声明</a></li>
+  <li><a href="./detail/ID_relyOnExternalObject.html" target="_blank">全局对象的初始化不可依赖未初始化的对象</a></li>
+  <li><a href="./detail/ID_nonConstNonStaticGlobalObject.html" target="_blank">全局对象只应为常量或静态对象</a></li>
+  <li><a href="./detail/ID_nonConstGlobalObject.html" target="_blank">全局对象只应为常量</a></li>
+  <li><a href="./detail/ID_staticAndConst.html" target="_blank">全局对象不应同时被 static 和 const 等关键字限定</a></li>
+  <li><a href="./detail/ID_forbidUsingDirectives.html" target="_blank">全局及命名空间作用域中禁用 using directive</a></li>
+  <li><a href="./detail/ID_usingSelf.html" target="_blank">避免无效的 using directive</a></li>
+  <li><a href="./detail/ID_topInlineNamespace.html" target="_blank">不应定义全局 inline 命名空间</a></li>
+  <li><a href="./detail/ID_stdNamespaceModified.html" target="_blank">不可修改 std 命名空间</a></li>
+</ol></li>
+<li id="type" class="chapter">Type<ol>
+<li class="section">Class<ol>
+  <li><a href="./detail/ID_nonPrivateData.html" target="_blank">类的非常量数据成员均应为 private</a></li>
+  <li><a href="./detail/ID_protectedData.html" target="_blank">类的非常量数据成员不应定义为 protected</a></li>
+  <li><a href="./detail/ID_mixPublicPrivateData.html" target="_blank">类不应既有 public 数据成员又有 private 数据成员</a></li>
+  <li><a href="./detail/ID_missingVirtualDestructor.html" target="_blank">有虚函数的基类应具有虚析构函数</a></li>
+  <li><a href="./detail/ID_diamondInheritance.html" target="_blank">避免多重继承自同一非虚基类</a></li>
+  <li><a href="./detail/ID_missingCopyConstructor.html" target="_blank">存在析构函数或拷贝赋值运算符时，不应缺少拷贝构造函数</a></li>
+  <li><a href="./detail/ID_missingCopyAssignOperator.html" target="_blank">存在拷贝构造函数或析构函数时，不应缺少拷贝赋值运算符</a></li>
+  <li><a href="./detail/ID_missingDestructor.html" target="_blank">存在拷贝构造函数或拷贝赋值运算符时，不应缺少析构函数</a></li>
+  <li><a href="./detail/ID_violateRuleOfFive.html" target="_blank">存在任一拷贝、移动、析构相关的函数时，应定义所有相关函数</a></li>
+  <li><a href="./detail/ID_violateRuleOfZero.html" target="_blank">避免重复实现由默认拷贝、移动、析构函数完成的功能</a></li>
+  <li><a href="./detail/ID_missingExplicitConstructor.html" target="_blank">可接受一个参数的构造函数需用 explicit 关键字限定</a></li>
+  <li><a href="./detail/ID_missingExplicitConvertor.html" target="_blank">重载的类型转换运算符需用 explicit 关键字限定</a></li>
+  <li><a href="./detail/ID_excessiveExplicit.html" target="_blank">不应过度使用 explicit 关键字</a></li>
+  <li><a href="./detail/ID_roughTemplateAssignOperator.html" target="_blank">带模板的赋值运算符不应与拷贝或移动赋值运算符混淆</a></li>
+  <li><a href="./detail/ID_roughTemplateConstructor.html" target="_blank">带模板的构造函数不应与拷贝或移动构造函数混淆</a></li>
+  <li><a href="./detail/ID_unsuitableAssignOperator.html" target="_blank">抽象类禁用拷贝和移动赋值运算符</a></li>
+  <li><a href="./detail/ID_tooManyFields.html" target="_blank">数据成员的数量应在规定范围之内</a></li>
+  <li><a href="./detail/ID_ignorePaddingData.html" target="_blank">数据成员之间的填充数据不应被忽视</a></li>
+  <li><a href="./detail/ID_returnNonConstData.html" target="_blank">常量成员函数不应返回数据成员的非常量指针或引用</a></li>
+  <li><a href="./detail/ID_accessSpecifierDisorder.html" target="_blank">类成员应按 public、protected、private 的顺序声明</a></li>
+  <li><a href="./detail/ID_unsuitableStructTag.html" target="_blank">存在构造、析构或虚函数的类不应采用 struct 关键字</a></li>
+</ol></li>
+<li class="section">Enum<ol>
+  <li><a href="./detail/ID_duplicateEnumerator.html" target="_blank">同类枚举项的值不应相同</a></li>
+  <li><a href="./detail/ID_casualInitialization.html" target="_blank">合理初始化各枚举项</a></li>
+  <li><a href="./detail/ID_forbidUnnamedEnum.html" target="_blank">不应使用匿名枚举声明</a></li>
+  <li><a href="./detail/ID_forbidUnscopedEnum.html" target="_blank">用 enum class 取代 enum</a></li>
+</ol></li>
+<li class="section">Union<ol>
+  <li><a href="./detail/ID_forbidNonBasicField.html" target="_blank">联合体内禁用非基本类型的对象</a></li>
+  <li><a href="./detail/ID_forbidNakedUnion.html" target="_blank">禁用在类之外定义的联合体</a></li>
+  <li><a href="./detail/ID_forbidUnion.html" target="_blank">禁用联合体</a></li>
+</ol></li>
+</ol></li>
+<li id="declaration" class="chapter">Declaration<ol>
+<li class="section">Naming<ol>
+  <li><a href="./detail/ID_badName.html" target="_blank">遵循合理的命名方式</a></li>
+  <li><a href="./detail/ID_reservedName.html" target="_blank">不应定义具有保留意义的名称</a></li>
+  <li><a href="./detail/ID_hideLocal.html" target="_blank">局部名称不应被覆盖</a></li>
+  <li><a href="./detail/ID_hideMember.html" target="_blank">成员名称不应被覆盖</a></li>
+  <li><a href="./detail/ID_hideGlobal.html" target="_blank">全局名称不应被覆盖</a></li>
+  <li><a href="./detail/ID_duplicatedTypeName.html" target="_blank">类型名称不应重复定义</a></li>
+  <li><a href="./detail/ID_duplicatedName.html" target="_blank">类型名称不应与对象或函数名称相同</a></li>
+  <li><a href="./detail/ID_misspelling.html" target="_blank">不应存在拼写错误</a></li>
+</ol></li>
+<li class="section">Qualifier<ol>
+  <li><a href="./detail/ID_qualifierRepeated.html" target="_blank">const、volatile 不应重复</a></li>
+  <li><a href="./detail/ID_qualifierForPtrAlias.html" target="_blank">const、volatile 限定指针类型的别名是可疑的</a></li>
+  <li><a href="./detail/ID_qualifierInvalid.html" target="_blank">const、volatile 不可限定引用</a></li>
+  <li><a href="./detail/ID_badQualifierPosition.html" target="_blank">const、volatile 限定类型时的位置应统一</a></li>
+  <li><a href="./detail/ID_sandwichedModifier.html" target="_blank">const、volatile 等关键字不应出现在基本类型名称的中间</a></li>
+  <li><a href="./detail/ID_constStrToNonConstPtr.html" target="_blank">指向常量字符串的指针应使用 const 声明</a></li>
+  <li><a href="./detail/ID_uselessQualifier.html" target="_blank">枚举类型的底层类型不应为 const 或 volatile</a></li>
+  <li><a href="./detail/ID_constLiteralReference.html" target="_blank">对常量的定义不应为引用</a></li>
+  <li><a href="./detail/ID_forbidRestrictPtr.html" target="_blank">禁用 restrict 指针</a></li>
+  <li><a href="./detail/ID_forbidVolatile.html" target="_blank">非适当场景禁用 volatile</a></li>
+  <li><a href="./detail/ID_nonConstUnmodified.html" target="_blank">相关对象未被修改时应使用 const 声明</a></li>
+</ol></li>
+<li class="section">Specifier<ol>
+  <li><a href="./detail/ID_abusedAuto.html" target="_blank">合理使用 auto 关键字</a></li>
+  <li><a href="./detail/ID_deprecatedSpecifier.html" target="_blank">不应使用已过时的关键字</a></li>
+  <li><a href="./detail/ID_inlineRedundant.html" target="_blank">不应使用多余的 inline 关键字</a></li>
+  <li><a href="./detail/ID_invalidExternSpecifier.html" target="_blank">extern 关键字不应作用于类成员的声明或定义</a></li>
+  <li><a href="./detail/ID_missingExplicitOverride.html" target="_blank">重写的虚函数应声明为 override 或 final</a></li>
+  <li><a href="./detail/ID_redundantOverride.html" target="_blank">override 和 final 关键字不应同时出现在声明中</a></li>
+  <li><a href="./detail/ID_redundantVirtual.html" target="_blank">override 或 final 关键字不应与 virtual 关键字同时出现在声明中</a></li>
+  <li><a href="./detail/ID_invalidFinal.html" target="_blank">不应将 union 设为 final</a></li>
+  <li><a href="./detail/ID_this_notUsed.html" target="_blank">未访问 this 指针的成员函数应使用 static 声明</a></li>
+  <li><a href="./detail/ID_missingStatic.html" target="_blank">声明和定义内部链接的对象和函数时均应使用 static 关键字</a></li>
+  <li><a href="./detail/ID_badSpecifierPosition.html" target="_blank">inline、virtual、static、typedef 等关键字的位置应统一</a></li>
+</ol></li>
+<li class="section">Declarator<ol>
+  <li><a href="./detail/ID_roughAuto.html" target="_blank">用 auto 声明指针或引用时应显式标明 *、&amp; 等符号</a></li>
+  <li><a href="./detail/ID_forbidVariadicFunction.html" target="_blank">禁用可变参数列表</a></li>
+  <li><a href="./detail/ID_forbidFlexibleArray.html" target="_blank">禁用柔性数组</a></li>
+  <li><a href="./detail/ID_forbidFunctionVoidPtr.html" target="_blank">接口的参数类型和返回类型不应为 void*</a></li>
+  <li><a href="./detail/ID_forbidMemberVoidPtr.html" target="_blank">类成员的类型不应为 void*</a></li>
+  <li><a href="./detail/ID_missingArraySize.html" target="_blank">数组大小应被显式声明</a></li>
+  <li><a href="./detail/ID_mixedTypeObjDefinition.html" target="_blank">不应将类型定义和对象声明写在一个语句中</a></li>
+  <li><a href="./detail/ID_mixedDeclarations.html" target="_blank">不应将不同类别的声明写在一个语句中</a></li>
+</ol></li>
+<li class="section">Object<ol>
+  <li><a href="./detail/ID_inaccessibleTmpObject.html" target="_blank">不应产生无效的临时对象</a></li>
+  <li><a href="./detail/ID_invalidLocalDeclaration.html" target="_blank">不应存在没有被用到的局部声明</a></li>
+  <li><a href="./detail/ID_selfDependentInitialization.html" target="_blank">对象初始化不可依赖自身的值</a></li>
+  <li><a href="./detail/ID_plainNumericChar.html" target="_blank">参与数值运算的 char 对象应显式声明 signed 或 unsigned</a></li>
+  <li><a href="./detail/ID_plainBinaryChar.html" target="_blank">字节的类型应为 std::byte 或 unsigned char</a></li>
+</ol></li>
+<li class="section">Parameter<ol>
+  <li><a href="./detail/ID_missingParamName.html" target="_blank">函数原型声明中的参数应具有合理的名称</a></li>
+  <li><a href="./detail/ID_invalidParamArraySize.html" target="_blank">不应将数组作为函数的形式参数</a></li>
+  <li><a href="./detail/ID_badParmN.html" target="_blank">parmN 的声明应符合要求</a></li>
+  <li><a href="./detail/ID_inconsistentDefaultArgument.html" target="_blank">虚函数参数的默认值应与基类中声明的一致</a></li>
+  <li><a href="./detail/ID_deprecatedDefaultArgument.html" target="_blank">不建议虚函数的参数有默认值</a></li>
+  <li><a href="./detail/ID_missingVoid.html" target="_blank">C 代码中参数列表如果为空应声明为“(void)”</a></li>
+  <li><a href="./detail/ID_superfluousVoid.html" target="_blank">C++ 代码中参数列表如果为空不应声明为“(void)”</a></li>
+  <li><a href="./detail/ID_forbidStaticArrSize.html" target="_blank">声明数组参数的大小时禁用 static 关键字</a></li>
+</ol></li>
+<li class="section">Function<ol>
+  <li><a href="./detail/ID_nonVirtualOverride.html" target="_blank">派生类不应重新定义与基类相同的非虚函数</a></li>
+  <li><a href="./detail/ID_illOperatorRetType.html" target="_blank">重载运算符的返回类型应与内置运算符相符</a></li>
+  <li><a href="./detail/ID_nonStdAssignmentRetType.html" target="_blank">赋值运算符应返回所属类的非 const 左值引用</a></li>
+  <li><a href="./detail/ID_illCopyConstructorParam.html" target="_blank">拷贝构造函数的参数应为同类对象的 const 左值引用</a></li>
+  <li><a href="./detail/ID_nonStdCopyAssignmentParam.html" target="_blank">拷贝赋值运算符的参数应为同类对象的 const 左值引用</a></li>
+  <li><a href="./detail/ID_illMoveConstructorParam.html" target="_blank">移动构造函数的参数应为同类对象的非 const 右值引用</a></li>
+  <li><a href="./detail/ID_nonStdMoveAssignmentParam.html" target="_blank">移动赋值运算符的参数应为同类对象的非 const 右值引用</a></li>
+  <li><a href="./detail/ID_overloadAddressOperator.html" target="_blank">不应重载取地址运算符</a></li>
+  <li><a href="./detail/ID_overloadComma.html" target="_blank">不应重载逗号运算符</a></li>
+  <li><a href="./detail/ID_overloadLogicOperator.html" target="_blank">不应重载“逻辑与”和“逻辑或”运算符</a></li>
+  <li><a href="./detail/ID_virtualAssignment.html" target="_blank">拷贝和移动赋值运算符不应为虚函数</a></li>
+  <li><a href="./detail/ID_virtualComparison.html" target="_blank">比较运算符不应为虚函数</a></li>
+  <li><a href="./detail/ID_virtualInFinal.html" target="_blank">final 类中不应声明虚函数</a></li>
+</ol></li>
+<li class="section">Bitfield<ol>
+  <li><a href="./detail/ID_improperBitfieldType.html" target="_blank">对位域声明合理的类型</a></li>
+  <li><a href="./detail/ID_exceededBitfield.html" target="_blank">位域长度不应超过类型长度</a></li>
+  <li><a href="./detail/ID_singleSignedBitfield.html" target="_blank">有符号整型对象的位域长度不应为 1</a></li>
+  <li><a href="./detail/ID_forbidEnumBitfield.html" target="_blank">不应对枚举对象声明位域</a></li>
+  <li><a href="./detail/ID_forbidBitfield.html" target="_blank">禁用位域</a></li>
+</ol></li>
+<li class="section">Complexity<ol>
+  <li><a href="./detail/ID_complexDeclaration.html" target="_blank">不应采用复杂的声明</a></li>
+  <li><a href="./detail/ID_tooManyPtrLevel.html" target="_blank">声明中不应包含过多的指针嵌套</a></li>
+  <li><a href="./detail/ID_tooManyDeclarators.html" target="_blank">在一个语句中不应声明多个对象或函数</a></li>
+</ol></li>
+<li class="section">Other<ol>
+  <li><a href="./detail/ID_violateODR.html" target="_blank">遵循 One Definition Rule</a></li>
+  <li><a href="./detail/ID_inconsistentDeclaration.html" target="_blank">声明与实现应一致</a></li>
+  <li><a href="./detail/ID_unsuitableDeclaration.html" target="_blank">在合理的位置声明</a></li>
+  <li><a href="./detail/ID_labelNotUsed.html" target="_blank">不应存在没有被用到的标签</a></li>
+  <li><a href="./detail/ID_staticNotUsed.html" target="_blank">不应存在没有被用到的静态声明</a></li>
+  <li><a href="./detail/ID_privateNotUsed.html" target="_blank">不应存在没有被用到的 private 成员</a></li>
+  <li><a href="./detail/ID_missingType.html" target="_blank">不应省略声明对象或函数的类型</a></li>
+  <li><a href="./detail/ID_unportableType.html" target="_blank">用 stdint.h 中的类型代替 short、int、long 等类型</a></li>
+  <li><a href="./detail/ID_obsoleteStdFunction.html" target="_blank">避免使用已过时的标准库组件</a></li>
+</ol></li>
+</ol></li>
+<li id="exception" class="chapter">Exception<ol>
+  <li><a href="./detail/ID_exceptionUnsafe.html" target="_blank">保证异常安全</a></li>
+  <li><a href="./detail/ID_uncaughtException.html" target="_blank">处理所有异常</a></li>
+  <li><a href="./detail/ID_throwGenericException.html" target="_blank">不应抛出过于宽泛的异常</a></li>
+  <li><a href="./detail/ID_catch_generic.html" target="_blank">不应捕获过于宽泛的异常</a></li>
+  <li><a href="./detail/ID_throwNonExceptionType.html" target="_blank">不应抛出非异常类型的对象</a></li>
+  <li><a href="./detail/ID_catch_nonExceptionType.html" target="_blank">不应捕获非异常类型的对象</a></li>
+  <li><a href="./detail/ID_throwOutOfMain.html" target="_blank">全局对象的初始化过程不可抛出异常</a></li>
+  <li><a href="./detail/ID_throwInDestructor.html" target="_blank">析构函数不可抛出异常</a></li>
+  <li><a href="./detail/ID_throwInDelete.html" target="_blank">内存回收函数不可抛出异常</a></li>
+  <li><a href="./detail/ID_throwInSwap.html" target="_blank">对象交换过程不可抛出异常</a></li>
+  <li><a href="./detail/ID_throwInMove.html" target="_blank">移动构造函数和移动赋值运算符不可抛出异常</a></li>
+  <li><a href="./detail/ID_throwWhileThrowing.html" target="_blank">异常类的拷贝构造函数不可抛出异常</a></li>
+  <li><a href="./detail/ID_exceptionInException.html" target="_blank">异常类的构造函数和异常信息相关的函数不应抛出异常</a></li>
+  <li><a href="./detail/ID_throwInHash.html" target="_blank">与标准库相关的 hash 过程不应抛出异常</a></li>
+  <li><a href="./detail/ID_throwInNoexcept.html" target="_blank">由 noexcept 标记的函数不可产生未处理的异常</a></li>
+  <li><a href="./detail/ID_diamondExceptionInheritance.html" target="_blank">避免异常类多重继承自同一非虚基类</a></li>
+  <li><a href="./detail/ID_catch_value.html" target="_blank">通过引用捕获异常</a></li>
+  <li><a href="./detail/ID_catch_slicing.html" target="_blank">捕获异常时不应产生对象切片问题</a></li>
+  <li><a href="./detail/ID_catch_justRethrow.html" target="_blank">捕获异常后不应直接再次抛出异常</a></li>
+  <li><a href="./detail/ID_improperRethrow.html" target="_blank">重新抛出异常时应使用空 throw 表达式（throw;）</a></li>
+  <li><a href="./detail/ID_rethrowOutOfCatch.html" target="_blank">不应在 catch 子句外使用空 throw 表达式（throw;）</a></li>
+  <li><a href="./detail/ID_throwPointer.html" target="_blank">不应抛出指针</a></li>
+  <li><a href="./detail/ID_throwNULL.html" target="_blank">不应抛出 NULL</a></li>
+  <li><a href="./detail/ID_throwNullptr.html" target="_blank">不应抛出 nullptr</a></li>
+  <li><a href="./detail/ID_crossModuleException.html" target="_blank">不应在模块之间传播异常</a></li>
+  <li><a href="./detail/ID_forbidThrowSpecification.html" target="_blank">禁用动态异常说明</a></li>
+  <li><a href="./detail/ID_forbidException.html" target="_blank">禁用 C++ 异常</a></li>
+</ol></li>
+<li id="function" class="chapter">Function<ol>
+  <li><a href="./detail/ID_mainReturnsNonInt.html" target="_blank">main 函数的返回类型只应为 int</a></li>
+  <li><a href="./detail/ID_illFormedMain.html" target="_blank">main 函数不应被调用、重载或被 inline、static 等关键字限定</a></li>
+  <li><a href="./detail/ID_definedInHeader.html" target="_blank">在头文件中不应实现函数或定义对象</a></li>
+  <li><a href="./detail/ID_inconsistentParamName.html" target="_blank">函数的参数名称在声明处和实现处应保持一致</a></li>
+  <li><a href="./detail/ID_paramMayBeSlicing.html" target="_blank">多态类的对象作为参数时不应采用值传递的方式</a></li>
+  <li><a href="./detail/ID_paramNotUsed.html" target="_blank">不应存在未被使用的具名形式参数</a></li>
+  <li><a href="./detail/ID_paramPassedByValue.html" target="_blank">非基本类型的常量参数不应按值传递</a></li>
+  <li><a href="./detail/ID_illForwardingReference.html" target="_blank">转发引用只应作为 std::forward 的参数</a></li>
+  <li><a href="./detail/ID_localInitialization.html" target="_blank">局部对象在使用前应被初始化</a></li>
+  <li><a href="./detail/ID_memberInitialization.html" target="_blank">成员须在声明处或构造时初始化</a></li>
+  <li><a href="./detail/ID_illMemberCall.html" target="_blank">基类对象构造完毕之前不可调用成员函数</a></li>
+  <li><a href="./detail/ID_illMemberAccess.html" target="_blank">在面向构造或析构函数体的 catch 子句中不可访问非静态成员</a></li>
+  <li><a href="./detail/ID_disorderedInitialization.html" target="_blank">成员初始化应遵循声明的顺序</a></li>
+  <li><a href="./detail/ID_virtualCallInConstructor.html" target="_blank">在构造函数中不应使用动态类型</a></li>
+  <li><a href="./detail/ID_virtualCallInDestructor.html" target="_blank">在析构函数中不应使用动态类型</a></li>
+  <li><a href="./detail/ID_exitCallInDestructor.html" target="_blank">在析构函数中避免调用 exit 函数</a></li>
+  <li><a href="./detail/ID_sideEffectCopyConstructor.html" target="_blank">拷贝构造函数应避免实现复制之外的功能</a></li>
+  <li><a href="./detail/ID_sideEffectMoveConstructor.html" target="_blank">移动构造函数应避免实现数据移动之外的功能</a></li>
+  <li><a href="./detail/ID_this_selfJudgement.html" target="_blank">拷贝赋值运算符应处理参数是自身对象时的情况</a></li>
+  <li><a href="./detail/ID_invalidWrite.html" target="_blank">不应存在无效的写入操作</a></li>
+  <li><a href="./detail/ID_missingSideEffect.html" target="_blank">不应存在没有副作用的语句</a></li>
+  <li><a href="./detail/ID_unreachableCode.html" target="_blank">不应存在得不到执行机会的代码</a></li>
+  <li><a href="./detail/ID_notAllBranchReturn.html" target="_blank">有返回值的函数其所有分枝都应显式返回</a></li>
+  <li><a href="./detail/ID_localAddressFlowOut.html" target="_blank">不可返回局部对象的地址或引用</a></li>
+  <li><a href="./detail/ID_tmpAddressFlowOut.html" target="_blank">不可返回临时对象的地址或引用</a></li>
+  <li><a href="./detail/ID_unsuitableCapture.html" target="_blank">合理设置 lambda 表达式的捕获方式</a></li>
+  <li><a href="./detail/ID_returnRValueReference.html" target="_blank">函数返回值不应为右值引用</a></li>
+  <li><a href="./detail/ID_returnConstObject.html" target="_blank">函数返回值不应为常量对象</a></li>
+  <li><a href="./detail/ID_returnSuperfluousConst.html" target="_blank">函数返回值不应为基本类型的常量</a></li>
+  <li><a href="./detail/ID_returnOdd.html" target="_blank">被返回的表达式应与函数的返回类型一致</a></li>
+  <li><a href="./detail/ID_returnSameConst.html" target="_blank">被返回的表达式不应为相同的常量</a></li>
+  <li><a href="./detail/ID_unsuitableReturn.html" target="_blank">具有 noreturn 属性的函数不应返回</a></li>
+  <li><a href="./detail/ID_unsuitableReturnType.html" target="_blank">具有 noreturn 属性的函数返回类型只应为 void</a></li>
+  <li><a href="./detail/ID_exitHandlerNoReturn.html" target="_blank">由 atexit、at_quick_exit 指定的处理函数应正常返回</a></li>
+  <li><a href="./detail/ID_functionSpecialization.html" target="_blank">函数模板不应被特化</a></li>
+  <li><a href="./detail/ID_tooManyExit.html" target="_blank">函数的退出点数量应在规定范围之内</a></li>
+  <li><a href="./detail/ID_tooManyLabels.html" target="_blank">函数的标签数量应在规定范围之内</a></li>
+  <li><a href="./detail/ID_tooManyLines.html" target="_blank">函数的行数应在规定范围之内</a></li>
+  <li><a href="./detail/ID_tooManyLambdaLines.html" target="_blank">lambda 表达式的行数应在规定范围之内</a></li>
+  <li><a href="./detail/ID_tooManyParams.html" target="_blank">函数参数的数量应在规定范围之内</a></li>
+  <li><a href="./detail/ID_complexInlineFunction.html" target="_blank">不应定义过于复杂的内联函数</a></li>
+  <li><a href="./detail/ID_recursion.html" target="_blank">避免函数调用自身</a></li>
+  <li><a href="./detail/ID_nestedTooDeep.html" target="_blank">作用域及类型嵌套不应过深</a></li>
+  <li><a href="./detail/ID_mixedAsm.html" target="_blank">汇编代码不应与普通代码混合</a></li>
+  <li><a href="./detail/ID_functionRepetition.html" target="_blank">避免重复的函数实现</a></li>
+</ol></li>
+<li id="control" class="chapter">Control<ol>
+<li class="section">If<ol>
+  <li><a href="./detail/ID_if_semicolon.html" target="_blank">if 语句不应被分号隔断</a></li>
+  <li><a href="./detail/ID_if_identicalCondition.html" target="_blank">在 if...else-if 分枝中不应有重复的条件</a></li>
+  <li><a href="./detail/ID_if_hiddenCondition.html" target="_blank">在 if...else-if 分枝中不应有被遮盖的条件</a></li>
+  <li><a href="./detail/ID_if_identicalBlock.html" target="_blank">if 分枝和 else 分枝的代码不应完全相同</a></li>
+  <li><a href="./detail/ID_if_identicalElseIfBlock.html" target="_blank">if...else-if 各分枝的代码不应完全相同</a></li>
+  <li><a href="./detail/ID_if_identicalImplicitElseBlock.html" target="_blank">if 分枝和隐含的 else 分枝代码不应完全相同</a></li>
+  <li><a href="./detail/ID_if_identicalSucceedingBlock.html" target="_blank">没有 else 子句的 if 语句与其后续代码相同是可疑的</a></li>
+  <li><a href="./detail/ID_if_commonStatements.html" target="_blank">if 分枝和 else 分枝的起止语句不应相同</a></li>
+  <li><a href="./detail/ID_if_scope.html" target="_blank">if 语句作用域的范围不应有误</a></li>
+  <li><a href="./detail/ID_if_mayBeElseIf.html" target="_blank">如果 if 关键字前面是右大括号，if 关键字应另起一行</a></li>
+  <li><a href="./detail/ID_if_assignment.html" target="_blank">if 语句的条件不应为赋值表达式</a></li>
+  <li><a href="./detail/ID_if_emptyBlock.html" target="_blank">if 语句不应为空</a></li>
+  <li><a href="./detail/ID_if_tooManyElseIf.html" target="_blank">if...else-if 分枝数量应在规定范围之内</a></li>
+  <li><a href="./detail/ID_if_brace.html" target="_blank">if 分枝中的语句应该用大括号括起来</a></li>
+  <li><a href="./detail/ID_if_missingEndingElse.html" target="_blank">所有 if...else-if 分枝都应以 else 子句结束</a></li>
+</ol></li>
+<li class="section">For<ol>
+  <li><a href="./detail/ID_for_semicolon.html" target="_blank">for 语句不应被分号隔断</a></li>
+  <li><a href="./detail/ID_for_uncondBroken.html" target="_blank">for 语句中不应存在无条件的跳转语句</a></li>
+  <li><a href="./detail/ID_for_scope.html" target="_blank">for 语句作用域的范围不应有误</a></li>
+  <li><a href="./detail/ID_for_simplification.html" target="_blank">for 语句没有明确的循环变量时应改用 while 语句</a></li>
+  <li><a href="./detail/ID_for_emptyBlock.html" target="_blank">for 循环体不应为空</a></li>
+  <li><a href="./detail/ID_for_floatCounter.html" target="_blank">for 循环变量不应为浮点型</a></li>
+  <li><a href="./detail/ID_for_counterChangedInBody.html" target="_blank">for 循环变量不应在循环体内被改变</a></li>
+  <li><a href="./detail/ID_for_counterNested.html" target="_blank">嵌套的 for 语句不应使用相同的循环变量</a></li>
+  <li><a href="./detail/ID_for_brace.html" target="_blank">for 循环体应该用大括号括起来</a></li>
+</ol></li>
+<li class="section">While<ol>
+  <li><a href="./detail/ID_while_semicolon.html" target="_blank">while 语句不应被分号隔断</a></li>
+  <li><a href="./detail/ID_while_uncondBroken.html" target="_blank">while 语句中不应存在无条件的跳转语句</a></li>
+  <li><a href="./detail/ID_while_assignment.html" target="_blank">while 语句的条件不应为赋值表达式</a></li>
+  <li><a href="./detail/ID_while_scope.html" target="_blank">while 语句作用域的范围不应有误</a></li>
+  <li><a href="./detail/ID_while_emptyBlock.html" target="_blank">while 循环体不应为空</a></li>
+  <li><a href="./detail/ID_while_brace.html" target="_blank">while 循环体应该用大括号括起来</a></li>
+</ol></li>
+<li class="section">Do<ol>
+  <li><a href="./detail/ID_do_suspiciousContinue.html" target="_blank">注意 do-while(0) 中可疑的 continue 语句</a></li>
+  <li><a href="./detail/ID_do_emptyBlock.html" target="_blank">do-while 循环体不应为空</a></li>
+  <li><a href="./detail/ID_do_brace.html" target="_blank">do-while 循环体应该用大括号括起来</a></li>
+  <li><a href="./detail/ID_do_deprecated.html" target="_blank">不建议使用 do 语句</a></li>
+</ol></li>
+<li class="section">Switch<ol>
+  <li><a href="./detail/ID_switch_semicolon.html" target="_blank">switch 语句不应被分号隔断</a></li>
+  <li><a href="./detail/ID_switch_emptyBlock.html" target="_blank">switch 语句不应为空</a></li>
+  <li><a href="./detail/ID_switch_caseOutOfRange.html" target="_blank">case 标签的值不可超出 switch 条件的范围</a></li>
+  <li><a href="./detail/ID_switch_invalidStatement.html" target="_blank">switch 语句中任何子句都应从属于某个 case 或 default 分枝</a></li>
+  <li><a href="./detail/ID_switch_badFormedCase.html" target="_blank">case 和 default 标签应直接从属于 switch 语句</a></li>
+  <li><a href="./detail/ID_switch_uselessFallThrough.html" target="_blank">不应存在紧邻 default 标签的空 case 标签</a></li>
+  <li><a href="./detail/ID_switch_identicalBranch.html" target="_blank">不应存在内容完全相同的 case 分枝</a></li>
+  <li><a href="./detail/ID_switch_bool.html" target="_blank">switch 语句的条件不应为 bool 型</a></li>
+  <li><a href="./detail/ID_switch_onlyDefault.html" target="_blank">switch 语句不应只包含 default 标签</a></li>
+  <li><a href="./detail/ID_switch_onlyOneCase.html" target="_blank">switch 语句不应只包含一个 case 标签</a></li>
+  <li><a href="./detail/ID_switch_tooManyCases.html" target="_blank">switch 语句分枝数量应在规定范围之内</a></li>
+  <li><a href="./detail/ID_switch_missingDefault.html" target="_blank">switch 语句应配有 default 分枝</a></li>
+  <li><a href="./detail/ID_switch_breakOmitted.html" target="_blank">switch 语句的每个非空分枝都应该用无条件的 break 或 return 语句终止</a></li>
+  <li><a href="./detail/ID_switch_brace.html" target="_blank">switch 语句应该用大括号括起来</a></li>
+  <li><a href="./detail/ID_switch_forbidNest.html" target="_blank">switch 语句不应嵌套</a></li>
+</ol></li>
+<li class="section">Try-catch<ol>
+  <li><a href="./detail/ID_try_emptyBlock.html" target="_blank">try 关键字的作用域不应为空</a></li>
+  <li><a href="./detail/ID_catch_emptyBlock.html" target="_blank">catch 子句不应为空</a></li>
+  <li><a href="./detail/ID_try_forbidNest.html" target="_blank">不应嵌套 try-catch 语句</a></li>
+  <li><a href="./detail/ID_try_disorderedEllipsis.html" target="_blank">捕获所有异常的 catch(...) 子句应位于最后</a></li>
+  <li><a href="./detail/ID_try_disorderedHandlers.html" target="_blank">面向派生类的 catch 子句应排在面向基类的 catch 子句之前</a></li>
+</ol></li>
+<li class="section">Jump<ol>
+  <li><a href="./detail/ID_forbidGotoBlocks.html" target="_blank">禁止 goto 语句向嵌套的或无包含关系的作用域跳转</a></li>
+  <li><a href="./detail/ID_forbidGotoBack.html" target="_blank">禁止 goto 语句向前跳转</a></li>
+  <li><a href="./detail/ID_forbidGoto.html" target="_blank">禁用 goto 语句</a></li>
+  <li><a href="./detail/ID_forbidLongjmp.html" target="_blank">禁用 setjmp、longjmp</a></li>
+  <li><a href="./detail/ID_uncondJump.html" target="_blank">不应存在不受条件控制的跳转语句</a></li>
+  <li><a href="./detail/ID_redundantJump.html" target="_blank">不应存在不改变程序流程的跳转语句</a></li>
+  <li><a href="./detail/ID_jumpOutLoop.html" target="_blank">避免使用跳转语句退出循环</a></li>
+</ol></li>
+</ol></li>
+<li id="expression" class="chapter">Expression<ol>
+<li class="section">Logic<ol>
+  <li><a href="./detail/ID_illIdentical.html" target="_blank">不应存在无意义的重复子表达式</a></li>
+  <li><a href="./detail/ID_conflictCondition.html" target="_blank">逻辑子表达式之间不应存在矛盾</a></li>
+  <li><a href="./detail/ID_invalidCondition.html" target="_blank">作为条件的逻辑表达式不应恒为真或恒为假</a></li>
+  <li><a href="./detail/ID_redundantCondition.html" target="_blank">不应存在多余的逻辑子表达式</a></li>
+  <li><a href="./detail/ID_constLogicExpression.html" target="_blank">逻辑表达式及逻辑子表达式不应为常量</a></li>
+  <li><a href="./detail/ID_shortCircuitSideEffect.html" target="_blank">逻辑表达式的右子表达式不应有副作用</a></li>
+  <li><a href="./detail/ID_simplifiableCondition.html" target="_blank">化简可被合并的逻辑子表达式</a></li>
+  <li><a href="./detail/ID_simplifiableTernary.html" target="_blank">化简可转换为逻辑表达式的三元表达式</a></li>
+</ol></li>
+<li class="section">Evaluation<ol>
+  <li><a href="./detail/ID_unevaluatedSideEffect.html" target="_blank">不可依赖不会生效的副作用</a></li>
+  <li><a href="./detail/ID_evaluationOrderReliance.html" target="_blank">避免依赖特定的子表达式求值顺序</a></li>
+  <li><a href="./detail/ID_confusingAssignment.html" target="_blank">在表达式中不应多次读写同一对象</a></li>
+  <li><a href="./detail/ID_unexpectedPrecedence.html" target="_blank">注意运算符优先级，避免非预期的结果</a></li>
+  <li><a href="./detail/ID_illPtrDiff.html" target="_blank">不在同一数组或对象中的地址不可相减或比较大小</a></li>
+  <li><a href="./detail/ID_illBoolOperation.html" target="_blank">bool 值不应参与位运算、大小比较、数值增减</a></li>
+  <li><a href="./detail/ID_illFormedCompoundAssignment.html" target="_blank">不应出现复合赋值的错误形式</a></li>
+  <li><a href="./detail/ID_suspiciousCompoundAssignment.html" target="_blank">避免出现复合赋值的可疑形式</a></li>
+  <li><a href="./detail/ID_illSelfCompoundAssignment.html" target="_blank">&amp;=、|=、-=、/=、%= 左右子表达式不应相同</a></li>
+  <li><a href="./detail/ID_oddNullAssignment.html" target="_blank">不应将 NULL 当作整数使用</a></li>
+  <li><a href="./detail/ID_stickyAssignmentOperator.html" target="_blank">注意赋值运算符与一元运算符的空格方式</a></li>
+  <li><a href="./detail/ID_overlappingAssignment.html" target="_blank">不可将对象的值赋给具有部分重叠区域的对象</a></li>
+  <li><a href="./detail/ID_selfAssignment.html" target="_blank">赋值运算符左右子表达式不应相同</a></li>
+  <li><a href="./detail/ID_selfDivision.html" target="_blank">除法和求余运算符左右子表达式不应相同</a></li>
+  <li><a href="./detail/ID_selfSubtraction.html" target="_blank">减法运算符左右子表达式不应相同</a></li>
+  <li><a href="./detail/ID_selfExclusiveOr.html" target="_blank">异或运算符左右子表达式不应相同</a></li>
+  <li><a href="./detail/ID_minusOnUnsigned.html" target="_blank">负号不应作用于无符号整数</a></li>
+  <li><a href="./detail/ID_repeatedUnaryOperators.html" target="_blank">不应重复使用一元运算符</a></li>
+  <li><a href="./detail/ID_evalOverflow.html" target="_blank">运算结果不应溢出</a></li>
+  <li><a href="./detail/ID_bitwiseOperOnSigned.html" target="_blank">位运算符不应作用于有符号整数</a></li>
+  <li><a href="./detail/ID_illShiftCount.html" target="_blank">移位数量不应超过相关类型比特位的数量</a></li>
+  <li><a href="./detail/ID_suspiciousPromotion.html" target="_blank">按位取反需避免由类型提升产生的多余数据</a></li>
+  <li><a href="./detail/ID_invalidCommaSubExpression.html" target="_blank">逗号表达式的子表达式应具有必要的副作用</a></li>
+</ol></li>
+<li class="section">Comparison<ol>
+  <li><a href="./detail/ID_illComparison.html" target="_blank">参与比较的对象之间应具备合理的大小关系</a></li>
+  <li><a href="./detail/ID_illFloatComparison.html" target="_blank">不应使用 == 或 != 判断浮点数是否相等</a></li>
+  <li><a href="./detail/ID_illPtrStrComparison.html" target="_blank">指针不应与字符串常量直接比较</a></li>
+  <li><a href="./detail/ID_differentEnumComparison.html" target="_blank">不应比较非同类枚举值</a></li>
+  <li><a href="./detail/ID_selfComparison.html" target="_blank">比较运算符左右子表达式不应相同</a></li>
+  <li><a href="./detail/ID_successiveComparison.html" target="_blank">比较运算不可作为另一个比较运算的直接子表达式</a></li>
+</ol></li>
+<li class="section">Call<ol>
+  <li><a href="./detail/ID_returnValueIgnored.html" target="_blank">不应忽略重要的返回值</a></li>
+  <li><a href="./detail/ID_wrongUseOfReturnValue.html" target="_blank">不可臆断返回值的意义</a></li>
+  <li><a href="./detail/ID_objectSlicing.html" target="_blank">避免对象切片</a></li>
+  <li><a href="./detail/ID_explicitDtorCall.html" target="_blank">避免显式调用析构函数</a></li>
+  <li><a href="./detail/ID_nonPODVariadicArgument.html" target="_blank">不应将非 POD 对象传入可变参数列表</a></li>
+  <li><a href="./detail/ID_inconsistentFormatArgNum.html" target="_blank">C 格式化字符串需要的参数个数与实际传入的参数个数应一致</a></li>
+  <li><a href="./detail/ID_inconsistentFormatArgType.html" target="_blank">C 格式化占位符与其对应参数的类型应一致</a></li>
+  <li><a href="./detail/ID_forbidCStringFormat.html" target="_blank">在 C++ 代码中禁用 C 字符串格式化方法</a></li>
+  <li><a href="./detail/ID_forbidAtox.html" target="_blank">禁用 atof、atoi、atol 以及 atoll 等函数</a></li>
+  <li><a href="./detail/ID_implementationDefinedFunction.html" target="_blank">避免使用由实现定义的库函数</a></li>
+  <li><a href="./detail/ID_unsuitableMove.html" target="_blank">合理使用 std::move</a></li>
+  <li><a href="./detail/ID_unsuitableForward.html" target="_blank">合理使用 std::forward</a></li>
+</ol></li>
+<li class="section">Sizeof<ol>
+  <li><a href="./detail/ID_sizeof_arrayParameter.html" target="_blank">sizeof 不应作用于数组参数</a></li>
+  <li><a href="./detail/ID_sizeof_oddExpression.html" target="_blank">sizeof 不应作用于逻辑表达式</a></li>
+  <li><a href="./detail/ID_sizeof_pointer.html" target="_blank">sizeof 作用于指针是可疑的</a></li>
+  <li><a href="./detail/ID_sizeof_pointerDivision.html" target="_blank">被除数不应是作用于指针的 sizeof 表达式</a></li>
+  <li><a href="./detail/ID_sizeof_suspiciousAdd.html" target="_blank">指针加减偏移量时计入 sizeof 是可疑的</a></li>
+  <li><a href="./detail/ID_sizeof_zeroComparison.html" target="_blank">sizeof 表达式的结果不应与 0 或负数比较</a></li>
+  <li><a href="./detail/ID_sizeof_sizeof.html" target="_blank">sizeof 不应再作用于 sizeof 表达式</a></li>
+  <li><a href="./detail/ID_sizeof_NULL.html" target="_blank">C++ 代码中 sizeof 不应作用于 NULL</a></li>
+  <li><a href="./detail/ID_sizeof_void.html" target="_blank">sizeof 不可作用于 void</a></li>
+</ol></li>
+<li class="section">Assertion<ol>
+  <li><a href="./detail/ID_badAssertion.html" target="_blank">断言中的表达式不应恒为真</a></li>
+  <li><a href="./detail/ID_sideEffectAssertion.html" target="_blank">断言中的表达式不应有副作用</a></li>
+  <li><a href="./detail/ID_complexAssertion.html" target="_blank">断言中的表达式不应过于复杂</a></li>
+</ol></li>
+<li class="section">Complexity<ol>
+  <li><a href="./detail/ID_complexExpression.html" target="_blank">表达式不应过于复杂</a></li>
+</ol></li>
+<li class="section">Other<ol>
+  <li><a href="./detail/ID_accessPaddingData.html" target="_blank">不应访问填充数据</a></li>
+  <li><a href="./detail/ID_oddNew.html" target="_blank">new 表达式只可用于赋值或当作参数</a></li>
+  <li><a href="./detail/ID_oddSubscripting.html" target="_blank">数组下标应为整型表达式</a></li>
+  <li><a href="./detail/ID_forbidCommaExpression.html" target="_blank">禁用逗号表达式</a></li>
+</ol></li>
+</ol></li>
+<li id="literal" class="chapter">Literal<ol>
+  <li><a href="./detail/ID_literal_suspiciousChar.html" target="_blank">转义字符的反斜杠不可误写成斜杠</a></li>
+  <li><a href="./detail/ID_literal_hardCodeChar.html" target="_blank">在字符常量中用转义字符表示制表符和控制字符</a></li>
+  <li><a href="./detail/ID_literal_hardCodeString.html" target="_blank">在字符串常量中用转义字符表示制表符和控制字符</a></li>
+  <li><a href="./detail/ID_literal_nonStandardEsc.html" target="_blank">不应使用非标准转义字符</a></li>
+  <li><a href="./detail/ID_literal_hybridConcat.html" target="_blank">不应连接不同前缀的字符串常量</a></li>
+  <li><a href="./detail/ID_literal_misspelling.html" target="_blank">字符串常量中不应存在拼写错误</a></li>
+  <li><a href="./detail/ID_literal_confusingSuffix.html" target="_blank">常量后缀由应由大写字母组成</a></li>
+  <li><a href="./detail/ID_literal_forbidOct.html" target="_blank">禁用 8 进制常量</a></li>
+  <li><a href="./detail/ID_literal_nonStandardSuffix.html" target="_blank">不应使用非标准常量后缀</a></li>
+  <li><a href="./detail/ID_literal_oddConcat.html" target="_blank">小心遗漏逗号导致的非预期字符串连接</a></li>
+  <li><a href="./detail/ID_literal_magicNumber.html" target="_blank">不应存在 magic number</a></li>
+  <li><a href="./detail/ID_literal_magicString.html" target="_blank">不应存在 magic string</a></li>
+  <li><a href="./detail/ID_literal_multicharacter.html" target="_blank">不应使用多字符常量</a></li>
+</ol></li>
+<li id="cast" class="chapter">Cast<ol>
+  <li><a href="./detail/ID_narrowCast.html" target="_blank">避免类型转换造成数据丢失</a></li>
+  <li><a href="./detail/ID_invalidPromotion.html" target="_blank">避免数据丢失造成类型转换失效</a></li>
+  <li><a href="./detail/ID_signChangeCast.html" target="_blank">避免有符号整型与无符号整型相互转换</a></li>
+  <li><a href="./detail/ID_voidCast.html" target="_blank">避免与 void* 相互转换</a></li>
+  <li><a href="./detail/ID_downCast.html" target="_blank">避免向下类型转换</a></li>
+  <li><a href="./detail/ID_ptrIntCast.html" target="_blank">指针与整数不应相互转换</a></li>
+  <li><a href="./detail/ID_qualifierCastedAway.html" target="_blank">类型转换不应去掉 const、volatile 等属性</a></li>
+  <li><a href="./detail/ID_castNoInheritance.html" target="_blank">不应转换无继承关系的指针或引用</a></li>
+  <li><a href="./detail/ID_castNonPublicInheritance.html" target="_blank">不应转换无 public 继承关系的指针或引用</a></li>
+  <li><a href="./detail/ID_nonPODBinaryCast.html" target="_blank">非 POD 类的指针与基本类型的指针不应相互转换</a></li>
+  <li><a href="./detail/ID_charWCharCast.html" target="_blank">不同的字符串类型之间不可直接转换</a></li>
+  <li><a href="./detail/ID_stricterAlignedCast.html" target="_blank">避免向对齐要求更严格的指针转换</a></li>
+  <li><a href="./detail/ID_arrayPointerCast.html" target="_blank">避免转换指向数组的指针</a></li>
+  <li><a href="./detail/ID_functionPointerCast.html" target="_blank">避免转换函数指针</a></li>
+  <li><a href="./detail/ID_nonDynamicDownCast.html" target="_blank">向下动态类型转换应使用 dynamic_cast</a></li>
+  <li><a href="./detail/ID_oddNewCast.html" target="_blank">对 new 表达式不应进行类型转换</a></li>
+  <li><a href="./detail/ID_redundantCast.html" target="_blank">不应存在多余的类型转换</a></li>
+  <li><a href="./detail/ID_unsuitableReinterpretCast.html" target="_blank">可用其他方式完成的转换不应使用 reinterpret_cast</a></li>
+  <li><a href="./detail/ID_forbidReinterpretCast.html" target="_blank">合理使用 reinterpret_cast</a></li>
+  <li><a href="./detail/ID_forbidCStyleCast.html" target="_blank">在 C++ 代码中禁用 C 风格类型转换</a></li>
+</ol></li>
+<li id="buffer" class="chapter">Buffer<ol>
+  <li><a href="./detail/ID_bufferOverflow.html" target="_blank">避免缓冲区溢出</a></li>
+  <li><a href="./detail/ID_arrayIndexOverflow.html" target="_blank">数组下标不可越界</a></li>
+  <li><a href="./detail/ID_insufficientBuffer.html" target="_blank">为缓冲区分配足够的空间</a></li>
+  <li><a href="./detail/ID_nonPODFilling.html" target="_blank">memset 等函数不应作用于非 POD 对象</a></li>
+  <li><a href="./detail/ID_badLength.html" target="_blank">memset 等函数长度相关的参数不应有误</a></li>
+  <li><a href="./detail/ID_valueOverflow.html" target="_blank">memset 等函数填充值相关的参数不应有误</a></li>
+</ol></li>
+<li id="pointer" class="chapter">Pointer<ol>
+  <li><a href="./detail/ID_nullDerefInScp.html" target="_blank">避免空指针解引用</a></li>
+  <li><a href="./detail/ID_nullDerefInExp.html" target="_blank">注意逻辑表达式内的空指针解引用</a></li>
+  <li><a href="./detail/ID_wildPtrDeref.html" target="_blank">不可解引用未初始化的指针</a></li>
+  <li><a href="./detail/ID_danglingDeref.html" target="_blank">不可解引用已被释放的指针</a></li>
+  <li><a href="./detail/ID_invalidNullCheck.html" target="_blank">避免无效的空指针检查</a></li>
+  <li><a href="./detail/ID_repeatedNullCheck.html" target="_blank">不应重复检查指针是否为空</a></li>
+  <li><a href="./detail/ID_fixedAddrToPointer.html" target="_blank">不应将非零常量值赋值给指针</a></li>
+  <li><a href="./detail/ID_zeroAsPtrValue.html" target="_blank">不应使用常量 0 表示空指针</a></li>
+  <li><a href="./detail/ID_oddPtrBoolAssignment.html" target="_blank">不应使用 false 对指针赋值</a></li>
+  <li><a href="./detail/ID_oddPtrCharAssignment.html" target="_blank">不应使用 &#x27;\0&#x27; 等字符常量对指针赋值</a></li>
+  <li><a href="./detail/ID_oddPtrBoolComparison.html" target="_blank">指针不应与 false 比较大小</a></li>
+  <li><a href="./detail/ID_oddPtrCharComparison.html" target="_blank">指针不应与 &#x27;\0&#x27; 等字符常量比较大小</a></li>
+  <li><a href="./detail/ID_oddPtrZeroComparison.html" target="_blank">指针与空指针不应比较大小</a></li>
+  <li><a href="./detail/ID_this_zeroComparison.html" target="_blank">不应判断 this 指针是否为空</a></li>
+  <li><a href="./detail/ID_this_deleteInDestructor.html" target="_blank">析构函数中不可使用 delete this</a></li>
+  <li><a href="./detail/ID_this_forbidDeleteThis.html" target="_blank">禁用 delete this</a></li>
+  <li><a href="./detail/ID_nullDerefDynamicCast.html" target="_blank">判断 dynamic_cast 转换是否成功</a></li>
+  <li><a href="./detail/ID_missingResetNull.html" target="_blank">指针在释放后应置空</a></li>
+</ol></li>
+<li id="interruption" class="chapter">Interruption<ol>
+  <li><a href="./detail/ID_sig_dataRaces.html" target="_blank">避免由信号处理产生的数据竞争</a></li>
+  <li><a href="./detail/ID_sig_nonAsyncSafeCall.html" target="_blank">处理信号时避免使用非异步信号安全函数</a></li>
+  <li><a href="./detail/ID_sig_illReturn.html" target="_blank">SIGFPE、SIGILL、SIGSEGV 等信号的处理函数不可返回</a></li>
+  <li><a href="./detail/ID_forbidSignalFunction.html" target="_blank">禁用 signal 函数</a></li>
+</ol></li>
+<li id="concurrency" class="chapter">Concurrency<ol>
+  <li><a href="./detail/ID_dataRaces.html" target="_blank">访问共享数据应遵循合理的同步机制</a></li>
+  <li><a href="./detail/ID_TOCTOU.html" target="_blank">避免在事务中通过路径多次访问同一文件</a></li>
+  <li><a href="./detail/ID_atomicRaces.html" target="_blank">避免在事务中多次非同步地访问原子对象</a></li>
+  <li><a href="./detail/ID_deadlock.html" target="_blank">避免死锁</a></li>
+  <li><a href="./detail/ID_asynchronousTermination.html" target="_blank">避免异步终止线程</a></li>
+  <li><a href="./detail/ID_illLifetime.html" target="_blank">避免异步终止共享对象的生命周期</a></li>
+  <li><a href="./detail/ID_spuriouslyWakeUp.html" target="_blank">避免虚假唤醒造成同步错误</a></li>
+  <li><a href="./detail/ID_bitfieldDataRaces.html" target="_blank">避免并发访问位域造成的数据竞争</a></li>
+  <li><a href="./detail/ID_signalInMultiThreading.html" target="_blank">多线程环境中不可使用 signal 函数</a></li>
+</ol></li>
+<li id="style" class="chapter">Style<ol>
+  <li><a href="./detail/ID_spaceStyle.html" target="_blank">空格应遵循统一风格</a></li>
+  <li><a href="./detail/ID_braceStyle.html" target="_blank">大括号应遵循统一风格</a></li>
+  <li><a href="./detail/ID_assignmentAsSubExpression.html" target="_blank">赋值表达式不应作为子表达式</a></li>
+  <li><a href="./detail/ID_incDecAsSubExpression.html" target="_blank">自增、自减表达式不应作为子表达式</a></li>
+  <li><a href="./detail/ID_nonBoolCondition.html" target="_blank">控制条件应为 bool 型表达式</a></li>
+  <li><a href="./detail/ID_nonBoolSubCondition.html" target="_blank">!、&amp;&amp;、|| 的子表达式应为 bool 型表达式</a></li>
+  <li><a href="./detail/ID_nonPostfixSubCondition.html" target="_blank">&amp;&amp;、|| 的子表达式应为后缀表达式</a></li>
+  <li><a href="./detail/ID_mixNullptrAndNULL.html" target="_blank">在 C++ 代码中 NULL 和 nullptr 不应混用</a></li>
+  <li><a href="./detail/ID_deprecatedNULL.html" target="_blank">在 C++ 代码中用 nullptr 代替 NULL</a></li>
+  <li><a href="./detail/ID_redundantParentheses.html" target="_blank">避免多余的括号</a></li>
+  <li><a href="./detail/ID_redundantSemicolon.html" target="_blank">避免多余的分号</a></li>
+</ol></li>
+
+</ol>
+
+<h2 id="appendix">附录</h2>
+<ul>
+  <li><a href="https://github.com/Qihoo360/safe-rules/blob/main/c-ub-list.md" target="_blank">C 未定义行为成因列表</a></li>
+  <li><a href="https://github.com/Qihoo360/safe-rules/blob/main/cpp-ub-list.md" target="_blank">C++ 未定义行为成因列表与标准导读</a></li>
+</ul>
+
+</div>
+
+</div>
+
+</article>
+
+<footer><a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2023 360 质量工程部, Licensed under the Apache-2.0 license.</a></footer>
+
+</html>

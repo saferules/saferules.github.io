@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>存在拷贝构造函数或拷贝赋值运算符时，不应缺少析构函数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>存在拷贝构造函数或拷贝赋值运算符时，不应缺少析构函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_missingDestructor</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_violateRuleOfFive.html">next</a> › <a class="nav-link" href="./ID_missingCopyAssignOperator.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+三个紧密相关的函数：
+ 1. 拷贝构造函数
+ 2. 拷贝赋值运算符
+ 3. 析构函数
+
+当这三个函数中的任何一个函数被定义时，其他两个函数也需要被定义，详见“<a href="https://en.wikipedia.org/wiki/Rule_of_three_(C%2B%2B_programming)" target="_blank" class="dashed-link">Rule of three</a>”。
+
+示例：
+<div class="code">class A {  //<span class="comment"> Non-compliant, missing destructor</span>
+public:
+    A();
+    A(const A&amp;);
+    A&amp; operator = (const A&amp;);
+};
+</div>
+应明确定义析构函数：
+<div class="code">class A {  //<span class="comment"> Compliant</span>
+public:
+    A();
+    A(const A&amp;);
+    A&amp; operator = (const A&amp;);
+
+   ~A();   //<span class="comment"> Destructor</span>
+};</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_missingCopyConstructor.html" target="_blank" class="related-link">ID_missingCopyConstructor</a>
+<a href="./ID_missingCopyAssignOperator.html" target="_blank" class="related-link">ID_missingCopyAssignOperator</a>
+<a href="./ID_violateRuleOfFive.html" target="_blank" class="related-link">ID_violateRuleOfFive</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.21
+C++ Core Guidelines C.30
+C++ Core Guidelines C.33
+
+</p>
+</article>
+</html>

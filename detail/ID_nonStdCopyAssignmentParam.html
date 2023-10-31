@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>拷贝赋值运算符的参数应为同类对象的 const 左值引用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>拷贝赋值运算符的参数应为同类对象的 const 左值引用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonStdCopyAssignmentParam</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illMoveConstructorParam.html">next</a> › <a class="nav-link" href="./ID_illCopyConstructorParam.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+拷贝赋值运算符应专注于复制参数的数据，且参数不应按值传递，否则会产生不必要的复制开销以及“<a href="https://en.wikipedia.org/wiki/Object_slicing" target="_blank" class="dashed-link">对象切片</a>”等问题。
+
+示例：
+<div class="code">struct A {
+    A&amp; operator = (A);  //<span class="comment"> Non-compliant</span>
+};
+</div>
+应改为：
+<div class="code">struct A {
+    A&amp; operator = (const A&amp;);  //<span class="comment"> Compliant</span>
+};</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_illCopyConstructorParam.html" target="_blank" class="related-link">ID_illCopyConstructorParam</a>
+<a href="./ID_nonConstUnmodified.html" target="_blank" class="related-link">ID_nonConstUnmodified</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 12.8(9)
+ISO/IEC 14882:2011 12.8(17)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.60
+
+</p>
+</article>
+</html>

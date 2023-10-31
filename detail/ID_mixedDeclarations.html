@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应将不同类别的声明写在一个语句中 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应将不同类别的声明写在一个语句中</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_mixedDeclarations</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_inaccessibleTmpObject.html">next</a> › <a class="nav-link" href="./ID_mixedTypeObjDefinition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+将对象、指针、引用、数组、函数等不同类别的声明写入一个语句可读性较差，易引起误解。
+
+本规则是 <a href="./ID_tooManyDeclarators.html" target="_blank" class="dashed-link">ID_tooManyDeclarators</a> 的特化。
+
+示例：
+<div class="code">typedef int* p, n;                //<span class="comment"> Non-compliant</span>
+int* a, b, c[8], d(int), e = 0;   //<span class="comment"> Non-compliant</span></div>
+混在一起的声明易引起误解，例中 p 和 n 是不同的类型，只有 e 被初始化，d 为函数。
+
+应分开声明：
+<div class="code">typedef int* p;   //<span class="comment"> Compliant</span>
+typedef int n;    //<span class="comment"> Compliant</span>
+
+int* a;       //<span class="comment"> Compliant</span>
+int b;        //<span class="comment"> Compliant</span>
+int c[8];     //<span class="comment"> Compliant</span>
+int d(int);   //<span class="comment"> Compliant</span>
+int e = 0;    //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_tooManyDeclarators.html" target="_blank" class="related-link">ID_tooManyDeclarators</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.10
+
+</p>
+</article>
+</html>

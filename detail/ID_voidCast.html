@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免与 void* 相互转换 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免与 void* 相互转换</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_voidCast</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_downCast.html">next</a> › <a class="nav-link" href="./ID_signChangeCast.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+与 void* 相互转换会打破类型限制，是不安全的类型转换。
+
+C 语言的某些传统接口会使用 void*，可不受本规则限制，但在 C++ 代码中应避与 void* 相互转换。
+
+示例：
+<div class="code">struct A { .... };
+
+void foo(void* v) {
+    A* a = (A*)v;     //<span class="comment"> Non-compliant</span>
+    ....
+}</div>
+例中参数 v 可以随意接受非 A 对象的指针，进而导致标准未定义的行为，代码的正确性单方面依赖开发者是不可靠的。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_forbidMemberVoidPtr.html" target="_blank" class="related-link">ID_forbidMemberVoidPtr</a>
+<a href="./ID_forbidFunctionVoidPtr.html" target="_blank" class="related-link">ID_forbidFunctionVoidPtr</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.2.10(7)-unspecified
+ISO/IEC 14882:2011 5.2.10(7)-unspecified
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 11.5
+MISRA C 2012 11.6
+MISRA C++ 2008 5-2-8
+
+</p>
+</article>
+</html>

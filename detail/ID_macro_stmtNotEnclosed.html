@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>由多个语句组成的宏定义应该用 do-while(0) 括起来 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>由多个语句组成的宏定义应该用 do-while(0) 括起来</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_macro_stmtNotEnclosed</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_complexConcat.html">next</a> › <a class="nav-link" href="./ID_macro_paramNotEnclosed.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+可以作为一条语句使用的宏，且宏包含多个并列子句时，应该用“do {”和“} while(0)”括起来，否则易造成作用域的混乱。
+
+示例：
+<div class="code">#define SWAP(a, b)\
+    a ^= b; b ^= a; a ^= b   //<span class="comment"> Non-compliant</span>
+</div>
+如果按如下使用方式：
+<div class="code">if (x &gt; y)
+    SWAP(x, y);
+</div>
+展开后 b ^= a; a ^= b; 不在 if 语句的范围内，应改为：
+<div class="code">#define SWAP(a, b) {\          //<span class="comment"> Compliant</span>
+    a ^= b; b ^= a; a ^= b;\
+}
+</div>
+更进一步地，建议使用 do-while(0) 结构：
+<div class="code">#define SWAP(a, b) do {\       //<span class="comment"> Good</span>
+    a ^= b; b ^= a; a ^= b;\
+} while(0)</div>
+这样在使用宏时必须以分号结尾，否则无法通过编译，使宏在使用风格上与函数相同，易于阅读。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_if_scope.html" target="_blank" class="related-link">ID_if_scope</a>
+<a href="./ID_while_scope.html" target="_blank" class="related-link">ID_while_scope</a>
+<a href="./ID_for_scope.html" target="_blank" class="related-link">ID_for_scope</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.10.3.5(4)
+ISO/IEC 9899:2011 6.10.3.5(4)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-483
+
+</p>
+</article>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>try 关键字的作用域不应为空 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>try 关键字的作用域不应为空</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_try_emptyBlock</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_catch_emptyBlock.html">next</a> › <a class="nav-link" href="./ID_switch_forbidNest.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+try 关键字的作用域，即 try 关键字后的复合语句不应为空，否则无实际意义，往往是残留代码或功能未实现。
+
+示例：
+<div class="code">try   //<span class="comment"> Non-compliant, the compound-statement is empty</span>
+{}
+catch (Exception&amp; e)
+{
+    handle(e);  //<span class="comment"> The whole statement is meaningless</span>
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1071
+
+</p>
+</article>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>头文件中不应使用 using directive - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>头文件中不应使用 using directive</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_usingNamespaceInHeader</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_staticInHeader.html">next</a> › <a class="nav-link" href="./ID_nonGlobalMain.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在头文件的全局作用域中使用 using directive 极易造成命名冲突，且影响范围难以控制。
+
+如果代码涉及多个命名空间，而这些命名空间中又有名称相同且功能相似的代码元素时，将造成难以排查的混乱。对于库的头文件，更应该严禁使用全局的 using directive，否则造成对用户命名空间的干扰。
+
+示例：
+<div class="code">//<span class="comment"> In a header file</span>
+namespace NS {
+    void foo(short);
+}
+
+using namespace NS;   //<span class="comment"> Non-compliant</span>
+using namespace std;  //<span class="comment"> Non-compliant</span>
+</div>
+下例展示的问题是头文件不同的包含顺序竟导致同一函数产生了不同的行为：
+<div class="code">//<span class="comment"> In a.h</span>
+void foo(char);
+
+namespace ns {
+    void foo(int);
+}
+
+inline void bar() {
+    foo(0);
+}
+
+//<span class="comment"> In b.h</span>
+namespace ns {}
+using namespace ns;
+
+//<span class="comment"> In a.cpp</span>
+#include &quot;a.h&quot;
+#include &quot;b.h&quot;
+
+void fun1() {
+    bar();      //<span class="comment"> ‘bar’ calls ‘foo(char)’</span>
+}
+
+//<span class="comment"> In b.cpp</span>
+#include &quot;b.h&quot;
+#include &quot;a.h&quot;
+
+void fun2() {
+    bar();      //<span class="comment"> ‘bar’ calls ‘foo(int)’</span>
+}</div>
+头文件 a.h 和 b.h 以不同的顺序被包含，使 bar 函数调用了不同的 foo 函数，导致这种混乱的正是 b.h 中的 using directive。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_forbidUsingDirectives.html" target="_blank" class="related-link">ID_forbidUsingDirectives</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines SF.7
+MISRA C++ 2008 7-3-6
+
+</p>
+</article>
+</html>

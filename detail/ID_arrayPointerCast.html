@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免转换指向数组的指针 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免转换指向数组的指针</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_arrayPointerCast</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_functionPointerCast.html">next</a> › <a class="nav-link" href="./ID_stricterAlignedCast.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+指针的逻辑大小与类型相关，转换指向数组的指针极易造成元素定位、空间计算等方面的错误。
+
+示例：
+<div class="code">struct A { int x; };
+struct B: A { int y; };
+
+void foo(A* p, int n) {
+    for (int i = 0; i &lt; n; i++) {
+        p[i].x = 1; 
+    }
+}
+
+void bar() {
+    B arr[100];
+    foo(arr, 100);   //<span class="comment"> Non-compliant</span>
+    ....
+}</div>
+例中派生类对象的数组被转换成了基类指针，foo 函数中对数组元素的定位将是错误的。
+
+另外，在回收动态分配的数组时，如果指针的类型与实际元素的类型不一致，会导致标准未定义的行为：
+<div class="code">A* p = new B[100];   //<span class="comment"> Non-compliant</span>
+delete[] p;          //<span class="comment"> Undefined behavior</span>
+</div>
+这是一个危险的问题，本规则针对所有数组相关的隐式和显式类型转换。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.3.5(3)-undefined
+ISO/IEC 14882:2011 5.3.5(3)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.152
+
+</p>
+</article>
+</html>

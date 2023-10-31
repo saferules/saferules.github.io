@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>在表达式中不应多次读写同一对象 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>在表达式中不应多次读写同一对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_confusingAssignment</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unexpectedPrecedence.html">next</a> › <a class="nav-link" href="./ID_evaluationOrderReliance.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在表达式中多次引用并修改同一对象，很可能会因为非预期的求值顺序而产生错误的结果。
+
+关于对象的副作用在求值过程中何时生效这一问题，相关标准既复杂又有大量未声明和未定义的情况，故需注意：
+1. 写入对象的次数不应超过 1 次
+2. 对象不应既被读取又被写入，除非是为了计算对象的新状态并写入对象
+
+注意，对 volatile 对象的读取相当于更新对象的值，也是一种副作用，故：
+1. volatile 对象在表达式中只应出现 1 次
+2. volatile 对象不应既被读取又被写入
+
+本规则是 <a href="./ID_evaluationOrderReliance.html" target="_blank" class="dashed-link">ID_evaluationOrderReliance</a> 的特化。
+
+示例：
+<div class="code">a = a++;        //<span class="comment"> Non-compliant</span>
+a = ++a;        //<span class="comment"> Non-compliant</span>
+
+++b = b;        //<span class="comment"> Non-compliant</span>
+b = a++ + a;    //<span class="comment"> Non-compliant</span>
+
+arr[i] = ++i;   //<span class="comment"> Non-compliant</span>
+p-&gt;fun(p++);    //<span class="comment"> Non-compliant</span>
+
+fun(a, a++);    //<span class="comment"> Non-compliant</span>
+fun(++a, a++);  //<span class="comment"> Non-compliant</span></div>
+例中 ++ 泛指写入操作。
+
+设 a 是值为 0 的整型变量，如下表达式：
+<div class="code">a = a++;        //<span class="comment"> Non-compliant</span></div>
+对变量 a 有两次写入，分别是增 1 和赋值为 0（子表达式 a++ 的值为 0），这两次写入的次序在 C 和 C++17 之前的标准中是未声明的，如果先增 1 再赋 0，a 的值最终为 0，如果先赋 0 再增 1，a 的值最终为 1，这种不确定的结果应当避免，C++17 规定了右子表达式的副作用先于赋值生效，所以在 C++17 之后例中表达式是无效的。
+
+虽然新的标准强化了求值顺序，但这种代码使人费解，很容易造成理解上的偏差，故不应使用。
+
+如果 a 不是 volatile 变量，应改为：
+<div class="code">a++;            //<span class="comment"> Compliant, or</span>
+a += 1;         //<span class="comment"> Compliant, or</span>
+a = a + 1;      //<span class="comment"> Compliant</span>
+</div>
+如果 a 是 volatile 变量，应改为：
+<div class="code">int tmp = a;
+a = tmp + 1;    //<span class="comment"> Compliant</span>
+</div>
+对于逻辑与、逻辑或、三元以及逗号表达式，标准明确规定了子表达式从左至右求值，左子表达式的副作用也会在右子表达式求值前生效，故可不受本规则限制，但其子表达式仍需受本规则限制，进一步可参见“<a href="https://en.wikipedia.org/wiki/Sequence_point" target="_blank" class="dashed-link">序列点（sequence point）</a>”以及“<a href="https://en.cppreference.com/w/cpp/language/eval_order" target="_blank" class="dashed-link">求值顺序</a>”等概念。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_evaluationOrderReliance.html" target="_blank" class="related-link">ID_evaluationOrderReliance</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.5(2)-undefined
+ISO/IEC 9899:1999 Annex C
+ISO/IEC 9899:2011 6.5(2)-undefined
+ISO/IEC 9899:2011 Annex C
+ISO/IEC 14882:2003 5(4)-unspecified
+ISO/IEC 14882:2011 1.9(15)-undefined
+ISO/IEC 14882:2011 5.17(1)
+ISO/IEC 14882:2017 8.18(1)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.43
+MISRA C 2012 13.2
+MISRA C++ 2008 5-0-1
+SEI CERT EXP50-CPP
+
+</p>
+</article>
+</html>

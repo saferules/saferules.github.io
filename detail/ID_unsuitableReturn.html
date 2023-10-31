@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>具有 noreturn 属性的函数不应返回 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>具有 noreturn 属性的函数不应返回</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_unsuitableReturn</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unsuitableReturnType.html">next</a> › <a class="nav-link" href="./ID_returnSameConst.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+具有 noreturn 属性的函数返回会导致标准未定义的行为。
+
+示例：
+<div class="code">[[noreturn]] void foo() {  //<span class="comment"> Use _Noreturn in C</span>
+    if (condition) {
+        abort();
+    }
+}       //<span class="comment"> Non-compliant, the function returns if ‘condition’ is false</span></div>
+noreturn 表示不会返回，编译器可能不会为 foo 函数生成跳转回调用处的指令，一旦 foo 函数返回就会造成严重错误。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_unsuitableReturnType.html" target="_blank" class="related-link">ID_unsuitableReturnType</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:2011 6.7.4(8 12)-undefined
+ISO/IEC 14882:2011 7.6.3(2)-undefined
+
+</p>
+
+
+</article>
+</html>

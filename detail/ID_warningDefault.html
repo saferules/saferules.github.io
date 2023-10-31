@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>在高级别的警告设置下编译 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>在高级别的警告设置下编译</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_warningDefault</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_specialComment.html">next</a> › <a class="nav-link" href="./ID_warningDisabled.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+编译器一般允许设定编译警告的级别，级别越高关注的问题就越多，也可以将警告设为错误，当有警告产生时停止编译，建议代码在高级别的警告设置下编译。
+
+应避免代码中出现 #pragma warning(default:...) 等指令，这种指令将警告级别设为默认，可能与整个项目的设置不一致，如果一定要使用，应改用 #pragma warning(pop) 方式。
+
+示例：
+<div class="code">#pragma warning(disable:4706)
+#include &quot;somecode&quot;
+#pragma warning(default:4706)  //<span class="comment"> Non-compliant</span></div>
+示例代码在导入某些代码之前将代号为 4706 的警告屏蔽，之后又将其设为默认级别，首先要关注 4706 是否应该被屏蔽，还要关注如果将其设为默认是否与整个项目的设置有冲突。
+
+应改为：
+<div class="code">#pragma warning(push)
+#pragma warning(disable:4706)
+#include &quot;somecode&quot;
+#pragma warning(pop)  //<span class="comment"> Compliant</span></div>
+改用这种方式之后不必再关注是否与整个项目的设置有冲突了。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_warningDisabled.html" target="_blank" class="related-link">ID_warningDisabled</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT MSC00-C
+
+</p>
+</article>
+</html>

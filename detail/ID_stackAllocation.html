@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免使用在栈上分配内存的函数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免使用在栈上分配内存的函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_stackAllocation</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unsuitableArraySize.html">next</a> › <a class="nav-link" href="./ID_variableLengthArray.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+alloca、strdupa 等函数可以在栈上动态分配内存，但分配失败时的行为不受程序控制。
+
+示例：
+<div class="code">#include &lt;alloca.h&gt;
+
+void fun(size_t n) {
+    int* p = (int*)alloca(n * sizeof(int));  //<span class="comment"> Non-compliant</span>
+    if (!p) {
+        return;  //<span class="comment"> Invalid</span>
+    }
+    ....
+}</div>
+例中 alloca 函数在失败时往往会使程序崩溃，对其返回值的检查是无效的。这种后果不可控的函数应避免使用，尤其在循环和递归调用过程中更不应使用这种函数。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_variableLengthArray.html" target="_blank" class="related-link">ID_variableLengthArray</a>
+<a href="./ID_invalidNullCheck.html" target="_blank" class="related-link">ID_invalidNullCheck</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-770
+SEI CERT MEM05-C
+
+</p>
+</article>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>面向派生类的 catch 子句应排在面向基类的 catch 子句之前 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>面向派生类的 catch 子句应排在面向基类的 catch 子句之前</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_try_disorderedHandlers</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidGotoBlocks.html">next</a> › <a class="nav-link" href="./ID_try_disorderedEllipsis.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+以派生类对象为参数的 catch 子句应排在以基类对象为参数的 catch 子句之前，否则后面的 catch 子句会失去作用。
+
+示例：
+<div class="code">class B {};
+class D: public B {};
+
+try {
+    ....
+} catch (B&amp;) {
+    ....
+} catch (D&amp;) {  //<span class="comment"> Non-compliant, unreachable</span>
+    ....
+}</div>
+例中 B 为基类，D 为派生类，D 类异常会被第一个 catch 子句捕获，第二个 catch 子句失去了作用。
+
+应改为：
+<div class="code">try {
+    ....
+} catch (D&amp;) {
+    ....
+} catch (B&amp;) {  //<span class="comment"> Compliant</span>
+    ....
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_unreachableCode.html" target="_blank" class="related-link">ID_unreachableCode</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 15.3
+ISO/IEC 14882:2011 15.3
+ISO/IEC 14882:2011 18.3
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-561
+C++ Core Guidelines E.31
+MISRA C++ 2008 15-3-6
+SEI CERT ERR54-CPP
+
+</p>
+</article>
+</html>

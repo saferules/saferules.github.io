@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免异步终止线程 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免异步终止线程</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_asynchronousTermination</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illLifetime.html">next</a> › <a class="nav-link" href="./ID_deadlock.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+资源的使用情况在异步过程中是难以掌控的，异步终止线程往往会导致泄漏或死锁等严重问题。
+
+示例：
+<div class="code">void* foo(void* param) {
+    pthread_setcanceltype(
+        PTHREAD_CANCEL_ASYNCHRONOUS, ....  //<span class="comment"> Non-compliant</span>
+    );
+    ....                                   //<span class="comment"> Allocate or lock</span>
+}
+
+void bar() {
+    pthread_t thd;
+    pthread_create(&amp;thd, NULL, foo, NULL);
+    ....
+    pthread_cancel(thd);   //<span class="comment"> Non-compliant, leak or deadlock</span>
+}</div>
+以 pthread 线程库为例，foo 和 bar 是两个相关的异步过程，foo 通过 PTHREAD_CANCEL_ASYNCHRONOUS 指定其线程可以随时被终止，bar 调用 pthread_cancel 终止 foo 线程，在一个过程中暴力终止另一个过程是非常危险的，会使锁、信号量或动态分配的资源无法释放。
+
+PTHREAD_CANCEL_ASYNCHRONOUS 等选项、TerminateThread 等 Windows API，以及具有相同功能的选项或 API 均不应使用，应使线程主动执行清理并正常结束执行。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_resourceLeak.html" target="_blank" class="related-link">ID_resourceLeak</a>
+<a href="./ID_deadlock.html" target="_blank" class="related-link">ID_deadlock</a>
+<a href="./ID_illLifetime.html" target="_blank" class="related-link">ID_illLifetime</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT POS47-C
+
+</p>
+</article>
+</html>

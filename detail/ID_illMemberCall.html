@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>基类对象构造完毕之前不可调用成员函数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>基类对象构造完毕之前不可调用成员函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illMemberCall</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illMemberAccess.html">next</a> › <a class="nav-link" href="./ID_memberInitialization.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+基类对象未构造完毕时调用成员函数会导致标准未定义的行为。
+
+示例：
+<div class="code">struct A {
+    A(int);
+};
+
+struct B: A {
+    B(): A(member()) {  //<span class="comment"> Non-compliant, undefined behavior</span>
+    }
+
+    int member();
+};</div>
+例中成员函数的返回值作为基类构造函数的参数，而这时基类对象尚未构造，相当于成员函数的调用者没有被初始化，这是一种逻辑错误。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 12.6.2(8)-undefined
+ISO/IEC 14882:2011 12.6.2(13)-undefined
+
+</p>
+
+
+</article>
+</html>

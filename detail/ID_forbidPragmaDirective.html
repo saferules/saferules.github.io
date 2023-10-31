@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免使用 pragma 指令 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免使用 pragma 指令</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidPragmaDirective</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_explicitLineDirective.html">next</a> › <a class="nav-link" href="./ID_nonStdDirective.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+应避免使用由实现定义的 pragma 指令以提高可移植性。
+
+示例：
+<div class="code">#pragma once   //<span class="comment"> Non-compliant, use macro header guards instead</span></div>
+应使用标准方法代替 pragma 指令，如果难以代替，相关 pragma 指令应备以文档说明。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.10.6(1)-implementation
+ISO/IEC 9899:2011 6.10.6(1)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 16-6-1
+
+</p>
+</article>
+</html>

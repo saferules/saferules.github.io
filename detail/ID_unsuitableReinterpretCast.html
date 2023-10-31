@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>可用其他方式完成的转换不应使用 reinterpret_cast - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>可用其他方式完成的转换不应使用 reinterpret_cast</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_unsuitableReinterpretCast</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidReinterpretCast.html">next</a> › <a class="nav-link" href="./ID_redundantCast.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+reinterpret_cast 将地址强行按另一种类型解释，不考虑转换需要的逻辑，可用 static_cast、dynamic_cast 完成的转换不应使用 reinterpret_cast。
+
+示例：
+<div class="code">struct A { int a = 1; };
+struct B { int b = 2; };
+struct C: A, B {};
+
+int main() {
+    C c;
+    cout &lt;&lt; static_cast&lt;B*&gt;(&amp;c)-&gt;b &lt;&lt; &#x27; &#x27;;
+    cout &lt;&lt; reinterpret_cast&lt;B*&gt;(&amp;c)-&gt;b &lt;&lt; &#x27;\n&#x27;;  //<span class="comment"> Non-compliant, what is output?</span>
+}</div>
+输出 2 1，如果想将派生类对象的地址 &amp;c 转为基类指针，应使用 static_cast 进行正确的偏移转换，使用 reinterpret_cast 不会进行偏移转换，得到的成员 b 不是真实的成员 b。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_voidCast.html" target="_blank" class="related-link">ID_voidCast</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.2.10(7)-unspecified
+ISO/IEC 14882:2011 5.2.10(7)-unspecified
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines Type.1
+
+</p>
+</article>
+</html>

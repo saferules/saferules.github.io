@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应存在多余的类型转换 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应存在多余的类型转换</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_redundantCast</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unsuitableReinterpretCast.html">next</a> › <a class="nav-link" href="./ID_oddNewCast.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+多余的类型转换是没有意义的，往往意味着某种错误。
+
+不应出现下列情况：
+ ● 原类型与转换后的类型完全相同
+ ● 非 void 转换的结果没有被读取
+
+示例：
+<div class="code">float foo(int x) {
+    return (int)x;   //<span class="comment"> Non-compliant</span>
+}
+
+float bar(int y) {
+    (float)y;        //<span class="comment"> Non-compliant</span>
+}</div>
+例中参数 x 转换后的类型与转换前完全相同，参数 y 转换后没有被读取，均不符合要求。
+
+应改为：
+<div class="code">float foo(int x) {
+    return (float)x;   //<span class="comment"> Compliant</span>
+}
+
+float bar(int y) {
+    return (float)y;   //<span class="comment"> Compliant</span>
+}
+</div>
+可用 void 转换表示有意放弃读取，但对无返回值的函数不应再使用 void 转换，如：
+<div class="code">char foo();
+void bar();
+
+void baz(int x) {
+    (void)x;        //<span class="comment"> Compliant</span>
+    (void)foo();    //<span class="comment"> Compliant</span>
+    (void)bar();    //<span class="comment"> Non-compliant, ‘(void)’ is redundant</span>
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-704
+
+</p>
+</article>
+</html>

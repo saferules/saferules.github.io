@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免空指针解引用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免空指针解引用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nullDerefInScp</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nullDerefInExp.html">next</a> › <a class="nav-link" href="./ID_valueOverflow.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+通过指针的值访问相应地址中的数据称为“解引用（dereference）”，空指针是没有指向任何数据的指针，空指针解引用是一种逻辑错误，会导致标准未定义的行为。
+
+示例：
+<div class="code">int foo(int i) {
+    int* p = NULL;
+    if (cond) {
+        p = &amp;i;
+    }
+    return *p;    //<span class="comment"> Non-compliant</span>
+}</div>
+例中指针 p 为空的状态可以到达解引用处，往往会引发“<a href="https://en.wikipedia.org/wiki/Segmentation_fault" target="_blank" class="dashed-link">段错误</a>”而导致崩溃。
+
+例外：
+<div class="code">struct T {
+    int foo() { return 0; }
+    static int bar() { return 1; }
+};
+
+T* p = nullptr;
+int b = p-&gt;bar();   //<span class="comment"> Compliant, but bad, use ‘T::bar()’ instead</span>
+int c = p-&gt;foo();   //<span class="comment"> Non-compliant, even if it may not crash</span></div>
+在 C++ 代码中通过指针访问静态成员不算作解引用，可不受本规则约束，但这种风格易引起维护者的疑虑而增加维护成本。
+
+注意，非静态成员函数是对象数据的访问方法，即使非静态成员函数没有实际地访问对象数据，也不应通过空指针调用非静态成员函数，否则仍属于逻辑错误，而且如果调用的是虚函数或虚基类的成员函数也会造成崩溃。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.3.2.1(1)-undefined
+ISO/IEC 9899:1999 6.5.3.2(4)-undefined
+ISO/IEC 9899:2011 6.3.2.1(1)-undefined
+ISO/IEC 9899:2011 6.5.3.2(4)-undefined
+ISO/IEC 14882:2003 8.3.2(4)-undefined
+ISO/IEC 14882:2011 8.3.2(5)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-476
+C++ Core Guidelines ES.65
+
+</p>
+</article>
+</html>

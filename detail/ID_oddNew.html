@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>new 表达式只可用于赋值或当作参数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>new 表达式只可用于赋值或当作参数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_oddNew</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_oddSubscripting.html">next</a> › <a class="nav-link" href="./ID_accessPaddingData.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+new 表达式只应作为“=”的直接右子表达式，或直接作为参数，其他形式均有问题。
+
+本规则对 replacement new 不作要求。
+
+示例：
+<div class="code">int i = *new int(10);         //<span class="comment"> Non-compliant, memory leak</span>
+
+int&amp; j = *new int(10);        //<span class="comment"> Non-compliant</span>
+delete &amp;j;                    //<span class="comment"> Very odd</span>
+
+char* p = new char[10] + 5;   //<span class="comment"> Non-compliant</span>
+delete[] p - 5;               //<span class="comment"> Very odd</span>
+
+if (new int[10]) {            //<span class="comment"> Non-compliant, memory leak</span>
+    ....
+}
+</div>
+这种问题多数是由笔误或错误的宏展开造成的。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_multiAllocation.html" target="_blank" class="related-link">ID_multiAllocation</a>
+
+</p>
+
+
+
+</article>
+</html>

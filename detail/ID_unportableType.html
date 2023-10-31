@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>用 stdint.h 中的类型代替 short、int、long 等类型 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>用 stdint.h 中的类型代替 short、int、long 等类型</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_unportableType</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_obsoleteStdFunction.html">next</a> › <a class="nav-link" href="./ID_missingType.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+short、int、long 等类型的取值范围由执行环境的架构决定，可移植性较差。
+
+示例：
+<div class="code">struct T {
+    long int x;    //<span class="comment"> Non-compliant</span>
+    long long y;   //<span class="comment"> Non-compliant</span>
+    short z;       //<span class="comment"> Non-compliant</span>
+};</div>
+例中成员变量在不同的平台会有不同的取值范围，C99 引入 stdint.h 解决了这一问题。
+
+应改为：
+<div class="code">#include &lt;stdint.h&gt;   //<span class="comment"> Or &lt;cstdint&gt; in C++</span>
+
+struct T {
+    int32_t x;   //<span class="comment"> Compliant</span>
+    int64_t y;   //<span class="comment"> Compliant</span>
+    int16_t z;   //<span class="comment"> Compliant</span>
+};
+</div>
+另外，char、wchar_t 等基本类型均有此问题，在有高可移植性要求的代码中应避免直接使用基本类型。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:2011 6.2.5(5)
+ISO/IEC 9899:2011 7.20
+ISO/IEC 14882:2011 3.9.1(2)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 6.3
+MISRA C 2012 Dir 4.6
+
+</p>
+</article>
+</html>

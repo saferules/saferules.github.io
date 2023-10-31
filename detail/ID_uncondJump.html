@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应存在不受条件控制的跳转语句 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应存在不受条件控制的跳转语句</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_uncondJump</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_redundantJump.html">next</a> › <a class="nav-link" href="./ID_forbidLongjmp.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+不受条件控制的跳转语句会剥夺其后续代码的执行机会，往往意味着逻辑错误，也可能是调试或维护痕迹。
+
+示例：
+<div class="code">void foo() {
+    if (cond) {
+        goto L;   //<span class="comment"> Non-compliant, unconditional goto</span>
+        bar();    //<span class="comment"> Unreachable code    </span>
+    }
+L:
+    ....
+}</div>
+例中 goto 语句相对其同一作用域中的后续代码 bar(); 是不受条件控制的，bar 函数得不到执行机会。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_unreachableCode.html" target="_blank" class="related-link">ID_unreachableCode</a>
+
+</p>
+
+
+
+</article>
+</html>

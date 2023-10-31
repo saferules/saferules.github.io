@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>对常量的定义不应为引用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>对常量的定义不应为引用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_constLiteralReference</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidRestrictPtr.html">next</a> › <a class="nav-link" href="./ID_uselessQualifier.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+虽然 C++ 语言十分灵活，可以通过多种方式达到同一种目的，但应该选择最简洁且通俗易懂的方式实现。
+
+示例：
+<div class="code">const int&amp; i = 1024;   //<span class="comment"> Non-compliant</span>
+const int&amp;&amp; j = 1024;  //<span class="comment"> Non-compliant</span>
+</div>
+应改为：
+<div class="code">const int i = 1024;  //<span class="comment"> Compliant</span>
+const int j = 1024;  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+
+
+</article>
+</html>

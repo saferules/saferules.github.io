@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>嵌套的 for 语句不应使用相同的循环变量 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>嵌套的 for 语句不应使用相同的循环变量</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_for_counterNested</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_for_brace.html">next</a> › <a class="nav-link" href="./ID_for_counterChangedInBody.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+同一个循环变量在内外层 for 循环中均被修改，使循环次数难以控制，是过于复杂的循环逻辑，也可能是某种错误。
+
+示例：
+<div class="code">for (int i = 0; i &lt; 100; i++) {
+    for (; i &lt; 10; i++) {         //<span class="comment"> Non-compliant</span>
+        ....
+    }
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_for_counterChangedInBody.html" target="_blank" class="related-link">ID_for_counterChangedInBody</a>
+
+</p>
+
+
+
+</article>
+</html>

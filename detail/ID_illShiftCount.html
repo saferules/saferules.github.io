@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>移位数量不应超过相关类型比特位的数量 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>移位数量不应超过相关类型比特位的数量</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illShiftCount</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_suspiciousPromotion.html">next</a> › <a class="nav-link" href="./ID_bitwiseOperOnSigned.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果移位数量为负数、大于或等于相关类型比特位的数量，会导致标准未定义的行为。
+
+示例：
+<div class="code">uint32_t foo(uint16_t a) {
+    return a &lt;&lt; 16;         //<span class="comment"> Non-compliant, unportable</span>
+}
+
+uint64_t bar(uint32_t b) {
+    return b &lt;&lt; 32;         //<span class="comment"> Non-compliant, undefined behavior</span>
+}</div>
+例中变量 a 为 16 位整数，是否会被提升为 32 位整型由实现定义，参见“<a href="https://en.cppreference.com/w/c/language/conversion#Integer_promotions" target="_blank" class="dashed-link">类型提升</a>”；变量 b 为 32 位整数，将其左移 32 位并不能得到 64 位整数，反而会导致标准未定义的行为。
+
+应改为：
+<div class="code">uint32_t foo(uint16_t a) {
+    return uint32_t(a) &lt;&lt; 16;   //<span class="comment"> Compliant</span>
+}
+
+uint64_t bar(uint32_t b) {
+    return uint64_t(b) &lt;&lt; 32;   //<span class="comment"> Compliant</span>
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.5.7(3)-undefined
+ISO/IEC 9899:2011 6.5.7(3)-undefined
+ISO/IEC 14882:2003 5.8(1)-undefined
+ISO/IEC 14882:2011 5.8(1)-undefined
+ISO/IEC 14882:2017 8.8(1)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 12.2
+MISRA C++ 2008 5-8-1
+
+</p>
+</article>
+</html>

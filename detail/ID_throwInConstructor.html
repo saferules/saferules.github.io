@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>构造函数抛出异常需避免相关资源泄漏 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>构造函数抛出异常需避免相关资源泄漏</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_throwInConstructor</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_doubleFree.html">next</a> › <a class="nav-link" href="./ID_useAfterMove.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+构造函数抛出异常表示对象构造失败，不会再执行相关析构函数，需要保证已分配的资源被有效回收。
+
+示例：
+<div class="code">class A {
+    int *a, *b;
+
+public:
+    A(size_t n):
+        a(new int[n]),
+        b(new int[n])     //<span class="comment"> The allocations may fail</span>
+    {
+        if (sth_wrong) {
+            throw E();    //<span class="comment"> User exceptions</span>
+        }
+    }
+
+   ~A() {                 //<span class="comment"> May be invalid</span>
+        delete[] a;
+        delete[] b;
+    }
+};</div>
+例中内存分配可能会失败，抛出 bad_alloc 异常，在某种条件下还会抛出自定义的异常，任何一种异常被抛出析构函数就不会被执行，已分配的资源就无法被回收，但已构造完毕的对象还是会正常析构的，所以应采用对象化资源管理方法，使资源可以被自动回收。
+
+可改为：
+<div class="code">A::A(size_t n) {
+    //<span class="comment"> Use objects to hold resources</span>
+    auto holder_a = make_unique&lt;int[]&gt;(n);
+    auto holder_b = make_unique&lt;int[]&gt;(n);
+
+    //<span class="comment"> Do the tasks that may throw exceptions</span>
+    if (sth_wrong) {
+        throw E();
+    }
+
+    //<span class="comment"> Transfer ownership, make sure no exception is thrown</span>
+    a = holder_a.release();
+    b = holder_b.release();
+}</div>
+先用 unique_ptr 对象持有资源，完成可能抛出异常的事务之后，再将资源转移给相关成员，转移的过程不可抛出异常，这种模式可以保证异常安全，如果有异常抛出，资源均可被正常回收。对遵循 C++11 及之后标准的代码，建议用 make_unique 函数代替 new 运算符。
+
+示例代码意在讨论一种通用模式，实际代码可采用更直接的方式：
+<div class="code">class A {
+    vector&lt;int&gt; a, b;  //<span class="comment"> Or use ‘unique_ptr’</span>
+
+public:
+    A(size_t n): a(n), b(n) {  //<span class="comment"> Safe and brief</span>
+        ....
+    }
+};</div>
+保证已分配的资源时刻有对象负责回收是重要的设计原则，可参见 <a href="./ID_ownerlessResource.html" target="_blank" class="dashed-link">ID_ownerlessResource</a> 的进一步讨论。
+
+注意，“未成功初始化的对象”在 C++ 语言中是不存在的，应避免相关逻辑错误，如：
+<div class="code">struct T {
+    A() { throw CtorException(); }
+};
+
+void foo() {
+    T* p = nullptr;
+    try {
+        p = new T;
+    }
+    catch (CtorException&amp;) {
+        delete p;              //<span class="comment"> Logic error, ‘p’ is nullptr</span>
+        return;
+    }
+    ....
+    delete p;
+}</div>
+例中 T 类型的对象在构造时抛出异常，而实际上 p 并不会指向一个未能成功初始化的对象，赋值被异常中断，catch  中的 p 仍然是一个空指针，new 表达式中抛出异常会自动回收已分配的内存。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_ownerlessResource.html" target="_blank" class="related-link">ID_ownerlessResource</a>
+<a href="./ID_multiAllocation.html" target="_blank" class="related-link">ID_multiAllocation</a>
+<a href="./ID_memoryLeak.html" target="_blank" class="related-link">ID_memoryLeak</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.3.4(17)
+ISO/IEC 14882:2011 5.3.4(18)
+ISO/IEC 14882:2017 8.3.4(21)
+
+</p>
+
+
+</article>
+</html>

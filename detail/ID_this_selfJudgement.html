@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>拷贝赋值运算符应处理参数是自身对象时的情况 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>拷贝赋值运算符应处理参数是自身对象时的情况</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_this_selfJudgement</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_invalidWrite.html">next</a> › <a class="nav-link" href="./ID_sideEffectMoveConstructor.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果拷贝赋值运算符的参数是自身对象，需防止资源分配和回收方面的冲突。
+
+示例：
+<div class="code">class A { .... };
+
+void foo(A* p, A* q) {
+    *p = *q;             //<span class="comment"> If ‘p’ and ‘q’ point to the same object ...</span>
+}</div>
+设例中 A 是需要深拷贝的类，其赋值运算符往往需要先释放自身的资源，再复制参数的资源，如果参数就是自身，则需要避免资源被释放，可在赋值运算符中判断 this 与参数地址是否相同：
+<div class="code">A&amp; A::operator = (const A&amp; rhs) {
+    if (this != &amp;rhs) {             //<span class="comment"> Required</span>
+        ....
+    }
+    return *this;
+}
+</div>
+如果 A 的拷贝构造函数和交换方法齐备，也可按“复制 - 交换”模式实现：
+<div class="code">A&amp; A::operator = (const A&amp; rhs) {
+    A tmp(rhs);
+    this-&gt;swap(tmp);                //<span class="comment"> Good</span>
+    return *this;
+}</div>
+利用创建临时对象并与之交换的方法，也有效规避了冲突，这种方法使各函数更专注于自己的职责，不必重复编写分配和回收相关的代码，建议采用这种方法。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.62
+
+</p>
+</article>
+</html>

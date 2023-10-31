@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>指针不应与 false 比较大小 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>指针不应与 false 比较大小</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_oddPtrBoolComparison</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_oddPtrCharComparison.html">next</a> › <a class="nav-link" href="./ID_oddPtrCharAssignment.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+指针与 false 比较大小是非常怪异的，往往是某种笔误。
+
+本规则是 <a href="./ID_zeroAsPtrValue.html" target="_blank" class="dashed-link">ID_zeroAsPtrValue</a> 的特化。
+
+示例（设 p 为指针）：
+<div class="code">p == false  //<span class="comment"> Non-compliant</span>
+p != false  //<span class="comment"> Non-compliant</span>
+</div>
+如果判断指针是否为空，只应将指针与 NULL 或 nullptr 比较，其他常量均不符合要求。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_zeroAsPtrValue.html" target="_blank" class="related-link">ID_zeroAsPtrValue</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1025
+
+</p>
+</article>
+</html>

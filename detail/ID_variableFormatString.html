@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>格式化字符串应为常量 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>格式化字符串应为常量</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_variableFormatString</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-security1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_addressExposure.html">next</a> › <a class="nav-link" href="./ID_divideByZero.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+出于可读性和安全性的考量，格式化字符串最好直接写成常量字符串的形式。
+
+本规则是 <a href="./ID_hijack.html" target="_blank" class="dashed-link">ID_hijack</a> 的特化。
+
+示例：
+<div class="code">int a, b, c;
+const char* fmt = foo();
+....
+printf(fmt, a, b, c);  //<span class="comment"> Non-compliant</span></div>
+例中格式化字符串 fmt 是变量，这种方式可读性较差，而且要注意如果 fmt 可受外界影响，则可能被攻击者利用造成不良后果。
+
+应将 fmt 改为常量：
+<div class="code">printf(&quot;%d %d %d&quot;, a, b, c);  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_hijack.html" target="_blank" class="related-link">ID_hijack</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-134
+
+</p>
+</article>
+</html>

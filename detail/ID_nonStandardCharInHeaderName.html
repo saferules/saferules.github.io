@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>include 指令中禁用不合规的字符 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>include 指令中禁用不合规的字符</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonStandardCharInHeaderName</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidBackslashInHeaderName.html">next</a> › <a class="nav-link" href="./ID_illFormedInclude.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+字母、数字、下划线、点号之外的字符可能与文件系统存在冲突，也可能导致标准未定义的行为，不应出现在头文件和相关目录名称中。
+
+示例：
+<div class="code">#include &lt;&quot;foo&quot;&gt;        //<span class="comment"> Non-compliant</span>
+#include &lt;foo*&gt;         //<span class="comment"> Non-compliant</span>
+#include &lt;foo&#x27;bar&gt;      // Non-compliant
+
+#include &lt;foo&gt;          //<span class="comment"> Compliant</span>
+#include &lt;foo.h&gt;        //<span class="comment"> Compliant</span>
+#include &lt;foo_bar&gt;      //<span class="comment"> Compliant</span>
+</div>
+可以用 / 作为路径分隔符，但不应出现  // 或 /*，  如：
+<div class="code">#include &lt;foo//bar.h&gt;   //<span class="comment"> Non-Compliant, undefined behavior</span>
+#include &lt;foo/*bar.h&gt;   //<span class="comment"> Non-Compliant, undefined behavior</span>
+</div>
+另外，某些平台的文件路径不区分大小写，建议在头文件名称中只使用小写字母以提高可移植性。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.4.7(3)-undefined
+ISO/IEC 9899:2011 6.4.7(3)-undefined
+ISO/IEC 14882:2003 2.8(2)-undefined
+ISO/IEC 14882:2011 2.9(2)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 19.2
+MISRA C 2012 20.2
+MISRA C++ 2008 16-2-4
+
+</p>
+</article>
+</html>

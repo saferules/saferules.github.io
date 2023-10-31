@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>函数参数的数量应在规定范围之内 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>函数参数的数量应在规定范围之内</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_tooManyParams</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_complexInlineFunction.html">next</a> › <a class="nav-link" href="./ID_tooManyLambdaLines.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+函数参数过多，意味着：
+ ● 缺少合理的抽象机制：应将多而零散的参数按其内在联系封装成对象，从而方便地处理其逻辑关系，而不是简单地线性罗列
+ ● 违反单一职责原则：参数越多，函数处理的事务自然越多，代码的可维护性自然越差
+
+建议可供外部使用的全局函数、public 或 protected 成员函数的参数不超过 4 个，内部使用的 static 函数、private 成员函数的参数不超过 8 个。
+
+示例：
+<div class="code">void foo(A a, B b, C c, D d, E e) {   //<span class="comment"> Bad</span>
+    ....
+}</div>
+当函数参数过多时，应按参数的逻辑职责进行封装。假设 a 和 b 有直接逻辑关系，c、d、e 有直接逻辑关系，不妨将 a 和 b 封装成一个类，c、d、e 封装成一个类，在类的成员函数中实现相关功能，可更为清晰直观地保证逻辑关系的正确性：
+<div class="code">class X {
+    ....    //<span class="comment"> Members and methods for ‘a’, ‘b’ ...</span>
+};
+
+class Y {
+    ....    //<span class="comment"> Members and methods for ‘c’, ‘d’, ‘e’ ... </span>
+};
+
+void foo(X x, Y y) {   //<span class="comment"> Good</span>
+    x.methods();
+    y.methods();
+}</div>
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">maxParamCount: 函数参数数量上限，超过则报出
+maxInnerFunParamCount: static 函数或 private 成员函数参数数量上限，超过则报出
+</p>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines F.2
+C++ Core Guidelines I.23
+
+</p>
+</article>
+</html>

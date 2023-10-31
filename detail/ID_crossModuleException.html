@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应在模块之间传播异常 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应在模块之间传播异常</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_crossModuleException</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidThrowSpecification.html">next</a> › <a class="nav-link" href="./ID_throwNullptr.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+异常的传播机制依赖编译器的具体实现，在不同编译器产生的模块间传播异常会造成运行时错误。
+
+除非模块均由同一编译器的同一版本生成，否则模块供外部使用的接口不应抛出异常。
+
+示例：
+<div class="code">//<span class="comment"> a.dll</span>
+void foo() {
+    throw Exception();   //<span class="comment"> Non-compliant</span>
+}
+
+//<span class="comment"> b.exe</span>
+int main() try {
+    foo();
+} catch (Exception&amp;) {   //<span class="comment"> May not catch</span>
+    ....
+}</div>
+设例中 a.dll 和 b.exe 由不同的编译器生成，异常的抛出机制和捕获机制可能并不匹配，进而导致冲突。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_ABIConflict.html" target="_blank" class="related-link">ID_ABIConflict</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT ERR59-CPP
+
+</p>
+</article>
+</html>

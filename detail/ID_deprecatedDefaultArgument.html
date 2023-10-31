@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不建议虚函数的参数有默认值 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不建议虚函数的参数有默认值</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_deprecatedDefaultArgument</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_missingVoid.html">next</a> › <a class="nav-link" href="./ID_inconsistentDefaultArgument.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+虚函数参数的默认值不受多态规则控制，通过基类指针或引用调用派生类重写的虚函数时，默认值仍采用基类中的定义，易造成混淆，故不建议虚函数的参数有默认值。
+
+示例：
+<div class="code">class A {
+public:
+    virtual int foo(int i = 0);   //<span class="comment"> Bad</span>
+};
+</div>
+应尽量去掉默认参数值，或改用重载函数的方式：
+<div class="code">class A {
+public:
+    virtual int foo();        //<span class="comment"> OK</span>
+    virtual int foo(int i);   //<span class="comment"> OK</span>
+};</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_inconsistentDefaultArgument.html" target="_blank" class="related-link">ID_inconsistentDefaultArgument</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 8.3.6(10)
+ISO/IEC 14882:2011 8.3.6(10)
+ISO/IEC 14882:2017 11.3.6(10)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-628
+C++ Core Guidelines C.140
+MISRA C++ 2008 8-3-1
+
+</p>
+</article>
+</html>

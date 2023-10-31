@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不可返回局部对象的地址或引用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不可返回局部对象的地址或引用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_localAddressFlowOut</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_tmpAddressFlowOut.html">next</a> › <a class="nav-link" href="./ID_notAllBranchReturn.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+局部对象的生命周期结束后，其地址或引用也会失效，如果继续访问会导致标准未定义的行为。
+
+示例：
+<div class="code">int* foo() {
+    int i = 0;    //<span class="comment"> Local object</span>
+    ....
+    return &amp;i;    //<span class="comment"> Non-compliant</span>
+}
+
+int&amp; bar() {
+    int i = 0;    //<span class="comment"> Local object</span>
+    ....
+    return i;     //<span class="comment"> Non-compliant</span>
+}
+
+int&amp;&amp; baz() {
+    int i = 0;    //<span class="comment"> Local object</span>
+    ....
+    return std::move(i);    //<span class="comment"> Non-compliant</span>
+}</div>
+局部对象的生命周期在函数返回后结束，返回与局部对象相关的指针或引用是不符合要求的。
+
+注意，除了 return 语句，throw、赋值等表达式也受本规则限制，禁止将内层作用域中的地址向外层作用域传递，如：
+<div class="code">char* global;
+
+void fun() {
+    char local[] = &quot;....&quot;;
+    global = local;          //<span class="comment"> Non-compliant</span>
+}</div>
+例中 local 是局部数组，函数返回后，全局指针会指向无效的内存区域。
+
+另外，将对象地址传入异步过程时也需要注意对象的生命周期，参见 <a href="./ID_illLifetime.html" target="_blank" class="dashed-link">ID_illLifetime</a>。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_tmpAddressFlowOut.html" target="_blank" class="related-link">ID_tmpAddressFlowOut</a>
+<a href="./ID_danglingDeref.html" target="_blank" class="related-link">ID_danglingDeref</a>
+<a href="./ID_illLifetime.html" target="_blank" class="related-link">ID_illLifetime</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.2.4(2)-undefined
+ISO/IEC 9899:2011 6.2.4(2)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-562
+C++ Core Guidelines F.43
+MISRA C 2012 18.6
+MISRA C++ 2008 7-5-1
+MISRA C++ 2008 7-5-2
+
+</p>
+</article>
+</html>

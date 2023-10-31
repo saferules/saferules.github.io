@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>可作为子表达式的宏定义应该用括号括起来 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>可作为子表达式的宏定义应该用括号括起来</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_macro_expNotEnclosed</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_paramNotEnclosed.html">next</a> › <a class="nav-link" href="./ID_macro_undefReserved.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+由于宏只做文本处理，不考虑运算符优先级等问题，可作为子表达式的宏定义应该用括号括起来，否则易产生意料之外的错误。
+
+示例：
+<div class="code">#define ABS(x) (x) &lt; 0? -(x): (x)  //<span class="comment"> Non-compliant</span>
+</div>
+设 a 为变量，如果按如下使用方式：
+<div class="code">a = ABS(a) + 1;
+</div>
+则相当于：
+<div class="code">a = (a) &lt; 0? -(a): (a) + 1;</div>
+这显然会造成意料之外的结果，所以 ABS 的定义应改为：
+<div class="code">#define ABS(x) ((x) &lt; 0? -(x): (x))  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.10.3.5(4)
+ISO/IEC 9899:2011 6.10.3.5(4)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-783
+MISRA C 2004 19.10
+MISRA C 2012 20.7
+
+</p>
+</article>
+</html>

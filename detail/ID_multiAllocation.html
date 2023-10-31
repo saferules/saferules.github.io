@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>在一个表达式语句中最多使用一次 new - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>在一个表达式语句中最多使用一次 new</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_multiAllocation</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_copiedStream.html">next</a> › <a class="nav-link" href="./ID_illDealloc.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果表达式语句多次使用 new，一旦某个构造函数抛出异常就会造成内存泄漏。
+
+示例：
+<div class="code">fun(
+    shared_ptr&lt;T&gt;(new T),
+    shared_ptr&lt;T&gt;(new T)   //<span class="comment"> Non-compliant, potential memory leak</span>
+);</div>
+例中 fun 的两个参数均为 new 表达式，实际执行时可以先为两个对象分配内存，再分别执行对象的构造函数，如果某个构造函数抛出异常，已分配的内存就得不到回收了。
+
+保证一次内存分配对应一个构造函数可解决这种问题：
+<div class="code">auto a(shared_ptr&lt;T&gt;(new T));   //<span class="comment"> Compliant</span>
+auto b(shared_ptr&lt;T&gt;(new T));   //<span class="comment"> Compliant</span>
+fun(a, b);</div>
+这样即使构造函数抛出异常也会自动回收已分配的内存。
+
+更好的方法是避免显式资源分配：
+<div class="code">fun(
+    make_shared&lt;T&gt;(),
+    make_shared&lt;T&gt;()    //<span class="comment"> Compliant, safe and brief</span>
+);</div>
+用 make_shared、make_unique 等函数代替 new 运算符可有效规避这种问题。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_memoryLeak.html" target="_blank" class="related-link">ID_memoryLeak</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines R.13
+
+</p>
+</article>
+</html>

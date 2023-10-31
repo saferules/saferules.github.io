@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>switch 语句不应只包含 default 标签 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>switch 语句不应只包含 default 标签</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_switch_onlyDefault</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_switch_onlyOneCase.html">next</a> › <a class="nav-link" href="./ID_switch_bool.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+只有 default 标签的 switch 语句是没有意义的，起不到分枝选择的作用，往往是残留代码或功能未实现。
+
+示例： 
+<div class="code">switch (v)
+{
+default:    //<span class="comment"> Non-compliant</span>
+    ....
+}
+</div>
+这种空的可以 fallthrough 到 default 标签的空 case 标签也是没有意义的：
+<div class="code">switch (v)
+{
+case 1:     //<span class="comment"> Non-compliant</span>
+case 2:
+default:
+    ....
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 16.6
+MISRA C++ 2008 6-4-8
+
+</p>
+</article>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>全局对象只应为常量或静态对象 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>全局对象只应为常量或静态对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonConstNonStaticGlobalObject</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nonConstGlobalObject.html">next</a> › <a class="nav-link" href="./ID_relyOnExternalObject.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+非常量全局对象破坏了面向对象的封装理念，如果必须使用全局对象，应将其限定在文件范围之内。
+
+本规则放宽了 <a href="./ID_nonConstGlobalObject.html" target="_blank" class="dashed-link">ID_nonConstGlobalObject</a> 的要求，对于 C++ 代码不建议选取本规则，对于 C 代码可酌情选取。
+
+示例：
+<div class="code">//<span class="comment"> In global scope</span>
+int i = 0;          //<span class="comment"> Non-compliant</span>
+static int j = 0;   //<span class="comment"> Let it go</span>
+const int k = 0;    //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_nonConstGlobalObject.html" target="_blank" class="related-link">ID_nonConstGlobalObject</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines I.2
+C++ Core Guidelines CP.3
+C++ Core Guidelines R.6
+
+</p>
+</article>
+</html>

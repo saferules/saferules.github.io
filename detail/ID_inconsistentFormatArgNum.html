@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>C 格式化字符串需要的参数个数与实际传入的参数个数应一致 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>C 格式化字符串需要的参数个数与实际传入的参数个数应一致</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_inconsistentFormatArgNum</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_inconsistentFormatArgType.html">next</a> › <a class="nav-link" href="./ID_nonPODVariadicArgument.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果 C 格式化占位符的数量大于参数的数量，会导致标准未定义的行为，反之多余的参数会失去意义，往往意味着逻辑错误。
+
+示例：
+<div class="code">void foo(int type, const char* msg) {
+    printf(&quot;Error (type %d): %s\n&quot;, type);  //<span class="comment"> Non-compliant, undefined behavior</span>
+}</div>
+例中格式化字符串需要两个参数，但只传入了一个，往往会引发运行时堆栈错误。
+
+由于可变参数列表自身的局限，很难在编译时发现这种问题，有些编译器会检查 printf、sprintf 等标准函数，但无法检查自定义函数，建议在 C++ 代码中禁用可变参数列表和 C 风格的格式化函数。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_inconsistentFormatArgType.html" target="_blank" class="related-link">ID_inconsistentFormatArgType</a>
+<a href="./ID_forbidCStringFormat.html" target="_blank" class="related-link">ID_forbidCStringFormat</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.19.6.1(2)-undefined
+ISO/IEC 9899:2011 7.21.6.1(2)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT FIO47-C
+
+</p>
+</article>
+</html>

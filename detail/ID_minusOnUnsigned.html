@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>负号不应作用于无符号整数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>负号不应作用于无符号整数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_minusOnUnsigned</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_repeatedUnaryOperators.html">next</a> › <a class="nav-link" href="./ID_selfExclusiveOr.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+负号作用于 unsigned int、unsigned long、unsigned long long 等无符号整型表达式的结果仍为无符号整数，易产生意料之外的错误。
+
+当 int 类型的取值范围可以包含 unsigned char、unsigned short 等“较小”无符号整型的取值范围时，较小的无符号整型可以被提升为 int 类型，负号作用于这种类型的表达式可以得到有符号的结果，但会降低可移植性。
+
+示例：
+<div class="code">unsigned int x = 1;
+signed long long y = -x;        //<span class="comment"> Non-compliant, ‘y’ equals UINT_MAX, not -1</span>
+unsigned long long z = -1ULL;   //<span class="comment"> Non-compliant, use ULLONG_MAX instead</span></div>
+例中 y 的值预期为 -1，但实际值是无符号整数的最大值；-1ULL 这种常量是令人困惑的，应使用 ULLONG_MAX 代替。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">allowSmallUnsignedTypes: 是否允许负号作用于 unsigned char、unsigned short 等无符号整型表达式
+</p>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.5.3.3(3)
+ISO/IEC 9899:2011 6.5.3.3(3)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 12.9
+MISRA C 2012 10.1
+MISRA C++ 2008 5-3-2
+
+</p>
+</article>
+</html>

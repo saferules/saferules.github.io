@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>有虚函数的基类应具有虚析构函数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>有虚函数的基类应具有虚析构函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_missingVirtualDestructor</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_diamondInheritance.html">next</a> › <a class="nav-link" href="./ID_mixPublicPrivateData.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+为了避免意料之外的资源泄漏，有虚函数的基类都应该具有虚析构函数。
+
+通过基类指针析构派生类对象时，如果基类没有虚析构函数会导致标准未定义的行为，无法正确执行派生类的析构函数。
+
+示例：
+<div class="code">class A {
+public:
+    A() = default;
+   ~A() = default;          //<span class="comment"> Non-compliant, missing ‘virtual’</span>
+    virtual int foo() = 0;
+};
+
+class B: public A {
+    int *m, n;              //<span class="comment"> New resource</span>
+
+public:
+    B(int s): m(new int[s]), n(s) {}
+   ~B() { delete[] m; }
+    int foo() override { return n; }
+};
+
+A* p = new B(10);
+....
+delete p;                   //<span class="comment"> Undefined behavior, may leak</span></div>
+由于基类 A 的析构函数不是虚函数，delete p 只调用了基类析构函数，派生类对象的资源没有得到释放。
+
+例外：
+<div class="code">class C {
+    ....
+protected:
+   ~C();     //<span class="comment"> Compliant</span>
+};</div>
+如果有意阻止外界通过基类指针析构对象，如析构函数是 protected，可不受本规则限制。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.3.5(3)-undefined
+ISO/IEC 14882:2003 12.4(7)
+ISO/IEC 14882:2011 5.3.5(3)-undefined
+ISO/IEC 14882:2011 12.4(9)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1045
+CWE-1079
+CWE-1087
+C++ Core Guidelines C.35
+C++ Core Guidelines C.127
+
+</p>
+</article>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应使用宏定义类型 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应使用宏定义类型</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_macro_typeid</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_function.html">next</a> › <a class="nav-link" href="./ID_macro_const.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+宏用于文本处理，不受作用域等语言规则限制，不应使用宏实现类型等语言层面的概念。
+
+示例：
+<div class="code">namespace U {
+    #define Type int  //<span class="comment"> Non-compliant</span>
+}
+
+namespace V {
+    #define Type long  //<span class="comment"> Non-compliant</span>
+}
+
+void foo(Type);  //<span class="comment"> Unreliable</span>
+</div>
+例中 Type 的最终定义是 long，第二个宏定义会覆盖第一个宏定义，这显然是不可靠的。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_macro_sideEffectArgs.html" target="_blank" class="related-link">ID_macro_sideEffectArgs</a>
+<a href="./ID_macro_const.html" target="_blank" class="related-link">ID_macro_const</a>
+<a href="./ID_macro_function.html" target="_blank" class="related-link">ID_macro_function</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.30
+
+</p>
+</article>
+</html>

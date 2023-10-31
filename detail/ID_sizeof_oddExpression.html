@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>sizeof 不应作用于逻辑表达式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>sizeof 不应作用于逻辑表达式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_sizeof_oddExpression</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_sizeof_pointer.html">next</a> › <a class="nav-link" href="./ID_sizeof_arrayParameter.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+sizeof 作用于 &lt;、&gt;、&lt;=、&gt;=、==、!=、&amp;&amp;、|| 等逻辑表达式为常见笔误，逻辑运算符往往应该移出 sizeof 表达式。
+
+示例：
+<div class="code">if (sizeof(a == x)) {  //<span class="comment"> Non-compliant, may be sizeof(a) == x</span>
+    ....
+}
+if (sizeof(a &gt;= x)) {  //<span class="comment"> Non-compliant, may be sizeof(a) &gt;= x</span>
+    ....
+}</div>
+
+</div>
+
+
+
+
+</article>
+</html>

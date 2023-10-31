@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应使用非标准预编译指令 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应使用非标准预编译指令</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonStdDirective</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidPragmaDirective.html">next</a> › <a class="nav-link" href="./ID_illFormedDirective.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+非标准预编译指令往往属于某种编译器独有，在有可移植性要求的代码中应避免使用。
+
+示例：
+<div class="code">#import &quot;foo&quot;          //<span class="comment"> Non-compliant</span>
+#include_next &quot;bar.h&quot;  //<span class="comment"> Non-compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.10(1)
+ISO/IEC 9899:2011 6.10(1)
+ISO/IEC 14882:2003 16(1)
+ISO/IEC 14882:2011 16(1)
+ISO/IEC 14882:2017 19(1)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 19.16
+MISRA C 2012 20.13
+
+</p>
+</article>
+</html>

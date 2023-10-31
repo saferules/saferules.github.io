@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应存在 magic string - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应存在 magic string</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_literal_magicString</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_literal_multicharacter.html">next</a> › <a class="nav-link" href="./ID_literal_magicNumber.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+直接出现在代码中的字面常量字符串称为 magic string，不利于阅读和维护，应改用具有适当名称的常量。
+
+示例：
+<div class="code">void foo(const string&amp; url)
+{
+    if (url == &quot;https://foo.net&quot;) {  //<span class="comment"> Non-compliant</span>
+        bar(&quot;https://foo.net&quot;);      //<span class="comment"> Non-compliant</span>
+    }
+}</div>
+当这种常量字符串散落在代码的各个角落时，不便于统一管理，造成维护上的困难。
+
+应改为：
+<div class="code">const char myUrl[] = &quot;https://foo.net&quot;;  //<span class="comment"> Compliant</span>
+
+void foo(const string&amp; url)
+{
+    if (url == myUrl) {  //<span class="comment"> Compliant</span>
+        bar(myUrl);      //<span class="comment"> Compliant</span>
+    }
+}</div>
+常量初始化表达式中的常量字符串可不受本规则约束。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_literal_magicNumber.html" target="_blank" class="related-link">ID_literal_magicNumber</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.45
+
+</p>
+</article>
+</html>

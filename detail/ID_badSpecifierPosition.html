@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>inline、virtual、static、typedef 等关键字的位置应统一 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>inline、virtual、static、typedef 等关键字的位置应统一</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_badSpecifierPosition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_roughAuto.html">next</a> › <a class="nav-link" href="./ID_missingStatic.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+语言允许 inline、virtual、static、typedef 等关键字出现在类型名称的左侧，也可以出现在其右侧，甚至可以出现在基本类型名称的中间，应对其位置进行统一规范以提高可读性。
+
+本规则对下列 C 或 C++ 关键字有同样的要求：
+<div class="code">inline、virtual、explicit、
+register、static、thread_local、extern、mutable、
+friend、typedef、constexpr、
+_Alignas、_Atomic、_Noreturn、_Thread_local
+</div>
+这些关键字应统一出现在声明的起始，类型名称的左侧。
+
+对于 const 和 volatile 也需面对类似的问题，参见 <a href="./ID_badQualifierPosition.html" target="_blank" class="dashed-link">ID_badQualifierPosition</a>。
+
+示例：
+<div class="code">struct A {
+    long long typedef LL;        //<span class="comment"> Non-compliant</span>
+    bool static foo();           //<span class="comment"> Non-compliant</span>
+    char friend bar();           //<span class="comment"> Non-compliant</span>
+    unsigned int virtual baz();  //<span class="comment"> Non-compliant</span>
+};</div>
+例中各种声明均有一定的特殊性，如果声明其特殊性的关键字在类型名称之后，不便于阅读甚至会引起误解。
+
+应改为：
+<div class="code">struct A {
+    typedef long long LL;        //<span class="comment"> Compliant</span>
+    static bool foo();           //<span class="comment"> Compliant</span>
+    friend char bar();           //<span class="comment"> Compliant</span>
+    virtual unsigned int baz();  //<span class="comment"> Compliant</span>
+};</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_sandwichedModifier.html" target="_blank" class="related-link">ID_sandwichedModifier</a>
+<a href="./ID_badQualifierPosition.html" target="_blank" class="related-link">ID_badQualifierPosition</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7(1)
+ISO/IEC 9899:1999 6.7.2(1)
+ISO/IEC 9899:2011 6.7(1)
+ISO/IEC 9899:2011 6.7.2(1)
+ISO/IEC 14882:2003 A.6
+ISO/IEC 14882:2011 A.6
+
+</p>
+
+
+</article>
+</html>

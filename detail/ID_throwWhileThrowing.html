@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>异常类的拷贝构造函数不可抛出异常 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>异常类的拷贝构造函数不可抛出异常</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_throwWhileThrowing</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_exceptionInException.html">next</a> › <a class="nav-link" href="./ID_throwInMove.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+异常类的拷贝构造函数抛出异常违反异常处理机制，导致程序异常终止。
+
+当抛出异常时，throw 表达式指定的异常对象会被复制，用以初始化对应的 catch 子句的参数，如果在复制过程中又抛出异常便违反了异常处理机制，这种情况将直接引发 std::terminate 函数的执行，使程序异常终止。
+
+示例：
+<div class="code">class E {
+public:
+    E() {}
+    E(const E&amp;) {
+        throw 0;    //<span class="comment"> Non-compliant</span>
+    }
+};
+
+int main() {
+    try {
+        E e0;
+        throw e0;   //<span class="comment"> Throw while throwing, calls std::terminate()</span>
+    }
+    catch (E&amp; e1) {
+        ....
+    }
+}</div>
+例中 catch 子句的参数 e1 引用由 e0 复制而成的临时对象，在复制过程中抛出的异常无法被捕获，会直接导致程序异常终止。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_exceptionInException.html" target="_blank" class="related-link">ID_exceptionInException</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 15.1(3)
+ISO/IEC 14882:2011 15.1(3 7)
+ISO/IEC 14882:2017 18.1(3 7)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT ERR60-CPP
+
+</p>
+</article>
+</html>

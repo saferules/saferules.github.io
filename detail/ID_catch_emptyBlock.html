@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>catch 子句不应为空 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>catch 子句不应为空</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_catch_emptyBlock</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_try_forbidNest.html">next</a> › <a class="nav-link" href="./ID_try_emptyBlock.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+空的 catch 子句仅捕获异常而未作任何处理，相当于掩盖了异常。
+
+示例：
+<div class="code">void foo() {
+    try {
+        ....
+    }
+    catch (E&amp;)   //<span class="comment"> Non-compliant, empty catch-clause</span>
+    {}
+}</div>
+掩盖异常也可能会影响到程序其他方面的正常运行。
+
+至少应添加日志记录等操作：
+<div class="code">void foo() {
+    try {
+        ....
+    }
+    catch (E&amp;) {
+        log(&quot;messages&quot;);   //<span class="comment"> Compliant</span>
+    }
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-391
+CWE-1069
+CWE-1071
+
+</p>
+</article>
+</html>

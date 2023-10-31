@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>异或运算符左右子表达式不应相同 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>异或运算符左右子表达式不应相同</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_selfExclusiveOr</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_minusOnUnsigned.html">next</a> › <a class="nav-link" href="./ID_selfSubtraction.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+与自身异或的结果总为 0，而且也可能意味着某种错误。
+
+示例：
+<div class="code">a ^= a;      //<span class="comment"> Non-compliant</span>
+a = a ^ a;   //<span class="comment"> Non-compliant</span></div>
+这种代码可能是为了对变量清零，也可能是笔误，即使没有逻辑错误，也应将变量直接赋值为 0 以提高可读性。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-682
+
+</p>
+</article>
+</html>

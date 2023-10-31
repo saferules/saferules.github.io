@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>合理使用 std::move - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>合理使用 std::move</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_unsuitableMove</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unsuitableForward.html">next</a> › <a class="nav-link" href="./ID_implementationDefinedFunction.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+std::move 的参数应为左值，返回值应直接作为接口的参数，除此之外的使用方式价值有限，且易产生错误。
+
+std::move 将左值转为右值，意在宣告对象的数据将被转移到其他对象，应由合适的接口完成数据转移。
+
+示例：
+<div class="code">string foo();
+string s = move(foo());  //<span class="comment"> Non-compliant</span></div>
+例中 foo 函数返回的是右值，如果再调用 std::move 是多余的，应将 std::move 去掉。
+
+又如：
+<div class="code">string a(&quot;....&quot;);
+string&amp;&amp; b = move(a);  //<span class="comment"> Non-compliant</span>
+string c(b);           //<span class="comment"> Not move construction</span></div>
+例中 b 是具有名称的右值引用，其实是左值，c 仍是拷贝构造。
+
+应改为：
+<div class="code">string a(&quot;....&quot;);
+string c(move(a));  //<span class="comment"> Compliant</span></div>
+这样构造 c 时会自动选取移动构造函数，避免了复制。
+
+又如：
+<div class="code">string foo() {
+    string s(&quot;....&quot;);
+    ....
+    return move(s);  //<span class="comment"> Non-compliant</span>
+}</div>
+例中 foo 函数返回对象，编译器会进行“<a href="https://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization" target="_blank" class="dashed-link">RVO（Return Value Optimization）</a>”优化，显式调用 move 是多余的，而且会干扰优化，不应出现 return std::move(....) 这种代码。
+
+应改为：
+<div class="code">string foo() {
+    string s(&quot;....&quot;);
+    ....
+    return s;  //<span class="comment"> Compliant</span>
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 20.2.3(6)
+ISO/IEC 14882:2017 23.2.5(5)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.56
+C++ Core Guidelines F.18
+C++ Core Guidelines F.48
+
+</p>
+</article>
+</html>

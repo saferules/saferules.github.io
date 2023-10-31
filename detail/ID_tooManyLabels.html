@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>函数的标签数量应在规定范围之内 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>函数的标签数量应在规定范围之内</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_tooManyLabels</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_tooManyLines.html">next</a> › <a class="nav-link" href="./ID_tooManyExit.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+标签过多意味着函数内部的跳转逻辑过于复杂，违反结构化设计理念，应适当重构。
+
+对于 C 代码，建议一个函数只用一个标签作为函数统一出口，对于 C++ 代码，不建议使用标签。
+
+示例：
+<div class="code">void foo()
+{
+L0:
+    ....
+L1:
+    ....   //<span class="comment"> Lots of labels require lots of gotos</span>
+    ....   //<span class="comment"> Lots of gotos make functions terrible</span>
+L100:
+    ....
+}</div>
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">maxLabelCount: 标签数量上限，超过则报出
+</p>
+
+
+
+
+</article>
+</html>

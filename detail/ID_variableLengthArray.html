@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免使用变长数组 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免使用变长数组</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_variableLengthArray</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_stackAllocation.html">next</a> › <a class="nav-link" href="./ID_copiedStream.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+使用变长数组（variable length array）可以在栈上动态分配内存，但分配失败时的行为不受程序控制。
+
+变长数组由 C99 标准提出，不在 C++ 标准之内，在 C++ 代码中不应使用。
+
+示例：
+<div class="code">void foo(int n)
+{
+    int a[n];   //<span class="comment"> Non-compliant, a variable length array</span>
+                //<span class="comment"> Undefined behavior if n &lt;= 0</span>
+    ....
+}</div>
+例中数组 a 的长度为变量，其内存空间在运行时动态分配，如果长度参数 n 不是合理的正整数会导致未定义的行为。
+
+另外，对于本应兼容的数组类型，如果长度不同也会导致未定义的行为，如：
+<div class="code">void bar(int n)
+{
+    int a[5];
+    typedef int t[n];   //<span class="comment"> Non-compliant, a variable length array type</span>
+    t* p = &amp;a;          //<span class="comment"> Undefined behavior if n != 5</span>
+    ....
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_stackAllocation.html" target="_blank" class="related-link">ID_stackAllocation</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7.5.2(5)
+ISO/IEC 9899:2011 6.7.6.2(5)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 18.8
+
+</p>
+</article>
+</html>

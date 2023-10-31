@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>重载的类型转换运算符需用 explicit 关键字限定 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>重载的类型转换运算符需用 explicit 关键字限定</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_missingExplicitConvertor</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_excessiveExplicit.html">next</a> › <a class="nav-link" href="./ID_missingExplicitConstructor.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+为了避免意料之外的类型转换，重载的类型转换运算符需用 explicit 关键字限定。
+
+示例：
+<div class="code">struct A {
+    ....
+    operator char*();   //<span class="comment"> Non-compliant</span>
+};
+
+A foo();
+
+char* bar() {
+    return foo();   //<span class="comment"> Invalid address returned</span>
+}</div>
+例中 foo 返回临时对象，类型转换运算符被隐式调用，然而当 bar 返回后，临时对象被销毁，返回的指针是无效的。
+
+将类型转换运算符用 explicit 关键字限定，有问题的代码便不会通过编译：
+<div class="code">struct A {
+    ....
+    explicit operator char*();   //<span class="comment"> Compliant</span>
+};</div>
+在类的接口设计中，应尽量减少隐式转换以避免不易察觉的问题。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_missingExplicitConstructor.html" target="_blank" class="related-link">ID_missingExplicitConstructor</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.164
+
+</p>
+</article>
+</html>

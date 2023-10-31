@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应重载取地址运算符 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应重载取地址运算符</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_overloadAddressOperator</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_overloadComma.html">next</a> › <a class="nav-link" href="./ID_nonStdMoveAssignmentParam.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+取地址运算符（一元 &amp; 运算符），重载之后可以返回任意地址，极易误用。
+
+获取不完整类型的对象地址时，如果其完整类型重载了取地址运算符，会导致标准未定义的行为。
+
+示例：
+<div class="code">struct X;   //<span class="comment"> Incomplete type</span>
+
+X* foo(X&amp; x) {
+    return &amp;x;   //<span class="comment"> Undefined behavior</span>
+}
+
+struct X {
+    X* operator &amp;() {   //<span class="comment"> Non-compliant</span>
+        return nullptr;
+    }
+};
+
+X* bar(X&amp; x) {
+    return &amp;x;   //<span class="comment"> Call ‘X::operator&amp;’</span>
+}</div>
+例中 foo 会导致未定义的行为，可能会返回 x 对象的实际地址，而 bar 会调用重载了的取地址运算符，这是一种混乱的局面。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.3.1(4)-undefined
+ISO/IEC 14882:2011 5.3.1(5)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.166
+MISRA C++ 2008 5-3-3
+
+</p>
+</article>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应将非 POD 对象传入可变参数列表 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应将非 POD 对象传入可变参数列表</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonPODVariadicArgument</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_inconsistentFormatArgNum.html">next</a> › <a class="nav-link" href="./ID_explicitDtorCall.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果将非“<a href="https://en.cppreference.com/w/cpp/named_req/PODType" target="_blank" class="dashed-link">POD</a>”对象传入可变参数列表，程序的行为在 C++03 中是未定义的，在 C++11 中是部分由实现定义的。
+
+示例：
+<div class="code">using namespace std;
+
+void foo(int n, ...) {
+    va_list ap;
+    ....
+    string s = va_arg(ap, string);   //<span class="comment"> Undefined behavior</span>
+    ....
+}
+
+void bar(string&amp; s) {
+    foo(1, s);          //<span class="comment"> Non-compliant</span>
+}</div>
+例中 string 类对象不是 POD 对象，其拷贝构造和析构过程难以与可变参数列表机制兼容，通过 va_arg 难以获取正确的对象。
+
+又如：
+<div class="code">struct A {
+    string s;
+    operator const char*() const {
+        return s.c_str();
+    }
+};
+
+void foo(const A&amp; a) {
+    printf(&quot;%s\n&quot;, a);   //<span class="comment"> Non-compliant</span>
+}</div>
+即使对象有转为 const char* 的方法，在可变参数列表中也是无效的，printf 无法正确获取字符串地址，造成内存访问错误。
+
+应改为：
+<div class="code">void foo(const A&amp; a) {
+    printf(&quot;%s\n&quot;, static_cast&lt;const char*&gt;(a));   //<span class="comment"> Compliant</span>
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_badVaArgType.html" target="_blank" class="related-link">ID_badVaArgType</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.2.2(7)-undefined
+ISO/IEC 14882:2011 5.2.2(7)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-686
+
+</p>
+</article>
+</html>

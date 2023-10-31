@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>逗号表达式的子表达式应具有必要的副作用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>逗号表达式的子表达式应具有必要的副作用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_invalidCommaSubExpression</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illComparison.html">next</a> › <a class="nav-link" href="./ID_suspiciousPromotion.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+缺少必要副作用的逗号子表达式没有意义，往往意味着逻辑错误。
+
+设逗号表达式中逗号运算符的子表达式个数为 n（n &gt;= 2），如果最后一个子表达式的值可影响程序状态，前 n - 1 个子表达式应具备副作用，否则所有子表达式都应具备副作用。
+
+示例：
+<div class="code">void foo(int&amp; a, int&amp; b) {
+    a, b = 0, 1;             //<span class="comment"> Non-compliant</span>
+}</div>
+例中逗号表达式有 3 个子表达式，只有第 2 个子表达式有效，第 1 和第 3 个没有意义。
+
+应改为：
+<div class="code">void foo(int&amp; a, int&amp; b) {
+    a = 0, b = 1;            //<span class="comment"> Compliant, but bad</span>
+}
+</div>
+本规则集合不建议使用逗号表达式，将逗号表达式拆分成合理的语句是更好的选择，如：
+
+<div class="code">void foo(int&amp; a, int&amp; b) {
+    a = 0;
+    b = 1;                   //<span class="comment"> Compliant, good</span>
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_forbidCommaExpression.html" target="_blank" class="related-link">ID_forbidCommaExpression</a>
+
+</p>
+
+
+
+</article>
+</html>

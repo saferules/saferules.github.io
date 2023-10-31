@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>如果 if 关键字前面是右大括号，if 关键字应另起一行 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>如果 if 关键字前面是右大括号，if 关键字应另起一行</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_if_mayBeElseIf</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_if_assignment.html">next</a> › <a class="nav-link" href="./ID_if_scope.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+当 if 关键字前面是右大括号，且 if 关键字与该大括号在同一行时，属于不良换行方式，易造成 else 等关键字的遗漏。
+
+示例：
+<div class="code">if (condition1) {
+    ....
+} if (condition2) {  //<span class="comment"> Rather suspicious, should it be ‘else if’??</span>
+    ....
+}
+</div>
+这种情况很可能是漏掉了 else 关键字，即使没有被漏掉，也应该让 if 关键字另起一行，否则这种换行习惯会增加遗漏 else 关键字的风险，而且可读性较差。
+
+</div>
+
+
+
+
+</article>
+</html>

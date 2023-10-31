@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应抛出非异常类型的对象 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应抛出非异常类型的对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_throwNonExceptionType</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_catch_nonExceptionType.html">next</a> › <a class="nav-link" href="./ID_catch_generic.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+不应将整数、字符串等非异常类的对象当作异常抛出，否则意味着异常相关的设计是不健全的。
+
+完善的异常类型应满足如下需求：
+ ● 可以将异常合理分类
+ ● 提供对异常情况的准确描述
+ ● 使异常便于处理和调试
+
+非异常类型难以满足这种需求。
+
+示例：
+<div class="code">void foo() {
+    if (cond) {
+        throw 1;   //<span class="comment"> Non-compliant</span>
+    }
+    throw &quot;message&quot;;   //<span class="comment"> Non-compliant</span>
+}</div>
+整数或字符串无法区分异常的种类，如果不同的功能模块均将简单变量作为异常，很容易产生冲突。
+
+如果条件允许，应选择适当的标准异常类作为基类，并实现相关接口：
+<div class="code">class MyError: public std::logic_error {
+public:
+    MyError(const char* msg): std::logic_error(msg) {}
+};
+
+void bar() {
+    throw MyError(&quot;message&quot;);   //<span class="comment"> Compliant</span>
+}</div>
+这样可使异常类形成继承体系，便于分类管理。
+
+另外，要注意 throw、try、catch 等关键字应专注于异常处理，不应使用这些关键字控制程序的业务流程，业务代码与异常处理代码应有明显区别，否则会使代码含混不明，效率也会降低，如：
+<div class="code">void bar(const vector&lt;string&gt;&amp; v, const string&amp; s) {
+    auto b = v.begin();
+    auto e = v.end();
+    for (auto i = b; i != e; ++i) {
+        if (*i == s) {
+            throw i - b;   //<span class="comment"> Non-compliant</span>
+        }
+    }
+    throw -1;   //<span class="comment"> Non-compliant</span>
+}</div>
+例中 bar 函数抛出字符串 s 在容器 v 中的位置，用异常机制实现与异常无关的功能，是不符合要求的。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">mustInheritStdException: 是否要求异常类必须派生自 std::exception
+</p>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_catch_nonExceptionType.html" target="_blank" class="related-link">ID_catch_nonExceptionType</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines E.14
+C++ Core Guidelines E.3
+
+</p>
+</article>
+</html>

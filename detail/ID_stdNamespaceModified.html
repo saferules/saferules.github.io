@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不可修改 std 命名空间 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不可修改 std 命名空间</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_stdNamespaceModified</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nonPrivateData.html">next</a> › <a class="nav-link" href="./ID_topInlineNamespace.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+可以为用户定义的类型特化某些标准模板类，除此之外对 std 命名空间添加、修改甚至删除任何代码所导致的后果都是标准未定义的。
+
+示例：
+<div class="code">class MyType { .... };
+
+namespace std
+{
+    size_t foo(const MyType&amp; x);   //<span class="comment"> Non-compliant</span>
+
+    template &lt;&gt;
+    struct hash&lt;MyType&gt; {
+        size_t operator()(const MyType&amp; x) const {
+            return foo(x);
+        }
+    };
+}</div>
+例中对 hash 标准模板类的特化是可被允许的，但在 std 命名空间中添加的 foo 函数是不被允许的。
+
+应去掉 std 命名空间作用域声明，改为：
+<div class="code">size_t foo(const MyType&amp; x);   //<span class="comment"> OK</span>
+
+template &lt;&gt;
+struct std::hash&lt;MyType&gt; {
+    size_t operator()(const MyType&amp; x) const {
+        return foo(x);
+    }
+};</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 17.6.4.2.1(1 2)-undefined
+ISO/IEC 14882:2017 20.5.4.2.1(1 2)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT DCL58-CPP
+
+</p>
+</article>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>全局名称应遵循合理的命名方式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>全局名称应遵循合理的命名方式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nameTooShort</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_missingNamespace.html">next</a> › <a class="nav-link" href="./ID_badBackslash.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+全局名称应具有标识性，长度不应过短，否则易与局部名称产生冲突。
+
+本规则是 <a href="./ID_badName.html" target="_blank" class="dashed-link">ID_badName</a> 的特化。
+
+示例：
+<div class="code">//<span class="comment"> In global scope</span>
+const int i = 0;     //<span class="comment"> Non-compliant, name too short</span>
+typedef int t;       //<span class="comment"> Non-compliant, name too short</span>
+class A { .... };    //<span class="comment"> Non-compliant, name too short</span>
+
+int foo(int i) {
+    return i + i;    //<span class="comment"> Confusing</span>
+}</div>
+名称适用的作用域范围越广，其长度也应该越长，建议全局名称长度不小于 3 个字符。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">minVariableNameLength: 全局对象名称长度下限，小于则报出
+minFunctionNameLength: 全局函数名称长度下限，小于则报出
+minNameSpaceNameLength: 全局命名空间名称长度下限，小于则报出
+minTypeNameLength: 全局类型名称长度下限，小于则报出
+</p>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_badName.html" target="_blank" class="related-link">ID_badName</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines NL.7
+
+</p>
+</article>
+</html>

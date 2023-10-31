@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>声明数组参数的大小时禁用 static 关键字 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>声明数组参数的大小时禁用 static 关键字</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidStaticArrSize</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nonVirtualOverride.html">next</a> › <a class="nav-link" href="./ID_superfluousVoid.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+C 语言规定数组作为形式参数时，可用 static 关键字限定大小，要求传入数组的大小不能小于由 static 关键字限定的值，有助于编译器优化，但不符合这种限制时会导致标准未定义的行为，相当于增加了误用风险，也增加了测试成本。
+
+示例：
+<div class="code">int foo(int a[static 5], int n) {   //<span class="comment"> Non-compliant</span>
+    int i;
+    int s = 0;
+    for (i = 0; i &lt; n; i++) {
+        s += a[i];
+    }
+    return s;
+}
+
+int bar() {
+    int a[3] = {1, 2, 3};
+    return foo(a, 3);       //<span class="comment"> Undefined behavior</span>
+}
+</div>
+这种机制虽然有助于编译器优化，但应在效率的提高和存在的风险之间进行取舍，非系统库中的代码、改动频繁的代码不建议使用这种机制，而且这种优化大部分情况下也难以真正解决效率的瓶颈问题。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7.6.3(7)
+ISO/IEC 9899:2011 6.7.6.3(7)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 17.6
+
+</p>
+</article>
+</html>

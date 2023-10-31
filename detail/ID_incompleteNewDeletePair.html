@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>资源的分配与回收方法应成对提供 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>资源的分配与回收方法应成对提供</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_incompleteNewDeletePair</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_incompatibleDealloc.html">next</a> › <a class="nav-link" href="./ID_ownerlessResource.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+资源的分配和回收方法应在同一库或主程序等可执行模块、类等逻辑模块中提供。
+
+如果一个模块分配的资源需要另一个模块回收，会打破模块之间的独立性，增加维护成本，而且 so、dll、exe 等可执行模块一般都有独立的堆栈，跨模块的分配与回收往往会造成严重错误。
+
+示例：
+<div class="code">//<span class="comment"> In a.dll</span>
+int* foo() {
+    return (int*)malloc(1024);
+}
+
+//<span class="comment"> In b.dll</span>
+void bar() {
+    int* p = foo();
+    ....
+    free(p);   //<span class="comment"> Non-compliant, crash</span>
+}</div>
+例中 a.dll 分配的内存由 b.dll 释放，相当于混淆了不同堆栈中的数据，程序一般会崩溃。
+
+应改为：
+<div class="code">//<span class="comment"> In a.dll</span>
+int* foo_alloc() {
+    return (int*)malloc(1024);
+}
+
+void foo_dealloc(int* p) {
+    free(p);
+}
+
+//<span class="comment"> In b.dll</span>
+void bar() {
+    int* p = foo_alloc();
+    ....
+    foo_dealloc(p);   //<span class="comment"> Compliant</span>
+}</div>
+修正后 a.dll 成对提供分配回收函数，b.dll 配套使用这些函数，避免了冲突。
+
+类等逻辑模块提供了分配方法，也应提供回收方法，如重载了 new 运算符，也应重载相应的 delete 运算符：
+<div class="code">class A {
+    void* operator new(size_t);   //<span class="comment"> Non-compliant, missing ‘operator delete’</span>
+};
+
+class B {
+    void operator delete(void*);   //<span class="comment"> Non-compliant, missing ‘operator new’</span>
+};
+
+class C {
+    void* operator new(size_t);   //<span class="comment"> Compliant</span>
+    void operator delete(void*);   //<span class="comment"> Compliant</span>
+};
+</div>
+placement-new 与 placement-delete 也应成对提供：
+<div class="code">class D {
+    void* operator new(size_t, bool);   //<span class="comment"> Non-compliant</span>
+
+    void* operator new(size_t, int, int);   //<span class="comment"> Compliant</span>
+    void operator delete(void*, int, int);   //<span class="comment"> Compliant</span>
+};</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_memberDeallocation.html" target="_blank" class="related-link">ID_memberDeallocation</a>
+<a href="./ID_crossModuleTransfer.html" target="_blank" class="related-link">ID_crossModuleTransfer</a>
+<a href="./ID_incompatibleDealloc.html" target="_blank" class="related-link">ID_incompatibleDealloc</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines R.15
+
+</p>
+</article>
+</html>

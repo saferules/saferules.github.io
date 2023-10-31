@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免多余的分号 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免多余的分号</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_redundantSemicolon</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_redundantParentheses.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+多余的分号使代码显得繁琐，也可能意味着某种错误，应去掉。
+
+示例：
+<div class="code">namespace N {
+    void foo() {
+        bar();;    //<span class="comment"> Non-compliant</span>
+    };             //<span class="comment"> Non-compliant</span>
+};                 //<span class="comment"> Non-compliant</span></div>
+
+</div>
+
+
+
+
+</article>
+</html>

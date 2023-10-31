@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应使用多余的 inline 关键字 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应使用多余的 inline 关键字</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_inlineRedundant</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_invalidExternSpecifier.html">next</a> › <a class="nav-link" href="./ID_deprecatedSpecifier.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+由 constexpr 关键字限定的函数已经相当于被声明为 inline，不应再重复声明。
+
+示例：
+<div class="code">inline constexpr int foo(int n) {  //<span class="comment"> Non-compliant, ‘inline’ is redundant</span>
+    return n + 1;
+}
+</div>
+应改为：
+<div class="code">constexpr int foo(int n) {  //<span class="comment"> Compliant</span>
+    return n + 1;
+}
+</div>
+另外，在类声明中实现的函数也相当于被声明为 inline，不应重复声明：
+<div class="code">class A {
+    ....
+
+public:
+    inline int foo() {  //<span class="comment"> Non-compliant, ‘inline’ is redundant</span>
+        return 123;
+    }
+
+    int bar() {         //<span class="comment"> Compliant</span>
+        return 456;
+    }
+};</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 7.1.2(3)
+ISO/IEC 14882:2011 7.1.2(3)
+ISO/IEC 14882:2011 7.1.5(2)
+
+</p>
+
+
+</article>
+</html>

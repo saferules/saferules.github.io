@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>类型转换不应去掉 const、volatile 等属性 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>类型转换不应去掉 const、volatile 等属性</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_qualifierCastedAway</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_castNoInheritance.html">next</a> › <a class="nav-link" href="./ID_ptrIntCast.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+去掉 const、volatile 等属性会使相关机制失去意义，往往意味着设计上的缺陷，也会导致标准未定义的行为。
+
+示例：
+<div class="code">const int c = 1;
+volatile int v = 2;
+
+*(int*)&amp;c = 3;   //<span class="comment"> Non-compliant, undefined behavior</span>
+*(int*)&amp;v = 4;   //<span class="comment"> Non-compliant, undefined behavior</span></div>
+通过去掉 const 或 volatile 的转换修改相关对象会导致标准未定义的行为。
+
+又如：
+<div class="code">struct A {
+    void foo() const {
+        const_cast&lt;A*&gt;(this)-&gt;n++;   //<span class="comment"> Non-compliant</span>
+        ....
+    }
+private:
+    int n = 0;
+};</div>
+例中 foo 为常量成员函数，用 const_cast 去掉 this 指针的 const 限定是不符合要求的。
+
+如果成员的改变只起辅助作用而不影响对象状态，可将成员设为 mutable，否则应重新设计类，如： 
+<div class="code">struct A {
+    void foo() const {
+        n++;             //<span class="comment"> OK</span>
+        ....
+    }
+private:
+    mutable int n = 0;   //<span class="comment"> Can be modified by const member functions</span>
+};</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7.3(5)-undefined
+ISO/IEC 9899:2011 6.7.3(6)-undefined
+ISO/IEC 14882:2003 7.1.5.1(4 7)-undefined
+ISO/IEC 14882:2011 7.1.6.1(4 6)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines Type.3
+MISRA C 2004 11.5
+MISRA C 2012 11.8
+MISRA C++ 2008 5-2-5
+SEI CERT EXP32-C
+SEI CERT EXP55-CPP
+
+</p>
+</article>
+</html>

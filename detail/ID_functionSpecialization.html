@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>函数模板不应被特化 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>函数模板不应被特化</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_functionSpecialization</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_tooManyExit.html">next</a> › <a class="nav-link" href="./ID_exitHandlerNoReturn.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+特化的函数模板不参与重载函数的选取，易导致意类之外的错误。
+
+如果某些特殊情况确实需要特化模板，不妨将函数委托给模板类实现，通过特化模板类实现特殊的需求，参见 <a href="./ID_narrowCast.html" target="_blank" class="dashed-link">ID_narrowCast</a>。
+
+示例：
+<div class="code">template &lt;class T&gt;
+int foo(T) {         //<span class="comment"> #1</span>
+    return 0;
+}
+
+template &lt;class T&gt;
+int foo(T*) {        //<span class="comment"> #2</span>
+    return 1;
+}
+
+template &lt;&gt;
+int foo&lt;int*&gt;(int*) {   //<span class="comment"> #3, non-compliant, specialization of #1</span>
+    return 2;
+}
+
+int main() {
+    int* p = nullptr;
+    cout &lt;&lt; foo(p) &lt;&lt; &#x27;\n&#x27;;   //<span class="comment"> What is output?</span>
+}</div>
+输出 1，特化的函数模板不参与重载函数的选取，所以只会在 #1 和 #2 中选取，foo(p) 与 #2 更贴近，而 #3 是 #1 的特化，所以不会选取 #3，这种情况下 #3 是无效的。
+
+应去除对函数模板的特化，改为普通重载函数：
+<div class="code">int foo(int*) {   //<span class="comment"> #3, compliant, safe and brief</span>
+    return 2;
+}</div>
+这样例中 main 函数会输出 2。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines T.144
+MISRA C++ 2008 14-8-1
+
+</p>
+</article>
+</html>

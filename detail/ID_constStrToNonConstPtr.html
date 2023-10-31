@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>指向常量字符串的指针应使用 const 声明 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>指向常量字符串的指针应使用 const 声明</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_constStrToNonConstPtr</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_uselessQualifier.html">next</a> › <a class="nav-link" href="./ID_sandwichedModifier.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+常量字符串与非常量字符串指针的隐式转换是不安全的，一旦相关内存被修改会导致标准未定义的行为，这种转换在 C++ 标准中是过时的，在 C 代码中也不应出现。
+
+指向常量字符串的指针应声明为 const chartype *，chartype 为常量字符串中的字符类型，如：
+<div class="code">char、wchar_t、char16_t、char32_t
+</div>
+示例：
+<div class="code">char* p = &quot;....&quot;;   //<span class="comment"> Non-compliant</span>
+p[x] = &#x27;\0&#x27;;        //<span class="comment"> Undefined behavior</span></div>
+例中非常量指针 p 指向常量字符串，通过 p 修改常量数据一般会引发“<a href="https://en.wikipedia.org/wiki/Segmentation_fault" target="_blank" class="dashed-link">段错误</a>”而导致崩溃，应改为：
+<div class="code">const char* p = &quot;....&quot;;   //<span class="comment"> Compliant</span>
+p[x] = &#x27;\0&#x27;;              //<span class="comment"> Compile-time protected</span></div>
+改为常量字符串指针后，错误的操作无法通过编译。
+
+又如：
+<div class="code">void foo(char*);
+
+void bar() {
+    foo(&quot;....&quot;);   //<span class="comment"> Non-compliant</span>
+}</div>
+应将 foo 的参数类型改为 const char*，或将常量字符串复制后传给 foo 函数。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_nonConstUnmodified.html" target="_blank" class="related-link">ID_nonConstUnmodified</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.4.5(6)-undefined
+ISO/IEC 9899:2011 6.4.5(7)-undefined
+ISO/IEC 14882:1998 D.4(1)-deprecated
+ISO/IEC 14882:2003 2.13.4(2)-undefined
+ISO/IEC 14882:2003 D.4(1)-deprecated
+ISO/IEC 14882:2011 2.14.5(12)-undefined
+ISO/IEC 14882:2017 5.13.5(16)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 7.4
+
+</p>
+</article>
+</html>

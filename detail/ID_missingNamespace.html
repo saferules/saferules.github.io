@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>为代码设定合理的命名空间 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>为代码设定合理的命名空间</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_missingNamespace</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nonGlobalMain.html">next</a> › <a class="nav-link" href="./ID_nameTooShort.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+命名空间是 C++ 项目的必要组成结构，可有效规避名称冲突等问题。
+
+C++ 代码的顶层作用域应为具名非内联命名空间，命名空间名称应与项目名称相符，且具有标识性。
+
+示例：
+<div class="code">namespace NS {
+    int foo();           //<span class="comment"> Compliant</span>
+    int foo(char*);      //<span class="comment"> Compliant</span>
+    int foo(wchar_t*);   //<span class="comment"> Compliant</span>
+}
+
+int foo() {              //<span class="comment"> Non-compliant, it is not ‘int NS::foo()’</span>
+    ....
+}
+
+int NS::foo(char*) {     //<span class="comment"> Compliant</span>
+    ....
+}
+
+namespace NS {
+    int foo(wchar_t*) {  //<span class="comment"> Compliant</span>
+        ....
+    }
+}
+</div>
+对于 main 函数和 extern &quot;C&quot; 声明的代码可不受本规则限制，如：
+<div class="code">extern &quot;C&quot; int bar();    //<span class="comment"> Compliant</span>
+
+int main () {            //<span class="comment"> Compliant</span>
+    ....
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_usingNamespaceInHeader.html" target="_blank" class="related-link">ID_usingNamespaceInHeader</a>
+<a href="./ID_forbidUsingDirectives.html" target="_blank" class="related-link">ID_forbidUsingDirectives</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 7-3-1
+
+</p>
+</article>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>联合体内禁用非基本类型的对象 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>联合体内禁用非基本类型的对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidNonBasicField</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidNakedUnion.html">next</a> › <a class="nav-link" href="./ID_forbidUnscopedEnum.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+因为联合体成员之间共享内存地址，所以成员具有构造或析构函数时会导致混乱。
+
+C++98/03 禁止具有拷贝构造函数或析构函数的对象出现在联合体中，C++11 解除了这条禁令，但在语言层面上不保障正确性，相当于把问题抛给了用户。
+
+示例：
+<div class="code">union U {
+    int i;
+    string s;  //<span class="comment"> Non-compliant</span>
+
+    U(int x): i(x) {
+    }
+
+    U(const char* x) {
+        new(&amp;s) string(x);
+    }
+
+   ~U() {
+        s.~string();
+    }
+};
+
+U u(1);
+u.s = &quot;abc&quot;;  //<span class="comment"> No error, no warning, just crash</span>
+</div>
+示例代码在某些环境中会崩溃，原因是没能正确区分对象当前持有的类型，执行了错误的构造或析构过程。
+
+正确的做法是在类中用一个成员变量记录当前持有的类型，再将匿名联合体与类的构造函数以及析构函数相关联，从而根据当前持有的类型正确地初始化或销毁对象。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:1998 9.5(1)
+ISO/IEC 14882:2003 9.5(1)
+ISO/IEC 14882:2011 9.5(2 3 4)
+
+</p>
+
+
+</article>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>&&、|| 的子表达式应为后缀表达式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>&&、|| 的子表达式应为后缀表达式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonPostfixSubCondition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_mixNullptrAndNULL.html">next</a> › <a class="nav-link" href="./ID_nonBoolSubCondition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如果 &amp;&amp;、|| 的子表达式均为后缀表达式，可使逻辑结构更清晰，有效避免各种优先级问题。
+
+后缀表达式（postfix-expression）是 C/C++ 语言的文法概念，也是一类表达式的总称：
+ ● 只包含标识符或常量的表达式
+ ● 用小括号括起来的表达式
+ ● 用于数组元素求值的 [ ] 表达式
+ ● 函数调用、函数式类型转换表达式
+ ● .、-&gt; 表达式
+ ● 后置 ++、-- 表达式
+ ● typeid 等表达式
+
+本规则意在强调子表达式应适当地用括号括起来，以便提高可读性，并确保程序的行为符合开发者的意图。
+
+示例（设 a、b、c 为 bool 型变量，n 为整型变量）：
+<div class="code">if (n == 0 &amp;&amp; b) {   //<span class="comment"> Non-compliant </span>
+    ....
+}</div>
+例中 n == 0 不是后缀表达式，应使用括号括起来：
+<div class="code">if ((n == 0) &amp;&amp; b) {   //<span class="comment"> Compliant </span>
+    ....
+}
+</div>
+又如：
+<div class="code">if (a || b &amp;&amp; c) {   //<span class="comment"> Non-compliant</span>
+    ....
+}</div>
+即使知道 &amp;&amp; 的优先级高于 ||，也应使用括号将 || 的子表达式括起来，如：
+<div class="code">if (a || (b &amp;&amp; c)) {   //<span class="comment"> Compliant</span>
+    ....
+}
+</div>
+例外：
+<div class="code">if (a || b || c)) {   //<span class="comment"> Compliant</span>
+    ....
+}</div>
+当 &amp;&amp;、|| 的子表达式运算符与其相同时，可不受本规则约束。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.5.2(1)
+ISO/IEC 9899:2011 6.5.2(1)
+ISO/IEC 14882:2003 5.2(1)
+ISO/IEC 14882:2011 5.2(1)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 5-2-1
+
+</p>
+</article>
+</html>

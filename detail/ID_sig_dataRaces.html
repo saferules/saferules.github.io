@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免由信号处理产生的数据竞争 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免由信号处理产生的数据竞争</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_sig_dataRaces</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_sig_nonAsyncSafeCall.html">next</a> › <a class="nav-link" href="./ID_missingResetNull.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+异步信号处理函数的调用会随时打断主程序的流程，当处理函数返回后，主程序在被打断的位置继续执行，这种方式称为“<a href="https://en.wikipedia.org/wiki/Interrupt" target="_blank" class="dashed-link">中断（interrupt）</a>”，与执行非并发的线程相似，但没有锁等同步机制，而且信号处理函数本身也可能被中断，所以在信号处理函数中访问共享数据应格外小心。
+
+异步信号处理函数的安全模式：
+ ● 调用“<a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html" target="_blank" class="dashed-link">异步信号安全</a>”函数执行清理或结束进程，如 abort、_Exit 等
+ ● 对 volatile sig_atomic_t 等类型的共享对象赋值，主程序周期性地检查共享对象并执行相应动作
+ ● 利用 sigsetjmp、siglongjmp 等函数使流程跳转到主程序中的预定位置
+ ● 通过管道等方式与主程序通信，向管道写入一个字节，主程序监控该管道并执行相应动作
+
+只应选择其中一种方式，且尽量避免访问共享数据，否则对共享数据的错误处理会使程序产生未定义的行为。
+
+示例：
+<div class="code">char msg[32];
+
+void handler(int signum) {
+    strcpy(msg, &quot;SIGINT received&quot;);      //<span class="comment"> Non-compliant</span>
+}
+
+int main() {
+    signal(SIGINT, handler);
+    strcpy(msg, &quot;No signal received&quot;);   //<span class="comment"> Race condition</span>
+    ....
+    printf(&quot;%s\n&quot;, msg);
+}</div>
+例中信号处理函数和主程序均访问了共享数据，handler 中的 strcpy 可以在 main 中的 strcpy 执行之前或中途执行，造成非预期的结果。
+
+应改为：
+<div class="code">volatile sig_atomic_t flag = 0;
+
+void handler(int signum) {
+    flag = 1;                //<span class="comment"> Compliant</span>
+}
+
+int main() {
+    signal(SIGINT, handler);
+    ....
+    printf(&quot;%s received\n&quot;, flag? &quot;SIGINT&quot;: &quot;No signal&quot;);
+}</div>
+用 SIG_ATOMIC_MIN 和 SIG_ATOMIC_MAX 之间的值对 sig_atomic_t 类型的对象赋值可以保证原子性，超出范围的赋值，或赋值之外的操作不能保证原子性，需要避免。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_dataRaces.html" target="_blank" class="related-link">ID_dataRaces</a>
+<a href="./ID_sig_nonAsyncSafeCall.html" target="_blank" class="related-link">ID_sig_nonAsyncSafeCall</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.14.1.1(5)-undefined
+ISO/IEC 9899:2011 7.14.1.1(5)-undefined
+ISO/IEC 14882:2003 1.9(9)-undefined
+ISO/IEC 14882:2011 1.9(6)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT SIG31-C
+
+</p>
+</article>
+</html>

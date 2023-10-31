@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>作为条件的逻辑表达式不应恒为真或恒为假 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>作为条件的逻辑表达式不应恒为真或恒为假</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_invalidCondition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_redundantCondition.html">next</a> › <a class="nav-link" href="./ID_conflictCondition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+以恒为真或恒为假的表达式作为条件是没有意义的，属于逻辑错误。
+
+示例：
+<div class="code">void foo() {
+    int i = 1;
+    if (i &gt; 0) {   //<span class="comment"> Non-compliant, always true</span>
+        ....       
+    } else {
+        ....       //<span class="comment"> Infeasible path</span>
+    }
+}</div>
+例中变量 i 初始化为 1 后在没有被修改过的情况下，仍对其进行判断是没有意义的，else 分枝的代码得不到执行机会。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_constLogicExpression.html" target="_blank" class="related-link">ID_constLogicExpression</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-570
+CWE-571
+MISRA C 2004 13.7
+MISRA C 2012 14.3
+MISRA C++ 2008 0-1-2
+
+</p>
+</article>
+</html>

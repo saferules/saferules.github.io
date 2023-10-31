@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应使用匿名枚举声明 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应使用匿名枚举声明</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidUnnamedEnum</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidUnscopedEnum.html">next</a> › <a class="nav-link" href="./ID_casualInitialization.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+匿名枚举声明相当于在当前作用域定义常量，但类型不够明确。
+
+示例：
+<div class="code">enum { rabbit = 0xAA, carrot = 1234 };  //<span class="comment"> Non-compliant</span></div>
+如果无法确定枚举类型的名称，也意味着各枚举项不应聚为一类。
+
+应改为：
+<div class="code">const int rabbit = 0xAA;  //<span class="comment"> Compliant</span>
+const int carrot = 1234;  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines Enum.6
+
+</p>
+</article>
+</html>

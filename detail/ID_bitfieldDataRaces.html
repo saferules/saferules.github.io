@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免并发访问位域造成的数据竞争 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免并发访问位域造成的数据竞争</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_bitfieldDataRaces</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_signalInMultiThreading.html">next</a> › <a class="nav-link" href="./ID_spuriouslyWakeUp.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+相邻的位域成员可能在一个存储单元中，所以并发访问位域也可能造成数据竞争。
+
+示例：
+<div class="code">struct A {
+    unsigned x: 1;
+    unsigned y: 1;
+} a;
+
+void thr1() {
+    a.x = 0;    //<span class="comment"> Non-compliant, missing lock</span>
+}
+
+void thr2() {
+    a.y = 1;    //<span class="comment"> Non-compliant, missing lock</span>
+}</div>
+设例中 thr1 和 thr2 是可以并发执行的函数，位域成员 x 和 y 在一个存储单元中，对 x 或 y 的更新相当于用新数据更新存储单元的值，再将存储单元的值整体写入内存，这个过程如果是异步并发执行的就会产生错误，所以对不同位域成员的并发访问也应保证合理的同步措施。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_dataRaces.html" target="_blank" class="related-link">ID_dataRaces</a>
+<a href="./ID_forbidBitfield.html" target="_blank" class="related-link">ID_forbidBitfield</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:2011 3.14(3)
+ISO/IEC 14882:2011 1.7(4)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT CON32-C
+SEI CERT CON52-CPP
+
+</p>
+</article>
+</html>

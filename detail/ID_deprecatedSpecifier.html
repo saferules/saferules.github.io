@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应使用已过时的关键字 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应使用已过时的关键字</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_deprecatedSpecifier</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_inlineRedundant.html">next</a> › <a class="nav-link" href="./ID_abusedAuto.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在 C++11 标准中，register 关键字已过时，auto 关键字也不可再作为“<a href="https://en.cppreference.com/w/cpp/language/storage_duration" target="_blank" class="dashed-link">存储类说明符（storage class specifier）</a>”。
+
+本规则对 C++ 代码适用，C 代码可不受限制。
+
+示例：
+<div class="code">register int a;            //<span class="comment"> Non-compliant</span>
+auto int b;                //<span class="comment"> Non-compliant</span>
+int foo(register int x);   //<span class="comment"> Non-compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 7.1.6.4(3)
+ISO/IEC 14882:2011 D.2(1)-deprecated
+
+</p>
+
+
+</article>
+</html>

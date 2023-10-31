@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免出现复合赋值的可疑形式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免出现复合赋值的可疑形式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_suspiciousCompoundAssignment</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illSelfCompoundAssignment.html">next</a> › <a class="nav-link" href="./ID_illFormedCompoundAssignment.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如下形式的复合赋值表达式（设 a 和 x 为变量或表达式）：
+<div class="code">a += a + x;
+a *= a * x;
+a %= a % x;
+a &lt;&lt;= a &lt;&lt; x;
+a &gt;&gt;= a &gt;&gt; x;
+</div>
+均为常见笔误，但在特定需求下也有其逻辑意义，故对这种表达式应给出可疑提醒。即使这类表达式没有逻辑错误，也应该换成普通赋值表达式以便提高可读性。
+
+示例：
+<div class="code">a += a + x;   //<span class="comment"> Rather suspicious</span>
+</div>
+应改为：
+<div class="code">a = a + x;
+a = 2 * a + x;
+a = a + (a + x);</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-682
+
+</p>
+</article>
+</html>

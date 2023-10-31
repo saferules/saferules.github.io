@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>自增、自减表达式不应作为子表达式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>自增、自减表达式不应作为子表达式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_incDecAsSubExpression</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nonBoolCondition.html">next</a> › <a class="nav-link" href="./ID_assignmentAsSubExpression.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+自增、自减表达式作为子表达式易使人费解，也易产生求值顺序相关的问题。
+
+示例：
+<div class="code">a = ++b + c--;   //<span class="comment"> Non-compliant</span>
+</div>
+应改为：
+<div class="code">++b;             //<span class="comment"> Compliant</span>
+a = b + c;
+c--;             //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_evaluationOrderReliance.html" target="_blank" class="related-link">ID_evaluationOrderReliance</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 13.3
+MISRA C++ 2008 5-2-10
+
+</p>
+</article>
+</html>

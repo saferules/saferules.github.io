@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应判断 this 指针是否为空 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应判断 this 指针是否为空</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_this_zeroComparison</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_this_deleteInDestructor.html">next</a> › <a class="nav-link" href="./ID_oddPtrZeroComparison.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+正常情况下 this 指针不会为空，而且判断 this 指针是否为空会影响编译器对 this 指针的优化，造成难以预料的后果。
+
+在某些环境中通过空指针调用非静态成员函数时，this 指针可能为空，但这并不符合标准。值得强调的是，任何情况下都不应逃避解引用空指针造成的问题。
+
+示例：
+<div class="code">struct A {
+    int x = 0;
+    int getX() {
+        return this? x: 0;  //<span class="comment"> Non-compliant</span>
+    }
+};
+
+A* p = foo();
+//<span class="comment"> Suppose an error has occurred and a null pointer is returned</span>
+cout &lt;&lt; p-&gt;getX() &lt;&lt; &#x27;\n&#x27;;
+</div>
+假设 foo 函数不应返回空指针，而某个错误导致其返回了空指针，程序本应崩溃，而 getX 函数却逃避了崩溃，这非但不能真正地解决问题，反而使问题难以定位，使程序难以调试，大大降低了可维护性。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1025
+
+</p>
+</article>
+</html>

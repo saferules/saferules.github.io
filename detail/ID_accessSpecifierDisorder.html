@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>类成员应按 public、protected、private 的顺序声明 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>类成员应按 public、protected、private 的顺序声明</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_accessSpecifierDisorder</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_unsuitableStructTag.html">next</a> › <a class="nav-link" href="./ID_returnNonConstData.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+类成员统一按 public、protected、private 的顺序声明，有利于提高可读性。
+
+示例：
+<div class="code">class A   //<span class="comment"> Bad</span>
+{
+private:
+    int baz();
+
+public:
+    int foo();
+
+protected:
+    int bar();
+};</div>
+供外部使用的 public 成员应作为重点写在前面，其次是 protected 成员，private 成员应写在最后：
+<div class="code">class A   //<span class="comment"> Good</span>
+{
+public:
+    int foo();
+
+protected:
+    int bar();
+
+private:
+    int baz();
+};</div>
+
+</div>
+
+
+
+
+</article>
+</html>

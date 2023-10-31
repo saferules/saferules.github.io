@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应存在多余的逻辑子表达式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应存在多余的逻辑子表达式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_redundantCondition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_constLogicExpression.html">next</a> › <a class="nav-link" href="./ID_invalidCondition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+逻辑或、逻辑与的子表达式有包含关系时，其中的一个表达式是多余的。
+
+示例：
+<div class="code">a &gt; b &amp;&amp; a != b     //<span class="comment"> None-compliant, a != b is redundant</span>
+a &lt; b || a != b     //<span class="comment"> None-compliant, a &lt; b is redundant</span>
+a &gt;= b &amp;&amp; a == b    //<span class="comment"> None-compliant, a &gt;= b is redundant</span>
+a == b || a &lt;= b    //<span class="comment"> None-compliant, a == b is redundant</span>
+</div>
+多余的子表达式很可能意味着某种错误，需认真对待。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_simplifiableCondition.html" target="_blank" class="related-link">ID_simplifiableCondition</a>
+<a href="./ID_conflictCondition.html" target="_blank" class="related-link">ID_conflictCondition</a>
+
+</p>
+
+
+
+</article>
+</html>

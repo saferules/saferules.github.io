@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>注意运算符优先级，避免非预期的结果 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>注意运算符优先级，避免非预期的结果</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_unexpectedPrecedence</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illPtrDiff.html">next</a> › <a class="nav-link" href="./ID_confusingAssignment.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+对运算符优先级的错误理解是产生逻辑错误的主要原因之一。
+
+示例：
+<div class="code">int foo(bool cond) {
+    return 1 + cond? 2: 3;  //<span class="comment"> Rather suspicious</span>
+}</div>
+加号的优先级大于三元运算符，但 cond 是 bool 型变量，所以这种情况十分可疑。
+
+很可能应改为：
+<div class="code">int foo(bool cond) {
+    return 1 + (cond? 2: 3);
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-783
+
+</p>
+</article>
+</html>

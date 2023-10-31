@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>资源不可被重复释放 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>资源不可被重复释放</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_doubleFree</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_deleteIncompleteType.html">next</a> › <a class="nav-link" href="./ID_throwInConstructor.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+重复释放资源属于逻辑错误，导致标准未定义的行为。
+
+示例：
+<div class="code">void foo(const char* path) {
+    FILE* p = fopen(path, &quot;r&quot;);
+    if (p) {
+        ....
+        fclose(p);
+    }
+    fclose(p);  //<span class="comment"> Non-compliant</span>
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.20.3.2(2)-undefined
+ISO/IEC 9899:2011 7.22.3.3(2)-undefined
+ISO/IEC 14882:2003 3.7.3.2(4)-undefined
+ISO/IEC 14882:2011 3.7.4.2(4)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-415
+
+</p>
+</article>
+</html>

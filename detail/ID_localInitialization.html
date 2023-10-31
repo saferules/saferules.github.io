@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>局部对象在使用前应被初始化 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>局部对象在使用前应被初始化</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_localInitialization</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_memberInitialization.html">next</a> › <a class="nav-link" href="./ID_illForwardingReference.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+未初始化的局部对象具有不确定的值，读取未初始化的对象会导致标准未定义的行为。
+
+示例：
+<div class="code">int foo() {
+    int a;         //<span class="comment"> A local object(automatic storage duration)</span>
+    if (cond) {
+        a = 0;
+    }
+    return a;      //<span class="comment"> Non-compliant, may be an indeterminate value</span>
+}</div>
+例中局部对象 a 的初始化依赖某种条件，在条件范围之外读取 a 的值会得到不确定的结果。
+
+建议对象在声明处初始化，即使不方便在声明处初始化，也应该在声明的附近进行无条件初始化：
+<div class="code">int a = 0;    //<span class="comment"> Good</span>
+
+int b;
+b = 123;      //<span class="comment"> OK</span>
+</div>
+不建议的模式：
+<div class="code">int a;
+if (x) {
+    a = 0;
+}
+....
+if (y) {
+    use(a);   //<span class="comment"> Dangerous</span>
+}</div>
+例中 a 的初始化依赖条件 x，并在满足条件 y 时被使用，即使条件 x 和条件 y 有一定相关性可以保证对 a 的使用是正确的，也会造成潜在的维护困难，当条件比较复杂或有变化时极易出错。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_illAccess.html" target="_blank" class="related-link">ID_illAccess</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.2.4(5 6)
+ISO/IEC 9899:2011 6.2.4(6 7)
+ISO/IEC 9899:2011 6.3.2.1(2)-undefined
+ISO/IEC 14882:2003 4.1(1)-undefined
+ISO/IEC 14882:2003 8.5(9)
+ISO/IEC 14882:2011 4.1(1)-undefined
+ISO/IEC 14882:2011 8.5(11)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-457
+C++ Core Guidelines ES.20
+MISRA C 2004 9.1
+MISRA C 2012 9.1
+MISRA C++ 2008 8-5-1
+
+</p>
+</article>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>全局及命名空间作用域中禁用 using directive - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>全局及命名空间作用域中禁用 using directive</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbidUsingDirectives</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_usingSelf.html">next</a> › <a class="nav-link" href="./ID_staticAndConst.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+通过 using directive 将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。
+
+示例：
+<div class="code">//<span class="comment"> In global namespace</span>
+using namespace std;           //<span class="comment"> Non-compliant</span>
+using namespace myspace;       //<span class="comment"> Non-compliant</span>
+
+namespace myspace {
+    using namespace hisspace   //<span class="comment"> Non-compliant</span>
+}
+</div>
+在函数作用域内可适当放宽要求，如：
+<div class="code">void foo() {
+    using namespace myspace;   //<span class="comment"> Let it go</span>
+
+    type x;                    //<span class="comment"> Using myspace::type</span>
+    some_fun(x);               //<span class="comment"> Using mysapce::some_fun</span>
+}
+</div>
+建议用 using declaration 代替 using directive：
+<div class="code">void foo() {
+    using myspace::type;       //<span class="comment"> Compliant</span>
+    using myspace::some_fun;   //<span class="comment"> Compliant</span>
+
+    type x;
+    some_fun(x);
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_usingNamespaceInHeader.html" target="_blank" class="related-link">ID_usingNamespaceInHeader</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines SF.6
+MISRA C++ 2008 7-3-4
+
+</p>
+</article>
+</html>

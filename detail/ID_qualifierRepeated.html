@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>const、volatile 不应重复 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>const、volatile 不应重复</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_qualifierRepeated</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_qualifierForPtrAlias.html">next</a> › <a class="nav-link" href="./ID_misspelling.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+重复的 const 或 volatile 限定符是没意义的，很可能意味着某种错误。
+
+示例：
+<div class="code">const const char* p0 = &quot;....&quot;;   //<span class="comment"> Non-compliant</span>
+const char const* p1 = &quot;....&quot;;   //<span class="comment"> Non-compliant</span>
+char* const const p2 = &quot;....&quot;;   //<span class="comment"> Non-compliant</span>
+</div>
+对于 p0 和 p1，const 重复限定 char，其中一个 const 很可能是为了限定 * 号，但形成了笔误，应改为：
+<div class="code">const char * const p0 = &quot;....&quot;;  //<span class="comment"> Compliant</span>
+const char * const p1 = &quot;....&quot;;  //<span class="comment"> Compliant</span>
+</div>
+对于 p2，const 重复限定 * 号，其中一个 const 很可能是为了限定 char，应改为：
+<div class="code">const char * const p2 = &quot;....&quot;;  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_badQualifierPosition.html" target="_blank" class="related-link">ID_badQualifierPosition</a>
+
+</p>
+
+
+
+</article>
+</html>

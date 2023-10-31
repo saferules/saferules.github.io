@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>sizeof 不应再作用于 sizeof 表达式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>sizeof 不应再作用于 sizeof 表达式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_sizeof_sizeof</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_sizeof_NULL.html">next</a> › <a class="nav-link" href="./ID_sizeof_zeroComparison.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+sizeof(sizeof(...)) 等价于 sizeof(size_t)，在实际应用中没有任何必要写成连续 sizeof 的形式，往往意味着逻辑错误，多数由复制粘贴或错误的宏展开导致。
+
+示例：
+<div class="code">void foo() {
+    T* p = (T*)malloc(sizeof(T));
+    p-&gt;nLength = sizeof(sizeof(T));  //<span class="comment"> Non-compliant, copy-paste error</span>
+    ....
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.5.3.4(4)
+ISO/IEC 9899:2011 6.5.3.4(5)
+ISO/IEC 14882:2003 5.3.3(6)
+ISO/IEC 14882:2011 5.3.3(6)
+ISO/IEC 14882:2017 8.3.3(6)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-682
+
+</p>
+</article>
+</html>

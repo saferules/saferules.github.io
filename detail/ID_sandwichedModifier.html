@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>const、volatile 等关键字不应出现在基本类型名称的中间 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>const、volatile 等关键字不应出现在基本类型名称的中间</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_sandwichedModifier</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_constStrToNonConstPtr.html">next</a> › <a class="nav-link" href="./ID_badQualifierPosition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+某些基本类型名称可由多个符号组成，const、volatile 等关键字不应出现在类型名称的中间，否则可读性较差。
+
+本规则对下列 C 或 C++ 关键字有同样的要求：
+<div class="code">const、volatile、
+inline、virtual、explicit、
+register、static、thread_local、extern、mutable、
+friend、typedef、constexpr、
+_Alignas、_Atomic、_Noreturn、_Thread_local
+</div>
+即使对这些关键字的位置不作统一要求，也不应使其出现在类型名称的中间，否则很容易引起误解。
+
+示例：
+<div class="code">const long volatile long cvll = 0;    //<span class="comment"> Non-compliant</span>
+long const double volatile cvld = 0;  //<span class="comment"> Non-compliant</span>
+</div>
+应改为：
+<div class="code">const volatile long long cvll = 0;    //<span class="comment"> Compliant</span>
+const volatile long double cvld = 0;  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_badQualifierPosition.html" target="_blank" class="related-link">ID_badQualifierPosition</a>
+<a href="./ID_badSpecifierPosition.html" target="_blank" class="related-link">ID_badSpecifierPosition</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7(1)
+ISO/IEC 9899:1999 6.7.2(1)
+ISO/IEC 9899:2011 6.7(1)
+ISO/IEC 9899:2011 6.7.2(1)
+ISO/IEC 14882:2003 A.6
+ISO/IEC 14882:2011 A.6
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines NL.26
+
+</p>
+</article>
+</html>

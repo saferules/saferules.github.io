@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>除转义字符、宏定义之外不应使用反斜杠 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>除转义字符、宏定义之外不应使用反斜杠</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_badBackslash</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nameTooShort.html">next</a> › <a class="nav-link" href="./ID_missingNewLineFileEnd.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+反斜杠可用于标识转义字符，也可用于实现“伪换行”，即代码换行显示但在语法上并没有换行，一般用于宏定义，除此之外不应再使用反斜杠，否则没有实际意义，也会造成混乱。
+
+示例：
+<div class="code">#define M(x, y) if(x) {\    //<span class="comment"> Compliant</span>
+    foo(y);\                //<span class="comment"> Compliant</span>
+}
+
+void foo() {
+    if (condition1 \        //<span class="comment"> Non-compliant, meaningless</span>
+     || condition2) {
+    }
+}
+
+int a\                      //<span class="comment"> Non-compliant, odd usage</span>
+b\
+c = 123;
+
+void bar() {
+    // comment  \           //<span class="comment"> Non-compliant, The next line is also commented out</span>
+    do_something();
+}</div>
+如果“universal character name”被反斜杠截断会导致标准未定义的行为，如：
+<div class="code">const char* s = &quot;\u4e\      // Non-compliant, undefined behavior
+2d&quot;;</div>
+应去掉反斜杠：
+<div class="code">const char* s = &quot;\u4e2d&quot;;   //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 2.1(1)-undefined
+ISO/IEC 14882:2011 2.2(1)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 3.2
+
+</p>
+</article>
+</html>

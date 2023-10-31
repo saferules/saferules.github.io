@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>多线程环境中不可使用 signal 函数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>多线程环境中不可使用 signal 函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_signalInMultiThreading</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_spaceStyle.html">next</a> › <a class="nav-link" href="./ID_bitfieldDataRaces.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在多线程环境中使用 signal 函数会导致标准未定义的行为。
+
+示例：
+<div class="code">#include &lt;signal.h&gt;
+#include &lt;threads.h&gt;
+
+void handler(int);
+
+int thread(void* param) {
+    signal(SIGINT, handler);  //<span class="comment"> Non-compliant, undefined behavior</span>
+    ....
+}</div>
+例中 thread 是线程函数，C11 标准指明在多线程环境中使用 signal 函数会导致未定义的行为。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_forbidSignalFunction.html" target="_blank" class="related-link">ID_forbidSignalFunction</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:2011 7.14.1.1(7)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT CON37-C
+
+</p>
+</article>
+</html>

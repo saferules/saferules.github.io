@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>va_start 或 va_copy 应配合 va_end 使用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>va_start 或 va_copy 应配合 va_end 使用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_incompleteVaMacros</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_badVaArgType.html">next</a> › <a class="nav-link" href="./ID_macro_redundantArgs.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+可变参数列表相关的 va_start 或 va_copy 和 va_end 应在同一函数中使用，否则会导致标准未定义的行为。
+
+示例：
+<div class="code">int foo(int n, ...) {
+    va_list ap;
+    va_start(ap, n);
+    int sum = 0;
+    for (int i = 0; i &lt; n; i++) {
+        sum += va_arg(ap, int);
+    }
+    return sum;   //<span class="comment"> Non-compliant, missing ‘va_end(ap);’</span>
+}</div>
+应在函数返回前使用 va_end。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_forbidVariadicFunction.html" target="_blank" class="related-link">ID_forbidVariadicFunction</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.15.1.3(2)-undefined
+ISO/IEC 9899:2011 7.16.1.3(2)-undefined
+
+</p>
+
+
+</article>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>main 函数的返回类型只应为 int - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>main 函数的返回类型只应为 int</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_mainReturnsNonInt</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illFormedMain.html">next</a> › <a class="nav-link" href="./ID_forbidException.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+main 函数的返回值可作为整个进程执行情况的总结，按惯例返回 0 或 EXIT_SUCCESS 表示执行成功，非 0 或 EXIT_FAILURE 表示执行失败，main 函数的返回值会作为标准 exit 函数的参数。
+
+应采用标准明确支持的方式：
+
+<div class="code">int main(void) { .... }                     //<span class="comment"> Compliant</span>
+int main(int argc, char *argv[]) { .... }   //<span class="comment"> Compliant</span>
+</div>
+如果将返回值设为 void 或其他非 int 类型，会导致未定义、未声明或由实现定义的行为。
+
+<div class="code">void main() { .... }   //<span class="comment"> Non-compliant</span>
+bool main() { .... }   //<span class="comment"> Non-compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 5.1.2.2.1(1)-implementation
+ISO/IEC 9899:1999 5.1.2.2.3(1)-unspecified
+ISO/IEC 9899:2011 5.1.2.2.1(1)-implementation
+ISO/IEC 9899:2011 5.1.2.2.3(1)-unspecified
+ISO/IEC 14882:2003 3.6.1(2)-implementation
+ISO/IEC 14882:2011 3.6.1(2)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines F.46
+
+</p>
+</article>
+</html>

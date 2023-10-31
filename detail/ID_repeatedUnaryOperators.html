@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应重复使用一元运算符 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应重复使用一元运算符</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_repeatedUnaryOperators</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_evalOverflow.html">next</a> › <a class="nav-link" href="./ID_minusOnUnsigned.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+重复的一元运算符没有意义，为常见笔误。
+
+示例：
+<div class="code">int a = 1;
+int b = ~~a;    //<span class="comment"> Non-compliant</span>
+int c = -+a;    //<span class="comment"> Non-compliant</span>
+int d = - -a;   //<span class="comment"> Non-compliant</span>
+</div>
+例外：
+<div class="code">bool e = !!a;   //<span class="comment"> Let it go</span></div>
+两个连续的 ! 是 bool 转换的惯用方法，可不受本规则约束。
+
+</div>
+
+
+
+
+</article>
+</html>

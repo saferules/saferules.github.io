@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应存在不改变程序流程的跳转语句 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应存在不改变程序流程的跳转语句</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_redundantJump</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_jumpOutLoop.html">next</a> › <a class="nav-link" href="./ID_uncondJump.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+不改变程序流程的跳转语句是多余的，往往意味着逻辑错误，也可能是调试或维护痕迹。
+
+goto、return、break、continue 等跳转语句均受本规则约束。
+
+示例：
+<div class="code">void foo() {
+    goto L;   //<span class="comment"> Non-compliant, redundant</span>
+L:
+    ....
+}
+
+void bar() {
+    ....
+    return;   //<span class="comment"> Non-compliant, redundant</span>
+}
+
+void baz() {
+    while (cond) {
+        ....
+        continue;   //<span class="comment"> Non-compliant, redundant</span>
+    }
+}</div>
+
+</div>
+
+
+
+
+</article>
+</html>

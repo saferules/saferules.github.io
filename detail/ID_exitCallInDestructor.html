@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>在析构函数中避免调用 exit 函数 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>在析构函数中避免调用 exit 函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_exitCallInDestructor</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_sideEffectCopyConstructor.html">next</a> › <a class="nav-link" href="./ID_virtualCallInDestructor.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+程序调用 exit 后，具有静态或线程存储期的对象开始析构，如果这种对象的析构函数再调用 exit 会导致标准未定义的行为，为规避意料之外的错误，应统一要求在析构函数中避免直接或间接地调用 exit。
+
+示例：
+<div class="code">class T {
+    ....
+
+public:
+   ~T() {
+        exit(1);  //<span class="comment"> Non-compliant</span>
+    }
+};</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 3.6.1(4)-undefined
+ISO/IEC 14882:2011 3.6.1(4)-undefined
+
+</p>
+
+
+</article>
+</html>

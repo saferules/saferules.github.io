@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免在事务中通过路径多次访问同一文件 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免在事务中通过路径多次访问同一文件</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_TOCTOU</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_atomicRaces.html">next</a> › <a class="nav-link" href="./ID_dataRaces.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+攻击者可以在两次通过路径访问文件的中途对文件做手脚，从而造成不良后果。
+
+这种问题称为“TOCTOU（Time-of-check to time-of-use）”。有时需要先检查文件的某种状态，如果状态满足条件的话，再使用该文件，如果“检查”和“使用”都是通过路径完成的，攻击者可以在中途将文件替换成不满足条件的文件，如将文件替换成指向另一个文件的链接，从而对系统造成破坏，这是一种典型的“<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" class="dashed-link">竞态条件</a>”。
+
+示例：
+<div class="code">void create(const char* path) {
+    FILE* fp = fopen(path, &quot;r&quot;);
+    if (fp != NULL) {              //<span class="comment"> #1, time-of-check</span>
+        fclose(fp);
+        return;
+    }
+    fp = fopen(path, &quot;w&quot;);         //<span class="comment"> #2, time-of-use, non-compliant</span>
+    if (fp != NULL) {
+        fwrite(&quot;abc&quot;, 1, 3, fp);
+        fclose(fp);
+    }
+}</div>
+示例代码先通过路径判断文件是否存在，如果存在则不作处理，如果不存在则再次通过路径创建文件并写入数据。如果攻击者把握住时机，在程序执行到 #1 和 #2 之间时按 path 创建指向其他文件的链接，那么被指向的文件会遭到破坏，尤其是当被攻击的进程权限比较高时，破坏力是难以控制的。
+
+应只通过路径打开文件对象一次，只通过文件对象操作文件：
+<div class="code">void create(const char* path) {
+    FILE* fp = fopen(path, &quot;wx&quot;);   //<span class="comment"> Compliant, since C11</span>
+    if (fp != NULL) {
+        fwrite(&quot;abc&quot;, 1, 3, fp);
+        fclose(fp);
+    }
+}</div>
+利用“wx”模式即可保证 fopen 在文件不存在时创建文件，文件存在时返回空。
+
+注意，目前 C++ 的 fstream 尚无法完成与“wx”模式相同的功能，相同功能的代码要用 fopen 实现。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.19.5.3(3)
+ISO/IEC 9899:2011 7.21.5.3(3)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-367
+
+</p>
+</article>
+</html>

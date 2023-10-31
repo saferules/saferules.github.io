@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>为缓冲区分配足够的空间 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>为缓冲区分配足够的空间</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_insufficientBuffer</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nonPODFilling.html">next</a> › <a class="nav-link" href="./ID_arrayIndexOverflow.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+为缓冲区分配足够的空间，避免溢出等问题。
+
+示例：
+<div class="code">void foo(const char* s) {
+    char* p = (char*)malloc(strlen(s));  //<span class="comment"> Non-compliant, should be ‘strlen(s) + 1’</span>
+    strcpy(p, s);
+    printf(&quot;%s\n&quot;, p);  //<span class="comment"> Out of bounds, undefined behavior</span>
+}</div>
+字符串以空字符结尾，在分配字符串空间时不可漏掉空字符的空间。
+
+又如：
+<div class="code">void bar() {
+    int* p = (int*)malloc(123);  //<span class="comment"> Non-compliant</span>
+    ....
+}</div>
+例中 bar 函数为 int 型数组分配了 123 个字节的空间，而 123 不能被 sizeof(int) 整除，最后一个元素会越界。虽然 malloc 函数返回已对齐的地址，但这种代码往往意味着 sizeof 因子的缺失。
+
+应改为：
+<div class="code">void bar() {
+    int* p = (int*)malloc(123 * sizeof(int));  //<span class="comment"> Compliant</span>
+    ....
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_bufferOverflow.html" target="_blank" class="related-link">ID_bufferOverflow</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-131
+CWE-135
+
+</p>
+</article>
+</html>

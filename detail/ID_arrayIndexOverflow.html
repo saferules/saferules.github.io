@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>数组下标不可越界 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>数组下标不可越界</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_arrayIndexOverflow</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_insufficientBuffer.html">next</a> › <a class="nav-link" href="./ID_bufferOverflow.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+数组下标超过数组大小范围会导致标准未定义的行为。
+
+设数组元素个数为 N，p 为指向数组第一个元素的指针，i 为整数，标准规定：
+ ● 当 i &gt;= 0 且 i &lt; N 时，p + i 的结果不会溢出
+ ● 当 i 等于 N 时，p + i 的结果不会溢出，但不可对其解引用
+ ● 当 i &lt; 0 或 i &gt; N 时，p + i 的结果可能会溢出
+ ● 使数组下标超出 [0, N] 的运算可能会使指针值溢出，导致未定义的行为
+
+示例：
+<div class="code">int a[10];
+int *p, *e;
+
+p = a + 0;    //<span class="comment"> Compliant</span>
+p = a + 5;    //<span class="comment"> Compliant</span>
+e = a + 10;   //<span class="comment"> Compliant, won&#x27;t overflow</span>
+
+p = a - 1;    //<span class="comment"> Non-compliant, the array subscript is -1, which exceeds [0, N]</span>
+e = a + 11;   //<span class="comment"> Non-compliant, the array subscript is 11, which exceeds [0, N]</span>
+
+--p;          //<span class="comment"> Non-compliant, may overflow</span>
+e++;          //<span class="comment"> Non-compliant, may overflow</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_bufferOverflow.html" target="_blank" class="related-link">ID_bufferOverflow</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.5.6(8)-undefined
+ISO/IEC 9899:2011 6.5.6(8)-undefined
+ISO/IEC 14882:2003 5.7(5)-undefined
+ISO/IEC 14882:2011 5.7(5)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.103
+SEI CERT ARR30-C
+
+</p>
+</article>
+</html>

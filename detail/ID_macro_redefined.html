@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>宏不应被重定义 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>宏不应被重定义</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_macro_redefined</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_inBlock.html">next</a> › <a class="nav-link" href="./ID_macro_function.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+宏不受作用域限制，重定义宏会使同一个全局名称产生多种不同的意义，易导致错误并降低可维护性。
+
+示例：
+<div class="code">#define M 1
+
+int foo() {
+    #define M 0   //<span class="comment"> Non-compliant, redefined</span>
+    return M;
+}
+
+int bar() {
+    return M;   //<span class="comment"> Probably wrong</span>
+}</div>
+例中宏 M 在 foo 函数中被重定义，其影响范围是难以控制的，即使在重定义前用 #undef 取消定义也是不可取的，复用宏名称会使代码难以维护。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.10.3(2)
+ISO/IEC 9899:2011 6.10.3(2)
+ISO/IEC 14882:2003 16.3(2 3)
+ISO/IEC 14882:2011 16.3(2)
+
+</p>
+
+
+</article>
+</html>

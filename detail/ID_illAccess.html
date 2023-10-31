@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不可访问未初始化或已释放的资源 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不可访问未初始化或已释放的资源</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illAccess</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_ownerlessResource.html">next</a> › <a class="nav-link" href="./ID_memoryLeak.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+访问未初始化或已释放的资源属于逻辑错误，会导致标准未定义的行为。
+
+对于访问未初始化的局部对象，本规则特化为 <a href="./ID_localInitialization.html" target="_blank" class="dashed-link">ID_localInitialization</a>；对于解引用未初始化或已被释放的指针，本规则特化为 <a href="./ID_wildPtrDeref.html" target="_blank" class="dashed-link">ID_wildPtrDeref</a> 、<a href="./ID_danglingDeref.html" target="_blank" class="dashed-link">ID_danglingDeref</a>。
+
+示例：
+<div class="code">void foo(const char* path, char buf[], size_t n) {
+    FILE* f;
+    if (path != NULL) {
+        f = fopen(path, &quot;rb&quot;);
+    }
+    fread(buf, 1, n, f);   //<span class="comment"> Non-compliant, ‘f’ may be invalid</span>
+    fclose(f);
+}
+
+void bar(FILE* f, char buf[], size_t n) {
+    if (feof(f)) {
+        fclose(f);
+    }
+    fread(buf, 1, n, f);   //<span class="comment"> Non-compliant, ‘f’ may be closed</span>
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_wildPtrDeref.html" target="_blank" class="related-link">ID_wildPtrDeref</a>
+<a href="./ID_danglingDeref.html" target="_blank" class="related-link">ID_danglingDeref</a>
+<a href="./ID_localInitialization.html" target="_blank" class="related-link">ID_localInitialization</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.19.3(4)
+ISO/IEC 9899:2011 7.21.3(4)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-672
+CWE-908
+SEI CERT FIO46-C
+SEI CERT EXP53-CPP
+
+</p>
+</article>
+</html>

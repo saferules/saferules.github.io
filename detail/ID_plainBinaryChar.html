@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>字节的类型应为 std::byte 或 unsigned char - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>字节的类型应为 std::byte 或 unsigned char</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_plainBinaryChar</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_missingParamName.html">next</a> › <a class="nav-link" href="./ID_plainNumericChar.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+字节等二进制概念不应受对齐方式或符号位的干扰，字节的类型应为 std::byte 或 unsigned char。
+
+std::byte  是 C++17 的标准字节类型，对字节相关的运算和操作提供了更安全的限定。在 C 代码或不便于遵循新标准的 C++ 代码中，应将字节类型声明为 unsigned char。
+
+示例：
+<div class="code">typedef char byte;       //<span class="comment"> Non-compliant</span>
+byte buf[100];
+FILE* fp = fopen(&quot;foo&quot;, &quot;rb&quot;);
+fread(buf, 1, 100, fp);
+if (buf[0] == 0xff) {    //<span class="comment"> May be always false</span>
+    ....
+}
+if (buf[1] &lt;&lt; 1) {       //<span class="comment"> May cause undefined behavior</span>
+    ....
+}</div>
+char 类型的符号由实现定义，有符号的 char 变量在数值计算、位运算等方面很容易产生意料之外的结果。
+
+应改为：
+<div class="code">typedef unsigned char byte;   //<span class="comment"> Compliant</span></div>
+这样做也可有效区分二进制数据与字符串，提高可读性。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_plainNumericChar.html" target="_blank" class="related-link">ID_plainNumericChar</a>
+<a href="./ID_bitwiseOperOnSigned.html" target="_blank" class="related-link">ID_bitwiseOperOnSigned</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.2.5(3 15)-implementation
+ISO/IEC 9899:2011 6.2.5(3 15)-implementation
+ISO/IEC 14882:2003 3.9.1(1)-implementation
+ISO/IEC 14882:2011 3.9.1(1)-implementation
+
+</p>
+
+
+</article>
+</html>

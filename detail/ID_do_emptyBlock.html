@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>do-while 循环体不应为空 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>do-while 循环体不应为空</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_do_emptyBlock</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_do_brace.html">next</a> › <a class="nav-link" href="./ID_do_suspiciousContinue.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+空的 do-while 循环将功能全部压缩到了条件表达式中，各子句的职责划分不明确，可读性较差。
+
+示例：
+<div class="code">void foo(char* d, const char* s) {
+    do {} while (*d++ = *s++);       //<span class="comment"> Non-compliant</span>
+}</div>
+示例代码将循环的条件和循环产生的副作用叠加在了一起，易使人误解。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_while_emptyBlock.html" target="_blank" class="related-link">ID_while_emptyBlock</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-1071
+C++ Core Guidelines ES.85
+
+</p>
+</article>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应将 union 设为 final - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应将 union 设为 final</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_invalidFinal</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_this_notUsed.html">next</a> › <a class="nav-link" href="./ID_redundantVirtual.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在 C++ 语言中，union 不可作为基类，将 union 声明为 final 是没有意义的，属于语言运用错误。
+
+示例：
+<div class="code">union U final  //<span class="comment"> Non-compliant, meaningless</span>
+{
+    ....
+};</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 9.5(2)
+ISO/IEC 14882:2017 12.3(3)
+
+</p>
+
+
+</article>
+</html>

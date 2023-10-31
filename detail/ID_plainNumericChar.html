@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>参与数值运算的 char 对象应显式声明 signed 或 unsigned - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>参与数值运算的 char 对象应显式声明 signed 或 unsigned</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_plainNumericChar</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_plainBinaryChar.html">next</a> › <a class="nav-link" href="./ID_selfDependentInitialization.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+char 类型是否有符号由实现定义，为了提高可移植性并规避意料之外的错误，参与数值运算的 char 对象应显式声明符号属性。
+
+示例：
+<div class="code">int foo(char c) {     //<span class="comment"> Compliant</span>
+    return c == &#x27;a&#x27;;
+}
+
+int bar(char c) {     //<span class="comment"> Non-compliant</span>
+    return c &gt;= 0;    //<span class="comment"> May be always true</span>
+}</div>
+例中 foo 函数的 char 型参数只与字符有关，可不必声明符号属性；而 bar 函数的参数被当作整数参与了数值运算，应显式声明为 signed，否则在 char 为无符号整型的环境中会得到错误的结果。
+
+应改为：
+<div class="code">int bar(signed char c) {   //<span class="comment"> Compliant</span>
+    return c &gt;= 0;
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.2.5(3 15)-implementation
+ISO/IEC 9899:2011 6.2.5(3 15)-implementation
+ISO/IEC 14882:2003 3.9.1(1)-implementation
+ISO/IEC 14882:2011 3.9.1(1)-implementation
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 5-0-11
+SEI CERT INT07-C
+
+</p>
+</article>
+</html>

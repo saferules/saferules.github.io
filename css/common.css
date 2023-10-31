@@ -1,0 +1,21 @@
+html {
+    height: 100%;
+    color: #1A1A1A;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", "PingFang SC", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: block;
+}
+h1 {
+    font-size: 1.8em;
+}
+h2 {
+    font-size: 1.5em;
+}
+h3 {
+    font-size: 1.2em;
+}

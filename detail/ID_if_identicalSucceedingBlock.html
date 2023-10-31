@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>没有 else 子句的 if 语句与其后续代码相同是可疑的 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>没有 else 子句的 if 语句与其后续代码相同是可疑的</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_if_identicalSucceedingBlock</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_if_commonStatements.html">next</a> › <a class="nav-link" href="./ID_if_identicalImplicitElseBlock.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+if 语句与其同一作用域的后续代码完全相同是可疑的，可能是由复制粘贴造成的错误。
+
+示例：
+<div class="code">if (condition) {
+    a = SOME_VALUE;
+}
+a = SOME_VALUE;  //<span class="comment"> Rather suspicious</span>
+</div>
+例中对变量 a 的赋值是没有意义的。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_if_identicalImplicitElseBlock.html" target="_blank" class="related-link">ID_if_identicalImplicitElseBlock</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-670
+
+</p>
+</article>
+</html>

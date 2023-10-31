@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>避免类型转换造成数据丢失 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>避免类型转换造成数据丢失</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_narrowCast</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_invalidPromotion.html">next</a> › <a class="nav-link" href="./ID_literal_multicharacter.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+应避免取值范围大的类型向取值范围小的类型隐式转换，相关显式转换也应在合理的条件下完成。
+
+如果对象的值在新类型取值范围内，但无法用新类型精确表示，转换由实现定义；如果对象的值超出了新类型的取值范围，会导致数据丢失以及由实现定义或未定义的行为。
+
+示例：
+<div class="code">int i;
+double d;
+....
+short s = i;  //<span class="comment"> Non-compliant, may cause data loss</span>
+long l = d;   //<span class="comment"> Non-compliant, may cause undefined behavior</span>
+float f = d;  //<span class="comment"> Non-compliant, may cause undefined behavior</span></div>
+将整数类型转为取值范围更小的整数类型会造成数据丢失，将浮点类型转为整数类型或取值范围更小的浮点类型，则可导致由实现定义或未定义的行为，所以应在转换前判断是否可以安全转换，或实现特定的转换逻辑。
+
+下面给出判断转换是否安全的示例：
+<div class="code">template &lt;class To, class From&gt;
+struct Checker {
+    static To cast(From x) {
+        auto y = static_cast&lt;To&gt;(x);
+        auto z = static_cast&lt;From&gt;(y);
+        return x == z? y: throw DataLoss();
+    }
+};
+
+template &lt;class To, class From&gt;
+To checked_cast(From x) {
+    return Checker&lt;To, From&gt;::cast(x);
+}</div>
+函数 checked_cast 委托类 Checker 将源类型转为目标类型，再将目标类型转回源类型，如果经两次转换得到的值与转换前的值不符，说明转换存在数据丢失，抛出异常。
+
+浮点型转换可能导致未定义的行为，所以应在转换之前判断取值范围，可通过特化 Checker 实现：
+<div class="code">template &lt;&gt; struct Checker&lt;long, double&gt; {
+    static bool check(double x) {
+        return !isgreater(x, LONG_MAX) &amp;&amp; !isless(x, LONG_MIN);
+    }
+    static long cast(double x) {
+        return check(x)? static_cast&lt;long&gt;(x): throw DataLoss();
+    }
+};
+
+template &lt;&gt; struct Checker&lt;float, double&gt; {
+    static bool check(double x) {
+        return !isgreater(fabs(x), FLT_MAX) &amp;&amp; !isless(fabs(x), FLT_MIN);
+    }
+    static float cast(double x) {
+        return check(x)? static_cast&lt;float&gt;(x): throw DataLoss();
+    }
+};</div>
+这样当 double 对象的值超出 long 或 float 对象的取值范围时会抛出异常。另外，浮点类型转整数类型时小数部分如何取舍、负数是否可以转为无符号数等问题均可以根据实际需求通过特化 Checker 来实现。
+
+函数 checked_cast 的用法：
+<div class="code">int i;
+double d;
+....
+short s = checked_cast&lt;short&gt;(i);  //<span class="comment"> Compliant</span>
+long l = checked_cast&lt;long&gt;(d);    //<span class="comment"> Compliant</span>
+float f = checked_cast&lt;float&gt;(d);  //<span class="comment"> Compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.3.1.4(1)-undefined
+ISO/IEC 9899:1999 6.3.1.5(2)-undefined
+ISO/IEC 9899:2011 6.3.1.4(1)-undefined
+ISO/IEC 9899:2011 6.3.1.5(1)-undefined
+ISO/IEC 14882:2003 4.8(1)-undefined
+ISO/IEC 14882:2003 4.9(1)-undefined
+ISO/IEC 14882:2011 4.8(1)-undefined
+ISO/IEC 14882:2011 4.9(1 2)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.46
+MISRA C 2012 10.3
+MISRA C 2012 10.5
+MISRA C++ 2008 5-0-5
+MISRA C++ 2008 5-0-6
+SEI CERT FLP34-C
+
+</p>
+</article>
+</html>

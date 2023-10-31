@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>非 POD 类的指针与基本类型的指针不应相互转换 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>非 POD 类的指针与基本类型的指针不应相互转换</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nonPODBinaryCast</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_charWCharCast.html">next</a> › <a class="nav-link" href="./ID_castNonPublicInheritance.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+非“<a href="https://en.cppreference.com/w/cpp/named_req/PODType" target="_blank" class="dashed-link">POD</a>”对象相关数据之间存在特殊的内在关系，尤其是虚函数表指针、虚基类表指针这种由实现定义的运行时数据，不应当作普通二进制数据处理，非 POD 对象的指针也不应与 void*、unsigned char* 等基本类型的指针相互转换。
+
+示例：
+<div class="code">class A {
+    ....
+
+public:
+    virtual ~A() = 0;
+
+    void save() const {
+        FILE* fp = fopen(&quot;dat&quot;, &quot;wb&quot;);
+        fwrite(this, sizeof(A), 1, fp);   //<span class="comment"> Non-compliant</span>
+        fclose(fp);
+    }
+
+    void load() {
+        FILE* fp = fopen(&quot;dat&quot;, &quot;rb&quot;);
+        fread(this, sizeof(A), 1, fp);    //<span class="comment"> Non-compliant</span>
+        fclose(fp);
+    }
+};</div>
+例中 A 是多态类型，save 函数将对象写入文件，fwrite 的第一个参数 this 被隐式转为 void*，不符合本规则要求。对象的虚表指针等数据一并被写入文件，但虚表指针是运行时数据不应被保存，load 函数从文件中读取对象便破坏了运行时数据。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_nonPODFilling.html" target="_blank" class="related-link">ID_nonPODFilling</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-843
+
+</p>
+</article>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应使用常量 0 表示空指针 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应使用常量 0 表示空指针</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_zeroAsPtrValue</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_oddPtrBoolAssignment.html">next</a> › <a class="nav-link" href="./ID_fixedAddrToPointer.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+在 C 代码中应使用 NULL 表示空指针，在 C++ 代码中应使用 nullptr 表示空指针。
+
+标准允许 0、&#x27;\0&#x27;、false、1 - 1 等值为 0 的常量表达式作为空指针常量，但易与非指针混淆，不利于阅读和维护。
+
+示例：
+<div class="code">int* p;
+void foo(int*);
+
+p = 0;   //<span class="comment"> Non-compliant</span>
+foo(0);  //<span class="comment"> Non-compliant</span>
+</div>
+应改为：
+<div class="code">p = NULL;      //<span class="comment"> Compliant in C</span>
+foo(nullptr);  //<span class="comment"> Compliant in C++</span></div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_oddPtrBoolAssignment.html" target="_blank" class="related-link">ID_oddPtrBoolAssignment</a>
+<a href="./ID_oddPtrCharAssignment.html" target="_blank" class="related-link">ID_oddPtrCharAssignment</a>
+<a href="./ID_oddPtrBoolComparison.html" target="_blank" class="related-link">ID_oddPtrBoolComparison</a>
+<a href="./ID_oddPtrCharComparison.html" target="_blank" class="related-link">ID_oddPtrCharComparison</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.3.2.3(3)
+ISO/IEC 9899:2011 6.3.2.3(3)
+ISO/IEC 14882:2003 4.10(1)
+ISO/IEC 14882:2011 4.10(1)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.47
+MISRA C 2012 11.9
+MISRA C++ 2008 4-10-2
+
+</p>
+</article>
+</html>

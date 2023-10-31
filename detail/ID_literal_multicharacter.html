@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应使用多字符常量 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应使用多字符常量</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_literal_multicharacter</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_narrowCast.html">next</a> › <a class="nav-link" href="./ID_literal_magicString.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+“多字符常量（multi-character literal）”指单引号之间有多个字符或非基本字符的常量，如：
+<div class="code">&#x27;abc&#x27;  //<span class="comment"> has type int and implementation-defined value</span></div>
+&#x27;中&#x27;   //<span class="comment"> has type int and implementation-defined value</span>
+L&#x27;文&#x27;  //<span class="comment"> has type wchar_t and implementation-defined value</span>
+这种常量的值是由实现定义的，而且在形式上与字符或字符串常量非常相似，易被误用，故建议禁用。
+
+示例：
+<div class="code">void foo(int x) {
+    if (x == &#x27;tcp&#x27;) {  //<span class="comment"> Non-compliant</span>
+        ....
+    }
+    else if (x == &#x27;udp&#x27;) {  //<span class="comment"> Non-compliant</span>
+        ....
+    }
+}</div>
+例中 &#x27;tcp&#x27;、&#x27;udp&#x27; 为多字符常量，在 C 代码中应改用 enum，在 C++ 代码中应改用 enum class 实现：
+<div class="code">enum class PROT { tcp, udp };
+
+void foo(PROT x) {
+    if (x == PROT::tcp) {  //<span class="comment"> Compliant</span>
+        ....
+    }
+    else if (x == PROT::udp) {  //<span class="comment"> Compliant</span>
+        ....
+    }
+}</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_literal_suspiciousChar.html" target="_blank" class="related-link">ID_literal_suspiciousChar</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.4.4.4(10)-implementation
+ISO/IEC 9899:2011 6.4.4.4(10)-implementation
+ISO/IEC 14882:2011 2.13.2(1)-implementation
+ISO/IEC 14882:2011 2.14.3(1)-implementation
+ISO/IEC 14882:2017 5.13.3(2)-implementation
+
+</p>
+
+
+</article>
+</html>

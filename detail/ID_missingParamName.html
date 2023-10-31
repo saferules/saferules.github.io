@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>函数原型声明中的参数应具有合理的名称 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>函数原型声明中的参数应具有合理的名称</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_missingParamName</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_invalidParamArraySize.html">next</a> › <a class="nav-link" href="./ID_plainBinaryChar.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+参数的名称是其用途的直接说明，合理的名称可显著提高可读性。
+
+示例：
+<div class="code">char* strstr(const char* haystack, const char* needle);   //<span class="comment"> Good</span>
+</div>
+这是标准库函数 strstr 的原型声明，利用形象的比喻，表示在 haystack 中查找 needle。
+
+如果将声明改为如下形式，就令人费解了：
+<div class="code">char* strstr(const char*, const char*);       //<span class="comment"> Bad</span>
+char* strstr(const char* a, const char* b);   //<span class="comment"> Bad</span></div>
+例中无名称或名称无实际意义的参数是不符合要求的。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 16.3
+MISRA C 2012 8.2
+
+</p>
+</article>
+</html>

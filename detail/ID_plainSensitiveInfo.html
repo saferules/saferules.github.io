@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>敏感数据不可写入代码 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>敏感数据不可写入代码</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_plainSensitiveInfo</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-security1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_secretLeak.html">next</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+代码中的敏感数据极易泄露，产品及相关运维、测试工具的代码均不可记录任何敏感数据。
+
+示例：
+<div class="code">/**
+ * My name is Rabbit
+ * My passphrase is Y2Fycm90         //<span class="comment"> Non-compliant</span>
+ */
+
+#define PASSWORD &quot;Y2Fycm90&quot;          //<span class="comment"> Non-compliant</span>
+
+const char* passcode = &quot;Y2Fycm90&quot;;   //<span class="comment"> Non-compliant</span>
+</div>
+将密码等敏感数据写入代码是非常不安全的，即使例中 Y2Fycm90 是实际密码的某种变换，聪明的读者也会很快将其破解。
+
+敏感数据的界定是产品设计的重要环节。对具有高可靠性要求的客户端软件，不建议保存任何敏感数据，对于必须保存敏感数据的软件系统，则需要落实安全的存储机制以及相关的评审与测试。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_secretLeak.html" target="_blank" class="related-link">ID_secretLeak</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-259
+CWE-798
+SEI CERT MSC41-C
+
+</p>
+</article>
+</html>

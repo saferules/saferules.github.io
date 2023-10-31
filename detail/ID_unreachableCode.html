@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应存在得不到执行机会的代码 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应存在得不到执行机会的代码</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_unreachableCode</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_notAllBranchReturn.html">next</a> › <a class="nav-link" href="./ID_missingSideEffect.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+得不到执行机会的代码是没有意义的，往往意味着逻辑错误。
+
+这种代码的主要成因如下，括号内为特化规则：
+ ● 所在函数无法被调用（<a href="./ID_staticNotUsed.html" target="_blank" class="dashed-link">ID_staticNotUsed</a>、<a href="./ID_privateNotUsed.html" target="_blank" class="dashed-link">ID_privateNotUsed</a>）
+ ● 之前的所有分枝都提前结束了程序的执行
+ ● 之前的必经分枝中存在不会结束执行的代码
+ ● 所在分枝的条件恒为假（<a href="./ID_constLogicExpression.html" target="_blank" class="dashed-link">ID_constLogicExpression</a>、<a href="./ID_invalidCondition.html" target="_blank" class="dashed-link">ID_invalidCondition</a>、<a href="./ID_switch_caseOutOfRange.html" target="_blank" class="dashed-link">ID_switch_caseOutOfRange</a>）
+ ● 所在分枝被其他分枝遮盖（<a href="./ID_if_identicalCondition.html" target="_blank" class="dashed-link">ID_if_identicalCondition</a>、<a href="./ID_if_hiddenCondition.html" target="_blank" class="dashed-link">ID_if_hiddenCondition</a>、<a href="./ID_try_disorderedHandlers.html" target="_blank" class="dashed-link">ID_try_disorderedHandlers</a>、<a href="./ID_try_disorderedEllipsis.html" target="_blank" class="dashed-link">ID_try_disorderedEllipsis</a>）
+ ● 流程被不受条件控制的跳转语句跨过（<a href="./ID_uncondJump.html" target="_blank" class="dashed-link">ID_uncondJump</a>）
+
+示例：
+<div class="code">int fun() {
+    if (cond) {
+        return 0;
+    } else {
+        return 1;
+    }
+    statements    //<span class="comment"> Non-compliant, unreachable</span>
+}</div>
+例中 statements 之前的所有分枝都会结束函数的执行，所以 statements 不会被执行。
+
+另外，在正式代码中不应存在如下形式的代码：
+<div class="code">if (false) { .... }      //<span class="comment"> Non-compliant</span>
+while (false) { .... }   //<span class="comment"> Non-compliant</span>
+for (;false;) { .... }   //<span class="comment"> Non-compliant</span>
+</div>
+也不应该在 return 语句之后存在其他语句，这种代码如果不是被人恶意篡改，就是出于某种目的将本已无效的代码遗留了下来，可参见 <a href="./ID_constLogicExpression.html" target="_blank" class="dashed-link">ID_constLogicExpression</a>、<a href="./ID_invalidCondition.html" target="_blank" class="dashed-link">ID_invalidCondition</a> 的进一步讨论。
+
+建议时刻保持代码的整洁，并将维护过程中的变动及时地保存在版本管理系统中，这样可以清晰地查看各版本之间的变动，而如果将无效代码与有效代码混在一起，势必造成维护的负担。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_staticNotUsed.html" target="_blank" class="related-link">ID_staticNotUsed</a>
+<a href="./ID_privateNotUsed.html" target="_blank" class="related-link">ID_privateNotUsed</a>
+<a href="./ID_constLogicExpression.html" target="_blank" class="related-link">ID_constLogicExpression</a>
+<a href="./ID_invalidCondition.html" target="_blank" class="related-link">ID_invalidCondition</a>
+<a href="./ID_switch_caseOutOfRange.html" target="_blank" class="related-link">ID_switch_caseOutOfRange</a>
+<a href="./ID_if_identicalCondition.html" target="_blank" class="related-link">ID_if_identicalCondition</a>
+<a href="./ID_if_hiddenCondition.html" target="_blank" class="related-link">ID_if_hiddenCondition</a>
+<a href="./ID_try_disorderedEllipsis.html" target="_blank" class="related-link">ID_try_disorderedEllipsis</a>
+<a href="./ID_try_disorderedHandlers.html" target="_blank" class="related-link">ID_try_disorderedHandlers</a>
+<a href="./ID_uncondJump.html" target="_blank" class="related-link">ID_uncondJump</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-561
+MISRA C 2004 14.1
+MISRA C 2012 2.1
+MISRA C++ 2008 0-1-1
+
+</p>
+</article>
+</html>

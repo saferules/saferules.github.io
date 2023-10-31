@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>数据成员的数量应在规定范围之内 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>数据成员的数量应在规定范围之内</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_tooManyFields</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_ignorePaddingData.html">next</a> › <a class="nav-link" href="./ID_unsuitableAssignOperator.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+类或联合体的数据成员过多意味着一个逻辑或功能单位承担了过多的职责，违反了模块化设计理念，是难以维护的。
+
+示例：
+<div class="code">class C
+{
+    //<span class="comment"> ... 3000 members ...</span>
+    //<span class="comment"> Who has the courage to read?</span>
+};
+
+union U
+{
+    //<span class="comment"> ... 3000 members ...</span>
+    //<span class="comment"> Here is hell!</span>
+};</div>
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">maxClassFieldsCount: 类数据成员的数量上限，超过则报出
+maxUnionFieldsCount: 联合体数据成员的数量上限，超过则报出
+</p>
+
+
+
+
+</article>
+</html>

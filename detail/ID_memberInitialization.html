@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>成员须在声明处或构造时初始化 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>成员须在声明处或构造时初始化</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_memberInitialization</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illMemberCall.html">next</a> › <a class="nav-link" href="./ID_localInitialization.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+成员的声明和使用相距较远，更容易造成未初始化先使用的问题，所以应在声明处或构造函数中初始化所有成员。
+
+示例：
+<div class="code">struct A {
+    int x;
+    int y = 0;
+    int z;
+
+    A(int i): x(i) {  //<span class="comment"> Non-compliant, Missing the initialization for ‘z’</span>
+    }
+};</div>
+例中构造函数没有对 z 初始化是不符合要求的，尤其是 public 成员出现这种问题时会造成更大的风险。
+
+建议所有成员都在声明处初始化：
+<div class="code">struct A {
+    int x = 0;  //<span class="comment"> Good</span>
+    int y = 0;  //<span class="comment"> Good</span>
+    int z = 0;  //<span class="comment"> Good</span>
+
+    A(int i): x(i) {  //<span class="comment"> Compliant</span>
+    }
+};</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-908
+C++ Core Guidelines C.41
+
+</p>
+</article>
+</html>

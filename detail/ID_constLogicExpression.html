@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>逻辑表达式及逻辑子表达式不应为常量 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>逻辑表达式及逻辑子表达式不应为常量</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_constLogicExpression</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_shortCircuitSideEffect.html">next</a> › <a class="nav-link" href="./ID_redundantCondition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+不改变程序流程的常量逻辑表达式是没有意义的，而常量逻辑子表达式则是多余的。
+
+示例：
+<div class="code">if (false) {  //<span class="comment"> Non-compliant</span>
+    ....
+}
+
+while (false) {  //<span class="comment"> Non-compliant</span>
+    ....
+}
+
+const bool False = false;
+if (False &amp;&amp; other_condition) {  //<span class="comment"> Non-compliant</span>
+    ....
+}</div>
+这种代码往往是调试或维护过程中产生的残留代码，应及时去除。
+
+例外：
+<div class="code">while (true) {  //<span class="comment"> Compliant</span>
+    ....
+}
+
+do {
+    ....
+} while (0);  //<span class="comment"> Compliant</span></div>
+true 或 1 等常量可作为 while 或 do-while 循环的条件，false 或 0 等常量可作为 do-while 循环的条件。
+
+由宏定义的常量也不应作为控制语句的条件，如：
+<div class="code">#define M 1
+
+if (M) {  //<span class="comment"> Non-compliant</span>
+    ....
+}</div>
+应采用条件编译的方式，避免占用运行时资源：
+<div class="code">#if M  //<span class="comment"> Compliant</span>
+    ....
+#endif
+</div>
+或：
+<div class="code">if constexpr (M) {  //<span class="comment"> Compliant, since C++17</span>
+    ....
+}</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-570
+CWE-571
+MISRA C 2004 13.7
+MISRA C 2012 14.3
+MISRA C++ 2008 0-1-2
+
+</p>
+</article>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>可由函数实现的功能不应使用宏实现 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>可由函数实现的功能不应使用宏实现</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_macro_function</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_redefined.html">next</a> › <a class="nav-link" href="./ID_macro_typeid.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+宏用于文本处理，不受作用域、参数传递、重载等语言规则限制，且难以调试，可由函数实现的功能不应使用宏实现。
+
+示例：
+<div class="code">#define SUM(a, b) ((a) + (b))            //<span class="comment"> Non-compliant</span>
+#define SUM(a, b, c) ((a) + (b) + (c))   //<span class="comment"> Non-compliant</span>
+
+int foo(int a, int b) {
+    return SUM(a, b);     //<span class="comment"> Error</span>
+}</div>
+例中宏 SUM 意在获取参数的和，但宏无法被重载，最终只有一个宏被定义，foo 函数中的宏展开会造成错误。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_macro_sideEffectArgs.html" target="_blank" class="related-link">ID_macro_sideEffectArgs</a>
+<a href="./ID_macro_const.html" target="_blank" class="related-link">ID_macro_const</a>
+<a href="./ID_macro_typeid.html" target="_blank" class="related-link">ID_macro_typeid</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines ES.31
+MISRA C 2004 19.7
+MISRA C 2012 Dir 4.9
+MISRA C++ 2008 16-0-4
+
+</p>
+</article>
+</html>

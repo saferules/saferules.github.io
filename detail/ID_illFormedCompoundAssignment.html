@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应出现复合赋值的错误形式 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应出现复合赋值的错误形式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illFormedCompoundAssignment</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_suspiciousCompoundAssignment.html">next</a> › <a class="nav-link" href="./ID_illBoolOperation.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+如下形式的复合赋值表达式（设 a 和 x 为变量或表达式）：
+<div class="code">a -= a - x;
+a /= a / x;
+a &amp;= a &amp; x;
+a |= a | x;
+a ^= a ^ x;</div>
+均为常见笔误，应将复合赋值改为普通赋值，或去掉重复的子表达式。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-682
+
+</p>
+</article>
+</html>

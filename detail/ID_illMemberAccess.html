@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>在面向构造或析构函数体的 catch 子句中不可访问非静态成员 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>在面向构造或析构函数体的 catch 子句中不可访问非静态成员</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illMemberAccess</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_disorderedInitialization.html">next</a> › <a class="nav-link" href="./ID_illMemberCall.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+当流程进入面向构造或析构函数体的 catch 子句时，非静态成员的生命周期已结束，如果继续访问会导致标准未定义的行为。
+
+示例：
+<div class="code">class A {
+    int i = 0;
+
+public:
+    A() try {   //<span class="comment"> Function-try-block</span>
+        ....
+    } catch (...) {
+        access(i);    //<span class="comment"> Non-compliant, ‘i’ may no longer exist </span>
+    }
+
+   ~A() try {
+        ....
+    } catch (...) {
+        access(i);    //<span class="comment"> Non-compliant, ‘i’ may no longer exist </span>
+    }
+};</div>
+例中 catch 子句均面向函数体，从属于“函数 try 块（function-try-block）”，当流程进入 catch 子句时成员 i 的生命周期已结束，不应被访问。
+
+应调整实现或将 try-catch 语句移入函数内：
+<div class="code">A::A() {
+    try {
+        ....
+    } catch (...) {
+        access(i);   //<span class="comment"> Compliant</span>
+    }
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 15.3(10)-undefined
+ISO/IEC 14882:2011 15.3(10)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C++ 2008 15-3-3
+SEI CERT ERR53-CPP
+
+</p>
+</article>
+</html>

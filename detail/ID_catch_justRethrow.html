@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>捕获异常后不应直接再次抛出异常 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>捕获异常后不应直接再次抛出异常</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_catch_justRethrow</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_improperRethrow.html">next</a> › <a class="nav-link" href="./ID_catch_slicing.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+捕获异常后将其直接再次抛出是没有意义的，还会造成不必要的开销。
+
+示例：
+<div class="code">void foo() {
+    try {
+        bar();
+    }
+    catch (...) {
+        throw;      //<span class="comment"> Non-compliant</span>
+    }
+}</div>
+例中的 catch 子句是没有意义的，应将其去掉或对异常进行有效处理。
+
+</div>
+
+
+
+
+</article>
+</html>

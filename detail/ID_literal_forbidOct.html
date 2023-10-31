@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>禁用 8 进制常量 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>禁用 8 进制常量</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_literal_forbidOct</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_literal_nonStandardSuffix.html">next</a> › <a class="nav-link" href="./ID_literal_confusingSuffix.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+8 进制不像 10 进制那样符合人们的常规思维，也不像 2 进制或 16 进制那样便于展示数据的存储格式，而且 C/C++ 语言中 8 进制表示法只是在数字前置 0，与十进制过于相似，易被误用。
+
+示例：
+<div class="code">const int K_0 = 5592;
+const int K_1 = 0631;  //<span class="comment"> Non-compliant</span>
+const int K_2 = 3817;
+const int K_3 = 4257;
+</div>
+为了格式上的对齐，错误地在 10 进制数前写 0 是常见笔误，例中 k_1 的实际值为 409。
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2004 7.1
+MISRA C 2012 7.1
+MISRA C++ 2008 2-13-2
+
+</p>
+</article>
+</html>

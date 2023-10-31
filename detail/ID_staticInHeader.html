@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>头文件中不应使用静态声明 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>头文件中不应使用静态声明</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_staticInHeader</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_anonymousNamespaceInHeader.html">next</a> › <a class="nav-link" href="./ID_usingNamespaceInHeader.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+头文件中由 static 关键字声明的对象、数组或函数，会在每个包含该头文件的翻译单元或模块中生成副本造成数据冗余，如果将静态数据误用作全局数据也会造成逻辑错误。
+
+类的静态成员不受本规则限制。
+
+示例：
+<div class="code">//<span class="comment"> In a header file</span>
+static int i = 0;    //<span class="comment"> Non-compliant</span>
+
+static int foo() {   //<span class="comment"> Non-compliant</span>
+    return i;
+}</div>
+在编译每个包含该头文件的源文件时，变量 i 和函数 foo 都会生成不必要的副本。
+
+在头文件中实现的内联或模板函数中，也不应使用静态声明，如：
+<div class="code">//<span class="comment"> In a header file</span>
+inline void bar() {
+    static Type obj;   //<span class="comment"> Non-compliant</span>
+    ....
+}</div>
+如果该头文件被不同的模块（so、dll、exe）包含，obj 对象会生成不同的副本，很可能造成逻辑错误。
+
+另外，由 const 或 constexpr 关键字限定的常量也具有静态数据的特性，在头文件中定义常量也面对这种问题，基本类型的常量经过编译优化可以不占用存储空间（有取地址操作的除外），而对于非基本类型的常量对象或数组也不应在头文件中定义，建议采用单件模式，将其数据定义在 cpp 等源文件中，在头文件中定义访问这些数据的接口，如：
+<div class="code">//<span class="comment"> In arr.h</span>
+using Arr = int[256];
+const Arr&amp; getArr();
+
+//<span class="comment"> In arr.cpp</span>
+#include &quot;arr.h&quot;
+
+const Arr&amp; getArr() {
+    static Arr a = {
+        1, 2, 3, ....
+    };
+    return a;
+}</div>
+在需要用到常量数组的地方调用 getArr 函数，即可获取该数组的引用，没有任何重复的数据产生，并可保证数组在使用之前被有效初始化。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_unsuitableDeclaration.html" target="_blank" class="related-link">ID_unsuitableDeclaration</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.2.2(3)
+ISO/IEC 9899:2011 6.2.2(3)
+ISO/IEC 14882:2003 3.5(3)
+ISO/IEC 14882:2011 3.5(3)
+
+</p>
+
+
+</article>
+</html>

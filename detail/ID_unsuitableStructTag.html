@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>存在构造、析构或虚函数的类不应采用 struct 关键字 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>存在构造、析构或虚函数的类不应采用 struct 关键字</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_unsuitableStructTag</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-type1"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_duplicateEnumerator.html">next</a> › <a class="nav-link" href="./ID_accessSpecifierDisorder.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+简单结构体应采用 struct 关键字，具有封装或多态等特性的类应采用 class 关键字，以便提高可读性。
+
+示例：
+<div class="code">struct A {     //<span class="comment"> Compliant</span>
+    int x, y;
+};
+
+struct B {     //<span class="comment"> Non-compliant</span>
+    B();
+   ~B();
+
+private:
+    int x, y;
+};</div>
+
+</div>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">C++ Core Guidelines C.2
+C++ Core Guidelines C.8
+
+</p>
+</article>
+</html>

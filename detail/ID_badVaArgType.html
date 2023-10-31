@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>va_arg 的类型参数应符合要求 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>va_arg 的类型参数应符合要求</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_badVaArgType</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_deprecatedOffsetof.html">next</a> › <a class="nav-link" href="./ID_incompleteVaMacros.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+对于 stdarg.h 中的宏 va_arg(ap, type)，其类型参数 type 在
+
+对于宏 va_arg(ap, type) 的类型参数 type，下列情况会导致标准未定义的行为：
+ ● type 后加 * 号不能表示指针类型
+ ● 与“默认参数提升”后的类型不兼容
+ ● 与可变参数列表中对应的实参类型不兼容，或没有对应的实参
+
+以下类型不可作为 av_arg 的参数：
+<div class="code">bool、_Bool、
+char、signed char、unsigned char、char16_t、
+float、
+short、unsigned short、signed short、
+short int、signed short int、unsigned short int
+</div>
+这些类型的参数在传入可变参数列表时，会被提升为 int、unsigned int、double 等类型，va_arg 如果再按提升前的类型解析参数的值就会产生错误，参见“<a href="https://en.cppreference.com/w/cpp/language/variadic_arguments#Default_conversions" target="_blank" class="dashed-link">默认参数提升（default argument promotion）</a>”机制。
+
+另外，C++ 代码中非 POD 类型也不可作为 va_arg 的参数，参见 <a href="./ID_nonPODVariadicArgument.html" target="_blank" class="dashed-link">ID_nonPODVariadicArgument</a>。
+
+示例：
+<div class="code">void foo(int n, ...) {
+    va_list ap;
+    va_start(ap, n);
+    for (int i = 0; i &lt; n; i++) {
+        char c = va_arg(ap, char);   //<span class="comment"> Non-compliant</span>
+        ....
+    }
+    va_end(ap);
+}</div>
+例中 va_arg 的类型参数为 char 是不符合要求的。
+
+应改为：
+<div class="code">    for (int i = 0; i &lt; n; i++) {
+        char c = (char)va_arg(ap, int);   //<span class="comment"> Compliant</span>
+        ....
+    }</div>
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_badParmN.html" target="_blank" class="related-link">ID_badParmN</a>
+<a href="./ID_nonPODVariadicArgument.html" target="_blank" class="related-link">ID_nonPODVariadicArgument</a>
+<a href="./ID_forbidVariadicFunction.html" target="_blank" class="related-link">ID_forbidVariadicFunction</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.15.1.1(2)-undefined
+ISO/IEC 9899:2011 7.16.1.1(2)-undefined
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT EXP47-C
+
+</p>
+</article>
+</html>

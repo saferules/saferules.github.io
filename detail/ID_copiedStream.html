@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>流式资源对象不应被复制 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>流式资源对象不应被复制</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_copiedStream</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_variableLengthArray.html">next</a> › <a class="nav-link" href="./ID_multiAllocation.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+FILE 等流式对象不应被复制，如果存在多个副本会造成数据不一致的问题。
+
+示例：
+<div class="code">FILE f;
+FILE* fp = fopen(path, &quot;r&quot;);
+
+f = *fp;                      //<span class="comment"> Non-compliant</span>
+memcpy(fp, &amp;f, sizeof(*fp));  //<span class="comment"> Non-compliant</span></div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 7.19.3(6)
+ISO/IEC 9899:2011 7.21.3(6)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 22.5
+
+</p>
+</article>
+</html>

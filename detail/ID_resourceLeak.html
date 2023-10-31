@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不可失去对已分配资源的控制 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不可失去对已分配资源的控制</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_resourceLeak</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_memoryLeak.html">next</a> › <a class="nav-link" href="./ID_missingHardening.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+对于动态分配的资源，其地址、句柄或描述符等标志性信息不可被遗失，否则资源无法被访问也无法被回收，这种问题称为“资源泄漏”，会导致资源耗尽或死锁等问题，使程序无法正常运行。
+
+在资源被回收之前，记录其标志性信息的变量如果：
+ ● 均被重新赋值
+ ● 生命周期均已结束
+ ● 所在线程均被终止
+
+相关资源便失去了控制，无法再通过正常手段访问相关资源。
+
+示例：
+<div class="code">int fd;
+fd = open(&quot;a&quot;, O_RDONLY);   //<span class="comment"> Open a file descriptor</span>
+read(fd, buf1, 100);
+fd = open(&quot;b&quot;, O_RDONLY);   //<span class="comment"> Non-compliant, the previous descriptor is lost</span>
+read(fd, buf2, 100);</div>
+例中变量 fd 记录文件资源描述符，在回收资源之前对其重新赋值会导致资源泄漏。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_memoryLeak.html" target="_blank" class="related-link">ID_memoryLeak</a>
+<a href="./ID_asynchronousTermination.html" target="_blank" class="related-link">ID_asynchronousTermination</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-772
+C++ Core Guidelines P.8
+
+</p>
+</article>
+</html>

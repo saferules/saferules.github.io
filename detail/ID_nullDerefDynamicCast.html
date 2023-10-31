@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>判断 dynamic_cast 转换是否成功 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>判断 dynamic_cast 转换是否成功</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_nullDerefDynamicCast</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_missingResetNull.html">next</a> › <a class="nav-link" href="./ID_this_forbidDeleteThis.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+dynamic_cast 转换指针失败会返回空指针，转换引用失败会抛出异常，如果不作判断则失去了使用 dynamic_cast 的意义。
+
+示例：
+<div class="code">void foo(A* a) {
+    dynamic_cast&lt;B*&gt;(a)-&gt;foo();  //<span class="comment"> Non-compliant</span>
+}
+</div>
+应改为：
+<div class="code">void foo(A* a) {
+    if (auto* b = dynamic_cast&lt;B*&gt;(a)) {  //<span class="comment"> Compliant</span>
+        b-&gt;foo();
+    }
+}
+</div>
+使用 dynamic_cast 会产生一定的开销，如果不对其结果作判断，还不如使用 static_cast 等转换，但本规则集合不建议采用非 dynamic_cast 的动态类型转换，参见 <a href="./ID_nonDynamicDownCast.html" target="_blank" class="dashed-link">ID_nonDynamicDownCast</a>。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_nonDynamicDownCast.html" target="_blank" class="related-link">ID_nonDynamicDownCast</a>
+
+</p>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2003 5.2.7(9)
+ISO/IEC 14882:2011 5.2.7(9)
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">CWE-476
+C++ Core Guidelines C.148
+
+</p>
+</article>
+</html>

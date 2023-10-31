@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>main 函数不应被调用、重载或被 inline、static 等关键字限定 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>main 函数不应被调用、重载或被 inline、static 等关键字限定</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_illFormedMain</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_definedInHeader.html">next</a> › <a class="nav-link" href="./ID_mainReturnsNonInt.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+main 函数作为程序的入口是一种特殊的函数，其链接性由实现定义，不应被调用、重载或被任何函数限定符修饰。
+
+示例：
+<div class="code">int main();   //<span class="comment"> The main function does not need to be declared</span>
+
+int foo() {
+    return main();   //<span class="comment"> Non-compliant</span>
+}
+
+int main(const char* p) {   //<span class="comment"> Non-compliant</span>
+    ....
+}
+
+inline int main() {   //<span class="comment"> Non-compliant</span>
+    ....
+}</div>
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 9899:1999 6.7.4(4)
+ISO/IEC 9899:2011 6.7.4(4)
+ISO/IEC 14882:2003 3.6.1(2 3)-implementation
+ISO/IEC 14882:2011 3.6.1(2 3)-implementation
+ISO/IEC 14882:2017 6.6.1(2 3)-implementation
+
+</p>
+
+
+</article>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>不应采用复杂的声明 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>不应采用复杂的声明</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_complexDeclaration</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_tooManyPtrLevel.html">next</a> › <a class="nav-link" href="./ID_forbidBitfield.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+复杂的声明可读性较差，容易造成理解上的偏差。
+
+对于：
+ ● 函数指针的数组
+ ● 返回函数指针、数组指针的函数
+ ● 以函数指针、数组指针为参数的函数
+
+应先将各子类型取别名，再用简单声明的方式书写。
+
+示例：
+<div class="code">int (*foo(int))(bool);   //<span class="comment"> Bad, returns a function pointer</span>
+int (*foo(char))[123];   //<span class="comment"> Bad, returns an array pointer</span></div>
+例中声明的是两个函数，但看起来像是函数指针，而且参数列表也显得混乱。
+
+应改为：
+<div class="code">typedef int(*funptr)(bool);
+typedef int(*arrptr)[123];
+
+funptr foo(int);    //<span class="comment"> Good</span>
+arrptr foo(char);   //<span class="comment"> Good</span></div>
+
+</div>
+
+
+
+
+</article>
+</html>

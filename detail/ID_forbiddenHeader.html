@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>禁用不合规的头文件 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>禁用不合规的头文件</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_forbiddenHeader</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidCHeaderInCpp.html">next</a> › <a class="nav-link" href="./ID_badIncludePosition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+已过时的、无意义的或有不良副作用的头文件应禁用。
+
+示例：
+<div class="code">#include &lt;tgmath.h&gt;   //<span class="comment"> Non-compliant</span>
+#include &lt;setjmp.h&gt;   //<span class="comment"> Non-compliant</span>
+
+#include &lt;iso646.h&gt;   //<span class="comment"> Non-compliant in C++</span>
+#include &lt;stdbool.h&gt;  //<span class="comment"> Non-compliant in C++</span>
+#include &lt;ciso646&gt;    //<span class="comment"> Non-compliant in C++</span>
+#include &lt;cstdbool&gt;   //<span class="comment"> Non-compliant in C++</span>
+#include &lt;ctgmath&gt;    //<span class="comment"> Non-compliant in C++</span>
+#include &lt;ccomplex&gt;   //<span class="comment"> Non-compliant in C++</span>
+#include &lt;cstdalign&gt;  //<span class="comment"> Non-compliant in C++</span>
+</div>
+tgmath.h 和 ctgmath 会使用语言标准之外的技术实现某种重载效果，而且其中的部分函数名称会干扰其他标准库中的名称，setjmp.h 和 csetjmp 则包含危险的过程间跳转函数。
+
+iso646.h、stdalign.h、stdbool.h 以及 ciso646、cstdalign、cstdbool 等头文件对 C++ 语言没有意义，ccomplex、cstdalign、cstdbool、ctgmath 等头文件在 C++17 标准中已过时，在 C++ 代码中不应使用这些头文件。
+
+stdio.h、signal.h、time.h、fenv.h 等头文件含有较多标准未声明或由实现定义的内容，对有高可靠性要求的软件系统也不建议使用。
+
+审计工具不妨通过配置设定不合规头文件的名称，如：
+<div class="code">[<a href="./ID_forbiddenHeader.html" target="_blank" class="dashed-link">ID_forbiddenHeader</a>]
+inC=tgmath.h|setjmp.h
+inCpp=tgmath.h|ctgmath|setjmp.h|csetjmp
+</div>
+表示对 C 代码将 tgmath.h、setjmp.h 设为不合规，对 C++ 代码将 tgmath.h、ctgmath、setjmp.h、csetjmp 设为不合规。
+
+</div>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">inC: C 代码中不合规头文件名称
+inCpp: C++ 代码中不合规头文件名称
+</p>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2017 C.5.1(4)
+ISO/IEC 14882:2017 D.4(1)-deprecated
+
+</p>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">MISRA C 2012 21.4
+MISRA C 2012 21.5
+MISRA C 2012 21.10
+MISRA C 2012 21.11
+MISRA C 2012 21.12
+MISRA C++ 2008 18-0-4
+MISRA C++ 2008 18-7-1
+MISRA C++ 2008 27-0-1
+
+</p>
+</article>
+</html>

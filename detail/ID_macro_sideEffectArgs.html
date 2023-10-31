@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>宏的实参不应有副作用 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>宏的实参不应有副作用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_macro_sideEffectArgs</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-icon-menu-macroscopic"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_macro_insufficientArgs.html">next</a> › <a class="nav-link" href="./ID_macro_undef.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+当宏参数有“<a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)" target="_blank" class="dashed-link">副作用（side effect）</a>”时，如果宏定义中没有或多次引用到该参数，会导致意料之外的错误。
+
+示例：
+<div class="code">#define I(a)
+#define M(a) ((a) + (a))
+
+int foo(int&amp; a) {
+    return M(++a);   //<span class="comment"> Non-compliant, returns ‘((++a) + (++a))’</span>
+}
+
+void bar(int&amp; a) {
+    I(a--);          //<span class="comment"> Non-compliant, does nothing</span>
+}</div>
+例中 M 和 I 看起来像是函数调用，而展开后的结果却在意料之外。
+
+</div>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<p class="main-p"><a href="./ID_sideEffectAssertion.html" target="_blank" class="related-link">ID_sideEffectAssertion</a>
+<a href="./ID_macro_function.html" target="_blank" class="related-link">ID_macro_function</a>
+
+</p>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">SEI CERT PRE31-C
+
+</p>
+</article>
+</html>

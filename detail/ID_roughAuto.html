@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+</head>
+<title>用 auto 声明指针或引用时应显式标明 *、& 等符号 - C/C++ 安全规则</title>
+<script src="../js/iconfont.js"></script>
+<article>
+<header>
+  <h1>用 auto 声明指针或引用时应显式标明 *、& 等符号</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">ID_roughAuto</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_forbidVariadicFunction.html">next</a> › <a class="nav-link" href="./ID_badSpecifierPosition.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<div class="main-p">
+用 auto 声明指针时显式标明 * 号有利于提高可读性，否则会使人误以为是某种非指针的对象。在声明引用时必须显式标明 &amp; 或 &amp;&amp; 号，否则成为对象声明，导致逻辑错误或造成不必要的复制开销。
+
+示例：
+<div class="code">int* foo();
+int&amp; bar();
+
+auto p = foo();   //<span class="comment"> Bad</span>
+auto* q = foo();  //<span class="comment"> Good</span>
+
+auto r = bar();   //<span class="comment"> Be careful, ‘r’ is not a reference</span>
+
+for (auto e: container) {  //<span class="comment"> Is it necessary to copy elements?</span>
+    ....
+}</div>
+例中 p 为指针，但看起来像是个对象，bar 返回引用，但 r 并不是引用，e 是容器元素的复本，这些问题可能与预期不符，需谨慎对待。
+
+</div>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<p class="main-p">ISO/IEC 14882:2011 7.1.6.4
+ISO/IEC 14882:2017 10.1.7.4
+
+</p>
+
+
+</article>
+</html>
