@@ -45,10 +45,15 @@ footer {
     margin-top: -25px;
     line-height: 25px;
     text-align: center;
-    font-size: 14px;
     color: #bbb;
     background: #F1F1F2;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-weight: bold;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 footer a {
     color: #bbb;
@@ -92,14 +97,14 @@ footer a:hover {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 .content-first-section {
-    padding-top: 30px;
+    padding-top: 18px;
 }
 .content-last-section {
-    padding-bottom: 80px;
+    padding-bottom: 60px;
 }
 #rules-toc {
     max-width: 800px;
