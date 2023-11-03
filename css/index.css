@@ -131,11 +131,11 @@ footer a:hover {
 #rules-toc > ol {
     padding-left: 0;
 }
-.chapter {
+.rules-toc-chapter {
     font-size: 20px;
     font-weight: bold;
 }
-.section {
+.rules-toc-section {
     font-weight: bold;
 }
 #rules-toc ol li {
