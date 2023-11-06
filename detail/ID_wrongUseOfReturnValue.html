@@ -52,7 +52,7 @@ strcmp、wcscmp 以及 memcmp 等函数不应与 0 之外的任何值比较。
 
 下列函数的返回值不应与 0 比较，也不应转为 bool 型：
  ● open、create 等 Linux 系统调用，失败时返回负数，成功时返回非负数
- ● CreateFile、CreateNamedPipe 等 Windows API，失败时返回 INVAL<a href="./ID_HANDLE_VALUE.html" target="_blank" class="dashed-link">ID_HANDLE_VALUE</a>，而不是 0
+ ● CreateFile、CreateNamedPipe 等 Windows API，失败时返回 INVALID_HANDLE_VALUE，而不是 0
  ● HRESULT 型 Windows API 返回值，负数表示失败、非负数表示成功
 
 另外，有相当一部分函数成功时返回 0，失败时返回非 0，如 access、chmod、rename 等 Linux 系统调用，不可将其返回值当作 bool 型使用。
