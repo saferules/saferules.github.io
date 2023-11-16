@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：参数名称在声明处和实现处不一致会误导函数的使用者，而且很可能是实现错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>函数的参数名称在声明处和实现处应保持一致 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>函数的参数名称在声明处和实现处应保持一致</h1>
@@ -19,30 +20,26 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-参数名称在声明处和实现处不一致会误导函数的使用者，而且很可能是实现错误。
+<main>
+<p>参数名称在声明处和实现处不一致会误导函数的使用者，而且很可能是实现错误。</p>
 
-示例：
-<div class="code">int foo(int a, int b);    //<span class="comment"> Declaration</span>
+<p>示例：</p>
+<code>int foo(int a, int b);    //<i> Declaration</i>
 
-int foo(int b, int a) {   //<span class="comment"> Non-compliant, which is which??</span>
+int foo(int b, int a) {   //<i> Non-compliant, which is which??</i>
     return a &gt; b? 1: -1;
-}</div>
-例中参数 a 和 b 在声明处和实现处的顺序是颠倒的，令人非常困惑。
+}</code>
+<p>例中参数 a 和 b 在声明处和实现处的顺序是颠倒的，令人非常困惑。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_inconsistentDeclaration.html" target="_blank" class="related-link">ID_inconsistentDeclaration</a>
-
-</p>
+<div class="ref-items"><a href="./ID_inconsistentDeclaration.html" class="related-link">ID_inconsistentDeclaration</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 8-4-2
-
-</p>
+<div class="ref-items">MISRA C++ 2008 8-4-2</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果 catch(...) 子句排在前面，其后面的 catch 子句会失去作用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>捕获所有异常的 catch(...) 子句应位于最后 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>捕获所有异常的 catch(...) 子句应位于最后</h1>
@@ -19,49 +20,43 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果 catch(...) 子句排在前面，其后面的 catch 子句会失去作用。
+<main>
+<p>如果 catch(...) 子句排在前面，其后面的 catch 子句会失去作用。</p>
 
-示例：
-<div class="code">try {
+<p>示例：</p>
+<code>try {
     ....
-} catch (...) {   //<span class="comment"> Non-compliant, disordered catch-all handler</span>
+} catch (...) {   //<i> Non-compliant, disordered catch-all handler</i>
     ....
-} catch (E&amp;) {   //<span class="comment"> Unreachable</span>
+} catch (E&amp;) {   //<i> Unreachable</i>
     ....
 }
-</div>
-应改为：
-<div class="code">try {
+</code>
+<p>应改为：</p>
+<code>try {
     ....
 } catch (E&amp;) {
     ....
-} catch (...) {   //<span class="comment"> Compliant</span>
+} catch (...) {   //<i> Compliant</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_unreachableCode.html" target="_blank" class="related-link">ID_unreachableCode</a>
-
-</p>
+<div class="ref-items"><a href="./ID_unreachableCode.html" class="related-link">ID_unreachableCode</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 15.3(6)
+<div class="ref-items">ISO/IEC 14882:2003 15.3(6)
 ISO/IEC 14882:2011 15.3(5)
-ISO/IEC 14882:2011 18.3(5)
-
-</p>
+ISO/IEC 14882:2011 18.3(5)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-561
+<div class="ref-items">CWE-561
 C++ Core Guidelines E.31
-MISRA C++ 2008 15-3-7
-
-</p>
+MISRA C++ 2008 15-3-7</div>
 </article>
 </html>

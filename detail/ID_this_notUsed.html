@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果未访问 this 指针的成员函数没有被设计为静态成员函数，很可能意味着错误或功能不完整。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>未访问 this 指针的成员函数应使用 static 声明 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>未访问 this 指针的成员函数应使用 static 声明</h1>
@@ -19,32 +20,30 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果未访问 this 指针的成员函数没有被设计为静态成员函数，很可能意味着错误或功能不完整。
+<main>
+<p>如果未访问 this 指针的成员函数没有被设计为静态成员函数，很可能意味着错误或功能不完整。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
     static int s;
 
 public:
-    static int bar() {   //<span class="comment"> Compliant</span>
+    static int bar() {   //<i> Compliant</i>
         return s--;
     }
-    int foo() {          //<span class="comment"> Non-compliant, missing ‘static’</span>
+    int foo() {          //<i> Non-compliant, missing ‘static’</i>
         return s++;
     }
     ....
-};</div>
-例中 foo 函数只访问了静态数据成员，但在调用时仍会将 this 指针作为参数，这在逻辑上是矛盾的，所以应使用 static 关键字明确声明。
+};</code>
+<p>例中 foo 函数只访问了静态数据成员，但在调用时仍会将 this 指针作为参数，这在逻辑上是矛盾的，所以应使用 static 关键字明确声明。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 9-3-3
-
-</p>
+<div class="ref-items">MISRA C++ 2008 9-3-3</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：内存空间被回收后相关指针不再有效，这时应将指针设为空指针，可避免重复释放等问题，如果后续对指针有错误访问，也可使问题立即显现出来，便于修正。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>指针在释放后应置空 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>指针在释放后应置空</h1>
@@ -19,11 +20,11 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-内存空间被回收后相关指针不再有效，这时应将指针设为空指针，可避免重复释放等问题，如果后续对指针有错误访问，也可使问题立即显现出来，便于修正。
+<main>
+<p>内存空间被回收后相关指针不再有效，这时应将指针设为空指针，可避免重复释放等问题，如果后续对指针有错误访问，也可使问题立即显现出来，便于修正。</p>
 
-示例：
-<div class="code">class T {
+<p>示例：</p>
+<code>class T {
     int* p = new int[123];
     ....
 
@@ -34,25 +35,21 @@ public:
 
     void dealloc() {
         delete[] p;
-        p = nullptr;    //<span class="comment"> Good</span>
+        p = nullptr;    //<i> Good</i>
     }
-};</div>
-例中 dealloc 函数释放指针 p 后将其置为空指针，如果 dealloc 函数被外界反复调用也没有问题。本规则是对“指针悬挂”等问题的有效措施，参见 <a href="./ID_danglingDeref.html" target="_blank" class="dashed-link">ID_danglingDeref</a>。
+};</code>
+<p>例中 dealloc 函数释放指针 p 后将其置为空指针，如果 dealloc 函数被外界反复调用也没有问题。本规则是对“指针悬挂”等问题的有效措施，参见 <a href="./ID_danglingDeref.html" class="dashed-link">ID_danglingDeref</a>。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_danglingDeref.html" target="_blank" class="related-link">ID_danglingDeref</a>
-<a href="./ID_explicitDtorCall.html" target="_blank" class="related-link">ID_explicitDtorCall</a>
-
-</p>
+<div class="ref-items"><a href="./ID_danglingDeref.html" class="related-link">ID_danglingDeref</a>
+<a href="./ID_explicitDtorCall.html" class="related-link">ID_explicitDtorCall</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT MEM01-C
-
-</p>
+<div class="ref-items">SEI CERT MEM01-C</div>
 </article>
 </html>

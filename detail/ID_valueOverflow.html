@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：memset、memset_s 等函数的填充值参数会被转为 unsigned char 型，所以填充值不应超出 unsigned char 的取值范围。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>memset 等函数填充值相关的参数不应有误 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>memset 等函数填充值相关的参数不应有误</h1>
@@ -19,29 +20,25 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-memset、memset_s 等函数的填充值参数会被转为 unsigned char 型，所以填充值不应超出 unsigned char 的取值范围。
+<main>
+<p>memset、memset_s 等函数的填充值参数会被转为 unsigned char 型，所以填充值不应超出 unsigned char 的取值范围。</p>
 
-示例：
-<div class="code">char buf[32];
-memset(buf, 1024, 32);  //<span class="comment"> Non-compliant</span></div>
-例中填充值为 1024，超出了 unsigned char 的范围，在实际代码中也可能是长度参数与填充值参数被写反了。
+<p>示例：</p>
+<code>char buf[32];
+memset(buf, 1024, 32);  //<i> Non-compliant</i></code>
+<p>例中填充值为 1024，超出了 unsigned char 的范围，在实际代码中也可能是长度参数与填充值参数被写反了。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.21.6.1(2)
+<div class="ref-items">ISO/IEC 9899:1999 7.21.6.1(2)
 ISO/IEC 9899:2011 7.24.6.1(2)
-ISO/IEC 9899:2011 K.3.7.4.1(4)
-
-</p>
+ISO/IEC 9899:2011 K.3.7.4.1(4)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-130
-
-</p>
+<div class="ref-items">CWE-130</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：标识符 NULL 由实现定义，在 C++ 语言中往往等同于常量 0，无法有效区分整数与指针，用 nullptr 可避免这种问题。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>在 C++ 代码中用 nullptr 代替 NULL - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>在 C++ 代码中用 nullptr 代替 NULL</h1>
@@ -19,11 +20,11 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-标识符 NULL 由实现定义，在 C++ 语言中往往等同于常量 0，无法有效区分整数与指针，用 nullptr 可避免这种问题。
+<main>
+<p>标识符 NULL 由实现定义，在 C++ 语言中往往等同于常量 0，无法有效区分整数与指针，用 nullptr 可避免这种问题。</p>
 
-示例：
-<div class="code">void foo(int) {
+<p>示例：</p>
+<code>void foo(int) {
     cout &lt;&lt; &quot;foo-1\n&quot;;
 }
 
@@ -32,26 +33,22 @@ void foo(int*) {
 }
 
 int main() {
-    foo(NULL);  //<span class="comment"> Non-compliant, what is output?</span>
-}</div>
-NULL 表示空指针，所以应该调用参数为指针的重载函数，但不同的编译器对这段代码有不同的处理，有的无法通过编译，有的编译执行后会输出 foo-1，用 nullptr 代替 NULL 可解决这种问题。
+    foo(NULL);  //<i> Non-compliant, what is output?</i>
+}</code>
+<p>NULL 表示空指针，所以应该调用参数为指针的重载函数，但不同的编译器对这段代码有不同的处理，有的无法通过编译，有的编译执行后会输出 foo-1，用 nullptr 代替 NULL 可解决这种问题。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 C.2.2.3(1)-implementation
+<div class="ref-items">ISO/IEC 14882:2003 C.2.2.3(1)-implementation
 ISO/IEC 14882:2011 2.14.7(1)
 ISO/IEC 14882:2011 C.3.2.4(1)-implementation
-ISO/IEC 14882:2017 C.5.2.7(1)-implementation
-
-</p>
+ISO/IEC 14882:2017 C.5.2.7(1)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.47
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.47</div>
 </article>
 </html>

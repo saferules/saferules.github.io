@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在移动过程中，对象的状态是不完整的，如果在中途抛出异常，对象将处于错误的状态。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>移动构造函数和移动赋值运算符不可抛出异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>移动构造函数和移动赋值运算符不可抛出异常</h1>
@@ -19,37 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在移动过程中，对象的状态是不完整的，如果在中途抛出异常，对象将处于错误的状态。
+<main>
+<p>在移动过程中，对象的状态是不完整的，如果在中途抛出异常，对象将处于错误的状态。</p>
 
-示例：
-<div class="code">struct T {
-    void swap(T&amp;) noexcept(false);   //<span class="comment"> May throw, breaks <a href="./ID_throwInSwap.html" target="_blank" class="dashed-link">ID_throwInSwap</a></span>
+<p>示例：</p>
+<code>struct T {
+    void swap(T&amp;) noexcept(false);   //<i> May throw, breaks <a href="./ID_throwInSwap.html" class="dashed-link">ID_throwInSwap</a></i>
 
-    T(T&amp;&amp; a) {   //<span class="comment"> Non-compliant</span>
+    T(T&amp;&amp; a) {   //<i> Non-compliant</i>
         swap(a);
     }
 
-    T&amp; operator = (T&amp;&amp; a) {   //<span class="comment"> Non-compliant</span>
+    T&amp; operator = (T&amp;&amp; a) {   //<i> Non-compliant</i>
         swap(a);
         return *this;
     }
-};</div>
-例中 swap 函数会抛出异常，意味着移动构造函数和移动赋值运算符也会抛出异常，是不符合要求的。
+};</code>
+<p>例中 swap 函数会抛出异常，意味着移动构造函数和移动赋值运算符也会抛出异常，是不符合要求的。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_throwInSwap.html" target="_blank" class="related-link">ID_throwInSwap</a>
-
-</p>
+<div class="ref-items"><a href="./ID_throwInSwap.html" class="related-link">ID_throwInSwap</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.66
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.66</div>
 </article>
 </html>

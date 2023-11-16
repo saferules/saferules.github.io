@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在多线程环境中使用 signal 函数会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>多线程环境中不可使用 signal 函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>多线程环境中不可使用 signal 函数</h1>
@@ -19,39 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在多线程环境中使用 signal 函数会导致标准未定义的行为。
+<main>
+<p>在多线程环境中使用 signal 函数会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">#include &lt;signal.h&gt;
+<p>示例：</p>
+<code>#include &lt;signal.h&gt;
 #include &lt;threads.h&gt;
 
 void handler(int);
 
 int thread(void* param) {
-    signal(SIGINT, handler);  //<span class="comment"> Non-compliant, undefined behavior</span>
+    signal(SIGINT, handler);  //<i> Non-compliant, undefined behavior</i>
     ....
-}</div>
-例中 thread 是线程函数，C11 标准指明在多线程环境中使用 signal 函数会导致未定义的行为。
+}</code>
+<p>例中 thread 是线程函数，C11 标准指明在多线程环境中使用 signal 函数会导致未定义的行为。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_forbidSignalFunction.html" target="_blank" class="related-link">ID_forbidSignalFunction</a>
-
-</p>
+<div class="ref-items"><a href="./ID_forbidSignalFunction.html" class="related-link">ID_forbidSignalFunction</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:2011 7.14.1.1(7)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:2011 7.14.1.1(7)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT CON37-C
-
-</p>
+<div class="ref-items">SEI CERT CON37-C</div>
 </article>
 </html>

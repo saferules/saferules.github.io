@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：重新抛出异常时应使用空 throw 表达式，避免异常对象的精度损失和不必要的复制开销。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>重新抛出异常时应使用空 throw 表达式（throw;） - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>重新抛出异常时应使用空 throw 表达式（throw;）</h1>
@@ -19,11 +20,11 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-重新抛出异常时应使用空 throw 表达式，避免异常对象的精度损失和不必要的复制开销。
+<main>
+<p>重新抛出异常时应使用空 throw 表达式，避免异常对象的精度损失和不必要的复制开销。</p>
 
-示例：
-<div class="code">class Base {};
+<p>示例：</p>
+<code>class Base {};
 class Derive: public Base {};
 
 void foo() {
@@ -31,7 +32,7 @@ void foo() {
         throw Derive();
     }
     catch (Base&amp; e) {
-        throw e;        //<span class="comment"> Non-compliant, use ‘throw;’ instead</span>
+        throw e;        //<i> Non-compliant, use ‘throw;’ instead</i>
     }
 }
 
@@ -39,22 +40,20 @@ void bar() {
     try {
         foo();
     }
-    catch (Derive&amp; e) {   //<span class="comment"> Cannot catch Derive</span>
+    catch (Derive&amp; e) {   //<i> Cannot catch Derive</i>
         ....
     }
 }
-</div>
-注意，例中 foo 函数虽然捕获的是 Derive 对象，但 throw e; 抛出的是 Base 对象，这也是一种“<a href="https://en.wikipedia.org/wiki/Object_slicing" target="_blank" class="dashed-link">对象切片</a>”问题，造成了对象类型的“精度损失”。将 throw e; 改为 throw; 可解决这种问题。
+</code>
+<p>注意，例中 foo 函数虽然捕获的是 Derive 对象，但 throw e; 抛出的是 Base 对象，这也是一种“<a href="https://en.wikipedia.org/wiki/Object_slicing" target="_blank" class="dashed-link">对象切片</a>”问题，造成了对象类型的“精度损失”。将 throw e; 改为 throw; 可解决这种问题。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 15.1(6)
-ISO/IEC 14882:2011 15.1(8)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 15.1(6)
+ISO/IEC 14882:2011 15.1(8)</div>
 
 
 </article>

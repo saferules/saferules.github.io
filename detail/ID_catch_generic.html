@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：捕获过于宽泛的异常，如捕获 std::exception、std::logic_error、std::runtime_error 等类型的异常，或使用 catch(...) 子句捕获所有异常，会使异常处理失去针对性，而且很可能会将本不应处理的异常一并捕获。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应捕获过于宽泛的异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应捕获过于宽泛的异常</h1>
@@ -19,53 +20,49 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-捕获过于宽泛的异常，如捕获 std::exception、std::logic_error、std::runtime_error 等类型的异常，或使用 catch(...) 子句捕获所有异常，会使异常处理失去针对性，而且很可能会将本不应处理的异常一并捕获。
+<main>
+<p>捕获过于宽泛的异常，如捕获 std::exception、std::logic_error、std::runtime_error 等类型的异常，或使用 catch(...) 子句捕获所有异常，会使异常处理失去针对性，而且很可能会将本不应处理的异常一并捕获。</p>
 
-示例：
-<div class="code">class WrongArg {};
+<p>示例：</p>
+<code>class WrongArg {};
 
 void foo(int a) try
 {
     if (a &lt; 0) {
         throw WrongArg();
     }
-    bar(a);   //<span class="comment"> Other exceptions may be thrown</span>
+    bar(a);   //<i> Other exceptions may be thrown</i>
 }
-catch (...)   //<span class="comment"> Non-compliant</span>
+catch (...)   //<i> Non-compliant</i>
 {
     std::cout &lt;&lt; &quot;wrong argument\n&quot;;
-}</div>
-例中 foo 函数在参数不符合要求时抛出异常，bar 函数会抛出其他异常，用 catch(...) 子句将所有异常都当作“参数不符合要求”是不合理的。
+}</code>
+<p>例中 foo 函数在参数不符合要求时抛出异常，bar 函数会抛出其他异常，用 catch(...) 子句将所有异常都当作“参数不符合要求”是不合理的。</p>
 
-例外：
-<div class="code">try
+<p>例外：</p>
+<code>try
 {
-    ext_interface();   //<span class="comment"> External interface</span>
+    ext_interface();   //<i> External interface</i>
 }
-catch (std::exception&amp; e)   //<span class="comment"> Let it go, but comments are required</span>
+catch (std::exception&amp; e)   //<i> Let it go, but comments are required</i>
 {
     log(e.what());
 }
-catch (...)   //<span class="comment"> Let it go, but comments are required</span>
+catch (...)   //<i> Let it go, but comments are required</i>
 {
     log(&quot;unknown exception&quot;);
-}</div>
-当不受控制的外部代码会抛出未知的异常时，可酌情捕获宽泛类型的异常，但应配以文档说明问题。
+}</code>
+<p>当不受控制的外部代码会抛出未知的异常时，可酌情捕获宽泛类型的异常，但应配以文档说明问题。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_throwGenericException.html" target="_blank" class="related-link">ID_throwGenericException</a>
-
-</p>
+<div class="ref-items"><a href="./ID_throwGenericException.html" class="related-link">ID_throwGenericException</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-396
-
-</p>
+<div class="ref-items">CWE-396</div>
 </article>
 </html>

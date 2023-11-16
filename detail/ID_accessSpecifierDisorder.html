@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：类成员统一按 public、protected、private 的顺序声明，有利于提高可读性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>类成员应按 public、protected、private 的顺序声明 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>类成员应按 public、protected、private 的顺序声明</h1>
@@ -19,11 +20,11 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-类成员统一按 public、protected、private 的顺序声明，有利于提高可读性。
+<main>
+<p>类成员统一按 public、protected、private 的顺序声明，有利于提高可读性。</p>
 
-示例：
-<div class="code">class A   //<span class="comment"> Bad</span>
+<p>示例：</p>
+<code>class A   //<i> Bad</i>
 {
 private:
     int baz();
@@ -33,9 +34,9 @@ public:
 
 protected:
     int bar();
-};</div>
-供外部使用的 public 成员应作为重点写在前面，其次是 protected 成员，private 成员应写在最后：
-<div class="code">class A   //<span class="comment"> Good</span>
+};</code>
+<p>供外部使用的 public 成员应作为重点写在前面，其次是 protected 成员，private 成员应写在最后：</p>
+<code>class A   //<i> Good</i>
 {
 public:
     int foo();
@@ -45,9 +46,9 @@ protected:
 
 private:
     int baz();
-};</div>
+};</code>
 
-</div>
+</main>
 
 
 

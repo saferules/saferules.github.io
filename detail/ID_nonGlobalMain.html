@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：main 函数作为程序的入口，链接器需对其特殊处理，不应受命名空间等作用域的限制。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>main 函数只应处于全局作用域中 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>main 函数只应处于全局作用域中</h1>
@@ -19,40 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-main 函数作为程序的入口，链接器需对其特殊处理，不应受命名空间等作用域的限制。
+<main>
+<p>main 函数作为程序的入口，链接器需对其特殊处理，不应受命名空间等作用域的限制。</p>
 
-示例：
-<div class="code">int main() {   //<span class="comment"> Compliant</span>
+<p>示例：</p>
+<code>int main() {   //<i> Compliant</i>
     ....
 }
 
 namespace {
-    int main() {   //<span class="comment"> Non-compliant</span>
+    int main() {   //<i> Non-compliant</i>
         ....
     }
 }
 
 namespace NS {
-    int main() {   //<span class="comment"> Non-compliant</span>
+    int main() {   //<i> Non-compliant</i>
         ....
     }
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 3.6.1(1)
-ISO/IEC 14882:2011 3.6.1(1)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 3.6.1(1)
+ISO/IEC 14882:2011 3.6.1(1)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 7-3-2
-
-</p>
+<div class="ref-items">MISRA C++ 2008 7-3-2</div>
 </article>
 </html>

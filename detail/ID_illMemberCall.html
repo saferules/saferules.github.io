@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：基类对象未构造完毕时调用成员函数会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>基类对象构造完毕之前不可调用成员函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>基类对象构造完毕之前不可调用成员函数</h1>
@@ -19,31 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-基类对象未构造完毕时调用成员函数会导致标准未定义的行为。
+<main>
+<p>基类对象未构造完毕时调用成员函数会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">struct A {
+<p>示例：</p>
+<code>struct A {
     A(int);
 };
 
 struct B: A {
-    B(): A(member()) {  //<span class="comment"> Non-compliant, undefined behavior</span>
+    B(): A(member()) {  //<i> Non-compliant, undefined behavior</i>
     }
 
     int member();
-};</div>
-例中成员函数的返回值作为基类构造函数的参数，而这时基类对象尚未构造，相当于成员函数的调用者没有被初始化，这是一种逻辑错误。
+};</code>
+<p>例中成员函数的返回值作为基类构造函数的参数，而这时基类对象尚未构造，相当于成员函数的调用者没有被初始化，这是一种逻辑错误。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 12.6.2(8)-undefined
-ISO/IEC 14882:2011 12.6.2(13)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 12.6.2(8)-undefined
+ISO/IEC 14882:2011 12.6.2(13)-undefined</div>
 
 
 </article>

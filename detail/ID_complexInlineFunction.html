@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：是否对函数进行内联优化由实现定义，当函数执行的开销远大于调用的开销时，将函数定义为内联函数是没有意义的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应定义过于复杂的内联函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应定义过于复杂的内联函数</h1>
@@ -19,37 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-是否对函数进行内联优化由实现定义，当函数执行的开销远大于调用的开销时，将函数定义为内联函数是没有意义的。
+<main>
+<p>是否对函数进行内联优化由实现定义，当函数执行的开销远大于调用的开销时，将函数定义为内联函数是没有意义的。</p>
 
-不适合将函数定义为内联函数的情况：
- ● 语句数量超过指定限制
- ● 存在循环或异常处理语句
- ● 存在 switch 分枝语句
- ● 函数存在递归实现
+<p>不适合将函数定义为内联函数的情况：</p>
+<ul>
+<li>语句数量超过指定限制</li>
+<li>存在循环或异常处理语句</li>
+<li>存在 switch 分枝语句</li>
+<li>函数存在递归实现</li>
 
-建议内联函数的实现不要超过 3 个语句。
+</ul>
+<p>建议内联函数的实现不要超过 3 个语句。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxInlineStatementsCount: 内联函数语句数量上限，超过则报出
-</p>
+<div class="ref-items">maxInlineStatementsCount: 内联函数语句数量上限，超过则报出</div>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7.4(5)-implementation
+<div class="ref-items">ISO/IEC 9899:1999 6.7.4(5)-implementation
 ISO/IEC 9899:2011 6.7.4(6)-implementation
 ISO/IEC 14882:2003 7.1.2(2)-implementation
-ISO/IEC 14882:2011 7.1.2(2)-implementation
-
-</p>
+ISO/IEC 14882:2011 7.1.2(2)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines F.5
-
-</p>
+<div class="ref-items">C++ Core Guidelines F.5</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：函数参数的数量应在规定范围之内。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>函数参数的数量应在规定范围之内 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>函数参数的数量应在规定范围之内</h1>
@@ -19,45 +20,44 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-函数参数过多，意味着：
- ● 缺少合理的抽象机制：应将多而零散的参数按其内在联系封装成对象，从而方便地处理其逻辑关系，而不是简单地线性罗列
- ● 违反单一职责原则：参数越多，函数处理的事务自然越多，代码的可维护性自然越差
+<main>
+<p>函数参数过多，意味着：</p>
+<ul>
+<li>缺少合理的抽象机制：应将多而零散的参数按其内在联系封装成对象，从而方便地处理其逻辑关系，而不是简单地线性罗列</li>
+<li>违反单一职责原则：参数越多，函数处理的事务自然越多，代码的可维护性自然越差</li>
 
-建议可供外部使用的全局函数、public 或 protected 成员函数的参数不超过 4 个，内部使用的 static 函数、private 成员函数的参数不超过 8 个。
+</ul>
+<p>建议可供外部使用的全局函数、public 或 protected 成员函数的参数不超过 4 个，内部使用的 static 函数、private 成员函数的参数不超过 8 个。</p>
 
-示例：
-<div class="code">void foo(A a, B b, C c, D d, E e) {   //<span class="comment"> Bad</span>
+<p>示例：</p>
+<code>void foo(A a, B b, C c, D d, E e) {   //<i> Bad</i>
     ....
-}</div>
-当函数参数过多时，应按参数的逻辑职责进行封装。假设 a 和 b 有直接逻辑关系，c、d、e 有直接逻辑关系，不妨将 a 和 b 封装成一个类，c、d、e 封装成一个类，在类的成员函数中实现相关功能，可更为清晰直观地保证逻辑关系的正确性：
-<div class="code">class X {
-    ....    //<span class="comment"> Members and methods for ‘a’, ‘b’ ...</span>
+}</code>
+<p>当函数参数过多时，应按参数的逻辑职责进行封装。假设 a 和 b 有直接逻辑关系，c、d、e 有直接逻辑关系，不妨将 a 和 b 封装成一个类，c、d、e 封装成一个类，在类的成员函数中实现相关功能，可更为清晰直观地保证逻辑关系的正确性：</p>
+<code>class X {
+    ....    //<i> Members and methods for ‘a’, ‘b’ ...</i>
 };
 
 class Y {
-    ....    //<span class="comment"> Members and methods for ‘c’, ‘d’, ‘e’ ... </span>
+    ....    //<i> Members and methods for ‘c’, ‘d’, ‘e’ ... </i>
 };
 
-void foo(X x, Y y) {   //<span class="comment"> Good</span>
+void foo(X x, Y y) {   //<i> Good</i>
     x.methods();
     y.methods();
-}</div>
+}</code>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxParamCount: 函数参数数量上限，超过则报出
-maxInnerFunParamCount: static 函数或 private 成员函数参数数量上限，超过则报出
-</p>
+<div class="ref-items">maxParamCount: 函数参数数量上限，超过则报出
+maxInnerFunParamCount: static 函数或 private 成员函数参数数量上限，超过则报出</div>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines F.2
-C++ Core Guidelines I.23
-
-</p>
+<div class="ref-items">C++ Core Guidelines F.2
+C++ Core Guidelines I.23</div>
 </article>
 </html>

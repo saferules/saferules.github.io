@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：绝对路径使代码过分依赖编译环境，意味着项目的编译设置不完善，应使用相对路径。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>include 指令中不应使用绝对路径 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>include 指令中不应使用绝对路径</h1>
@@ -19,14 +20,14 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-绝对路径使代码过分依赖编译环境，意味着项目的编译设置不完善，应使用相对路径。
+<main>
+<p>绝对路径使代码过分依赖编译环境，意味着项目的编译设置不完善，应使用相对路径。</p>
 
-示例：
-<div class="code">#include &quot;C:\\foo\\bar.h&quot;   //<span class="comment"> Non-compliant</span>
-#include &quot;/foo/bar.h&quot;       //<span class="comment"> Non-compliant</span></div>
+<p>示例：</p>
+<code>#include &quot;C:\\foo\\bar.h&quot;   //<i> Non-compliant</i>
+#include &quot;/foo/bar.h&quot;       //<i> Non-compliant</i></code>
 
-</div>
+</main>
 
 
 

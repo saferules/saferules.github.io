@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对象的动态类型在其析构过程中不生效。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>在析构函数中不应使用动态类型 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>在析构函数中不应使用动态类型</h1>
@@ -19,34 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对象的动态类型在其析构过程中不生效。
+<main>
+<p>对象的动态类型在其析构过程中不生效。</p>
 
-执行基类析构函数时，属于派生类的成员已被析构，基类析构函数不能使用派生类动态类型。
+<p>执行基类析构函数时，属于派生类的成员已被析构，基类析构函数不能使用派生类动态类型。</p>
 
-对于正在析构的对象，不应：
- ● 调用派生类重写的虚函数
- ● 通过 typeid 判断对象的动态类型
- ● 通过 dynamic_cast 转换对象的动态类型
+<p>对于正在析构的对象，不应：</p>
+<ul>
+<li>调用派生类重写的虚函数</li>
+<li>通过 typeid 判断对象的动态类型</li>
+<li>通过 dynamic_cast 转换对象的动态类型</li>
 
-注意，如果在析构函数中调用未实现的纯虚函数会导致标准未定义的行为。
+</ul>
+<p>注意，如果在析构函数中调用未实现的纯虚函数会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
     virtual void clear() {}
 
 public:
-   ~A() { clear(); }   //<span class="comment"> Non-compliant</span>
+   ~A() { clear(); }   //<i> Non-compliant</i>
 };
 
 class B: public A {
     int* p = new int[8];
-    void clear() override { delete[] p; }   //<span class="comment"> Invalid</span>
-};</div>
-虽然派生类 B 重写了 clear 函数，但在基类 A 的析构函数中不生效，相关内存没有被正确释放。
+    void clear() override { delete[] p; }   //<i> Invalid</i>
+};</code>
+<p>虽然派生类 B 重写了 clear 函数，但在基类 A 的析构函数中不生效，相关内存没有被正确释放。</p>
 
-应将基类的析构函数设为虚函数，在派生类的析构函数中释放资源：
-<div class="code">class A {
+<p>应将基类的析构函数设为虚函数，在派生类的析构函数中释放资源：</p>
+<code>class A {
 public:
     virtual ~A() = default;
 };
@@ -54,25 +57,21 @@ public:
 class B: public A {
     int* p = new int[8];
 public:
-   ~B() override { delete[] p; }   //<span class="comment"> Compliant</span>
-};</div>
+   ~B() override { delete[] p; }   //<i> Compliant</i>
+};</code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 10.4(6)-undefined
-ISO/IEC 14882:2011 10.4(6)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 10.4(6)-undefined
+ISO/IEC 14882:2011 10.4(6)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.82
+<div class="ref-items">C++ Core Guidelines C.82
 MISRA C++ 2008 12-1-1
-Effective C++ item 9
-
-</p>
+Effective C++ item 9</div>
 </article>
 </html>

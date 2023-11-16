@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：抽象类只能作为基类，没有独立的对象，调用拷贝或移动赋值运算符会造成数据不完整。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>抽象类禁用拷贝和移动赋值运算符 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>抽象类禁用拷贝和移动赋值运算符</h1>
@@ -19,40 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-抽象类只能作为基类，没有独立的对象，调用拷贝或移动赋值运算符会造成数据不完整。
+<main>
+<p>抽象类只能作为基类，没有独立的对象，调用拷贝或移动赋值运算符会造成数据不完整。</p>
 
-示例：
-<div class="code">struct A {
+<p>示例：</p>
+<code>struct A {
     virtual ~A() = 0;
-    A&amp; operator = (const A&amp;);   //<span class="comment"> Non-compliant</span>
-    A&amp; operator = (A&amp;&amp;);        //<span class="comment"> Non-compliant</span>
+    A&amp; operator = (const A&amp;);   //<i> Non-compliant</i>
+    A&amp; operator = (A&amp;&amp;);        //<i> Non-compliant</i>
     ....
 };
 
 void foo(A&amp; x, A&amp; y) {
-    x = y;               //<span class="comment"> Incomplete assignment</span>
-}</div>
-例中 foo 函数的参数只能是 A 的派生类对象，派生类对象调用基类的拷贝赋值运算符会得到不完整的复制结果。
+    x = y;               //<i> Incomplete assignment</i>
+}</code>
+<p>例中 foo 函数的参数只能是 A 的派生类对象，派生类对象调用基类的拷贝赋值运算符会得到不完整的复制结果。</p>
 
-应改为：
-<div class="code">struct A {
+<p>应改为：</p>
+<code>struct A {
     virtual ~A() = 0;
-    A&amp; operator = (const A&amp;) = delete;   //<span class="comment"> Compliant</span>
-    A&amp; operator = (A&amp;&amp;) = delete;        //<span class="comment"> Compliant</span>
+    A&amp; operator = (const A&amp;) = delete;   //<i> Compliant</i>
+    A&amp; operator = (A&amp;&amp;) = delete;        //<i> Compliant</i>
     ....
-};</div>
-将抽象类的拷贝和移动赋值运算符设为 =delete 或 private，可在编译期阻止不完整的复制和移动。
+};</code>
+<p>将抽象类的拷贝和移动赋值运算符设为 =delete 或 private，可在编译期阻止不完整的复制和移动。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.67
-MISRA C++ 2008 12-8-2
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.67
+MISRA C++ 2008 12-8-2</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对于动态分配的资源，其地址、句柄或描述符等标志性信息不可被遗失，否则资源无法被访问也无法被回收，这种问题称为“资源泄漏”，会导致资源耗尽或死锁等问题，使程序无法正常运行。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不可失去对已分配资源的控制 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不可失去对已分配资源的控制</h1>
@@ -19,39 +20,37 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对于动态分配的资源，其地址、句柄或描述符等标志性信息不可被遗失，否则资源无法被访问也无法被回收，这种问题称为“资源泄漏”，会导致资源耗尽或死锁等问题，使程序无法正常运行。
+<main>
+<p>对于动态分配的资源，其地址、句柄或描述符等标志性信息不可被遗失，否则资源无法被访问也无法被回收，这种问题称为“资源泄漏”，会导致资源耗尽或死锁等问题，使程序无法正常运行。</p>
 
-在资源被回收之前，记录其标志性信息的变量如果：
- ● 均被重新赋值
- ● 生命周期均已结束
- ● 所在线程均被终止
+<p>在资源被回收之前，记录其标志性信息的变量如果：</p>
+<ul>
+<li>均被重新赋值</li>
+<li>生命周期均已结束</li>
+<li>所在线程均被终止</li>
 
-相关资源便失去了控制，无法再通过正常手段访问相关资源。
+</ul>
+<p>相关资源便失去了控制，无法再通过正常手段访问相关资源。</p>
 
-示例：
-<div class="code">int fd;
-fd = open(&quot;a&quot;, O_RDONLY);   //<span class="comment"> Open a file descriptor</span>
+<p>示例：</p>
+<code>int fd;
+fd = open(&quot;a&quot;, O_RDONLY);   //<i> Open a file descriptor</i>
 read(fd, buf1, 100);
-fd = open(&quot;b&quot;, O_RDONLY);   //<span class="comment"> Non-compliant, the previous descriptor is lost</span>
-read(fd, buf2, 100);</div>
-例中变量 fd 记录文件资源描述符，在回收资源之前对其重新赋值会导致资源泄漏。
+fd = open(&quot;b&quot;, O_RDONLY);   //<i> Non-compliant, the previous descriptor is lost</i>
+read(fd, buf2, 100);</code>
+<p>例中变量 fd 记录文件资源描述符，在回收资源之前对其重新赋值会导致资源泄漏。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_memoryLeak.html" target="_blank" class="related-link">ID_memoryLeak</a>
-<a href="./ID_asynchronousTermination.html" target="_blank" class="related-link">ID_asynchronousTermination</a>
-
-</p>
+<div class="ref-items"><a href="./ID_memoryLeak.html" class="related-link">ID_memoryLeak</a>
+<a href="./ID_asynchronousTermination.html" class="related-link">ID_asynchronousTermination</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-772
-C++ Core Guidelines P.8
-
-</p>
+<div class="ref-items">CWE-772
+C++ Core Guidelines P.8</div>
 </article>
 </html>

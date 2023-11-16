@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：局部、成员名称不应与全局或命名空间内的名称相同，否则干扰阅读，易引起误解。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>全局名称不应被覆盖 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>全局名称不应被覆盖</h1>
@@ -19,46 +20,44 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-局部、成员名称不应与全局或命名空间内的名称相同，否则干扰阅读，易引起误解。
+<main>
+<p>局部、成员名称不应与全局或命名空间内的名称相同，否则干扰阅读，易引起误解。</p>
 
-示例：
-<div class="code">extern int i;
+<p>示例：</p>
+<code>extern int i;
 
 void foo() {
-    int i = 0;      //<span class="comment"> Non-compliant, hides the global ‘i’</span>
+    int i = 0;      //<i> Non-compliant, hides the global ‘i’</i>
     ....
 }
 
 class A {
-    int i;          //<span class="comment"> Non-compliant, hides the global ‘i’</span>
+    int i;          //<i> Non-compliant, hides the global ‘i’</i>
 public:
     int bar() {
-        return i;   //<span class="comment"> Which ‘i’?</span>
+        return i;   //<i> Which ‘i’?</i>
     }
     ....
-};</div>
-建议全局对象遵循统一的命名约定，如以“g_”开头，且名称长度不宜过短，可有效规避这类问题。
+};</code>
+<p>建议全局对象遵循统一的命名约定，如以“g_”开头，且名称长度不宜过短，可有效规避这类问题。</p>
 
-例外：
-<div class="code">extern int i;
+<p>例外：</p>
+<code>extern int i;
 
 struct S {
-    int i;   //<span class="comment"> Compliant</span>
-};</div>
-无成员函数的结构体或联合体成员可不受本规则限制。
+    int i;   //<i> Compliant</i>
+};</code>
+<p>无成员函数的结构体或联合体成员可不受本规则限制。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1109
+<div class="ref-items">CWE-1109
 MISRA C 2004 5.2
 MISRA C 2012 5.3
-MISRA C++ 2008 2-10-2
-
-</p>
+MISRA C++ 2008 2-10-2</div>
 </article>
 </html>

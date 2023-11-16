@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：匿名命名空间中的元素已具有内部链接性（internal linkage），不应再用 static 关键字限定。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>匿名命名空间中不应使用静态声明 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>匿名命名空间中不应使用静态声明</h1>
@@ -19,35 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-匿名命名空间中的元素已具有内部链接性（internal linkage），不应再用 static 关键字限定。
+<main>
+<p>匿名命名空间中的元素已具有内部链接性（internal linkage），不应再用 static 关键字限定。</p>
 
-示例：
-<div class="code">namespace {
-    static int i = 0;   //<span class="comment"> Non-compliant</span>
-    static int foo() {  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>namespace {
+    static int i = 0;   //<i> Non-compliant</i>
+    static int foo() {  //<i> Non-compliant</i>
         return i++;
     }
-}</div>
-例中 static 关键字是多余的。
+}</code>
+<p>例中 static 关键字是多余的。</p>
 
-应改为：
-<div class="code">namespace {
-    int i = 0;          //<span class="comment"> Compliant</span>
-    int foo() {         //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>namespace {
+    int i = 0;          //<i> Compliant</i>
+    int foo() {         //<i> Compliant</i>
         return i++;
     }
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2011 3.5(4)
-ISO/IEC 14882:2017 6.5(4)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2011 3.5(4)
+ISO/IEC 14882:2017 6.5(4)</div>
 
 
 </article>

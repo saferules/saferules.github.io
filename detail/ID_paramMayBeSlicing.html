@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：将派生类对象通过传值的方式转换为基类对象后，不再遵循多态机制，易产生意料之外的错误，应采用指针或引用的方式传递多态类对象。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>多态类的对象作为参数时不应采用值传递的方式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>多态类的对象作为参数时不应采用值传递的方式</h1>
@@ -19,34 +20,30 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-将派生类对象通过传值的方式转换为基类对象后，不再遵循多态机制，易产生意料之外的错误，应采用指针或引用的方式传递多态类对象。
+<main>
+<p>将派生类对象通过传值的方式转换为基类对象后，不再遵循多态机制，易产生意料之外的错误，应采用指针或引用的方式传递多态类对象。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
 public:
     virtual int fun();
 };
 
-void foo(A);   //<span class="comment"> Non-compliant</span>
+void foo(A);   //<i> Non-compliant</i>
 
-void bar(A&amp;);  //<span class="comment"> Compliant</span>
-void baz(A*);  //<span class="comment"> Compliant</span></div>
+void bar(A&amp;);  //<i> Compliant</i>
+void baz(A*);  //<i> Compliant</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_objectSlicing.html" target="_blank" class="related-link">ID_objectSlicing</a>
-
-</p>
+<div class="ref-items"><a href="./ID_objectSlicing.html" class="related-link">ID_objectSlicing</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.145
-C++ Core Guidelines ES.63
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.145
+C++ Core Guidelines ES.63</div>
 </article>
 </html>

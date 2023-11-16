@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：标签过多意味着函数内部的跳转逻辑过于复杂，违反结构化设计理念，应适当重构。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>函数的标签数量应在规定范围之内 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>函数的标签数量应在规定范围之内</h1>
@@ -19,28 +20,27 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-标签过多意味着函数内部的跳转逻辑过于复杂，违反结构化设计理念，应适当重构。
+<main>
+<p>标签过多意味着函数内部的跳转逻辑过于复杂，违反结构化设计理念，应适当重构。</p>
 
-对于 C 代码，建议一个函数只用一个标签作为函数统一出口，对于 C++ 代码，不建议使用标签。
+<p>对于 C 代码，建议一个函数只用一个标签作为函数统一出口，对于 C++ 代码，不建议使用标签。</p>
 
-示例：
-<div class="code">void foo()
+<p>示例：</p>
+<code>void foo()
 {
 L0:
     ....
 L1:
-    ....   //<span class="comment"> Lots of labels require lots of gotos</span>
-    ....   //<span class="comment"> Lots of gotos make functions terrible</span>
+    ....   //<i> Lots of labels require lots of gotos</i>
+    ....   //<i> Lots of gotos make functions terrible</i>
 L100:
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxLabelCount: 标签数量上限，超过则报出
-</p>
+<div class="ref-items">maxLabelCount: 标签数量上限，超过则报出</div>
 
 
 

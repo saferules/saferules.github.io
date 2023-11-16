@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：不改变程序流程的常量逻辑表达式是没有意义的，而常量逻辑子表达式则是多余的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>逻辑表达式及逻辑子表达式不应为常量 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>逻辑表达式及逻辑子表达式不应为常量</h1>
@@ -19,62 +20,60 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-不改变程序流程的常量逻辑表达式是没有意义的，而常量逻辑子表达式则是多余的。
+<main>
+<p>不改变程序流程的常量逻辑表达式是没有意义的，而常量逻辑子表达式则是多余的。</p>
 
-示例：
-<div class="code">if (false) {  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>if (false) {  //<i> Non-compliant</i>
     ....
 }
 
-while (false) {  //<span class="comment"> Non-compliant</span>
+while (false) {  //<i> Non-compliant</i>
     ....
 }
 
 const bool False = false;
-if (False &amp;&amp; other_condition) {  //<span class="comment"> Non-compliant</span>
+if (False &amp;&amp; other_condition) {  //<i> Non-compliant</i>
     ....
-}</div>
-这种代码往往是调试或维护过程中产生的残留代码，应及时去除。
+}</code>
+<p>这种代码往往是调试或维护过程中产生的残留代码，应及时去除。</p>
 
-例外：
-<div class="code">while (true) {  //<span class="comment"> Compliant</span>
+<p>例外：</p>
+<code>while (true) {  //<i> Compliant</i>
     ....
 }
 
 do {
     ....
-} while (0);  //<span class="comment"> Compliant</span></div>
-true 或 1 等常量可作为 while 或 do-while 循环的条件，false 或 0 等常量可作为 do-while 循环的条件。
+} while (0);  //<i> Compliant</i></code>
+<p>true 或 1 等常量可作为 while 或 do-while 循环的条件，false 或 0 等常量可作为 do-while 循环的条件。</p>
 
-由宏定义的常量也不应作为控制语句的条件，如：
-<div class="code">#define M 1
+<p>由宏定义的常量也不应作为控制语句的条件，如：</p>
+<code>#define M 1
 
-if (M) {  //<span class="comment"> Non-compliant</span>
+if (M) {  //<i> Non-compliant</i>
     ....
-}</div>
-应采用条件编译的方式，避免占用运行时资源：
-<div class="code">#if M  //<span class="comment"> Compliant</span>
+}</code>
+<p>应采用条件编译的方式，避免占用运行时资源：</p>
+<code>#if M  //<i> Compliant</i>
     ....
 #endif
-</div>
-或：
-<div class="code">if constexpr (M) {  //<span class="comment"> Compliant, since C++17</span>
+</code>
+<p>或：</p>
+<code>if constexpr (M) {  //<i> Compliant, since C++17</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-570
+<div class="ref-items">CWE-570
 CWE-571
 MISRA C 2004 13.7
 MISRA C 2012 14.3
-MISRA C++ 2008 0-1-2
-
-</p>
+MISRA C++ 2008 0-1-2</div>
 </article>
 </html>

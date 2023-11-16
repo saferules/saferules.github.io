@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：用 using directive 引用当前命名空间属于无效代码，可能意味着某种错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免无效的 using directive - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免无效的 using directive</h1>
@@ -19,16 +20,16 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-用 using directive 引用当前命名空间属于无效代码，可能意味着某种错误。
+<main>
+<p>用 using directive 引用当前命名空间属于无效代码，可能意味着某种错误。</p>
 
-示例：
-<div class="code">namespace NS
+<p>示例：</p>
+<code>namespace NS
 {
-    using namespace NS;  //<span class="comment"> Non-compliant, meaningless</span>
-}</div>
+    using namespace NS;  //<i> Non-compliant, meaningless</i>
+}</code>
 
-</div>
+</main>
 
 
 

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对于锁等资源，错误的请求时序或管理方式会使程序永远陷入等待状态，这种问题称为“死锁（deadlock）”。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免死锁 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免死锁</h1>
@@ -19,48 +20,48 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对于锁等资源，错误的请求时序或管理方式会使程序永远陷入等待状态，这种问题称为“<a href="https://en.wikipedia.org/wiki/Deadlock" target="_blank" class="dashed-link">死锁（deadlock）</a>”。
+<main>
+<p>对于锁等资源，错误的请求时序或管理方式会使程序永远陷入等待状态，这种问题称为“<a href="https://en.wikipedia.org/wiki/Deadlock" target="_blank" class="dashed-link">死锁（deadlock）</a>”。</p>
 
-示例：
-<div class="code">mtx_t m;               //<span class="comment"> Non-recursive mutex</span>
+<p>示例：</p>
+<code>mtx_t m;               //<i> Non-recursive mutex</i>
 
 void foo() {
-    mtx_lock(&amp;m);      //<span class="comment"> Lock the mutex</span>
+    mtx_lock(&amp;m);      //<i> Lock the mutex</i>
     ....
 }
 
 void bar() {
-    mtx_lock(&amp;m);      //<span class="comment"> Lock the mutex</span>
-    foo();             //<span class="comment"> Undefined behavior, may deadlock</span>
+    mtx_lock(&amp;m);      //<i> Lock the mutex</i>
+    foo();             //<i> Undefined behavior, may deadlock</i>
     ....
-}</div>
-设 m 是非递归互斥量，bar 锁定互斥量后调用 foo，而 foo 也会锁定互斥量，导致 foo 等待 bar 解锁，而 foo 返回之前 bar 不可能解锁，这是一种导致死锁的逻辑错误，C11 也明确规定在同一线程中不可重复锁定非递归互斥量。
+}</code>
+<p>设 m 是非递归互斥量，bar 锁定互斥量后调用 foo，而 foo 也会锁定互斥量，导致 foo 等待 bar 解锁，而 foo 返回之前 bar 不可能解锁，这是一种导致死锁的逻辑错误，C11 也明确规定在同一线程中不可重复锁定非递归互斥量。</p>
 
-另外，线程之间相互等待对方解锁也是死锁的主要原因，如：
-<div class="code">struct A {
+<p>另外，线程之间相互等待对方解锁也是死锁的主要原因，如：</p>
+<code>struct A {
     ....
-    mtx_t m;          //<span class="comment"> Mutex</span>
+    mtx_t m;          //<i> Mutex</i>
 } a, b;
 
 void thr1() {
-    mtx_lock(&amp;a.m);   //<span class="comment"> Lock</span>
+    mtx_lock(&amp;a.m);   //<i> Lock</i>
     mtx_lock(&amp;b.m);
     ....
 }
 
 void thr2() {
-    mtx_lock(&amp;b.m);   //<span class="comment"> Lock in another order</span>
-    mtx_lock(&amp;a.m);   //<span class="comment"> May deadlock</span>
+    mtx_lock(&amp;b.m);   //<i> Lock in another order</i>
+    mtx_lock(&amp;a.m);   //<i> May deadlock</i>
     ....
-}</div>
-设 thr1 和 thr2 是两个可以并发执行的函数，如果 a.m 被 thr1 锁定，b.m 被 thr2 锁定，thr1 等待 b.m 解锁，而 thr2 等待 a.m 解锁，这种相互等待导致了死锁的局面。例中 a 和 b 是具名全局对象，在各线程中按统一的顺序加锁可避免死锁。
+}</code>
+<p>设 thr1 和 thr2 是两个可以并发执行的函数，如果 a.m 被 thr1 锁定，b.m 被 thr2 锁定，thr1 等待 b.m 解锁，而 thr2 等待 a.m 解锁，这种相互等待导致了死锁的局面。例中 a 和 b 是具名全局对象，在各线程中按统一的顺序加锁可避免死锁。</p>
 
-在更普遍的情况下，为不同对象加锁前，可使对象按某种内在的标准“排序”，再依次加锁，如：
-<div class="code">struct A {
-    int id;           //<span class="comment"> Unique identifier</span>
+<p>在更普遍的情况下，为不同对象加锁前，可使对象按某种内在的标准“排序”，再依次加锁，如：</p>
+<code>struct A {
+    int id;           //<i> Unique identifier</i>
     ....
-    mtx_t m;          //<span class="comment"> Mutex</span>
+    mtx_t m;          //<i> Mutex</i>
 };
 
 void lock_in_order(A* p, A* q) {
@@ -69,25 +70,21 @@ void lock_in_order(A* p, A* q) {
     }
     mtx_lock(&amp;p-&gt;m);
     mtx_lock(&amp;q-&gt;m);
-}</div>
-为每个对象分配一个 id 以标识不同的对象，每次 id 小的先加锁，可有效避免相互等待造成的死锁。示例代码忽略了 id 相等的情况，在实际代码中应补全，否则也会造成第一个例子中的问题。
+}</code>
+<p>为每个对象分配一个 id 以标识不同的对象，每次 id 小的先加锁，可有效避免相互等待造成的死锁。示例代码忽略了 id 相等的情况，在实际代码中应补全，否则也会造成第一个例子中的问题。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:2011 7.26.4.3(2)-undefined
-ISO/IEC 14882:2011 17.3.8
-
-</p>
+<div class="ref-items">ISO/IEC 9899:2011 7.26.4.3(2)-undefined
+ISO/IEC 14882:2011 17.3.8</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT CON35-C
+<div class="ref-items">SEI CERT CON35-C
 SEI CERT CON53-CPP
-SEI CERT CON56-CPP
-
-</p>
+SEI CERT CON56-CPP</div>
 </article>
 </html>

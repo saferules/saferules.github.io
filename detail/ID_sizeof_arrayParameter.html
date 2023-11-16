@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：当函数的形式参数为数组时，实际上是一个指针，对这种参数使用 sizeof 无法获取到数组大小，往往意味着错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>sizeof 不应作用于数组参数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>sizeof 不应作用于数组参数</h1>
@@ -19,35 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-当函数的形式参数为数组时，实际上是一个指针，对这种参数使用 sizeof 无法获取到数组大小，往往意味着错误。
+<main>
+<p>当函数的形式参数为数组时，实际上是一个指针，对这种参数使用 sizeof 无法获取到数组大小，往往意味着错误。</p>
 
-示例：
-<div class="code">void fun(char arr[32]) {
-    memset(arr, 0, sizeof(arr));  //<span class="comment"> Non-compliant</span>
-}</div>
-例中参数 arr 是一个指针，而不是一个真实的数组。
+<p>示例：</p>
+<code>void fun(char arr[32]) {
+    memset(arr, 0, sizeof(arr));  //<i> Non-compliant</i>
+}</code>
+<p>例中参数 arr 是一个指针，而不是一个真实的数组。</p>
 
-在 C++ 代码中，如果有必要将参数设为数组，建议使用引用的方式，如：
-<div class="code">void fun(char (&amp;arr)[32]) {
-    memset(arr, 0, sizeof(arr));  //<span class="comment"> Compliant</span>
-}</div>
-这样 sizeof(arr) 的结果就会和预期一致。
+<p>在 C++ 代码中，如果有必要将参数设为数组，建议使用引用的方式，如：</p>
+<code>void fun(char (&amp;arr)[32]) {
+    memset(arr, 0, sizeof(arr));  //<i> Compliant</i>
+}</code>
+<p>这样 sizeof(arr) 的结果就会和预期一致。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7.5.3(7)
-ISO/IEC 9899:2011 6.7.6.3(7)
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.7.5.3(7)
+ISO/IEC 9899:2011 6.7.6.3(7)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-467
-
-</p>
+<div class="ref-items">CWE-467</div>
 </article>
 </html>

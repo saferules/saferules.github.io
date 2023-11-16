@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：以 .h 或 .hpp 为扩展名的头文件应包含头文件守卫。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>头文件不应缺少守卫 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>头文件不应缺少守卫</h1>
@@ -19,42 +20,39 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-以 .h 或 .hpp 为扩展名的头文件应包含头文件守卫。
+<main>
+<p>以 .h 或 .hpp 为扩展名的头文件应包含头文件守卫。</p>
 
-示例：
-<div class="code">//<span class="comment"> Header file foo.h</span>
+<p>示例：</p>
+<code>//<i> Header file foo.h</i>
 #ifndef LIBRARY_FOO_H
 #define LIBRARY_FOO_H
 ....
-#endif</div>
-例中 foo.h 是“Library”模块中的头文件，宏 LIBRARY_FOO_H 即可作为它的守卫，保证头文件被重复引入也不会出现问题，守卫名称不可有重复，建议守卫名称遵循“模块名_文件名”的形式。
+#endif</code>
+<p>例中 foo.h 是“Library”模块中的头文件，宏 LIBRARY_FOO_H 即可作为它的守卫，保证头文件被重复引入也不会出现问题，守卫名称不可有重复，建议守卫名称遵循“模块名_文件名”的形式。</p>
 
-#pragma once 指令也可作为头文件守卫，但并不是 C/C++ 的标准方式，只是多数编译器均有支持。这种方式由编译器维护一个列表，引入头文件时，如果发现文件中有 #pragma once 指令就将文件路径加入列表，当这个文件再次被 include 时便不会加载，而宏守卫的方式仍然要对文件进行预编译，所以 #pragma once 方式在编译效率上会更高一些。
+<p>#pragma once 指令也可作为头文件守卫，但并不是 C/C++ 的标准方式，只是多数编译器均有支持。这种方式由编译器维护一个列表，引入头文件时，如果发现文件中有 #pragma once 指令就将文件路径加入列表，当这个文件再次被 include 时便不会加载，而宏守卫的方式仍然要对文件进行预编译，所以 #pragma once 方式在编译效率上会更高一些。</p>
 
-宏守卫用宏名区分头文件，所以不能有重复。宏的引入可以使相关设定更灵活，比如声明头文件之间的依赖或排斥关系，如果 bar.h 依赖 foo.h，在 #include &quot;bar.h&quot; 之前必须 #include &quot;foo.h&quot;，可在 bar.h 中设置：
-<div class="code">//<span class="comment"> Header file bar.h</span>
+<p>宏守卫用宏名区分头文件，所以不能有重复。宏的引入可以使相关设定更灵活，比如声明头文件之间的依赖或排斥关系，如果 bar.h 依赖 foo.h，在 #include &quot;bar.h&quot; 之前必须 #include &quot;foo.h&quot;，可在 bar.h 中设置：</p>
+<code>//<i> Header file bar.h</i>
 #ifndef LIBRARY_FOO_H
 #error foo.h should be included first
-#endif</div>
-这样如果不满足条件无法通过编译。
+#endif</code>
+<p>这样如果不满足条件无法通过编译。</p>
 
-本规则建议使用宏守卫的方式，但 #pragma once 方法也是惯用写法，不妨通过配置项决定其是否合规。
+<p>本规则建议使用宏守卫的方式，但 #pragma once 方法也是惯用写法，不妨通过配置项决定其是否合规。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allowPragmaOnce: 是否允许 #pragma once 作为头文件守卫
-</p>
+<div class="ref-items">allowPragmaOnce: 是否允许 #pragma once 作为头文件守卫</div>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines SF.8
+<div class="ref-items">C++ Core Guidelines SF.8
 MISRA C 2004 19.15
-MISRA C++ 2008 16-2-3
-
-</p>
+MISRA C++ 2008 16-2-3</div>
 </article>
 </html>

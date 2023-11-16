@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：sizeof 作用于指针的结果是指针的大小，而不是指针指向内容的大小，sizeof 作用于指针很容易造成错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>sizeof 作用于指针是可疑的 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>sizeof 作用于指针是可疑的</h1>
@@ -19,33 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-sizeof 作用于指针的结果是指针的大小，而不是指针指向内容的大小，sizeof 作用于指针很容易造成错误。
+<main>
+<p>sizeof 作用于指针的结果是指针的大小，而不是指针指向内容的大小，sizeof 作用于指针很容易造成错误。</p>
 
-示例：
-<div class="code">void foo(int* p) {
-    memset(p, 0, sizeof(p));   //<span class="comment"> Logic error</span>
+<p>示例：</p>
+<code>void foo(int* p) {
+    memset(p, 0, sizeof(p));   //<i> Logic error</i>
 }
-</div>
-应改为：
-<div class="code">void foo(int* p, int n) {
-    memset(p, 0, n * sizeof(*p));   //<span class="comment"> OK</span>
-}</div>
-其中参数 n 是数组元素的个数。
+</code>
+<p>应改为：</p>
+<code>void foo(int* p, int n) {
+    memset(p, 0, n * sizeof(*p));   //<i> OK</i>
+}</code>
+<p>其中参数 n 是数组元素的个数。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_sizeof_pointerDivision.html" target="_blank" class="related-link">ID_sizeof_pointerDivision</a>
-
-</p>
+<div class="ref-items"><a href="./ID_sizeof_pointerDivision.html" class="related-link">ID_sizeof_pointerDivision</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-467
-
-</p>
+<div class="ref-items">CWE-467</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：内容完全相同的分枝应合并为一个分枝，也可能是由复制粘贴造成的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在内容完全相同的 case 分枝 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在内容完全相同的 case 分枝</h1>
@@ -19,11 +20,11 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-内容完全相同的分枝应合并为一个分枝，也可能是由复制粘贴造成的错误。
+<main>
+<p>内容完全相同的分枝应合并为一个分枝，也可能是由复制粘贴造成的错误。</p>
 
-示例：
-<div class="code">switch (v)
+<p>示例：</p>
+<code>switch (v)
 {
 case 1:
     branch1
@@ -32,32 +33,27 @@ case 2:
     branch2
     break;
 case 3:
-    branch1   //<span class="comment"> Non-compliant</span>
+    branch1   //<i> Non-compliant</i>
     break;
-}</div>
-例中 case 3 对应的分枝和 case 1 对应的分枝内容完全相同，应将其合并为一个分枝，或修正本应存在的差异。
+}</code>
+<p>例中 case 3 对应的分枝和 case 1 对应的分枝内容完全相同，应将其合并为一个分枝，或修正本应存在的差异。</p>
 
-例外：
-如果分枝内容较少，为了使代码更清晰可以接受适当的重复，但如果分枝内容很多就不应重复了，审计工具不妨指定一个数量限制，当重复分枝的符号数量超过这个限制时算作违规，否则放过。
+<p>例外：</p>
+<p>如果分枝内容较少，为了使代码更清晰可以接受适当的重复，但如果分枝内容很多就不应重复了，审计工具不妨指定一个数量限制，当重复分枝的符号数量超过这个限制时算作违规，否则放过。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">branchTokenCountThreshold: 分枝符号数量阈值，不检查符号数量小于该值的分枝
-</p>
+<div class="ref-items">branchTokenCountThreshold: 分枝符号数量阈值，不检查符号数量小于该值的分枝</div>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_if_identicalBlock.html" target="_blank" class="related-link">ID_if_identicalBlock</a>
-<a href="./ID_if_identicalElseIfBlock.html" target="_blank" class="related-link">ID_if_identicalElseIfBlock</a>
-
-</p>
+<div class="ref-items"><a href="./ID_if_identicalBlock.html" class="related-link">ID_if_identicalBlock</a>
+<a href="./ID_if_identicalElseIfBlock.html" class="related-link">ID_if_identicalElseIfBlock</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.3
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.3</div>
 </article>
 </html>

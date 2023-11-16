@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在一个语句中声明多个对象或函数不利于阅读和维护，建议在一个语句中只声明一个对象或函数。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>在一个语句中不应声明多个对象或函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>在一个语句中不应声明多个对象或函数</h1>
@@ -19,54 +20,49 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在一个语句中声明多个对象或函数不利于阅读和维护，建议在一个语句中只声明一个对象或函数。
+<main>
+<p>在一个语句中声明多个对象或函数不利于阅读和维护，建议在一个语句中只声明一个对象或函数。</p>
 
-函数、数组以及相关指针、引用的声明相对复杂，不应和其他声明混在一起。为了便于查阅，对于类及结构体成员、全局对象、具有外部链接性或静态存储期的对象，也不应将多项声明混在一个语句中。对于简单的局部对象声明可适当放宽要求，但仍以一个语句一项声明为宜。
+<p>函数、数组以及相关指针、引用的声明相对复杂，不应和其他声明混在一起。为了便于查阅，对于类及结构体成员、全局对象、具有外部链接性或静态存储期的对象，也不应将多项声明混在一个语句中。对于简单的局部对象声明可适当放宽要求，但仍以一个语句一项声明为宜。</p>
 
-不应将指针、引用、数组、函数等不同类别的声明混在一个语句中，对此本规则特化为  <a href="./ID_mixedDeclarations.html" target="_blank" class="dashed-link">ID_mixedDeclarations</a>。
+<p>不应将指针、引用、数组、函数等不同类别的声明混在一个语句中，对此本规则特化为  <a href="./ID_mixedDeclarations.html" class="dashed-link">ID_mixedDeclarations</a>。</p>
 
-示例：
-<div class="code">int a, b, c, d, e, f, g, ....;   //<span class="comment"> Non-compliant, too many objects</span>
+<p>示例：</p>
+<code>int a, b, c, d, e, f, g, ....;   //<i> Non-compliant, too many objects</i>
 
-int fn1(void), fn2(int, int*), fn3(int);   //<span class="comment"> Non-compliant</span>
+int fn1(void), fn2(int, int*), fn3(int);   //<i> Non-compliant</i>
 
 struct T {
-    int i, j, k;   //<span class="comment"> Non-compliant</span>
-};</div>
-例中一个语句声明多个函数、成员或全局对象是不符合要求的。
+    int i, j, k;   //<i> Non-compliant</i>
+};</code>
+<p>例中一个语句声明多个函数、成员或全局对象是不符合要求的。</p>
 
-又如：
-<div class="code">void foo() {
-    int long_name, name;             //<span class="comment"> Non-compliant</span>
-    int u = complex_expression, v;   //<span class="comment"> Non-compliant</span>
+<p>又如：</p>
+<code>void foo() {
+    int long_name, name;             //<i> Non-compliant</i>
+    int u = complex_expression, v;   //<i> Non-compliant</i>
     ....
-    int x, y;   //<span class="comment"> Simple declarations, let it go?</span>
+    int x, y;   //<i> Simple declarations, let it go?</i>
     ....
-}</div>
-对于局部对象，审计工具不妨统计声明项及其初始化表达式的字符个数，如果超过指定限制，则判其应在单独的语句中声明。
+}</code>
+<p>对于局部对象，审计工具不妨统计声明项及其初始化表达式的字符个数，如果超过指定限制，则判其应在单独的语句中声明。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxLocalDeclaratorCount: 局部作用域中一个语句能声明的对象个数上限，超过则报出
+<div class="ref-items">maxLocalDeclaratorCount: 局部作用域中一个语句能声明的对象个数上限，超过则报出
 maxMemberDeclaratorCount: 类或结构体中一个语句能声明的对象个数上限，超过则报出
 maxGlobalDeclaratorCount: 全局及命名空间作用域中一个语句能声明的对象个数上限，超过则报出
-simpleDeclaratorLengthThreshold: 声明字符数量阈值，超过此值则判其应在单独的语句中声明
-</p>
+simpleDeclaratorLengthThreshold: 声明字符数量阈值，超过此值则判其应在单独的语句中声明</div>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_mixedDeclarations.html" target="_blank" class="related-link">ID_mixedDeclarations</a>
-
-</p>
+<div class="ref-items"><a href="./ID_mixedDeclarations.html" class="related-link">ID_mixedDeclarations</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.10
-MISRA C++ 2008 8-0-1
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.10
+MISRA C++ 2008 8-0-1</div>
 </article>
 </html>

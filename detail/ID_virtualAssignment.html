@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：拷贝和移动赋值运算符的参数应分别为所属类的左值和右值引用，这类运算符即使是虚函数也不便于被重写。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>拷贝和移动赋值运算符不应为虚函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>拷贝和移动赋值运算符不应为虚函数</h1>
@@ -19,42 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-拷贝和移动赋值运算符的参数应分别为所属类的左值和右值引用，这类运算符即使是虚函数也不便于被重写。
+<main>
+<p>拷贝和移动赋值运算符的参数应分别为所属类的左值和右值引用，这类运算符即使是虚函数也不便于被重写。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
 public:
-    virtual A&amp; operator = (const A&amp;);  //<span class="comment"> Non-compliant</span>
+    virtual A&amp; operator = (const A&amp;);  //<i> Non-compliant</i>
 };
 
 class B: public A {
 public:
-    virtual B&amp; operator = (const B&amp;);  //<span class="comment"> Not override</span>
-    virtual A&amp; operator = (const A&amp;);  //<span class="comment"> Override, but too complex</span>
-};</div>
+    virtual B&amp; operator = (const B&amp;);  //<i> Not override</i>
+    virtual A&amp; operator = (const A&amp;);  //<i> Override, but too complex</i>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_nonStdAssignmentRetType.html" target="_blank" class="related-link">ID_nonStdAssignmentRetType</a>
-
-</p>
+<div class="ref-items"><a href="./ID_nonStdAssignmentRetType.html" class="related-link">ID_nonStdAssignmentRetType</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 12.8(9)
+<div class="ref-items">ISO/IEC 14882:2003 12.8(9)
 ISO/IEC 14882:2011 12.8(17)
-ISO/IEC 14882:2011 12.8(19)
-
-</p>
+ISO/IEC 14882:2011 12.8(19)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.60
-C++ Core Guidelines C.63
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.60
+C++ Core Guidelines C.63</div>
 </article>
 </html>

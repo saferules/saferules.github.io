@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：抛出过于宽泛的异常，如 std::exception、std::logic_error、std::runtime_error 等类型的异常，会使异常处理失去针对性，而且处理这种异常时很可能会将本不应处理的异常一并捕获。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应抛出过于宽泛的异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应抛出过于宽泛的异常</h1>
@@ -19,51 +20,47 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-抛出过于宽泛的异常，如 std::exception、std::logic_error、std::runtime_error 等类型的异常，会使异常处理失去针对性，而且处理这种异常时很可能会将本不应处理的异常一并捕获。
+<main>
+<p>抛出过于宽泛的异常，如 std::exception、std::logic_error、std::runtime_error 等类型的异常，会使异常处理失去针对性，而且处理这种异常时很可能会将本不应处理的异常一并捕获。</p>
 
-示例：
-<div class="code">void foo(int a) try
+<p>示例：</p>
+<code>void foo(int a) try
 {
     if (a &lt; 0) {
-        throw std::exception();   //<span class="comment"> Non-compliant</span>
+        throw std::exception();   //<i> Non-compliant</i>
     }
-    bar(a);   //<span class="comment"> Other exceptions may be thrown</span>
+    bar(a);   //<i> Other exceptions may be thrown</i>
 }
-catch (std::exception&amp;)   //<span class="comment"> Other exceptions are also caught</span>
+catch (std::exception&amp;)   //<i> Other exceptions are also caught</i>
 {
     std::cout &lt;&lt; &quot;wrong argument\n&quot;;
-}</div>
-foo 函数在参数不符合要求时抛出 std::exception 类的异常，过于宽泛，如果 bar 函数抛出从 std::exception 派生的其他异常，也会被当作“参数不符合要求”处理。
+}</code>
+<p>foo 函数在参数不符合要求时抛出 std::exception 类的异常，过于宽泛，如果 bar 函数抛出从 std::exception 派生的其他异常，也会被当作“参数不符合要求”处理。</p>
 
-应为异常定义具体的类：
-<div class="code">class WrongArg {};
+<p>应为异常定义具体的类：</p>
+<code>class WrongArg {};
 
 void foo(int a) try
 {
     if (a &lt; 0) {
-        throw WrongArg();   //<span class="comment"> Compliant</span>
+        throw WrongArg();   //<i> Compliant</i>
     }
     bar(a);
 }
-catch (WrongArg&amp;)   //<span class="comment"> Right</span>
+catch (WrongArg&amp;)   //<i> Right</i>
 {
     std::cout &lt;&lt; &quot;wrong argument\n&quot;;
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_catch_generic.html" target="_blank" class="related-link">ID_catch_generic</a>
-
-</p>
+<div class="ref-items"><a href="./ID_catch_generic.html" class="related-link">ID_catch_generic</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-397
-
-</p>
+<div class="ref-items">CWE-397</div>
 </article>
 </html>

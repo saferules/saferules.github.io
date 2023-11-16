@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：if...else-if 分枝中，如果前面的条件被满足，后面的分枝就不会被执行，所以如果前面的条件是后面条件的一部分，或者前面的条件包含后面的条件，即使后面的条件可以被满足，其分枝也得不到执行机会。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>在 if...else-if 分枝中不应有被遮盖的条件 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>在 if...else-if 分枝中不应有被遮盖的条件</h1>
@@ -19,50 +20,46 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-if...else-if 分枝中，如果前面的条件被满足，后面的分枝就不会被执行，所以如果前面的条件是后面条件的一部分，或者前面的条件包含后面的条件，即使后面的条件可以被满足，其分枝也得不到执行机会。
+<main>
+<p>if...else-if 分枝中，如果前面的条件被满足，后面的分枝就不会被执行，所以如果前面的条件是后面条件的一部分，或者前面的条件包含后面的条件，即使后面的条件可以被满足，其分枝也得不到执行机会。</p>
 
-示例：
-<div class="code">if (condition1) {
+<p>示例：</p>
+<code>if (condition1) {
     branch1
 }
 else if (condition2) {
     branch2
 }
-else if (condition1 &amp;&amp; condition3) {  //<span class="comment"> Non-compliant, see the previous ‘condition1’</span>
+else if (condition1 &amp;&amp; condition3) {  //<i> Non-compliant, see the previous ‘condition1’</i>
     branch3
 }
 else {
     branch4
-}</div>
-如果 condition1 为 true，branch1 将得以执行，branch3 不会被执行，如果 condition1 为 false，branch3 还是不会被执行，称 branch3 被 condition1 遮盖了，branch3 永远不会得到执行机会。
+}</code>
+<p>如果 condition1 为 true，branch1 将得以执行，branch3 不会被执行，如果 condition1 为 false，branch3 还是不会被执行，称 branch3 被 condition1 遮盖了，branch3 永远不会得到执行机会。</p>
 
-如果前面的条件包含后面的条件，同样也会遮盖后面的条件，如：
-<div class="code">if (condition1 || condition2) {
+<p>如果前面的条件包含后面的条件，同样也会遮盖后面的条件，如：</p>
+<code>if (condition1 || condition2) {
     branch1
 }
-else if (condition2) {  //<span class="comment"> Non-compliant, see the previous ‘condition2’</span>
+else if (condition2) {  //<i> Non-compliant, see the previous ‘condition2’</i>
     branch2
 }
 else {
     branch3
-}</div>
-同理，branch2 永远也不会被执行。
+}</code>
+<p>同理，branch2 永远也不会被执行。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_if_identicalCondition.html" target="_blank" class="related-link">ID_if_identicalCondition</a>
-
-</p>
+<div class="ref-items"><a href="./ID_if_identicalCondition.html" class="related-link">ID_if_identicalCondition</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-561
-CWE-670
-
-</p>
+<div class="ref-items">CWE-561
+CWE-670</div>
 </article>
 </html>

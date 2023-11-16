@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：访问不符合对齐要求的数据会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免向对齐要求更严格的指针转换 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免向对齐要求更严格的指针转换</h1>
@@ -19,49 +20,43 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-访问不符合对齐要求的数据会导致标准未定义的行为。
+<main>
+<p>访问不符合对齐要求的数据会导致标准未定义的行为。</p>
 
-对象的存储地址与其占用空间的长度相关，如变量的地址往往是其长度的整数倍，这种机制称为“<a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" class="dashed-link">内存对齐</a>”，可提高处理器访问数据的效率，如果对象的地址不符合这种要求，访问对象的效率就会降低，在某些平台上甚至会崩溃，详见“<a href="https://en.wikipedia.org/wiki/Bus_error#Unaligned_access" target="_blank" class="dashed-link">unaligned access</a>”。
+<p>对象的存储地址与其占用空间的长度相关，如变量的地址往往是其长度的整数倍，这种机制称为“<a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" class="dashed-link">内存对齐</a>”，可提高处理器访问数据的效率，如果对象的地址不符合这种要求，访问对象的效率就会降低，在某些平台上甚至会崩溃，详见“<a href="https://en.wikipedia.org/wiki/Bus_error#Unaligned_access" target="_blank" class="dashed-link">unaligned access</a>”。</p>
 
-每种对象类型都有一个“<a href="https://en.cppreference.com/w/c/language/object#Alignment" target="_blank" class="dashed-link">对齐要求（alignment requirement）</a>”，一般来说占用空间越大的类型，对齐要求越严格，如 char 对象可以存储在任意地址，而 int 对象的地址只应是 sizeof(int) 的整数倍，所以解引用由 char 指针转换成的 int 指针很可能会造成“<a href="https://en.wikipedia.org/wiki/Bus_error#Unaligned_access" target="_blank" class="dashed-link">unaligned access</a>”。
+<p>每种对象类型都有一个“<a href="https://en.cppreference.com/w/c/language/object#Alignment" target="_blank" class="dashed-link">对齐要求（alignment requirement）</a>”，一般来说占用空间越大的类型，对齐要求越严格，如 char 对象可以存储在任意地址，而 int 对象的地址只应是 sizeof(int) 的整数倍，所以解引用由 char 指针转换成的 int 指针很可能会造成“<a href="https://en.wikipedia.org/wiki/Bus_error#Unaligned_access" target="_blank" class="dashed-link">unaligned access</a>”。</p>
 
-示例：
-<div class="code">void foo(unsigned char* p) {
-    char c = *(char*)p;            //<span class="comment"> Compliant</span>
-    long n = *(long*)(p + 1);      //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>void foo(unsigned char* p) {
+    char c = *(char*)p;            //<i> Compliant</i>
+    long n = *(long*)(p + 1);      //<i> Non-compliant</i>
     ....
-}</div>
-二进制数据转向结构化数据时，这种问题较为常见，例中 p + 1 与 long 型变量的对齐要求不同，不应直接转换。
+}</code>
+<p>二进制数据转向结构化数据时，这种问题较为常见，例中 p + 1 与 long 型变量的对齐要求不同，不应直接转换。</p>
 
-应改为：
-<div class="code">void foo(unsigned char* p) {
-    char c = *(char*)p;            //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>void foo(unsigned char* p) {
+    char c = *(char*)p;            //<i> Compliant</i>
     long n;
-    memcpy(&amp;n, p + 1, sizeof(n));  //<span class="comment"> Compliant</span>
+    memcpy(&amp;n, p + 1, sizeof(n));  //<i> Compliant</i>
     ....
-}</div>
-用 memcpy 等函数将低对齐要求的数据复制到高对齐要求的对象中，是避免相关问题的通用模式。
+}</code>
+<p>用 memcpy 等函数将低对齐要求的数据复制到高对齐要求的对象中，是避免相关问题的通用模式。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_castNoInheritance.html" target="_blank" class="related-link">ID_castNoInheritance</a>
-
-</p>
+<div class="ref-items"><a href="./ID_castNoInheritance.html" class="related-link">ID_castNoInheritance</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.3.2.3(7)-undefined
-ISO/IEC 9899:2011 6.3.2.3(7)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.3.2.3(7)-undefined
+ISO/IEC 9899:2011 6.3.2.3(7)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT EXP36-C
-
-</p>
+<div class="ref-items">SEI CERT EXP36-C</div>
 </article>
 </html>

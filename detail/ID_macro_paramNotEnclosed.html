@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：由于宏只做文本处理，不考虑运算符优先级等问题，故应将宏参数用括号括起来，否则易产生意料之外的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>表达式中的宏参数应该用括号括起来 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>表达式中的宏参数应该用括号括起来</h1>
@@ -19,30 +20,26 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-由于宏只做文本处理，不考虑运算符优先级等问题，故应将宏参数用括号括起来，否则易产生意料之外的错误。
+<main>
+<p>由于宏只做文本处理，不考虑运算符优先级等问题，故应将宏参数用括号括起来，否则易产生意料之外的错误。</p>
 
-示例：
-<div class="code">#define SUM(a, b) (a + b)  //<span class="comment"> Non-compliant</span>
-</div>
-应改为：
-<div class="code">#define SUM(a, b) ((a) + (b))  //<span class="comment"> Compliant</span></div>
+<p>示例：</p>
+<code>#define SUM(a, b) (a + b)  //<i> Non-compliant</i>
+</code>
+<p>应改为：</p>
+<code>#define SUM(a, b) ((a) + (b))  //<i> Compliant</i></code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.10.3.5(4)
-ISO/IEC 9899:2011 6.10.3.5(4)
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.10.3.5(4)
+ISO/IEC 9899:2011 6.10.3.5(4)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-783
-MISRA C++ 2008 16-0-6
-
-</p>
+<div class="ref-items">CWE-783
+MISRA C++ 2008 16-0-6</div>
 </article>
 </html>

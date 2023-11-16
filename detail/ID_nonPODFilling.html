@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：memset、memcpy、memmove 等具有填充功能的函数不应作用于非“POD”对象，否则会破坏其数据的内在关系。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>memset 等函数不应作用于非 POD 对象 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>memset 等函数不应作用于非 POD 对象</h1>
@@ -19,38 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-memset、memcpy、memmove 等具有填充功能的函数不应作用于非“<a href="https://en.cppreference.com/w/cpp/named_req/PODType" target="_blank" class="dashed-link">POD</a>”对象，否则会破坏其数据的内在关系。
+<main>
+<p>memset、memcpy、memmove 等具有填充功能的函数不应作用于非“<a href="https://en.cppreference.com/w/cpp/named_req/PODType" target="_blank" class="dashed-link">POD</a>”对象，否则会破坏其数据的内在关系。</p>
 
-本规则是 <a href="./ID_nonPODBinaryCast.html" target="_blank" class="dashed-link">ID_nonPODBinaryCast</a> 的特化。
+<p>本规则是 <a href="./ID_nonPODBinaryCast.html" class="dashed-link">ID_nonPODBinaryCast</a> 的特化。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
     ....
 public:
     virtual ~A();
 };
 
 void foo(A&amp; a) {
-    memset(&amp;a, 0, sizeof(a));   //<span class="comment"> Non-compliant, the ‘vfptr’ is corrupted</span>
-}</div>
-例中 memset 填充非 POD 对象，其虚函数表指针会被破坏，造成严重的运行时错误。
+    memset(&amp;a, 0, sizeof(a));   //<i> Non-compliant, the ‘vfptr’ is corrupted</i>
+}</code>
+<p>例中 memset 填充非 POD 对象，其虚函数表指针会被破坏，造成严重的运行时错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_nonPODBinaryCast.html" target="_blank" class="related-link">ID_nonPODBinaryCast</a>
-
-</p>
+<div class="ref-items"><a href="./ID_nonPODBinaryCast.html" class="related-link">ID_nonPODBinaryCast</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-463
+<div class="ref-items">CWE-463
 C++ Core Guidelines SL.con.4
-C++ Core Guidelines C.90
-
-</p>
+C++ Core Guidelines C.90</div>
 </article>
 </html>

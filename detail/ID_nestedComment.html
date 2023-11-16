@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：嵌套的 /*...*/ 注释不符合标准，/* 与 */ 之间不应出现 /*，某些编译器可以接受嵌套，但不具备可移植性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>注释不可嵌套 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>注释不可嵌套</h1>
@@ -19,35 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-嵌套的 /*...*/ 注释不符合标准，/* 与 */ 之间不应出现 /*，某些编译器可以接受嵌套，但不具备可移植性。
+<main>
+<p>嵌套的 /*...*/ 注释不符合标准，/* 与 */ 之间不应出现 /*，某些编译器可以接受嵌套，但不具备可移植性。</p>
 
-示例：
+<p>示例：</p>
 
-<div class="code">/*                         //<span class="comment"> #1</span>
-    /*                     //<span class="comment"> #2, Non-compliant</span>
+<code>/*                         //<i> #1</i>
+    /*                     //<i> #2, Non-compliant</i>
     nested comments
-     */                    //<span class="comment"> #3</span>
-*/                         //<span class="comment"> #4, Non-compliant</span>
-</div>
-根据标准，#1 处的 /* 与 #3 处的 */ 匹配，而 #4 处的 */ 处于失配状态。
+     */                    //<i> #3</i>
+*/                         //<i> #4, Non-compliant</i>
+</code>
+<p>根据标准，#1 处的 /* 与 #3 处的 */ 匹配，而 #4 处的 */ 处于失配状态。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.4.9(1)
-ISO/IEC 9899:2011 6.4.9(1)
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.4.9(1)
+ISO/IEC 9899:2011 6.4.9(1)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 2.3
+<div class="ref-items">MISRA C 2004 2.3
 MISRA C 2012 3.1
-MISRA C++ 2008 2-7-1
-
-</p>
+MISRA C++ 2008 2-7-1</div>
 </article>
 </html>

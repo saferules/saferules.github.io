@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：具有 noreturn 属性的函数返回会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>具有 noreturn 属性的函数不应返回 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>具有 noreturn 属性的函数不应返回</h1>
@@ -19,31 +20,27 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-具有 noreturn 属性的函数返回会导致标准未定义的行为。
+<main>
+<p>具有 noreturn 属性的函数返回会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">[[noreturn]] void foo() {  //<span class="comment"> Use _Noreturn in C</span>
+<p>示例：</p>
+<code>[[noreturn]] void foo() {  //<i> Use _Noreturn in C</i>
     if (condition) {
         abort();
     }
-}       //<span class="comment"> Non-compliant, the function returns if ‘condition’ is false</span></div>
-noreturn 表示不会返回，编译器可能不会为 foo 函数生成跳转回调用处的指令，一旦 foo 函数返回就会造成严重错误。
+}       //<i> Non-compliant, the function returns if ‘condition’ is false</i></code>
+<p>noreturn 表示不会返回，编译器可能不会为 foo 函数生成跳转回调用处的指令，一旦 foo 函数返回就会造成严重错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_unsuitableReturnType.html" target="_blank" class="related-link">ID_unsuitableReturnType</a>
-
-</p>
+<div class="ref-items"><a href="./ID_unsuitableReturnType.html" class="related-link">ID_unsuitableReturnType</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:2011 6.7.4(8 12)-undefined
-ISO/IEC 14882:2011 7.6.3(2)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:2011 6.7.4(8 12)-undefined
+ISO/IEC 14882:2011 7.6.3(2)-undefined</div>
 
 
 </article>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：#if、#ifdef 与对应的 #else、#elif、#endif 应在同一文件中，否则会增加代码的维护成本。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>条件编译代码块应在同一文件中 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>条件编译代码块应在同一文件中</h1>
@@ -19,35 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-#if、#ifdef 与对应的 #else、#elif、#endif 应在同一文件中，否则会增加代码的维护成本。
+<main>
+<p>#if、#ifdef 与对应的 #else、#elif、#endif 应在同一文件中，否则会增加代码的维护成本。</p>
 
-示例：
-<div class="code">//<span class="comment"> a.h</span>
-#ifdef M      //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>//<i> a.h</i>
+#ifdef M      //<i> Non-compliant</i>
 ....
 
-//<span class="comment"> b.h</span>
-#else         //<span class="comment"> Non-compliant</span>
+//<i> b.h</i>
+#else         //<i> Non-compliant</i>
 ....
 
-//<span class="comment"> c.h</span>
+//<i> c.h</i>
 #include &quot;a.h&quot;
 #include &quot;b.h&quot;
-#endif           //<span class="comment"> Non-compliant</span>
-</div>
-示例代码将 #ifdef、#else、#endif 分成了三个文件，使这些文件的依赖关系变得复杂，也使单个文件失去了可读性。
+#endif           //<i> Non-compliant</i>
+</code>
+<p>示例代码将 #ifdef、#else、#endif 分成了三个文件，使这些文件的依赖关系变得复杂，也使单个文件失去了可读性。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 19.17
+<div class="ref-items">MISRA C 2004 19.17
 MISRA C 2012 20.14
-MISRA C++ 2008 16-1-2
-
-</p>
+MISRA C++ 2008 16-1-2</div>
 </article>
 </html>

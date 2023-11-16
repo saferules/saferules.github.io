@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：空的 for 循环结构不清晰，可读性较差。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>for 循环体不应为空 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>for 循环体不应为空</h1>
@@ -19,40 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-空的 for 循环结构不清晰，可读性较差。
+<main>
+<p>空的 for 循环结构不清晰，可读性较差。</p>
 
-示例：
-<div class="code">int foo(int n) {
+<p>示例：</p>
+<code>int foo(int n) {
     int s = 0;
-    for (int i = 1; i &lt;= n; s += i++);   //<span class="comment"> Non-compliant</span>
+    for (int i = 1; i &lt;= n; s += i++);   //<i> Non-compliant</i>
     return s;
-}</div>
-for 语句小括号内的三个表达式应分别专注于循环变量的初始化、循环条件的判断、循环变量的增减，循环体应专注于迭代算法的实现，使程序具有清晰的静态结构，便于阅读，利于维护。
+}</code>
+<p>for 语句小括号内的三个表达式应分别专注于循环变量的初始化、循环条件的判断、循环变量的增减，循环体应专注于迭代算法的实现，使程序具有清晰的静态结构，便于阅读，利于维护。</p>
 
-应改为：
-<div class="code">int foo(int n) {
+<p>应改为：</p>
+<code>int foo(int n) {
     int s = 0;
-    for (int i = 1; i &lt;= n; i++) {   //<span class="comment"> Compliant</span>
+    for (int i = 1; i &lt;= n; i++) {   //<i> Compliant</i>
         s += i;
     }
     return s;
 }
-</div>
-另外，在 C++ 代码中，如果只通过 for 语句遍历容器，而不对元素进行操作是没有意义的，如：
-<div class="code">void bar(vector&lt;int&gt;&amp; v) {
-    for (auto i: v);         //<span class="comment"> Non-compliant</span>
-}</div>
-这种代码多为残留代码或功能未实现，应当及时去除或补全功能。
+</code>
+<p>另外，在 C++ 代码中，如果只通过 for 语句遍历容器，而不对元素进行操作是没有意义的，如：</p>
+<code>void bar(vector&lt;int&gt;&amp; v) {
+    for (auto i: v);         //<i> Non-compliant</i>
+}</code>
+<p>这种代码多为残留代码或功能未实现，应当及时去除或补全功能。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.85
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.85</div>
 </article>
 </html>

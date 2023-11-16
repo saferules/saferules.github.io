@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：以派生类对象为参数的 catch 子句应排在以基类对象为参数的 catch 子句之前，否则后面的 catch 子句会失去作用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>面向派生类的 catch 子句应排在面向基类的 catch 子句之前 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>面向派生类的 catch 子句应排在面向基类的 catch 子句之前</h1>
@@ -19,54 +20,48 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-以派生类对象为参数的 catch 子句应排在以基类对象为参数的 catch 子句之前，否则后面的 catch 子句会失去作用。
+<main>
+<p>以派生类对象为参数的 catch 子句应排在以基类对象为参数的 catch 子句之前，否则后面的 catch 子句会失去作用。</p>
 
-示例：
-<div class="code">class B {};
+<p>示例：</p>
+<code>class B {};
 class D: public B {};
 
 try {
     ....
 } catch (B&amp;) {
     ....
-} catch (D&amp;) {  //<span class="comment"> Non-compliant, unreachable</span>
+} catch (D&amp;) {  //<i> Non-compliant, unreachable</i>
     ....
-}</div>
-例中 B 为基类，D 为派生类，D 类异常会被第一个 catch 子句捕获，第二个 catch 子句失去了作用。
+}</code>
+<p>例中 B 为基类，D 为派生类，D 类异常会被第一个 catch 子句捕获，第二个 catch 子句失去了作用。</p>
 
-应改为：
-<div class="code">try {
+<p>应改为：</p>
+<code>try {
     ....
 } catch (D&amp;) {
     ....
-} catch (B&amp;) {  //<span class="comment"> Compliant</span>
+} catch (B&amp;) {  //<i> Compliant</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_unreachableCode.html" target="_blank" class="related-link">ID_unreachableCode</a>
-
-</p>
+<div class="ref-items"><a href="./ID_unreachableCode.html" class="related-link">ID_unreachableCode</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 15.3
+<div class="ref-items">ISO/IEC 14882:2003 15.3
 ISO/IEC 14882:2011 15.3
-ISO/IEC 14882:2011 18.3
-
-</p>
+ISO/IEC 14882:2011 18.3</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-561
+<div class="ref-items">CWE-561
 C++ Core Guidelines E.31
 MISRA C++ 2008 15-3-6
-SEI CERT ERR54-CPP
-
-</p>
+SEI CERT ERR54-CPP</div>
 </article>
 </html>

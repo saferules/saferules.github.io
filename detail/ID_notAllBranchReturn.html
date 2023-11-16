@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果有返回值的函数在某个分枝没有使用 return 语句显式返回，会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>有返回值的函数其所有分枝都应显式返回 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>有返回值的函数其所有分枝都应显式返回</h1>
@@ -19,51 +20,47 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果有返回值的函数在某个分枝没有使用 return 语句显式返回，会导致标准未定义的行为。
+<main>
+<p>如果有返回值的函数在某个分枝没有使用 return 语句显式返回，会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">int fun() {
+<p>示例：</p>
+<code>int fun() {
     if (condition1) {
         return 1;
     }
     else if (condition2) {
-    }                        //<span class="comment"> Non-compliant, no return value</span>
+    }                        //<i> Non-compliant, no return value</i>
     else {
         return 3; 
     }
-}</div>
-当条件符合 condition2 时，fun 函数的调用者将得到一个错误的返回值。
+}</code>
+<p>当条件符合 condition2 时，fun 函数的调用者将得到一个错误的返回值。</p>
 
-例外：
-<div class="code">int main() {
+<p>例外：</p>
+<code>int main() {
     printf(&quot;Hi~\n&quot;);
-}   //<span class="comment"> Compliant</span></div>
-标准规定未显式返回的 main 函数会返回 0，故 main 函数不受本规则约束。
+}   //<i> Compliant</i></code>
+<p>标准规定未显式返回的 main 函数会返回 0，故 main 函数不受本规则约束。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 5.1.2.2.3(1)
+<div class="ref-items">ISO/IEC 9899:1999 5.1.2.2.3(1)
 ISO/IEC 9899:1999 6.9.1(12)-undefined
 ISO/IEC 9899:2011 5.1.2.2.3(1)
 ISO/IEC 9899:2011 6.9.1(12)-undefined
 ISO/IEC 14882:2003 3.6.1(5)
 ISO/IEC 14882:2003 6.6.3(2)-undefined
 ISO/IEC 14882:2011 3.6.1(5)
-ISO/IEC 14882:2011 6.6.3(2)-undefined
-
-</p>
+ISO/IEC 14882:2011 6.6.3(2)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-394
+<div class="ref-items">CWE-394
 MISRA C 2004 16.8
 MISRA C 2012 17.4
-MISRA C++ 2008 8-4-3
-
-</p>
+MISRA C++ 2008 8-4-3</div>
 </article>
 </html>

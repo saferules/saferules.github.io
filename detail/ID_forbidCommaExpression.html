@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：逗号表达式将多个语句合成一个表达式，不利于阅读且易形成笔误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用逗号表达式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用逗号表达式</h1>
@@ -19,52 +20,49 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-逗号表达式将多个语句合成一个表达式，不利于阅读且易形成笔误。
+<main>
+<p>逗号表达式将多个语句合成一个表达式，不利于阅读且易形成笔误。</p>
 
-示例：
-<div class="code">fun1(), fun2();                     //<span class="comment"> Non-compliant, bad</span>
-cond? foo(), bar(): baz(), qux();   //<span class="comment"> Non-compliant, very bad</span>
-</div>
-逗号表达式会使代码的静态结构含混不明，总有更合理的方法替代逗号表达式： 
-<div class="code">fun1();
-fun2();      //<span class="comment"> Compliant</span>
+<p>示例：</p>
+<code>fun1(), fun2();                     //<i> Non-compliant, bad</i>
+cond? foo(), bar(): baz(), qux();   //<i> Non-compliant, very bad</i>
+</code>
+<p>逗号表达式会使代码的静态结构含混不明，总有更合理的方法替代逗号表达式： </p>
+<code>fun1();
+fun2();      //<i> Compliant</i>
 
 if (cond) {
     foo();
-    bar();   //<span class="comment"> Compliant</span>
+    bar();   //<i> Compliant</i>
 } else {
     baz();
-    qux();   //<span class="comment"> Compliant</span>
+    qux();   //<i> Compliant</i>
 }
-</div>
-逗号表达式也易被误用，如：
-<div class="code">a = b++, b * 2;      //<span class="comment"> Non-compliant</span>
-x, y, z = 1, 2, 3;   //<span class="comment"> Non-compliant</span>
-delete p, q;         //<span class="comment"> Non-compliant</span>
-foo((a, b), c);      //<span class="comment"> Non-compliant</span>
-return i, j, k;      //<span class="comment"> Non-compliant</span>
-</div>
-又如：
-<div class="code">for (a = 0, b = 0; a &lt; 100; a++, b++)  {   //<span class="comment"> Let it go?</span>
+</code>
+<p>逗号表达式也易被误用，如：</p>
+<code>a = b++, b * 2;      //<i> Non-compliant</i>
+x, y, z = 1, 2, 3;   //<i> Non-compliant</i>
+delete p, q;         //<i> Non-compliant</i>
+foo((a, b), c);      //<i> Non-compliant</i>
+return i, j, k;      //<i> Non-compliant</i>
+</code>
+<p>又如：</p>
+<code>for (a = 0, b = 0; a &lt; 100; a++, b++)  {   //<i> Let it go?</i>
     ....
-}</div>
-在 for 语句的第 1 个和第 3 个表达式中使用逗号表达式为惯用方式，但这种方式并不值得提倡，审计工具不妨通过配置决定是否放过这种方式。
+}</code>
+<p>在 for 语句的第 1 个和第 3 个表达式中使用逗号表达式为惯用方式，但这种方式并不值得提倡，审计工具不妨通过配置决定是否放过这种方式。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allowCommaExpressionInForIteration: 是否放过 for 语句中的逗号表达式
-</p>
+<div class="ref-items">allowCommaExpressionInForIteration: 是否放过 for 语句中的逗号表达式</div>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 12.10
+<div class="ref-items">MISRA C 2004 12.10
 MISRA C 2012 12.3
-MISRA C++ 2008 5-18-1
-
-</p>
+MISRA C++ 2008 5-18-1</div>
 </article>
 </html>

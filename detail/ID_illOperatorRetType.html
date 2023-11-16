@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：为了便于调用者使用，并满足泛型编程的要求，重载运算符的返回类型应与内置运算符相符。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>重载运算符的返回类型应与内置运算符相符 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>重载运算符的返回类型应与内置运算符相符</h1>
@@ -19,34 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-为了便于调用者使用，并满足泛型编程的要求，重载运算符的返回类型应与内置运算符相符：
- ● 比较和逻辑运算符应返回 bool 型对象
- ● 算术和位运算符应返回相关类的对象
- ● 符号运算符 +、- 应返回相关类的对象
- ● 后置 ++、-- 运算符应返回相关类的对象
- ● 前置 ++、-- 运算符应返回相关类的引用
- ● 下标运算符 [ ] 应返回相关类的引用
- ● 赋值及复合赋值运算符应返回相关类的引用
+<main>
+<p>为了便于调用者使用，并满足泛型编程的要求，重载运算符的返回类型应与内置运算符相符：</p>
+<ul>
+<li>比较和逻辑运算符应返回 bool 型对象</li>
+<li>算术和位运算符应返回相关类的对象</li>
+<li>符号运算符 +、- 应返回相关类的对象</li>
+<li>后置 ++、-- 运算符应返回相关类的对象</li>
+<li>前置 ++、-- 运算符应返回相关类的引用</li>
+<li>下标运算符 [ ] 应返回相关类的引用</li>
+<li>赋值及复合赋值运算符应返回相关类的引用</li>
 
-示例：
-<div class="code">struct A {
-    int operator &lt; (const A&amp;);   //<span class="comment"> Non-compliant</span>
-};</div>
-例中重载的比较运算符返回 int 型对象，而内置比较运算符的结果为 bool 型，重载运算符的行为和内置运算符不一致会导致意料之外的错误，相关对象也可能无法被通用泛型算法接受。
+</ul>
+<p>示例：</p>
+<code>struct A {
+    int operator &lt; (const A&amp;);   //<i> Non-compliant</i>
+};</code>
+<p>例中重载的比较运算符返回 int 型对象，而内置比较运算符的结果为 bool 型，重载运算符的行为和内置运算符不一致会导致意料之外的错误，相关对象也可能无法被通用泛型算法接受。</p>
 
-应改为：
-<div class="code">struct A {
-    bool operator &lt; (const A&amp;);   //<span class="comment"> Compliant</span>
-};</div>
+<p>应改为：</p>
+<code>struct A {
+    bool operator &lt; (const A&amp;);   //<i> Compliant</i>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_nonStdAssignmentRetType.html" target="_blank" class="related-link">ID_nonStdAssignmentRetType</a>
-
-</p>
+<div class="ref-items"><a href="./ID_nonStdAssignmentRetType.html" class="related-link">ID_nonStdAssignmentRetType</a></div>
 
 
 

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：逻辑或、逻辑与的子表达式有包含关系时，其中的一个表达式是多余的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在多余的逻辑子表达式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在多余的逻辑子表达式</h1>
@@ -19,25 +20,23 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-逻辑或、逻辑与的子表达式有包含关系时，其中的一个表达式是多余的。
+<main>
+<p>逻辑或、逻辑与的子表达式有包含关系时，其中的一个表达式是多余的。</p>
 
-示例：
-<div class="code">a &gt; b &amp;&amp; a != b     //<span class="comment"> None-compliant, a != b is redundant</span>
-a &lt; b || a != b     //<span class="comment"> None-compliant, a &lt; b is redundant</span>
-a &gt;= b &amp;&amp; a == b    //<span class="comment"> None-compliant, a &gt;= b is redundant</span>
-a == b || a &lt;= b    //<span class="comment"> None-compliant, a == b is redundant</span>
-</div>
-多余的子表达式很可能意味着某种错误，需认真对待。
+<p>示例：</p>
+<code>a &gt; b &amp;&amp; a != b     //<i> None-compliant, a != b is redundant</i>
+a &lt; b || a != b     //<i> None-compliant, a &lt; b is redundant</i>
+a &gt;= b &amp;&amp; a == b    //<i> None-compliant, a &gt;= b is redundant</i>
+a == b || a &lt;= b    //<i> None-compliant, a == b is redundant</i>
+</code>
+<p>多余的子表达式很可能意味着某种错误，需认真对待。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_simplifiableCondition.html" target="_blank" class="related-link">ID_simplifiableCondition</a>
-<a href="./ID_conflictCondition.html" target="_blank" class="related-link">ID_conflictCondition</a>
-
-</p>
+<div class="ref-items"><a href="./ID_simplifiableCondition.html" class="related-link">ID_simplifiableCondition</a>
+<a href="./ID_conflictCondition.html" class="related-link">ID_conflictCondition</a></div>
 
 
 

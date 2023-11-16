@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：小写字母“l”极易与数字“1”混淆，为了提高可读性，常量后缀均应由大写字母组成。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>常量后缀由应由大写字母组成 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>常量后缀由应由大写字母组成</h1>
@@ -19,38 +20,35 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-小写字母“l”极易与数字“1”混淆，为了提高可读性，常量后缀均应由大写字母组成。
+<main>
+<p>小写字母“l”极易与数字“1”混淆，为了提高可读性，常量后缀均应由大写字母组成。</p>
 
-示例：
-<div class="code">long long a = 100ll;    //<span class="comment"> Non-compliant, may be misread as 10011</span>
-long double b = 100.l;  //<span class="comment"> Non-compliant, may be misread as 100.1</span>
-</div>
-应改为：
-<div class="code">long long a = 100LL;    //<span class="comment"> Compliant</span>
-long double b = 100.L;  //<span class="comment"> Compliant</span>
-</div>
-后缀大小写混用的情况会使人更加困惑：
-<div class="code">long long c = 100lL;            //<span class="comment"> Non-compliant, very bad</span>
-unsigned long long d = 100lLU;  //<span class="comment"> Non-compliant, very bad</span></div>
-其中，小写的 l 和大写的 L 混在了一起，应改为：
-<div class="code">long long c = 100LL;            //<span class="comment"> Compliant</span>
-unsigned long long d = 100LLU;  //<span class="comment"> Compliant</span></div>
+<p>示例：</p>
+<code>long long a = 100ll;    //<i> Non-compliant, may be misread as 10011</i>
+long double b = 100.l;  //<i> Non-compliant, may be misread as 100.1</i>
+</code>
+<p>应改为：</p>
+<code>long long a = 100LL;    //<i> Compliant</i>
+long double b = 100.L;  //<i> Compliant</i>
+</code>
+<p>后缀大小写混用的情况会使人更加困惑：</p>
+<code>long long c = 100lL;            //<i> Non-compliant, very bad</i>
+unsigned long long d = 100lLU;  //<i> Non-compliant, very bad</i></code>
+<p>其中，小写的 l 和大写的 L 混在了一起，应改为：</p>
+<code>long long c = 100LL;            //<i> Compliant</i>
+unsigned long long d = 100LLU;  //<i> Compliant</i></code>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allSuffixCharMustBeUpperCase: 要求后缀中所有字符均为大写，或只要求小写字符“l”不得用于后缀
-</p>
+<div class="ref-items">allSuffixCharMustBeUpperCase: 要求后缀中所有字符均为大写，或只要求小写字符“l”不得用于后缀</div>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines NL.19
+<div class="ref-items">C++ Core Guidelines NL.19
 MISRA C 2012 7.3
-MISRA C++ 2008 2-13-4
-
-</p>
+MISRA C++ 2008 2-13-4</div>
 </article>
 </html>

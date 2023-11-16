@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在逻辑表达式中，需注意逻辑关系以及运算符优先级，不可出现空指针解引用等问题。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>注意逻辑表达式内的空指针解引用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>注意逻辑表达式内的空指针解引用</h1>
@@ -19,39 +20,35 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在逻辑表达式中，需注意逻辑关系以及运算符优先级，不可出现空指针解引用等问题。
+<main>
+<p>在逻辑表达式中，需注意逻辑关系以及运算符优先级，不可出现空指针解引用等问题。</p>
 
-示例（设 foo、bar 是指针 p 所指对象的非静态成员函数）：
-<div class="code">p || p-&gt;foo();  //<span class="comment"> Non-compliant</span></div>
-当 p 为空时执行“||”的右子表达式，恰好使空指针被解引用。
+<p>示例（设 foo、bar 是指针 p 所指对象的非静态成员函数）：</p>
+<code>p || p-&gt;foo();  //<i> Non-compliant</i></code>
+<p>当 p 为空时执行“||”的右子表达式，恰好使空指针被解引用。</p>
 
-<div class="code">p &amp;&amp; p-&gt;foo() || p-&gt;bar();  //<span class="comment"> Non-compliant</span></div>
-“&amp;&amp;”的优先级高于“||”，由“||”的左子表达式可知 p 可能为空，而右子表达式却没有限制，导致空指针被解引用。
+<code>p &amp;&amp; p-&gt;foo() || p-&gt;bar();  //<i> Non-compliant</i></code>
+<p>“&amp;&amp;”的优先级高于“||”，由“||”的左子表达式可知 p 可能为空，而右子表达式却没有限制，导致空指针被解引用。</p>
 
-<div class="code">p-&gt;foo() &amp;&amp; p;  //<span class="comment"> Non-compliant</span></div>
-这是颠倒了对指针的判断和解引用次序，属于语言运用错误。
+<code>p-&gt;foo() &amp;&amp; p;  //<i> Non-compliant</i></code>
+<p>这是颠倒了对指针的判断和解引用次序，属于语言运用错误。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.3.2.1(1)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.3.2.1(1)-undefined
 ISO/IEC 9899:1999 6.5.3.2(4)-undefined
 ISO/IEC 9899:2011 6.3.2.1(1)-undefined
 ISO/IEC 9899:2011 6.5.3.2(4)-undefined
 ISO/IEC 14882:2003 8.3.2(4)-undefined
-ISO/IEC 14882:2011 8.3.2(5)-undefined
-
-</p>
+ISO/IEC 14882:2011 8.3.2(5)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-476
+<div class="ref-items">CWE-476
 CWE-783
-C++ Core Guidelines ES.65
-
-</p>
+C++ Core Guidelines ES.65</div>
 </article>
 </html>

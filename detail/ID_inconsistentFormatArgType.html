@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：C 格式化占位符与其对应参数的类型应一致，否则导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>C 格式化占位符与其对应参数的类型应一致 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>C 格式化占位符与其对应参数的类型应一致</h1>
@@ -19,66 +20,60 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-C 格式化占位符与其对应参数的类型应一致，否则导致标准未定义的行为。
+<main>
+<p>C 格式化占位符与其对应参数的类型应一致，否则导致标准未定义的行为。</p>
 
-示例：
-<div class="code">size_t n;
+<p>示例：</p>
+<code>size_t n;
 ptrdiff_t d;
 ....
-printf(&quot;%u&quot;, n);    //<span class="comment"> Non-compliant</span>
-printf(&quot;%d&quot;, d);    //<span class="comment"> Non-compliant</span>
-printf(&quot;%lu&quot;, n);   //<span class="comment"> Non-compliant</span>
-printf(&quot;%lld&quot;, d);  //<span class="comment"> Non-compliant</span></div>
-size_t、ptrdiff_t 等类型是由实现定义的，标准没有规定其是否一定对应 unsigned、long 或 long long 等类型，而 %u、%d、%lu、%lld 只对应 unsigned、int、unsigned long、long long 等类型，所以示例代码都是不合理的。
+printf(&quot;%u&quot;, n);    //<i> Non-compliant</i>
+printf(&quot;%d&quot;, d);    //<i> Non-compliant</i>
+printf(&quot;%lu&quot;, n);   //<i> Non-compliant</i>
+printf(&quot;%lld&quot;, d);  //<i> Non-compliant</i></code>
+<p>size_t、ptrdiff_t 等类型是由实现定义的，标准没有规定其是否一定对应 unsigned、long 或 long long 等类型，而 %u、%d、%lu、%lld 只对应 unsigned、int、unsigned long、long long 等类型，所以示例代码都是不合理的。</p>
 
-应使 n 对应 %zu，d 对应 %td： 
-<div class="code">printf(&quot;%zu&quot;, n);   //<span class="comment"> Compliant</span>
-printf(&quot;%td&quot;, d);   //<span class="comment"> Compliant</span>
-</div>
-对于 stdint.h 中定义的类型，应使用 inttypes.h 中定义的占位符：
-<div class="code">int32_t i;
+<p>应使 n 对应 %zu，d 对应 %td： </p>
+<code>printf(&quot;%zu&quot;, n);   //<i> Compliant</i>
+printf(&quot;%td&quot;, d);   //<i> Compliant</i>
+</code>
+<p>对于 stdint.h 中定义的类型，应使用 inttypes.h 中定义的占位符：</p>
+<code>int32_t i;
 uint64_t u;
 ....
-printf(&quot;%d&quot;, i);    //<span class="comment"> Unportable</span>
-printf(&quot;%lu&quot;, u);   //<span class="comment"> Unportable</span>
+printf(&quot;%d&quot;, i);    //<i> Unportable</i>
+printf(&quot;%lu&quot;, u);   //<i> Unportable</i>
 
-printf(&quot;%&quot; PRId32, i);   //<span class="comment"> OK</span>
-printf(&quot;%&quot; PRIu64, u);   //<span class="comment"> OK</span></div>
-int32_t、uint64_t 并不一定对应 int、unsigned long，不应将 %d、%lu 等占位符在代码中写死，PRId32 和 PRIu64 是 inttypes.h 中定义的宏，可解决移植相关的问题。
+printf(&quot;%&quot; PRId32, i);   //<i> OK</i>
+printf(&quot;%&quot; PRIu64, u);   //<i> OK</i></code>
+<p>int32_t、uint64_t 并不一定对应 int、unsigned long，不应将 %d、%lu 等占位符在代码中写死，PRId32 和 PRIu64 是 inttypes.h 中定义的宏，可解决移植相关的问题。</p>
 
-又如：
-<div class="code">void foo(const string&amp; msg) {
-    printf(&quot;%s\n&quot;, msg);        //<span class="comment"> Non-compliant</span>
-}</div>
-例中 %s 要求对应 char* 型指针，但 msg 是 string 型对象，造成栈读取错误，应改为：
-<div class="code">void foo(const string&amp; msg) {
-    printf(&quot;%s\n&quot;, msg.c_str());   //<span class="comment"> Compliant</span>
-}</div>
-由于可变参数列表自身的局限，很难在编译时发现这种问题，有些编译器会检查 printf、sprintf 等标准函数，但无法检查自定义函数，建议在 C++ 代码中禁用可变参数列表和 C 风格的格式化函数。
+<p>又如：</p>
+<code>void foo(const string&amp; msg) {
+    printf(&quot;%s\n&quot;, msg);        //<i> Non-compliant</i>
+}</code>
+<p>例中 %s 要求对应 char* 型指针，但 msg 是 string 型对象，造成栈读取错误，应改为：</p>
+<code>void foo(const string&amp; msg) {
+    printf(&quot;%s\n&quot;, msg.c_str());   //<i> Compliant</i>
+}</code>
+<p>由于可变参数列表自身的局限，很难在编译时发现这种问题，有些编译器会检查 printf、sprintf 等标准函数，但无法检查自定义函数，建议在 C++ 代码中禁用可变参数列表和 C 风格的格式化函数。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_nonPODVariadicArgument.html" target="_blank" class="related-link">ID_nonPODVariadicArgument</a>
-<a href="./ID_inconsistentFormatArgNum.html" target="_blank" class="related-link">ID_inconsistentFormatArgNum</a>
-<a href="./ID_forbidCStringFormat.html" target="_blank" class="related-link">ID_forbidCStringFormat</a>
-
-</p>
+<div class="ref-items"><a href="./ID_nonPODVariadicArgument.html" class="related-link">ID_nonPODVariadicArgument</a>
+<a href="./ID_inconsistentFormatArgNum.html" class="related-link">ID_inconsistentFormatArgNum</a>
+<a href="./ID_forbidCStringFormat.html" class="related-link">ID_forbidCStringFormat</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.19.6.1(9)-undefined
-ISO/IEC 9899:2011 7.21.6.1(9)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.19.6.1(9)-undefined
+ISO/IEC 9899:2011 7.21.6.1(9)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-686
-SEI CERT FIO47-C
-
-</p>
+<div class="ref-items">CWE-686
+SEI CERT FIO47-C</div>
 </article>
 </html>

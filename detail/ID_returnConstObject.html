@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：函数返回常量对象不利于移动构造或移动赋值等机制，也可能本意是返回引用，但遗漏了引用符号。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>函数返回值不应为常量对象 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>函数返回值不应为常量对象</h1>
@@ -19,40 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-函数返回常量对象不利于移动构造或移动赋值等机制，也可能本意是返回引用，但遗漏了引用符号。
+<main>
+<p>函数返回常量对象不利于移动构造或移动赋值等机制，也可能本意是返回引用，但遗漏了引用符号。</p>
 
-示例：
-<div class="code">const vector&lt;int&gt; fun() {  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>const vector&lt;int&gt; fun() {  //<i> Non-compliant</i>
     return { 1, 2, 3 };
 }
 
-vector&lt;int&gt; obj(fun());    //<span class="comment"> Call ‘vector(const vector&amp;)’</span></div>
-fun 返回 const 对象，构造 obj 对象时只能进行深拷贝，无法利用移动构造等特性。
+vector&lt;int&gt; obj(fun());    //<i> Call ‘vector(const vector&amp;)’</i></code>
+<p>fun 返回 const 对象，构造 obj 对象时只能进行深拷贝，无法利用移动构造等特性。</p>
 
-应改为：
-<div class="code">vector&lt;int&gt; fun() {        //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>vector&lt;int&gt; fun() {        //<i> Compliant</i>
     return { 1, 2, 3 };
 }
 
-vector&lt;int&gt; obj(fun());    //<span class="comment"> Call ‘vector(vector&amp;&amp;)’, more efficient</span></div>
-这样可以利用移动构造函数提高效率。
+vector&lt;int&gt; obj(fun());    //<i> Call ‘vector(vector&amp;&amp;)’, more efficient</i></code>
+<p>这样可以利用移动构造函数提高效率。</p>
 
-对于遵循 C++11 之前标准的代码，也不应返回常量对象，函数返回的对象本来就需要通过常量引用或传值的方式被后续代码使用，将返回值设为常量的意义不大。
+<p>对于遵循 C++11 之前标准的代码，也不应返回常量对象，函数返回的对象本来就需要通过常量引用或传值的方式被后续代码使用，将返回值设为常量的意义不大。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_returnSuperfluousConst.html" target="_blank" class="related-link">ID_returnSuperfluousConst</a>
-
-</p>
+<div class="ref-items"><a href="./ID_returnSuperfluousConst.html" class="related-link">ID_returnSuperfluousConst</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines F.20
-
-</p>
+<div class="ref-items">C++ Core Guidelines F.20</div>
 </article>
 </html>

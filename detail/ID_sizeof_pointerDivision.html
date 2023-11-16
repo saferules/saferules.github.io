@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：形如 sizeof(p) / n 的表达式往往意在获取数组元素的个数，如果 p 是指针，sizeof(p) 是指针大小而不是数组大小，结果很可能是错误的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>被除数不应是作用于指针的 sizeof 表达式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>被除数不应是作用于指针的 sizeof 表达式</h1>
@@ -19,31 +20,27 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-形如 sizeof(p) / n 的表达式往往意在获取数组元素的个数，如果 p 是指针，sizeof(p) 是指针大小而不是数组大小，结果很可能是错误的。
+<main>
+<p>形如 sizeof(p) / n 的表达式往往意在获取数组元素的个数，如果 p 是指针，sizeof(p) 是指针大小而不是数组大小，结果很可能是错误的。</p>
 
-示例：
-<div class="code">void foo(T* p) {
+<p>示例：</p>
+<code>void foo(T* p) {
     size_t n = sizeof(p[0]);
-    qsort(p, sizeof(p) / n, n, cmp);  //<span class="comment"> Non-compliant, logic error</span>
-}</div>
-例中 sizeof(p) / n 并不能获取 p 所指数组中元素的个数。
+    qsort(p, sizeof(p) / n, n, cmp);  //<i> Non-compliant, logic error</i>
+}</code>
+<p>例中 sizeof(p) / n 并不能获取 p 所指数组中元素的个数。</p>
 
-本规则是 <a href="./ID_sizeof_pointer.html" target="_blank" class="dashed-link">ID_sizeof_pointer</a> 的特化，sizeof 作用于指针是可疑的，再作为被除数就更加可疑了。
+<p>本规则是 <a href="./ID_sizeof_pointer.html" class="dashed-link">ID_sizeof_pointer</a> 的特化，sizeof 作用于指针是可疑的，再作为被除数就更加可疑了。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_sizeof_pointer.html" target="_blank" class="related-link">ID_sizeof_pointer</a>
-
-</p>
+<div class="ref-items"><a href="./ID_sizeof_pointer.html" class="related-link">ID_sizeof_pointer</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-467
-
-</p>
+<div class="ref-items">CWE-467</div>
 </article>
 </html>

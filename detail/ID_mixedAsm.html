@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：汇编代码的格式由实现定义，不具备可移植性，且可读性较差，故不应与普通代码混合。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>汇编代码不应与普通代码混合 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>汇编代码不应与普通代码混合</h1>
@@ -19,25 +20,25 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-汇编代码的格式由实现定义，不具备可移植性，且可读性较差，故不应与普通代码混合。
+<main>
+<p>汇编代码的格式由实现定义，不具备可移植性，且可读性较差，故不应与普通代码混合。</p>
 
-如果条件允许，应使用汇编语言实现独立的库，再由 C/C++ 代码调用。
+<p>如果条件允许，应使用汇编语言实现独立的库，再由 C/C++ 代码调用。</p>
 
-示例：
-<div class="code">int avg(int a, int b) {
+<p>示例：</p>
+<code>int avg(int a, int b) {
     int sum;               
-    __asm {                //<span class="comment"> Non-compliant</span>
+    __asm {                //<i> Non-compliant</i>
         mov eax, a
         mov ebx, b
         lea eax, [eax + ebx]
         mov sum, eax
     }
-    return sum / 2;        //<span class="comment"> Non-compliant</span>
-}</div>
-例中 avg 函数同时含有汇编代码和 C 代码是不符合要求的，至少应将汇编代码单独隔离成一个函数，如：
-<div class="code">int add(int a, int b) {
-    __asm {                //<span class="comment"> Compliant</span>
+    return sum / 2;        //<i> Non-compliant</i>
+}</code>
+<p>例中 avg 函数同时含有汇编代码和 C 代码是不符合要求的，至少应将汇编代码单独隔离成一个函数，如：</p>
+<code>int add(int a, int b) {
+    __asm {                //<i> Compliant</i>
         mov eax, a
         mov ebx, b
         lea eax, [eax + ebx]
@@ -45,28 +46,24 @@
 }
 
 int avg(int a, int b) {
-    int sum = add(a, b);   //<span class="comment"> Compliant</span>
+    int sum = add(a, b);   //<i> Compliant</i>
     return sum / 2;
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 J.5.10-implementation
+<div class="ref-items">ISO/IEC 9899:1999 J.5.10-implementation
 ISO/IEC 9899:2011 J.5.10-implementation
 ISO/IEC 14882:2003 7.4(1)-implementation
-ISO/IEC 14882:2011 7.4(1)-implementation
-
-</p>
+ISO/IEC 14882:2011 7.4(1)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 2.1
+<div class="ref-items">MISRA C 2004 2.1
 MISRA C 2012 Dir 4.3
-MISRA C++ 2008 7-4-3
-
-</p>
+MISRA C++ 2008 7-4-3</div>
 </article>
 </html>

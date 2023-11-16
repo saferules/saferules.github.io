@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：虚函数参数的默认值不受多态规则控制，通过基类指针或引用调用派生类重写的虚函数时，默认值仍采用基类中的定义，易造成混淆，故不建议虚函数的参数有默认值。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不建议虚函数的参数有默认值 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不建议虚函数的参数有默认值</h1>
@@ -19,44 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-虚函数参数的默认值不受多态规则控制，通过基类指针或引用调用派生类重写的虚函数时，默认值仍采用基类中的定义，易造成混淆，故不建议虚函数的参数有默认值。
+<main>
+<p>虚函数参数的默认值不受多态规则控制，通过基类指针或引用调用派生类重写的虚函数时，默认值仍采用基类中的定义，易造成混淆，故不建议虚函数的参数有默认值。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
 public:
-    virtual int foo(int i = 0);   //<span class="comment"> Bad</span>
+    virtual int foo(int i = 0);   //<i> Bad</i>
 };
-</div>
-应尽量去掉默认参数值，或改用重载函数的方式：
-<div class="code">class A {
+</code>
+<p>应尽量去掉默认参数值，或改用重载函数的方式：</p>
+<code>class A {
 public:
-    virtual int foo();        //<span class="comment"> OK</span>
-    virtual int foo(int i);   //<span class="comment"> OK</span>
-};</div>
+    virtual int foo();        //<i> OK</i>
+    virtual int foo(int i);   //<i> OK</i>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_inconsistentDefaultArgument.html" target="_blank" class="related-link">ID_inconsistentDefaultArgument</a>
-
-</p>
+<div class="ref-items"><a href="./ID_inconsistentDefaultArgument.html" class="related-link">ID_inconsistentDefaultArgument</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 8.3.6(10)
+<div class="ref-items">ISO/IEC 14882:2003 8.3.6(10)
 ISO/IEC 14882:2011 8.3.6(10)
-ISO/IEC 14882:2017 11.3.6(10)
-
-</p>
+ISO/IEC 14882:2017 11.3.6(10)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-628
+<div class="ref-items">CWE-628
 C++ Core Guidelines C.140
-MISRA C++ 2008 8-3-1
-
-</p>
+MISRA C++ 2008 8-3-1</div>
 </article>
 </html>

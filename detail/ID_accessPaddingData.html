@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：内存中各对象之间可能存在填充数据，这种数据只为实现“内存对齐”而无数值意义，而且填充数据的值是标准未声明的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应访问填充数据 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应访问填充数据</h1>
@@ -19,44 +20,40 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-内存中各对象之间可能存在填充数据，这种数据只为实现“<a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" class="dashed-link">内存对齐</a>”而无数值意义，而且填充数据的值是标准未声明的。
+<main>
+<p>内存中各对象之间可能存在填充数据，这种数据只为实现“<a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" class="dashed-link">内存对齐</a>”而无数值意义，而且填充数据的值是标准未声明的。</p>
 
-示例：
-<div class="code">struct A {
+<p>示例：</p>
+<code>struct A {
     char a;
     long b;
 };
 
 void foo(A* x, A* y) {
-    if (memcmp(x, y, sizeof(*x)) == 0) {  //<span class="comment"> Non-compliant</span>
+    if (memcmp(x, y, sizeof(*x)) == 0) {  //<i> Non-compliant</i>
         ....
     }
-}</div>
-如果按常见的 4 或 8 字节对齐，A 的成员 a 和 b 之间会存在填充数据，填充数据参与比较将得到错误的结果。
+}</code>
+<p>如果按常见的 4 或 8 字节对齐，A 的成员 a 和 b 之间会存在填充数据，填充数据参与比较将得到错误的结果。</p>
 
-应改为：
-<div class="code">void foo(A* x, A* y) {
-    if (x-&gt;a == y-&gt;a &amp;&amp; x-&gt;b == y-&gt;b) {  //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>void foo(A* x, A* y) {
+    if (x-&gt;a == y-&gt;a &amp;&amp; x-&gt;b == y-&gt;b) {  //<i> Compliant</i>
         ....
     }
-}</div>
-即使成员之间没有填充数据也不应使用 memcmp 等函数比较，应实现类型明确的比较接口以供调用，否则很容易产生错误。
+}</code>
+<p>即使成员之间没有填充数据也不应使用 memcmp 等函数比较，应实现类型明确的比较接口以供调用，否则很容易产生错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_ignorePaddingData.html" target="_blank" class="related-link">ID_ignorePaddingData</a>
-
-</p>
+<div class="ref-items"><a href="./ID_ignorePaddingData.html" class="related-link">ID_ignorePaddingData</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.2.6.2(5)-unspecified
-ISO/IEC 9899:2011 6.2.6.2(5)-unspecified
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.2.6.2(5)-unspecified
+ISO/IEC 9899:2011 6.2.6.2(5)-unspecified</div>
 
 
 </article>

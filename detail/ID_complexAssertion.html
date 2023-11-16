@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：断言中的表达式不应过于复杂，否则不易定位具体是哪一项不符合断言，不利于调试。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>断言中的表达式不应过于复杂 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>断言中的表达式不应过于复杂</h1>
@@ -19,32 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-断言中的表达式不应过于复杂，否则不易定位具体是哪一项不符合断言，不利于调试。
+<main>
+<p>断言中的表达式不应过于复杂，否则不易定位具体是哪一项不符合断言，不利于调试。</p>
 
-对于“逻辑与”表达式应将各子表达式分成多个断言。
+<p>对于“逻辑与”表达式应将各子表达式分成多个断言。</p>
 
-示例：
-<div class="code">void foo(int a, int b, int c) {
-    assert(a != 0 &amp;&amp; b &gt; 10 &amp;&amp; c == b + 1);  //<span class="comment"> Bad</span>
+<p>示例：</p>
+<code>void foo(int a, int b, int c) {
+    assert(a != 0 &amp;&amp; b &gt; 10 &amp;&amp; c == b + 1);  //<i> Bad</i>
     ....
 }
-</div>
-应改为：
-<div class="code">void foo(int a, int b, int c) {
+</code>
+<p>应改为：</p>
+<code>void foo(int a, int b, int c) {
     assert(a != 0);
     assert(b &gt; 10);
-    assert(c == b + 1);  //<span class="comment"> Good</span>
+    assert(c == b + 1);  //<i> Good</i>
     ....
 }
-</div>
-本着使代码便于调试的理念展开工作，可有效降低测试及维护成本。
+</code>
+<p>本着使代码便于调试的理念展开工作，可有效降低测试及维护成本。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxLogicOperatorCount: 断言表达式中“逻辑与”运算符的最大数量，超过则报出
-</p>
+<div class="ref-items">maxLogicOperatorCount: 断言表达式中“逻辑与”运算符的最大数量，超过则报出</div>
 
 
 

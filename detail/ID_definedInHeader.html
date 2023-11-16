@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：头文件中的函数或对象会被引入不同的翻译单元（translate-unit）造成编译冲突。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>在头文件中不应实现函数或定义对象 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>在头文件中不应实现函数或定义对象</h1>
@@ -19,44 +20,42 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-头文件中的函数或对象会被引入不同的翻译单元（translate-unit）造成编译冲突。
+<main>
+<p>头文件中的函数或对象会被引入不同的翻译单元（translate-unit）造成编译冲突。</p>
 
-常量对象和内联、模板函数可不受本规则约束，静态对象和静态函数也不受本规则约束，但受规则 <a href="./ID_staticInHeader.html" target="_blank" class="dashed-link">ID_staticInHeader</a> 限制。
+<p>常量对象和内联、模板函数可不受本规则约束，静态对象和静态函数也不受本规则约束，但受规则 <a href="./ID_staticInHeader.html" class="dashed-link">ID_staticInHeader</a> 限制。</p>
 
-头文件是项目文档的重要组成部分，有必要保持头文件简洁清晰，头文件的主要内容应是类型或接口的声明。除非函数很简短，否则不建议在头文件中内联实现，大段的函数实现会影响头文件的可读性。
+<p>头文件是项目文档的重要组成部分，有必要保持头文件简洁清晰，头文件的主要内容应是类型或接口的声明。除非函数很简短，否则不建议在头文件中内联实现，大段的函数实现会影响头文件的可读性。</p>
 
-示例：
-<div class="code">//<span class="comment"> In a header</span>
-int a[] = {1, 2, 3};   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>//<i> In a header</i>
+int a[] = {1, 2, 3};   //<i> Non-compliant</i>
 
-int foo() {    //<span class="comment"> Non-compliant</span>
+int foo() {    //<i> Non-compliant</i>
     return 1;
 }
-</div>
-对于较为复杂的模板函数，应将其实现与声明分离，如：
-<div class="code">//<span class="comment"> In a header</span>
+</code>
+<p>对于较为复杂的模板函数，应将其实现与声明分离，如：</p>
+<code>//<i> In a header</i>
 template &lt;class T&gt;
 struct A {
-    T foo(T&amp;);   //<span class="comment"> Declaration</span>
+    T foo(T&amp;);   //<i> Declaration</i>
 };
 #include &quot;A.imp&quot;
 
-//<span class="comment"> In A.imp</span>
+//<i> In A.imp</i>
 template &lt;class T&gt;
-T A&lt;T&gt;::foo(T&amp; p) {   //<span class="comment"> Implementation</span>
+T A&lt;T&gt;::foo(T&amp; p) {   //<i> Implementation</i>
     ....
-}</div>
-将模板函数的实现移入 A.imp 文件中，再由主头文件包含即可，A.imp 文件称为模板实现文件。
+}</code>
+<p>将模板函数的实现移入 A.imp 文件中，再由主头文件包含即可，A.imp 文件称为模板实现文件。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines SF.2
-
-</p>
+<div class="ref-items">C++ Core Guidelines SF.2</div>
 </article>
 </html>

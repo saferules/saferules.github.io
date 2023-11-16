@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：符号位在位运算方面没有逻辑意义，对负数进行位运算往往意味着逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>位运算符不应作用于有符号整数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>位运算符不应作用于有符号整数</h1>
@@ -19,46 +20,42 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-符号位在位运算方面没有逻辑意义，对负数进行位运算往往意味着逻辑错误。
+<main>
+<p>符号位在位运算方面没有逻辑意义，对负数进行位运算往往意味着逻辑错误。</p>
 
-示例：
-<div class="code">int foo(signed s, unsigned u) {
-    return s &amp; u;                 //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>int foo(signed s, unsigned u) {
+    return s &amp; u;                 //<i> Non-compliant</i>
 }
 
 int bar(signed s, unsigned u) {
     if (s &lt; 0) {
-        int a = s &lt;&lt; u;           //<span class="comment"> Non-compliant, undefined in C and C++11</span>
-        int b = s &gt;&gt; u;           //<span class="comment"> Non-compliant, implementation-defined</span>
+        int a = s &lt;&lt; u;           //<i> Non-compliant, undefined in C and C++11</i>
+        int b = s &gt;&gt; u;           //<i> Non-compliant, implementation-defined</i>
         return a + b;
     }
     return 0;
-}</div>
-例中 s 为有符号整数，其符号位对位运算没有意义，对负数左移会导致标准未定义的行为，对负数右移则由实现定义。
+}</code>
+<p>例中 s 为有符号整数，其符号位对位运算没有意义，对负数左移会导致标准未定义的行为，对负数右移则由实现定义。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.7(3)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.5.7(3)-undefined
 ISO/IEC 9899:2011 6.5.7(3)-undefined
 ISO/IEC 14882:2003 5.8(2)
 ISO/IEC 14882:2003 5.8(3)-implementation
 ISO/IEC 14882:2011 5.8(2)-undefined
-ISO/IEC 14882:2011 5.8(3)-implementation
-
-</p>
+ISO/IEC 14882:2011 5.8(3)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-682
+<div class="ref-items">CWE-682
 C++ Core Guidelines ES.101
 MISRA C 2004 12.7
 MISRA C 2012 10.1
-MISRA C++ 2008 5-0-21
-
-</p>
+MISRA C++ 2008 5-0-21</div>
 </article>
 </html>

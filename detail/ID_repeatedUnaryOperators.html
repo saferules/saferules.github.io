@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：重复的一元运算符没有意义，为常见笔误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应重复使用一元运算符 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应重复使用一元运算符</h1>
@@ -19,20 +20,20 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-重复的一元运算符没有意义，为常见笔误。
+<main>
+<p>重复的一元运算符没有意义，为常见笔误。</p>
 
-示例：
-<div class="code">int a = 1;
-int b = ~~a;    //<span class="comment"> Non-compliant</span>
-int c = -+a;    //<span class="comment"> Non-compliant</span>
-int d = - -a;   //<span class="comment"> Non-compliant</span>
-</div>
-例外：
-<div class="code">bool e = !!a;   //<span class="comment"> Let it go</span></div>
-两个连续的 ! 是 bool 转换的惯用方法，可不受本规则约束。
+<p>示例：</p>
+<code>int a = 1;
+int b = ~~a;    //<i> Non-compliant</i>
+int c = -+a;    //<i> Non-compliant</i>
+int d = - -a;   //<i> Non-compliant</i>
+</code>
+<p>例外：</p>
+<code>bool e = !!a;   //<i> Let it go</i></code>
+<p>两个连续的 ! 是 bool 转换的惯用方法，可不受本规则约束。</p>
 
-</div>
+</main>
 
 
 

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：访问未初始化或已释放的资源属于逻辑错误，会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不可访问未初始化或已释放的资源 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不可访问未初始化或已释放的资源</h1>
@@ -19,18 +20,18 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-访问未初始化或已释放的资源属于逻辑错误，会导致标准未定义的行为。
+<main>
+<p>访问未初始化或已释放的资源属于逻辑错误，会导致标准未定义的行为。</p>
 
-对于访问未初始化的局部对象，本规则特化为 <a href="./ID_localInitialization.html" target="_blank" class="dashed-link">ID_localInitialization</a>；对于解引用未初始化或已被释放的指针，本规则特化为 <a href="./ID_wildPtrDeref.html" target="_blank" class="dashed-link">ID_wildPtrDeref</a> 、<a href="./ID_danglingDeref.html" target="_blank" class="dashed-link">ID_danglingDeref</a>。
+<p>对于访问未初始化的局部对象，本规则特化为 <a href="./ID_localInitialization.html" class="dashed-link">ID_localInitialization</a>；对于解引用未初始化或已被释放的指针，本规则特化为 <a href="./ID_wildPtrDeref.html" class="dashed-link">ID_wildPtrDeref</a> 、<a href="./ID_danglingDeref.html" class="dashed-link">ID_danglingDeref</a>。</p>
 
-示例：
-<div class="code">void foo(const char* path, char buf[], size_t n) {
+<p>示例：</p>
+<code>void foo(const char* path, char buf[], size_t n) {
     FILE* f;
     if (path != NULL) {
         f = fopen(path, &quot;rb&quot;);
     }
-    fread(buf, 1, n, f);   //<span class="comment"> Non-compliant, ‘f’ may be invalid</span>
+    fread(buf, 1, n, f);   //<i> Non-compliant, ‘f’ may be invalid</i>
     fclose(f);
 }
 
@@ -38,33 +39,27 @@ void bar(FILE* f, char buf[], size_t n) {
     if (feof(f)) {
         fclose(f);
     }
-    fread(buf, 1, n, f);   //<span class="comment"> Non-compliant, ‘f’ may be closed</span>
-}</div>
+    fread(buf, 1, n, f);   //<i> Non-compliant, ‘f’ may be closed</i>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_wildPtrDeref.html" target="_blank" class="related-link">ID_wildPtrDeref</a>
-<a href="./ID_danglingDeref.html" target="_blank" class="related-link">ID_danglingDeref</a>
-<a href="./ID_localInitialization.html" target="_blank" class="related-link">ID_localInitialization</a>
-
-</p>
+<div class="ref-items"><a href="./ID_wildPtrDeref.html" class="related-link">ID_wildPtrDeref</a>
+<a href="./ID_danglingDeref.html" class="related-link">ID_danglingDeref</a>
+<a href="./ID_localInitialization.html" class="related-link">ID_localInitialization</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.19.3(4)
-ISO/IEC 9899:2011 7.21.3(4)
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.19.3(4)
+ISO/IEC 9899:2011 7.21.3(4)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-672
+<div class="ref-items">CWE-672
 CWE-908
 SEI CERT FIO46-C
-SEI CERT EXP53-CPP
-
-</p>
+SEI CERT EXP53-CPP</div>
 </article>
 </html>

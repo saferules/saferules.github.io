@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：条件不满足时条件变量也可以被唤醒，这种情况称为“虚假唤醒（spurious wakeup）”，条件变量被唤醒后应检查相关条件是否满足，否则会造成同步相关的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免虚假唤醒造成同步错误 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免虚假唤醒造成同步错误</h1>
@@ -19,44 +20,44 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-条件不满足时条件变量也可以被唤醒，这种情况称为“<a href="https://en.wikipedia.org/wiki/Spurious_wakeup" target="_blank" class="dashed-link">虚假唤醒（spurious wakeup）</a>”，条件变量被唤醒后应检查相关条件是否满足，否则会造成同步相关的错误。
+<main>
+<p>条件不满足时条件变量也可以被唤醒，这种情况称为“<a href="https://en.wikipedia.org/wiki/Spurious_wakeup" target="_blank" class="dashed-link">虚假唤醒（spurious wakeup）</a>”，条件变量被唤醒后应检查相关条件是否满足，否则会造成同步相关的错误。</p>
 
-示例：
-<div class="code">mtx_t m;    //<span class="comment"> Mutex</span>
-cnd_t cv;   //<span class="comment"> Condition variable</span>
-bool cnd;   //<span class="comment"> Represents the condition</span>
+<p>示例：</p>
+<code>mtx_t m;    //<i> Mutex</i>
+cnd_t cv;   //<i> Condition variable</i>
+bool cnd;   //<i> Represents the condition</i>
 
-void thd() {                 //<span class="comment"> Thread function</span>
-    mtx_lock(&amp;m);            //<span class="comment"> Lock</span>
-    if (!cnd) {              //<span class="comment"> Non-compliant, use a while loop instead</span>
-        cnd_wait(&amp;cv, &amp;m);   //<span class="comment"> Wait</span>
+void thd() {                 //<i> Thread function</i>
+    mtx_lock(&amp;m);            //<i> Lock</i>
+    if (!cnd) {              //<i> Non-compliant, use a while loop instead</i>
+        cnd_wait(&amp;cv, &amp;m);   //<i> Wait</i>
     }
     ....
-}</div>
-设例中 cv 是条件变量，cnd 代表相关条件，cnd_wait 等待条件被其他异步过程满足，条件的判断与更改应是互斥的，cnd_wait 会解锁并进入等待状态，当得到 cnd_signal 或 cnd_broadcast 的通知后会退出等待状态并再次加锁，但在条件不满足时也可能退出等待，原因主要有：
- ● 一个条件变量对应多个条件，与当前条件无关的条件被满足并通知了条件变量
- ● 在退出等待并加锁的过程中其他线程使条件不被满足
- ● 等待过程被信号打断
+}</code>
+<p>设例中 cv 是条件变量，cnd 代表相关条件，cnd_wait 等待条件被其他异步过程满足，条件的判断与更改应是互斥的，cnd_wait 会解锁并进入等待状态，当得到 cnd_signal 或 cnd_broadcast 的通知后会退出等待状态并再次加锁，但在条件不满足时也可能退出等待，原因主要有：</p>
+<ul>
+<li>一个条件变量对应多个条件，与当前条件无关的条件被满足并通知了条件变量</li>
+<li>在退出等待并加锁的过程中其他线程使条件不被满足</li>
+<li>等待过程被信号打断</li>
 
-这些问题取决于程序和系统的具体实现，在循环中等待并判断条件可一并解决这些问题：
-<div class="code">void thd() {
+</ul>
+<p>这些问题取决于程序和系统的具体实现，在循环中等待并判断条件可一并解决这些问题：</p>
+<code>void thd() {
     mtx_lock(&amp;m);
-    while (!cnd) {           //<span class="comment"> Compliant</span>
+    while (!cnd) {           //<i> Compliant</i>
         cnd_wait(&amp;cv, &amp;m);
     }
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT CON36-C
-SEI CERT CON54-CPP
-
-</p>
+<div class="ref-items">SEI CERT CON36-C
+SEI CERT CON54-CPP</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在库或主程序等可执行模块之间传递容器类对象会造成分配回收方面的冲突。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应在模块之间传递容器类对象 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应在模块之间传递容器类对象</h1>
@@ -19,36 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在库或主程序等可执行模块之间传递容器类对象会造成分配回收方面的冲突。
+<main>
+<p>在库或主程序等可执行模块之间传递容器类对象会造成分配回收方面的冲突。</p>
 
-与资源管理相关的对象，如流、字符串、智能指针以及自定义对象均不应在模块间传递。
+<p>与资源管理相关的对象，如流、字符串、智能指针以及自定义对象均不应在模块间传递。</p>
 
-不同的可执行模块往往具有独立的资源管理机制，跨模块的分配与回收会造成严重错误，而且不同的模块可能由不同的编译器生成，对同一对象的实现也可能存在冲突。
+<p>不同的可执行模块往往具有独立的资源管理机制，跨模块的分配与回收会造成严重错误，而且不同的模块可能由不同的编译器生成，对同一对象的实现也可能存在冲突。</p>
 
-示例：
-<div class="code">//<span class="comment"> In a.dll</span>
+<p>示例：</p>
+<code>//<i> In a.dll</i>
 void foo(vector&lt;int&gt;&amp; v) {
     v.reserve(100);
 }
 
-//<span class="comment"> In b.exe</span>
+//<i> In b.exe</i>
 int main() {
-    vector&lt;int&gt; v {   //<span class="comment"> Allocation in b.exe</span>
+    vector&lt;int&gt; v {   //<i> Allocation in b.exe</i>
         1, 2, 3
     };
-    foo(v);   //<span class="comment"> Non-compliant, reallocation in a.dll, crash</span>
-}</div>
-例中容器 v 的初始内存由 b.exe 分配，b.exe 与 a.dll 具有独立的堆栈，由于模板库的内联实现，reserve 函数会调用 a.dll 的内存管理函数重新分配 b.exe 中的内存，造成严重错误。
+    foo(v);   //<i> Non-compliant, reallocation in a.dll, crash</i>
+}</code>
+<p>例中容器 v 的初始内存由 b.exe 分配，b.exe 与 a.dll 具有独立的堆栈，由于模板库的内联实现，reserve 函数会调用 a.dll 的内存管理函数重新分配 b.exe 中的内存，造成严重错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_incompleteNewDeletePair.html" target="_blank" class="related-link">ID_incompleteNewDeletePair</a>
-<a href="./ID_ABIConflict.html" target="_blank" class="related-link">ID_ABIConflict</a>
-
-</p>
+<div class="ref-items"><a href="./ID_incompleteNewDeletePair.html" class="related-link">ID_incompleteNewDeletePair</a>
+<a href="./ID_ABIConflict.html" class="related-link">ID_ABIConflict</a></div>
 
 
 

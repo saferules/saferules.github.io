@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：合理初始化各枚举项。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>合理初始化各枚举项 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>合理初始化各枚举项</h1>
@@ -19,42 +20,40 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-合理初始化各枚举项，只应从下列方式中选择一种： 
- ● 全不初始化
- ● 只初始化第一个
- ● 全部初始化为不同的值
+<main>
+<p>合理初始化各枚举项，只应从下列方式中选择一种： </p>
+<ul>
+<li>全不初始化</li>
+<li>只初始化第一个</li>
+<li>全部初始化为不同的值</li>
 
-示例：
-<div class="code">enum Color {
+</ul>
+<p>示例：</p>
+<code>enum Color {
     red,
     blue,
     green,
-    yellow = 2   //<span class="comment"> Non-compliant</span>
+    yellow = 2   //<i> Non-compliant</i>
 };
-</div>
-应改为：
-<div class="code">enum Color {
+</code>
+<p>应改为：</p>
+<code>enum Color {
     red,
     blue,
     green,
-    yellow   //<span class="comment"> Compliant</span>
-};</div>
+    yellow   //<i> Compliant</i>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_duplicateEnumerator.html" target="_blank" class="related-link">ID_duplicateEnumerator</a>
-
-</p>
+<div class="ref-items"><a href="./ID_duplicateEnumerator.html" class="related-link">ID_duplicateEnumerator</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 9.3
-MISRA C++ 2008 8-5-3
-
-</p>
+<div class="ref-items">MISRA C 2004 9.3
+MISRA C++ 2008 8-5-3</div>
 </article>
 </html>

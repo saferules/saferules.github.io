@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
-  <title>指针不应与 '\0' 等字符常量比较大小 - C/C++ 安全规则</title>
+  <meta name="description" content="C/C++ 安全编程要点：指针与 &#x27;\0&#x27;、L&#x27;\0&#x27;、u&#x27;\0&#x27;、U&#x27;\0&#x27; 等字符常量比较大小是非常怪异的，往往是某种笔误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>指针不应与 &#x27;\0&#x27; 等字符常量比较大小 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
-  <h1>指针不应与 '\0' 等字符常量比较大小</h1>
+  <h1>指针不应与 &#x27;\0&#x27; 等字符常量比较大小</h1>
   <div id="subtitle">
     <div id="subtitle-id">ID_oddPtrCharComparison</div>
     <div id="subtitle-tags">
@@ -19,35 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-指针与 &#x27;\0&#x27;、L&#x27;\0&#x27;、u&#x27;\0&#x27;、U&#x27;\0&#x27; 等字符常量比较大小是非常怪异的，往往是某种笔误。
+<main>
+<p>指针与 &#x27;\0&#x27;、L&#x27;\0&#x27;、u&#x27;\0&#x27;、U&#x27;\0&#x27; 等字符常量比较大小是非常怪异的，往往是某种笔误。</p>
 
-本规则是 <a href="./ID_zeroAsPtrValue.html" target="_blank" class="dashed-link">ID_zeroAsPtrValue</a> 的特化。
+<p>本规则是 <a href="./ID_zeroAsPtrValue.html" class="dashed-link">ID_zeroAsPtrValue</a> 的特化。</p>
 
-示例（设 p 为指针）：
-<div class="code">if (p == &#x27;\0&#x27;) {   //<span class="comment"> Non-compliant</span>
+<p>示例（设 p 为指针）：</p>
+<code>if (p == &#x27;\0&#x27;) {   //<i> Non-compliant</i>
     ....
 }
-</div>
-这种情况很有可能是漏写了 * 号：
-<div class="code">if (*p == &#x27;\0&#x27;) {   //<span class="comment"> Non-compliant</span>
+</code>
+<p>这种情况很有可能是漏写了 * 号：</p>
+<code>if (*p == &#x27;\0&#x27;) {   //<i> Non-compliant</i>
     ....
-}</div>
-否则只应将指针与 NULL 或 nullptr 比较。
+}</code>
+<p>否则只应将指针与 NULL 或 nullptr 比较。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_zeroAsPtrValue.html" target="_blank" class="related-link">ID_zeroAsPtrValue</a>
-
-</p>
+<div class="ref-items"><a href="./ID_zeroAsPtrValue.html" class="related-link">ID_zeroAsPtrValue</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1025
-
-</p>
+<div class="ref-items">CWE-1025</div>
 </article>
 </html>

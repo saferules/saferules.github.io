@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：将派生类对象复制为基类对象的行为称为“对象切片”，基类对象不再持有派生类的属性，多态性也不再有效，意味着某种精度上的损失，往往会造成意料之外的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免对象切片 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免对象切片</h1>
@@ -19,11 +20,11 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-将派生类对象复制为基类对象的行为称为“<a href="https://en.wikipedia.org/wiki/Object_slicing" target="_blank" class="dashed-link">对象切片（object slicing）</a>”，基类对象不再持有派生类的属性，不再遵循多态机制，意味着某种精度上的损失，往往会造成意料之外的错误。
+<main>
+<p>将派生类对象复制为基类对象的行为称为“<a href="https://en.wikipedia.org/wiki/Object_slicing" target="_blank" class="dashed-link">对象切片（object slicing）</a>”，基类对象不再持有派生类的属性，不再遵循多态机制，意味着某种精度上的损失，往往会造成意料之外的错误。</p>
 
-示例：
-<div class="code">struct A { .... };
+<p>示例：</p>
+<code>struct A { .... };
 struct B: A { .... };
 
 void foo(A);
@@ -31,36 +32,32 @@ void foo(A);
 A a;
 B b;
 
-a = b;    //<span class="comment"> Slicing</span>
-foo(b);   //<span class="comment"> Slicing</span>
+a = b;    //<i> Slicing</i>
+foo(b);   //<i> Slicing</i>
 
-vector&lt;A&gt; v{b};   //<span class="comment"> Slicing</span>
-v.push_back(b);   //<span class="comment"> Slicing</span></div>
-尤其是函数传参或容器收纳对象时发生切片，会引起相当大的困惑，明明传入的是派生类对象，但虚函数都不生效了，所以要求多态性的接口或容器均应使用指针或引用。
+vector&lt;A&gt; v{b};   //<i> Slicing</i>
+v.push_back(b);   //<i> Slicing</i></code>
+<p>尤其是函数传参或容器收纳对象时发生切片，会引起相当大的困惑，明明传入的是派生类对象，但虚函数都不生效了，所以要求多态性的接口或容器均应使用指针或引用。</p>
 
-在少数情况下，对象切片可能也有其逻辑意义，但不建议“隐式切片”，应定义特定名称的函数标明这是一种特殊处理，如：
-<div class="code">A a;
+<p>在少数情况下，对象切片可能也有其逻辑意义，但不建议“隐式切片”，应定义特定名称的函数标明这是一种特殊处理，如：</p>
+<code>A a;
 B b;
 
-a = b;                   //<span class="comment"> Bad, implicit slicing</span>
-a = to_base_object(b);   //<span class="comment"> OK</span></div>
-其中 to_base_object 是一个返回基类对象的函数，表示有意为之。
+a = b;                   //<i> Bad, implicit slicing</i>
+a = to_base_object(b);   //<i> OK</i></code>
+<p>其中 to_base_object 是一个返回基类对象的函数，表示有意为之。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_paramMayBeSlicing.html" target="_blank" class="related-link">ID_paramMayBeSlicing</a>
-
-</p>
+<div class="ref-items"><a href="./ID_paramMayBeSlicing.html" class="related-link">ID_paramMayBeSlicing</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.63
+<div class="ref-items">C++ Core Guidelines ES.63
 C++ Core Guidelines C.145
-SEI CERT OOP51-CPP
-
-</p>
+SEI CERT OOP51-CPP</div>
 </article>
 </html>

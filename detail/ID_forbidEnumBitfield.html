@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：枚举类型是否有符号由实现定义，而且符号位与位域结合易导致意料之外的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应对枚举对象声明位域 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应对枚举对象声明位域</h1>
@@ -19,61 +20,55 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-枚举类型是否有符号由实现定义，而且符号位与位域结合易导致意料之外的错误。
+<main>
+<p>枚举类型是否有符号由实现定义，而且符号位与位域结合易导致意料之外的错误。</p>
 
-示例：
-<div class="code">enum E {
+<p>示例：</p>
+<code>enum E {
     A, B, C, D
 };
 
 struct X {
-    E e: 2;   //<span class="comment"> Non-compliant</span>
+    E e: 2;   //<i> Non-compliant</i>
 };
 
 int main() {
     X x;
     x.e = D;
-    if (x.e == D) {    //<span class="comment"> What is output?</span>
+    if (x.e == D) {    //<i> What is output?</i>
         cout &lt;&lt; &quot;OK&quot;;
     } else {
         cout &lt;&lt; &quot;Oops&quot;;
     }
-}</div>
-可能输出 Oops。例中枚举项的取值范围是 [0, 3]，位域长度为 2 即可满足这个范围，但如果位域有符号位，会导致意料之外的问题，如用 D 对 x.e 赋值，但 x.e == D 的结果却是 false （因为 D 的值为 3 而 x.e 的值为 -1）。
+}</code>
+<p>可能输出 Oops。例中枚举项的取值范围是 [0, 3]，位域长度为 2 即可满足这个范围，但如果位域有符号位，会导致意料之外的问题，如用 D 对 x.e 赋值，但 x.e == D 的结果却是 false （因为 D 的值为 3 而 x.e 的值为 -1）。</p>
 
-例外：
-<div class="code">enum E: unsigned {   //<span class="comment"> Explicit underlying type</span>
+<p>例外：</p>
+<code>enum E: unsigned {   //<i> Explicit underlying type</i>
     A, B, C, D
 };
 
 struct X {
-    E e: 2;   //<span class="comment"> Compliant</span>
-};</div>
-在遵循 C++11 及之后标准的代码中，如果显式指定了枚举类型的的底层类型，可不受本规则限制。
+    E e: 2;   //<i> Compliant</i>
+};</code>
+<p>在遵循 C++11 及之后标准的代码中，如果显式指定了枚举类型的的底层类型，可不受本规则限制。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_improperBitfieldType.html" target="_blank" class="related-link">ID_improperBitfieldType</a>
-<a href="./ID_singleSignedBitfield.html" target="_blank" class="related-link">ID_singleSignedBitfield</a>
-
-</p>
+<div class="ref-items"><a href="./ID_improperBitfieldType.html" class="related-link">ID_improperBitfieldType</a>
+<a href="./ID_singleSignedBitfield.html" class="related-link">ID_singleSignedBitfield</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7.2.2(4)-implementation
+<div class="ref-items">ISO/IEC 9899:1999 6.7.2.2(4)-implementation
 ISO/IEC 9899:2011 6.7.2.2(4)-implementation
 ISO/IEC 14882:2011 7.2(6)-implementation
-ISO/IEC 14882:2017 10.2(7)-implementation
-
-</p>
+ISO/IEC 14882:2017 10.2(7)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 9-6-3
-
-</p>
+<div class="ref-items">MISRA C++ 2008 9-6-3</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：while 语句不应被分号隔断。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>while 语句不应被分号隔断 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>while 语句不应被分号隔断</h1>
@@ -19,25 +20,23 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-while 语句不应被分号隔断。
+<main>
+<p>while 语句不应被分号隔断。</p>
 
-示例：
-<div class="code">while (condition);  //<span class="comment"> Non-compliant, see the semicolon</span>
+<p>示例：</p>
+<code>while (condition);  //<i> Non-compliant, see the semicolon</i>
 {
     ....
 }
-</div>
-分号使循环失效，有造成死循环的危险。
+</code>
+<p>分号使循环失效，有造成死循环的危险。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-670
-
-</p>
+<div class="ref-items">CWE-670</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在代码中记录网络地址不利于维护和移植，也容易暴露产品的网络结构，属于安全隐患。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>与网络地址相关的信息不应写入代码 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>与网络地址相关的信息不应写入代码</h1>
@@ -19,32 +20,30 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在代码中记录网络地址不利于维护和移植，也容易暴露产品的网络结构，属于安全隐患。
+<main>
+<p>在代码中记录网络地址不利于维护和移植，也容易暴露产品的网络结构，属于安全隐患。</p>
 
-示例：
-<div class="code">string host = &quot;10.16.25.93&quot;;    //<span class="comment"> Non-compliant</span>
-foo(&quot;172.16.10.36:8080&quot;);       //<span class="comment"> Non-compliant</span>
-bar(&quot;https://192.168.73.90&quot;);   //<span class="comment"> Non-compliant</span>
-</div>
-应从配置文件中获取地址，并配以加密措施：
-<div class="code">MyConf cfg;
-string host = cfg.host();   //<span class="comment"> Compliant</span>
-foo(cfg.port());            //<span class="comment"> Compliant</span>
-bar(cfg.url());             //<span class="comment"> Compliant</span>
-</div>
-特殊的 IP 地址可不受本规则限制，如：
-<div class="code">0.0.0.0
+<p>示例：</p>
+<code>string host = &quot;10.16.25.93&quot;;    //<i> Non-compliant</i>
+foo(&quot;172.16.10.36:8080&quot;);       //<i> Non-compliant</i>
+bar(&quot;https://192.168.73.90&quot;);   //<i> Non-compliant</i>
+</code>
+<p>应从配置文件中获取地址，并配以加密措施：</p>
+<code>MyConf cfg;
+string host = cfg.host();   //<i> Compliant</i>
+foo(cfg.port());            //<i> Compliant</i>
+bar(cfg.url());             //<i> Compliant</i>
+</code>
+<p>特殊的 IP 地址可不受本规则限制，如：</p>
+<code>0.0.0.0
 255.255.255.255
-127.0.0.1-127.255.255.255</div>
+127.0.0.1-127.255.255.255</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_addressExposure.html" target="_blank" class="related-link">ID_addressExposure</a>
-
-</p>
+<div class="ref-items"><a href="./ID_addressExposure.html" class="related-link">ID_addressExposure</a></div>
 
 
 

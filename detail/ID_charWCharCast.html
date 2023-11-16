@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：char* 和 wchar_t* 直接转换并不进行字符集编码转换，往往意味着语言运用错误，char*、wchar_t*、char16_t* 和 char32_t* 之间均不可直接转换。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不同的字符串类型之间不可直接转换 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不同的字符串类型之间不可直接转换</h1>
@@ -19,34 +20,30 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-char* 和 wchar_t* 直接转换并不进行字符集转换，属于语言运用错误，char*、wchar_t*、char16_t* 以及 char32_t* 之间均不可直接转换。
+<main>
+<p>char* 和 wchar_t* 直接转换并不进行字符集转换，属于语言运用错误，char*、wchar_t*、char16_t* 以及 char32_t* 之间均不可直接转换。</p>
 
-本规则是 <a href="./ID_castNoInheritance.html" target="_blank" class="dashed-link">ID_castNoInheritance</a> 的特化。
+<p>本规则是 <a href="./ID_castNoInheritance.html" class="dashed-link">ID_castNoInheritance</a> 的特化。</p>
 
-示例：
-<div class="code">wchar_t* to_unicode(char* str) {
-    return (wchar_t*)str;          //<span class="comment"> Remarkably brave, but totally wrong</span>
-}</div>
-示例代码显然是错误的，应改用 iconv、MultiByteToWideChar 等字符集编码转换函数。
+<p>示例：</p>
+<code>wchar_t* to_unicode(char* str) {
+    return (wchar_t*)str;          //<i> Remarkably brave, but totally wrong</i>
+}</code>
+<p>示例代码显然是错误的，应改用 iconv、MultiByteToWideChar 等字符集编码转换函数。</p>
 
-由于 unsigned char* 一般针对二进制数据，unsigned char* 与其他字符串类型之间的转换可不受本规则约束，但 char* 不应作为二进制数据的类型，参见 <a href="./ID_plainBinaryChar.html" target="_blank" class="dashed-link">ID_plainBinaryChar</a>。
+<p>由于 unsigned char* 一般针对二进制数据，unsigned char* 与其他字符串类型之间的转换可不受本规则约束，但 char* 不应作为二进制数据的类型，参见 <a href="./ID_plainBinaryChar.html" class="dashed-link">ID_plainBinaryChar</a>。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_castNoInheritance.html" target="_blank" class="related-link">ID_castNoInheritance</a>
-<a href="./ID_plainBinaryChar.html" target="_blank" class="related-link">ID_plainBinaryChar</a>
-
-</p>
+<div class="ref-items"><a href="./ID_castNoInheritance.html" class="related-link">ID_castNoInheritance</a>
+<a href="./ID_plainBinaryChar.html" class="related-link">ID_plainBinaryChar</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-704
-SEI CERT STR38-C
-
-</p>
+<div class="ref-items">CWE-704
+SEI CERT STR38-C</div>
 </article>
 </html>

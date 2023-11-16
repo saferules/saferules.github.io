@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：返回类型不是 void 说明函数有返回值，与 noreturn 属性矛盾。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>具有 noreturn 属性的函数返回类型只应为 void - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>具有 noreturn 属性的函数返回类型只应为 void</h1>
@@ -19,32 +20,28 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-返回类型不是 void 说明函数有返回值，与 noreturn 属性矛盾。
+<main>
+<p>返回类型不是 void 说明函数有返回值，与 noreturn 属性矛盾。</p>
 
-示例：
-<div class="code">_Noreturn    int foo();     //<span class="comment"> Non-compliant in C</span>
-[[noreturn]] int bar();     //<span class="comment"> Non-compliant in C++</span></div>
-例中函数的返回类型为 int，与 noreturn 属性矛盾，也会对函数的使用者造成困扰。
+<p>示例：</p>
+<code>_Noreturn    int foo();     //<i> Non-compliant in C</i>
+[[noreturn]] int bar();     //<i> Non-compliant in C++</i></code>
+<p>例中函数的返回类型为 int，与 noreturn 属性矛盾，也会对函数的使用者造成困扰。</p>
 
-应改为：
-<div class="code">_Noreturn    void foo();    //<span class="comment"> Compliant in C</span>
-[[noreturn]] void bar();    //<span class="comment"> Compliant in C++</span></div>
+<p>应改为：</p>
+<code>_Noreturn    void foo();    //<i> Compliant in C</i>
+[[noreturn]] void bar();    //<i> Compliant in C++</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_unsuitableReturn.html" target="_blank" class="related-link">ID_unsuitableReturn</a>
-
-</p>
+<div class="ref-items"><a href="./ID_unsuitableReturn.html" class="related-link">ID_unsuitableReturn</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:2011 6.7.4(8 12)-undefined
-ISO/IEC 14882:2011 7.6.3(2)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:2011 6.7.4(8 12)-undefined
+ISO/IEC 14882:2011 7.6.3(2)-undefined</div>
 
 
 </article>

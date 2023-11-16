@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：循环的退出条件应与其控制表达式一致，使代码具有清晰的静态结构，否则可读性较差，尤其在多个嵌套的作用域中使用 break、goto 或 return 等跳转语句，会使代码难以理解。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免使用跳转语句退出循环 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免使用跳转语句退出循环</h1>
@@ -19,38 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-循环的退出条件应与其控制表达式一致，使代码具有清晰的静态结构，否则可读性较差，尤其在多个嵌套的作用域中使用 break、goto 或 return 等跳转语句，会使代码难以理解。
+<main>
+<p>循环的退出条件应与其控制表达式一致，使代码具有清晰的静态结构，否则可读性较差，尤其在多个嵌套的作用域中使用 break、goto 或 return 等跳转语句，会使代码难以理解。</p>
 
-示例：
-<div class="code">while (cond) {
+<p>示例：</p>
+<code>while (cond) {
     if (x) {
         if (y) {
-            break;   //<span class="comment"> Bad</span>
+            break;   //<i> Bad</i>
         }
         ....
     } else {
         ....
-        break;   //<span class="comment"> Bad</span>
+        break;   //<i> Bad</i>
     }
-}</div>
-例中循环条件散落在循环体内，而且循环的主体逻辑被各种跳转语句“割裂”，是不利于阅读和维护的。
+}</code>
+<p>例中循环条件散落在循环体内，而且循环的主体逻辑被各种跳转语句“割裂”，是不利于阅读和维护的。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_tooManyExit.html" target="_blank" class="related-link">ID_tooManyExit</a>
-
-</p>
+<div class="ref-items"><a href="./ID_tooManyExit.html" class="related-link">ID_tooManyExit</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 14.6
+<div class="ref-items">MISRA C 2004 14.6
 MISRA C 2012 15.4
-MISRA C++ 2008 6-6-4
-
-</p>
+MISRA C++ 2008 6-6-4</div>
 </article>
 </html>

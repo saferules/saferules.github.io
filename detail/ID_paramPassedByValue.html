@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：常量参数不可被改变，按值传递产生的复制开销是没有意义的，应使用常量引用传递参数。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>非基本类型的常量参数不应按值传递 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>非基本类型的常量参数不应按值传递</h1>
@@ -19,29 +20,27 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-常量参数不可被改变，按值传递产生的复制开销是没有意义的，应使用常量引用传递参数。
+<main>
+<p>常量参数不可被改变，按值传递产生的复制开销是没有意义的，应使用常量引用传递参数。</p>
 
-基本类型的参数复制开销可被忽略，故不受本规则限制。
+<p>基本类型的参数复制开销可被忽略，故不受本规则限制。</p>
 
-示例：
-<div class="code">void fun(const string s) {    //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>void fun(const string s) {    //<i> Non-compliant</i>
     ....
-}</div>
-例中 s 为按值传递的常量参数，每当函数被调用时，传入的参数会被复制成一个新的对象，但其值又不能被改变，所以这种复制是没有意义的，利用常量引用可解决这个问题：
-<div class="code">void fun(const string&amp; s) {   //<span class="comment"> Compliant</span>
+}</code>
+<p>例中 s 为按值传递的常量参数，每当函数被调用时，传入的参数会被复制成一个新的对象，但其值又不能被改变，所以这种复制是没有意义的，利用常量引用可解决这个问题：</p>
+<code>void fun(const string&amp; s) {   //<i> Compliant</i>
     ....
-}</div>
-改为常量引用后不会产生额外的复制开销。
+}</code>
+<p>改为常量引用后不会产生额外的复制开销。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines F.16
-
-</p>
+<div class="ref-items">C++ Core Guidelines F.16</div>
 </article>
 </html>

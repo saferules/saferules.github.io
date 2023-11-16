@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：宏不受作用域限制，不应被取消定义，否则会失去确定性，使代码难以维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免宏被取消定义 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免宏被取消定义</h1>
@@ -19,40 +20,35 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-宏不受作用域限制，不应被取消定义，否则会失去确定性，使代码难以维护。
+<main>
+<p>宏不受作用域限制，不应被取消定义，否则会失去确定性，使代码难以维护。</p>
 
-示例：
-<div class="code">//<span class="comment"> In a.h</span>
+<p>示例：</p>
+<code>//<i> In a.h</i>
 #define M 1
 
-//<span class="comment"> In b.h</span>
-#undef M      //<span class="comment"> Non-compliant</span>
-#define M 0   //<span class="comment"> Redefined, bad</span></div>
-在一个文件中定义了宏 M，在另一个文件取消并重定义了 M，使同一个全局名称产生两种不同的意义，严重降低了可维护性。
+//<i> In b.h</i>
+#undef M      //<i> Non-compliant</i>
+#define M 0   //<i> Redefined, bad</i></code>
+<p>在一个文件中定义了宏 M，在另一个文件取消并重定义了 M，使同一个全局名称产生两种不同的意义，严重降低了可维护性。</p>
 
-有时取消定义已使用完毕的内部宏可避免对外部产生不良影响，具有一定积极作用，但宏的定义和取消应在同一文件的同一作用域中完成，相关示例可参见 <a href="./ID_macro_inBlock.html" target="_blank" class="dashed-link">ID_macro_inBlock</a>。
+<p>有时取消定义已使用完毕的内部宏可避免对外部产生不良影响，具有一定积极作用，但宏的定义和取消应在同一文件的同一作用域中完成，相关示例可参见 <a href="./ID_macro_inBlock.html" class="dashed-link">ID_macro_inBlock</a>。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allowUndefMacroInSameBlock: 是否允许取消在同一作用域内定义的宏
-</p>
+<div class="ref-items">allowUndefMacroInSameBlock: 是否允许取消在同一作用域内定义的宏</div>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_macro_undefReserved.html" target="_blank" class="related-link">ID_macro_undefReserved</a>
-<a href="./ID_macro_inBlock.html" target="_blank" class="related-link">ID_macro_inBlock</a>
-
-</p>
+<div class="ref-items"><a href="./ID_macro_undefReserved.html" class="related-link">ID_macro_undefReserved</a>
+<a href="./ID_macro_inBlock.html" class="related-link">ID_macro_inBlock</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 19.6
+<div class="ref-items">MISRA C 2004 19.6
 MISRA C 2012 20.5
-MISRA C++ 2008 16-0-3
-
-</p>
+MISRA C++ 2008 16-0-3</div>
 </article>
 </html>

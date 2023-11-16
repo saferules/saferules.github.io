@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：整数、字符串等非异常类的对象不应被当作异常捕获，否则意味着异常相关的设计是不健全的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应捕获非异常类型的对象 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应捕获非异常类型的对象</h1>
@@ -19,35 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-整数、字符串等非异常类的对象不应被当作异常捕获，否则意味着异常相关的设计是不健全的。
+<main>
+<p>整数、字符串等非异常类的对象不应被当作异常捕获，否则意味着异常相关的设计是不健全的。</p>
 
-可参见  <a href="./ID_throwNonExceptionType.html" target="_blank" class="dashed-link">ID_throwNonExceptionType</a> 的进一步讨论。
+<p>可参见  <a href="./ID_throwNonExceptionType.html" class="dashed-link">ID_throwNonExceptionType</a> 的进一步讨论。</p>
 
-示例：
-<div class="code">try {
+<p>示例：</p>
+<code>try {
     ....
-} catch (int) {   //<span class="comment"> Non-compliant</span>
+} catch (int) {   //<i> Non-compliant</i>
     ....
-} catch (char*) {   //<span class="comment"> Non-compliant</span>
+} catch (char*) {   //<i> Non-compliant</i>
     ....
-} catch (string&amp;) {   //<span class="comment"> Non-compliant</span>
+} catch (string&amp;) {   //<i> Non-compliant</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_throwNonExceptionType.html" target="_blank" class="related-link">ID_throwNonExceptionType</a>
-
-</p>
+<div class="ref-items"><a href="./ID_throwNonExceptionType.html" class="related-link">ID_throwNonExceptionType</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines E.14
-
-</p>
+<div class="ref-items">C++ Core Guidelines E.14</div>
 </article>
 </html>

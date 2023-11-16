@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对象与超出其类型取值范围的值比较，或与取值范围的边界进行无意义的比较属于逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>参与比较的对象之间应具备合理的大小关系 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>参与比较的对象之间应具备合理的大小关系</h1>
@@ -19,53 +20,49 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对象与超出其类型取值范围的值比较，或与取值范围的边界进行无意义的比较属于逻辑错误。
+<main>
+<p>对象与超出其类型取值范围的值比较，或与取值范围的边界进行无意义的比较属于逻辑错误。</p>
 
-示例：
-<div class="code">void foo(string&amp; txt, string&amp; sub) {
+<p>示例：</p>
+<code>void foo(string&amp; txt, string&amp; sub) {
     size_t n = txt.find(sub);
-    if (n &gt;= 0) {               //<span class="comment"> Non-compliant, always true</span>
+    if (n &gt;= 0) {               //<i> Non-compliant, always true</i>
         ....
     }
-}</div>
-例中 n 为无符号变量，一定大于或等于 0，n &gt;= 0 是无意义的比较，也是一种常见笔误。
+}</code>
+<p>例中 n 为无符号变量，一定大于或等于 0，n &gt;= 0 是无意义的比较，也是一种常见笔误。</p>
 
-又如：
-<div class="code">void bar(uint16_t x) {
-    if (x == -1) {      //<span class="comment"> Non-compliant, always false</span>
+<p>又如：</p>
+<code>void bar(uint16_t x) {
+    if (x == -1) {      //<i> Non-compliant, always false</i>
         ....
     }
-}</div>
-例中 x 为 16 位无符号变量，其取值范围为 [0, 65535]，x == -1 恒为假。由于“<a href="https://en.cppreference.com/w/c/language/conversion#Integer_promotions" target="_blank" class="dashed-link">类型提升</a>”，x 可以被转为 int 型再与 -1 比较，x 恒为正数而 -1 为负数，故不可能相等。
+}</code>
+<p>例中 x 为 16 位无符号变量，其取值范围为 [0, 65535]，x == -1 恒为假。由于“<a href="https://en.cppreference.com/w/c/language/conversion#Integer_promotions" target="_blank" class="dashed-link">类型提升</a>”，x 可以被转为 int 型再与 -1 比较，x 恒为正数而 -1 为负数，故不可能相等。</p>
 
-对于有符号字符型变量，与其比较的数值不在 [-128, 127] 范围内时，也是无效的：
-<div class="code">CodePage encodingDetect(const char* src) {
+<p>对于有符号字符型变量，与其比较的数值不在 [-128, 127] 范围内时，也是无效的：</p>
+<code>CodePage encodingDetect(const char* src) {
     char b0 = src[0];
     char b1 = src[1];
     char b2 = src[2];
-    if (b0 == 0xef &amp;&amp; b1 == 0xbb &amp;&amp; b2 == 0xbf) {   //<span class="comment"> Non-compliant, always false</span>
+    if (b0 == 0xef &amp;&amp; b1 == 0xbb &amp;&amp; b2 == 0xbf) {   //<i> Non-compliant, always false</i>
         return cpUtf8;
     }
     ....
-}</div>
-即使例中 b0 的二进制绝对值确实为 0xef，但由于类型提升，b0 转为 int 型后为负数，0xef 为正数，比较的结果恒为假。char 型变量是否有符号由实现定义，可参见 <a href="./ID_plainNumericChar.html" target="_blank" class="dashed-link">ID_plainNumericChar</a> 的进一步说明，将 b0 等变量设为 unsigned char 可解决这个问题。
+}</code>
+<p>即使例中 b0 的二进制绝对值确实为 0xef，但由于类型提升，b0 转为 int 型后为负数，0xef 为正数，比较的结果恒为假。char 型变量是否有符号由实现定义，可参见 <a href="./ID_plainNumericChar.html" class="dashed-link">ID_plainNumericChar</a> 的进一步说明，将 b0 等变量设为 unsigned char 可解决这个问题。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_switch_caseOutOfRange.html" target="_blank" class="related-link">ID_switch_caseOutOfRange</a>
-
-</p>
+<div class="ref-items"><a href="./ID_switch_caseOutOfRange.html" class="related-link">ID_switch_caseOutOfRange</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-697
+<div class="ref-items">CWE-697
 CWE-1024
-CWE-1025
-
-</p>
+CWE-1025</div>
 </article>
 </html>

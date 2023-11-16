@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：可以为用户定义的类型特化某些标准模板类，除此之外对 std 命名空间添加、修改甚至删除任何代码所导致的后果都是标准未定义的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不可修改 std 命名空间 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不可修改 std 命名空间</h1>
@@ -19,15 +20,15 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-可以为用户定义的类型特化某些标准模板类，除此之外对 std 命名空间添加、修改甚至删除任何代码所导致的后果都是标准未定义的。
+<main>
+<p>可以为用户定义的类型特化某些标准模板类，除此之外对 std 命名空间添加、修改甚至删除任何代码所导致的后果都是标准未定义的。</p>
 
-示例：
-<div class="code">class MyType { .... };
+<p>示例：</p>
+<code>class MyType { .... };
 
 namespace std
 {
-    size_t foo(const MyType&amp; x);   //<span class="comment"> Non-compliant</span>
+    size_t foo(const MyType&amp; x);   //<i> Non-compliant</i>
 
     template &lt;&gt;
     struct hash&lt;MyType&gt; {
@@ -35,33 +36,29 @@ namespace std
             return foo(x);
         }
     };
-}</div>
-例中对 hash 标准模板类的特化是可被允许的，但在 std 命名空间中添加的 foo 函数是不被允许的。
+}</code>
+<p>例中对 hash 标准模板类的特化是可被允许的，但在 std 命名空间中添加的 foo 函数是不被允许的。</p>
 
-应去掉 std 命名空间作用域声明，改为：
-<div class="code">size_t foo(const MyType&amp; x);   //<span class="comment"> OK</span>
+<p>应去掉 std 命名空间作用域声明，改为：</p>
+<code>size_t foo(const MyType&amp; x);   //<i> OK</i>
 
 template &lt;&gt;
 struct std::hash&lt;MyType&gt; {
     size_t operator()(const MyType&amp; x) const {
         return foo(x);
     }
-};</div>
+};</code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2011 17.6.4.2.1(1 2)-undefined
-ISO/IEC 14882:2017 20.5.4.2.1(1 2)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2011 17.6.4.2.1(1 2)-undefined
+ISO/IEC 14882:2017 20.5.4.2.1(1 2)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT DCL58-CPP
-
-</p>
+<div class="ref-items">SEI CERT DCL58-CPP</div>
 </article>
 </html>

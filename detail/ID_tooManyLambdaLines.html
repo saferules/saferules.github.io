@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：复杂的 lambda 表达式与调用者的代码混在一起是难以阅读的，引入 lambda 表达式的目的应该是“化简”，否则应使用普通函数。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>lambda 表达式的行数应在规定范围之内 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>lambda 表达式的行数应在规定范围之内</h1>
@@ -19,30 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-复杂的 lambda 表达式与调用者的代码混在一起是难以阅读的，引入 lambda 表达式的目的应该是“化简”，否则应使用普通函数。
+<main>
+<p>复杂的 lambda 表达式与调用者的代码混在一起是难以阅读的，引入 lambda 表达式的目的应该是“化简”，否则应使用普通函数。</p>
 
-示例：
-<div class="code">void foo()
+<p>示例：</p>
+<code>void foo()
 {
     auto f0 = []() {
-        //<span class="comment"> ... Many lines ...</span>
+        //<i> ... Many lines ...</i>
     };
-        //<span class="comment"> ... Many lambdas ...</span>
-        //<span class="comment"> ... Even lambdas nest lambdas ...</span>
+        //<i> ... Many lambdas ...</i>
+        //<i> ... Even lambdas nest lambdas ...</i>
     auto f100 = []() {
-        //<span class="comment"> ...</span>
+        //<i> ...</i>
     };
-    //<span class="comment"> Tut, tut, this is a function, not a namespace,</span>
-    //<span class="comment"> use common functions instead</span>
-}</div>
-建议 lambda 表达式不超过 5 行，一个函数中不应有多个复杂的 lambda 表达式。
+    //<i> Tut, tut, this is a function, not a namespace,</i>
+    //<i> use common functions instead</i>
+}</code>
+<p>建议 lambda 表达式不超过 5 行，一个函数中不应有多个复杂的 lambda 表达式。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxLambdaLineCount: lambda 表达式行数上限，超过则报出
-</p>
+<div class="ref-items">maxLambdaLineCount: lambda 表达式行数上限，超过则报出</div>
 
 
 

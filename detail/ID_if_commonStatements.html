@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果 if 分枝和 else 分枝的起止语句相同，应将其从分枝结构中提取出来，否则重复的代码不利于阅读和维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>if 分枝和 else 分枝的起止语句不应相同 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>if 分枝和 else 分枝的起止语句不应相同</h1>
@@ -19,11 +20,11 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果 if 分枝和 else 分枝的起止语句相同，应将其从分枝结构中提取出来，否则重复的代码不利于阅读和维护。
+<main>
+<p>如果 if 分枝和 else 分枝的起止语句相同，应将其从分枝结构中提取出来，否则重复的代码不利于阅读和维护。</p>
 
-示例：
-<div class="code">if (condition) {
+<p>示例：</p>
+<code>if (condition) {
     foo();
     ....
     bar();
@@ -33,9 +34,9 @@ else {
     ....
     bar();
 }
-</div>
-if 与 else 分枝的开头和结尾相同，应提取出来：
-<div class="code">foo();
+</code>
+<p>if 与 else 分枝的开头和结尾相同，应提取出来：</p>
+<code>foo();
 if (condition) {
     ....
 }
@@ -43,23 +44,19 @@ else {
     ....
 }
 bar();
-</div>
-当条件分枝中的所有语句都相同时，本规则特化为 <a href="./ID_if_identicalBlock.html" target="_blank" class="dashed-link">ID_if_identicalBlock</a>，这种情况往往意味着错误。
+</code>
+<p>当条件分枝中的所有语句都相同时，本规则特化为 <a href="./ID_if_identicalBlock.html" class="dashed-link">ID_if_identicalBlock</a>，这种情况往往意味着错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_if_identicalBlock.html" target="_blank" class="related-link">ID_if_identicalBlock</a>
-
-</p>
+<div class="ref-items"><a href="./ID_if_identicalBlock.html" class="related-link">ID_if_identicalBlock</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-670
-C++ Core Guidelines ES.3
-
-</p>
+<div class="ref-items">CWE-670
+C++ Core Guidelines ES.3</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：不同的求值顺序不应产生不同的结果，否则极易导致意料之外的错误，也会降低代码的可移植性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免依赖特定的子表达式求值顺序 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免依赖特定的子表达式求值顺序</h1>
@@ -19,53 +20,47 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-不同的求值顺序不应产生不同的结果，否则极易导致意料之外的错误，也会降低代码的可移植性。
+<main>
+<p>不同的求值顺序不应产生不同的结果，否则极易导致意料之外的错误，也会降低代码的可移植性。</p>
 
-C 标准用“<a href="https://en.wikipedia.org/wiki/Sequence_point" target="_blank" class="dashed-link">序列点（sequence point）</a>”定义求值顺序，序列点前面的表达式先于后面的表达式求值并落实相关副作用，逻辑与、逻辑或、三元、逗号等运算符以及函数调用的左括号与序列点相关，其左子表达式先于右子表达式求值并落实副作用，赋值、算术、位运算等运算符与序列点无关，其左右子表达式的求值顺序是未声明的，函数各参数的求值顺序也是未声明的，C++ 标准与 C 标准大致相同，C++17 明确了赋值、移位等运算符的求值顺序。
+<p>C 标准用“<a href="https://en.wikipedia.org/wiki/Sequence_point" target="_blank" class="dashed-link">序列点（sequence point）</a>”定义求值顺序，序列点前面的表达式先于后面的表达式求值并落实相关副作用，逻辑与、逻辑或、三元、逗号等运算符以及函数调用的左括号与序列点相关，其左子表达式先于右子表达式求值并落实副作用，赋值、算术、位运算等运算符与序列点无关，其左右子表达式的求值顺序是未声明的，函数各参数的求值顺序也是未声明的，C++ 标准与 C 标准大致相同，C++17 明确了赋值、移位等运算符的求值顺序。</p>
 
-要注意子表达式的副作用在不同求值顺序下的正确性，可参见 <a href="./ID_confusingAssignment.html" target="_blank" class="dashed-link">ID_confusingAssignment</a> 的进一步说明。
+<p>要注意子表达式的副作用在不同求值顺序下的正确性，可参见 <a href="./ID_confusingAssignment.html" class="dashed-link">ID_confusingAssignment</a> 的进一步说明。</p>
 
-示例：
-<div class="code">Stack s {1, 2, 3};      //<span class="comment"> A stack, the top is 1</span>
-int pop();              //<span class="comment"> Pop and return the top element from the stack</span>
-int x = pop() - pop();  //<span class="comment"> Non-compliant</span></div>
-设 pop 函数弹出并返回栈顶元素，减号左右的两个 pop 函数哪个先执行呢？这是标准未声明的，x 的值可以是 1 - 2，也可以是 2 - 1，由编译器决定。
+<p>示例：</p>
+<code>Stack s {1, 2, 3};      //<i> A stack, the top is 1</i>
+int pop();              //<i> Pop and return the top element from the stack</i>
+int x = pop() - pop();  //<i> Non-compliant</i></code>
+<p>设 pop 函数弹出并返回栈顶元素，减号左右的两个 pop 函数哪个先执行呢？这是标准未声明的，x 的值可以是 1 - 2，也可以是 2 - 1，由编译器决定。</p>
 
-应改为：
-<div class="code">int a = pop();
+<p>应改为：</p>
+<code>int a = pop();
 int b = pop();
-x = a - b;      //<span class="comment"> Compliant, or ‘b - a’, depends on your needs</span></div>
-这样便确定是栈项的第一个元素减第二个元素。
+x = a - b;      //<i> Compliant, or ‘b - a’, depends on your needs</i></code>
+<p>这样便确定是栈项的第一个元素减第二个元素。</p>
 
-又如：
-<div class="code">fun(pop(), pop());  //<span class="comment"> Non-compliant</span></div>
-设 fun 是函数名称或获取函数指针的表达式，标准规定 fun 会先于参数求值，但参数之间的求值顺序是未声明的。
+<p>又如：</p>
+<code>fun(pop(), pop());  //<i> Non-compliant</i></code>
+<p>设 fun 是函数名称或获取函数指针的表达式，标准规定 fun 会先于参数求值，但参数之间的求值顺序是未声明的。</p>
 
-逻辑与、逻辑或、三元、逗号等表达式可不受本规则限制，但其子表达式需受本规则限制。
+<p>逻辑与、逻辑或、三元、逗号等表达式可不受本规则限制，但其子表达式需受本规则限制。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_confusingAssignment.html" target="_blank" class="related-link">ID_confusingAssignment</a>
-
-</p>
+<div class="ref-items"><a href="./ID_confusingAssignment.html" class="related-link">ID_confusingAssignment</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 5.1.2.3(2)
+<div class="ref-items">ISO/IEC 9899:1999 5.1.2.3(2)
 ISO/IEC 9899:1999 Annex C
 ISO/IEC 9899:2011 5.1.2.3(3)
-ISO/IEC 9899:2011 Annex C
-
-</p>
+ISO/IEC 9899:2011 Annex C</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.43
-C++ Core Guidelines ES.44
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.43
+C++ Core Guidelines ES.44</div>
 </article>
 </html>

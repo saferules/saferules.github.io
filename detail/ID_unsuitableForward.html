@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：std::forward 的参数应为“转发引用（forwarding references）”，返回值应直接作为接口的参数，除此之外的使用方式价值有限，且易产生错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>合理使用 std::forward - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>合理使用 std::forward</h1>
@@ -19,79 +20,73 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-std::forward 的参数应为“<a href="https://en.cppreference.com/w/cpp/language/reference#Forwarding_references" target="_blank" class="dashed-link">转发引用（forwarding references）</a>”，返回值应直接作为接口的参数，除此之外的使用方式价值有限，且易产生错误。
+<main>
+<p>std::forward 的参数应为“<a href="https://en.cppreference.com/w/cpp/language/reference#Forwarding_references" target="_blank" class="dashed-link">转发引用（forwarding references）</a>”，返回值应直接作为接口的参数，除此之外的使用方式价值有限，且易产生错误。</p>
 
-转发引用是类型为 T&amp;&amp; 的参数，T 为函数模板类型，无论左值还是右值均可被这种参数接受，而且 const、volatile 等属性也会被忽略，这种参数应通过 std::forward&lt;T&gt; 交由合适的接口处理。
+<p>转发引用是类型为 T&amp;&amp; 的参数，T 为函数模板类型，无论左值还是右值均可被这种参数接受，而且 const、volatile 等属性也会被忽略，这种参数应通过 std::forward&lt;T&gt; 交由合适的接口处理。</p>
 
-关于转发引用，可参见 <a href="./ID_illForwardingReference.html" target="_blank" class="dashed-link">ID_illForwardingReference</a> 的进一步说明。
+<p>关于转发引用，可参见 <a href="./ID_illForwardingReference.html" class="dashed-link">ID_illForwardingReference</a> 的进一步说明。</p>
 
-示例：
-<div class="code">struct A { .... };
+<p>示例：</p>
+<code>struct A { .... };
 
-void foo(A&amp;);        //<span class="comment"> #1</span>
-void foo(const A&amp;);  //<span class="comment"> #2</span>
-void foo(A&amp;&amp;);       //<span class="comment"> #3</span>
+void foo(A&amp;);        //<i> #1</i>
+void foo(const A&amp;);  //<i> #2</i>
+void foo(A&amp;&amp;);       //<i> #3</i>
 
 template &lt;class T&gt;
-void bar(T&amp;&amp; x) {        //<span class="comment"> Forwarding reference</span>
-    foo(forward&lt;T&gt;(x));  //<span class="comment"> Compliant</span>
+void bar(T&amp;&amp; x) {        //<i> Forwarding reference</i>
+    foo(forward&lt;T&gt;(x));  //<i> Compliant</i>
 }
 
 void baz(const A&amp; a) {
     A b(a);
-    bar(b);    //<span class="comment"> Calls #1</span>
+    bar(b);    //<i> Calls #1</i>
 
-    bar(a);    //<span class="comment"> Calls #2</span>
+    bar(a);    //<i> Calls #2</i>
 
-    bar(A());  //<span class="comment"> Calls #3</span>
-}</div>
-例中 bar 接口的参数为转发引用，在 baz 函数中，bar 接口将左值、常量引用和临时对象分别转发给对应的 foo 接口，这种模式称为“完美转发”，std::forward 应在这种模式内使用。
+    bar(A());  //<i> Calls #3</i>
+}</code>
+<p>例中 bar 接口的参数为转发引用，在 baz 函数中，bar 接口将左值、常量引用和临时对象分别转发给对应的 foo 接口，这种模式称为“完美转发”，std::forward 应在这种模式内使用。</p>
 
-下面给出几种错误示例：
-<div class="code">void bar(A&amp;&amp; x) {
-    foo(forward&lt;A&gt;(x));  //<span class="comment"> Non-compliant, ‘x’ is not a forwarding reference</span>
+<p>下面给出几种错误示例：</p>
+<code>void bar(A&amp;&amp; x) {
+    foo(forward&lt;A&gt;(x));  //<i> Non-compliant, ‘x’ is not a forwarding reference</i>
 }
 
 template &lt;class T&gt;
 struct X {
     void bar(T&amp;&amp; x) {
-        foo(forward&lt;T&gt;(x));  //<span class="comment"> Non-compliant, ‘x’ is not a forwarding reference</span>
+        foo(forward&lt;T&gt;(x));  //<i> Non-compliant, ‘x’ is not a forwarding reference</i>
     }
-};</div>
-注意，转发引用的类型只能是函数模板类型，非模板和类模板不构成转发引用。
+};</code>
+<p>注意，转发引用的类型只能是函数模板类型，非模板和类模板不构成转发引用。</p>
 
-<div class="code">template &lt;class T&gt;
+<code>template &lt;class T&gt;
 void bar(T&amp;&amp; x) {
-    T y = forward&lt;T&gt;(x);  //<span class="comment"> Non-compliant, ‘y’ is always an lvalue</span>
+    T y = forward&lt;T&gt;(x);  //<i> Non-compliant, ‘y’ is always an lvalue</i>
     foo(y);
 }
 
 template &lt;class T&gt;
 void bar(T&amp;&amp; x) {
-    foo(forward&lt;T&amp;&gt;(x));  //<span class="comment"> Non-compliant, use ‘forward&lt;T&gt;(x)’</span>
-}</div>
-forward 的返回值应直接作为接口的参数，且只应使用 forward&lt;T&gt;。
+    foo(forward&lt;T&amp;&gt;(x));  //<i> Non-compliant, use ‘forward&lt;T&gt;(x)’</i>
+}</code>
+<p>forward 的返回值应直接作为接口的参数，且只应使用 forward&lt;T&gt;。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_illForwardingReference.html" target="_blank" class="related-link">ID_illForwardingReference</a>
-
-</p>
+<div class="ref-items"><a href="./ID_illForwardingReference.html" class="related-link">ID_illForwardingReference</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2011 20.2.3(1)
-ISO/IEC 14882:2017 23.2.5(1)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2011 20.2.3(1)
+ISO/IEC 14882:2017 23.2.5(1)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines F.19
-
-</p>
+<div class="ref-items">C++ Core Guidelines F.19</div>
 </article>
 </html>

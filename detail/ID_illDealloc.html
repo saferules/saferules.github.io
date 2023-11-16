@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：释放非动态申请的资源会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>非动态申请的资源不可被释放 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>非动态申请的资源不可被释放</h1>
@@ -19,39 +20,35 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-释放非动态申请的资源会导致标准未定义的行为。
+<main>
+<p>释放非动态申请的资源会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">void foo(size_t n) {
+<p>示例：</p>
+<code>void foo(size_t n) {
     int* p = (int*)alloca(n);
     ....
-    free(p);    //<span class="comment"> Non-compliant, ‘p’ should not be freed</span>
+    free(p);    //<i> Non-compliant, ‘p’ should not be freed</i>
 }
 
 void bar() {
     int i;
     ....
-    free(&amp;i);   //<span class="comment"> Non-compliant, naughty behavior</span>
-}</div>
-释放在栈上分配的空间或者局部对象的地址会造成严重的运行时错误。
+    free(&amp;i);   //<i> Non-compliant, naughty behavior</i>
+}</code>
+<p>释放在栈上分配的空间或者局部对象的地址会造成严重的运行时错误。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.20.3.2(2)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 7.20.3.2(2)-undefined
 ISO/IEC 9899:2011 7.22.3.3(2)-undefined
 ISO/IEC 14882:2003 5.3.5(2)-undefined
-ISO/IEC 14882:2011 5.3.5(2)-undefined
-
-</p>
+ISO/IEC 14882:2011 5.3.5(2)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 22.2
-
-</p>
+<div class="ref-items">MISRA C 2012 22.2</div>
 </article>
 </html>

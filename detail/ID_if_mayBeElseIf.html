@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：当 if 关键字前面是右大括号，且 if 关键字与该大括号在同一行时，属于不良换行方式，易造成 else 等关键字的遗漏。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>如果 if 关键字前面是右大括号，if 关键字应另起一行 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>如果 if 关键字前面是右大括号，if 关键字应另起一行</h1>
@@ -19,19 +20,19 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-当 if 关键字前面是右大括号，且 if 关键字与该大括号在同一行时，属于不良换行方式，易造成 else 等关键字的遗漏。
+<main>
+<p>当 if 关键字前面是右大括号，且 if 关键字与该大括号在同一行时，属于不良换行方式，易造成 else 等关键字的遗漏。</p>
 
-示例：
-<div class="code">if (condition1) {
+<p>示例：</p>
+<code>if (condition1) {
     ....
-} if (condition2) {  //<span class="comment"> Rather suspicious, should it be ‘else if’??</span>
+} if (condition2) {  //<i> Rather suspicious, should it be ‘else if’??</i>
     ....
 }
-</div>
-这种情况很可能是漏掉了 else 关键字，即使没有被漏掉，也应该让 if 关键字另起一行，否则这种换行习惯会增加遗漏 else 关键字的风险，而且可读性较差。
+</code>
+<p>这种情况很可能是漏掉了 else 关键字，即使没有被漏掉，也应该让 if 关键字另起一行，否则这种换行习惯会增加遗漏 else 关键字的风险，而且可读性较差。</p>
 
-</div>
+</main>
 
 
 

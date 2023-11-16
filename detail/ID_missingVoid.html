@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在 C 语言中，如果函数的参数列表声明为空括号，表示函数的参数还没有声明，而不是表示没有参数，这很容易使人误解，所以在 C 代码中没有参数的参数列表应声明为“(void)”。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>C 代码中参数列表如果为空应声明为“(void)” - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>C 代码中参数列表如果为空应声明为“(void)”</h1>
@@ -19,58 +20,52 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在 C 语言中，如果函数的参数列表声明为空括号，表示函数的参数还没有声明，而不是表示没有参数，这很容易使人误解，所以在 C 代码中没有参数的参数列表应声明为“(void)”。
+<main>
+<p>在 C 语言中，如果函数的参数列表声明为空括号，表示函数的参数还没有声明，而不是表示没有参数，这很容易使人误解，所以在 C 代码中没有参数的参数列表应声明为“(void)”。</p>
 
-示例：
-<div class="code">//<span class="comment"> In a.h</span>
-int foo();  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>//<i> In a.h</i>
+int foo();  //<i> Non-compliant</i>
 
-//<span class="comment"> In a.c</span>
+//<i> In a.c</i>
 #include &quot;a.h&quot;
 
 int foo(int a) {
     return a + 1;
 }
 
-//<span class="comment"> In main.c</span>
+//<i> In main.c</i>
 #include &lt;stdio.h&gt;
 #include &quot;a.h&quot;
 
 int main() {
-    printf(&quot;%d\n&quot;, foo(1));  //<span class="comment"> Output: 2</span>
-    printf(&quot;%d\n&quot;, foo());   //<span class="comment"> Can be compiled, but what is output?</span>
+    printf(&quot;%d\n&quot;, foo(1));  //<i> Output: 2</i>
+    printf(&quot;%d\n&quot;, foo());   //<i> Can be compiled, but what is output?</i>
 }
-</div>
-例中 foo(1) 和 foo() 两种调用都可以通过编译，然而声明与实现不一致的问题总是令人困惑的，如果明确将参数声明为 void 或 int a 则可以解决这种问题。
+</code>
+<p>例中 foo(1) 和 foo() 两种调用都可以通过编译，然而声明与实现不一致的问题总是令人困惑的，如果明确将参数声明为 void 或 int a 则可以解决这种问题。</p>
 
-应改为：
-<div class="code">int foo(void);   //<span class="comment"> Compliant, ‘foo(1)’ cannot be compiled</span>
-</div>
-或者：
-<div class="code">int foo(int a);  //<span class="comment"> Compliant, ‘foo()’ cannot be compiled</span></div>
+<p>应改为：</p>
+<code>int foo(void);   //<i> Compliant, ‘foo(1)’ cannot be compiled</i>
+</code>
+<p>或者：</p>
+<code>int foo(int a);  //<i> Compliant, ‘foo()’ cannot be compiled</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_superfluousVoid.html" target="_blank" class="related-link">ID_superfluousVoid</a>
-
-</p>
+<div class="ref-items"><a href="./ID_superfluousVoid.html" class="related-link">ID_superfluousVoid</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7.5.3(14)
+<div class="ref-items">ISO/IEC 9899:1999 6.7.5.3(14)
 ISO/IEC 9899:1999 6.11.6(1)
 ISO/IEC 9899:2011 6.7.6.3(14)
-ISO/IEC 9899:2011 6.11.6(1)
-
-</p>
+ISO/IEC 9899:2011 6.11.6(1)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 16.5
-
-</p>
+<div class="ref-items">MISRA C 2004 16.5</div>
 </article>
 </html>

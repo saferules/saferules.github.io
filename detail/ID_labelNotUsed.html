@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：没有被用到的标签意味着 goto 语句的缺失，也可能是残留代码，应当去除。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在没有被用到的标签 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在没有被用到的标签</h1>
@@ -19,32 +20,30 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-没有被用到的标签意味着 goto 语句的缺失，也可能是残留代码，应当去除。
+<main>
+<p>没有被用到的标签意味着 goto 语句的缺失，也可能是残留代码，应当去除。</p>
 
-示例：
-<div class="code">int foo() {
+<p>示例：</p>
+<code>int foo() {
     int i = 0;
-lab:                 //<span class="comment"> Non-compliant</span>
+lab:                 //<i> Non-compliant</i>
     return bar(i);
 }
-</div>
-标签只应与 goto 语句对应，不可有其他用途，如：
-<div class="code">int bar(int x) {
+</code>
+<p>标签只应与 goto 语句对应，不可有其他用途，如：</p>
+<code>int bar(int x) {
     int i = 0;
-strange_comment:     //<span class="comment"> Non-compliant</span>
+strange_comment:     //<i> Non-compliant</i>
     return x + i;
-}</div>
-例中标签被当作注释，这是一种怪异的用法，也可能会干扰编译器的优化。
+}</code>
+<p>例中标签被当作注释，这是一种怪异的用法，也可能会干扰编译器的优化。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 2.6
-
-</p>
+<div class="ref-items">MISRA C 2012 2.6</div>
 </article>
 </html>

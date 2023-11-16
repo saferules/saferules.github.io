@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：资源的使用情况在异步过程中是难以掌控的，异步终止线程往往会导致泄漏或死锁等严重问题。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免异步终止线程 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免异步终止线程</h1>
@@ -19,42 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-资源的使用情况在异步过程中是难以掌控的，异步终止线程往往会导致泄漏或死锁等严重问题。
+<main>
+<p>资源的使用情况在异步过程中是难以掌控的，异步终止线程往往会导致泄漏或死锁等严重问题。</p>
 
-示例：
-<div class="code">void* foo(void* param) {
+<p>示例：</p>
+<code>void* foo(void* param) {
     pthread_setcanceltype(
-        PTHREAD_CANCEL_ASYNCHRONOUS, ....  //<span class="comment"> Non-compliant</span>
+        PTHREAD_CANCEL_ASYNCHRONOUS, ....  //<i> Non-compliant</i>
     );
-    ....                                   //<span class="comment"> Allocate or lock</span>
+    ....                                   //<i> Allocate or lock</i>
 }
 
 void bar() {
     pthread_t thd;
     pthread_create(&amp;thd, NULL, foo, NULL);
     ....
-    pthread_cancel(thd);   //<span class="comment"> Non-compliant, leak or deadlock</span>
-}</div>
-以 pthread 线程库为例，foo 和 bar 是两个相关的异步过程，foo 通过 PTHREAD_CANCEL_ASYNCHRONOUS 指定其线程可以随时被终止，bar 调用 pthread_cancel 终止 foo 线程，在一个过程中暴力终止另一个过程是非常危险的，会使锁、信号量或动态分配的资源无法释放。
+    pthread_cancel(thd);   //<i> Non-compliant, leak or deadlock</i>
+}</code>
+<p>以 pthread 线程库为例，foo 和 bar 是两个相关的异步过程，foo 通过 PTHREAD_CANCEL_ASYNCHRONOUS 指定其线程可以随时被终止，bar 调用 pthread_cancel 终止 foo 线程，在一个过程中暴力终止另一个过程是非常危险的，会使锁、信号量或动态分配的资源无法释放。</p>
 
-PTHREAD_CANCEL_ASYNCHRONOUS 等选项、TerminateThread 等 Windows API，以及具有相同功能的选项或 API 均不应使用，应使线程主动执行清理并正常结束执行。
+<p>PTHREAD_CANCEL_ASYNCHRONOUS 等选项、TerminateThread 等 Windows API，以及具有相同功能的选项或 API 均不应使用，应使线程主动执行清理并正常结束执行。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_resourceLeak.html" target="_blank" class="related-link">ID_resourceLeak</a>
-<a href="./ID_deadlock.html" target="_blank" class="related-link">ID_deadlock</a>
-<a href="./ID_illLifetime.html" target="_blank" class="related-link">ID_illLifetime</a>
-
-</p>
+<div class="ref-items"><a href="./ID_resourceLeak.html" class="related-link">ID_resourceLeak</a>
+<a href="./ID_deadlock.html" class="related-link">ID_deadlock</a>
+<a href="./ID_illLifetime.html" class="related-link">ID_illLifetime</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT POS47-C
-
-</p>
+<div class="ref-items">SEI CERT POS47-C</div>
 </article>
 </html>

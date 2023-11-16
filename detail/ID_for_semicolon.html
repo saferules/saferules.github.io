@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：for 语句不应被分号隔断。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>for 语句不应被分号隔断 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>for 语句不应被分号隔断</h1>
@@ -19,33 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-for 语句不应被分号隔断。
+<main>
+<p>for 语句不应被分号隔断。</p>
 
-示例：
-<div class="code">for (....);  //<span class="comment"> Non-compliant, see the semicolon</span>
+<p>示例：</p>
+<code>for (....);  //<i> Non-compliant, see the semicolon</i>
 {
     ....
 }
-</div>
-分号使循环失效，这可能是笔误，也可能是有人恶意篡改了代码，应立即修正。
+</code>
+<p>分号使循环失效，这可能是笔误，也可能是有人恶意篡改了代码，应立即修正。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_do_brace.html" target="_blank" class="related-link">ID_do_brace</a>
-<a href="./ID_if_brace.html" target="_blank" class="related-link">ID_if_brace</a>
-<a href="./ID_switch_brace.html" target="_blank" class="related-link">ID_switch_brace</a>
-<a href="./ID_while_brace.html" target="_blank" class="related-link">ID_while_brace</a>
-
-</p>
+<div class="ref-items"><a href="./ID_do_brace.html" class="related-link">ID_do_brace</a>
+<a href="./ID_if_brace.html" class="related-link">ID_if_brace</a>
+<a href="./ID_switch_brace.html" class="related-link">ID_switch_brace</a>
+<a href="./ID_while_brace.html" class="related-link">ID_while_brace</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-670
-
-</p>
+<div class="ref-items">CWE-670</div>
 </article>
 </html>

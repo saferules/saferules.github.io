@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：逻辑表达式的右子表达式有副作用会使代码变得复杂易错，不利于阅读和维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>逻辑表达式的右子表达式不应有副作用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>逻辑表达式的右子表达式不应有副作用</h1>
@@ -19,37 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-逻辑表达式的右子表达式有副作用会使代码变得复杂易错，不利于阅读和维护。
+<main>
+<p>逻辑表达式的右子表达式有副作用会使代码变得复杂易错，不利于阅读和维护。</p>
 
-对于逻辑表达式的求值，标准规定从左至右计算各子表达式的值，当可以确定整个表达式的值时，即使还有未计算的子表达式，也会立即结束求值，这种方法可提高效率，称为“短路规则（short-circuit evaluation）”。
+<p>对于逻辑表达式的求值，标准规定从左至右计算各子表达式的值，当可以确定整个表达式的值时，即使还有未计算的子表达式，也会立即结束求值，这种方法可提高效率，称为“短路规则（short-circuit evaluation）”。</p>
 
-逻辑表达式的右子表达式受左子表达式影响，可能不会被执行，如果有副作用也可能不会生效。
+<p>逻辑表达式的右子表达式受左子表达式影响，可能不会被执行，如果有副作用也可能不会生效。</p>
 
-示例：
-<div class="code">if (a == foo || b == bar++) {  //<span class="comment"> Non-compliant</span>
-    do_something(bar);         //<span class="comment"> Consider that ‘bar++’ may not be evaluated</span>
-}</div>
-如果 a == foo 为真，不论 b 是否等于 bar++，整个条件表达式的值一定为真，所以 b == bar++ 不一定会被执行，需要同时考虑 bar++ 执行与未执行的两种状态，很容易产生错误，也不利于阅读和维护。
+<p>示例：</p>
+<code>if (a == foo || b == bar++) {  //<i> Non-compliant</i>
+    do_something(bar);         //<i> Consider that ‘bar++’ may not be evaluated</i>
+}</code>
+<p>如果 a == foo 为真，不论 b 是否等于 bar++，整个条件表达式的值一定为真，所以 b == bar++ 不一定会被执行，需要同时考虑 bar++ 执行与未执行的两种状态，很容易产生错误，也不利于阅读和维护。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.13(4)
+<div class="ref-items">ISO/IEC 9899:1999 6.5.13(4)
 ISO/IEC 9899:1999 6.5.14(4)
 ISO/IEC 9899:2011 6.5.13(4)
-ISO/IEC 9899:2011 6.5.14(4)
-
-</p>
+ISO/IEC 9899:2011 6.5.14(4)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 12.4
+<div class="ref-items">MISRA C 2004 12.4
 MISRA C 2012 13.5
-MISRA C++ 2008 5-14-1
-
-</p>
+MISRA C++ 2008 5-14-1</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：指针与整数相互转换容易造成地址不完整、寻址错误、降低可移植性等多种问题。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>指针与整数不应相互转换 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>指针与整数不应相互转换</h1>
@@ -19,50 +20,43 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-指针与整数相互转换容易造成地址不完整、寻址错误、降低可移植性等多种问题。
+<main>
+<p>指针与整数相互转换容易造成地址不完整、寻址错误、降低可移植性等多种问题。</p>
 
-指针与整数的转换由实现定义，整数的符号和取值范围可能与指针有冲突，错误的值转为指针也会导致标准未定义的行为。在某些平台上指针与 size_t 可以安全转换，但不具备可移植性，审计工具不妨通过配置决定是否放过这种转换。C 标准规定指针可以转为 intptr_t 或 uintptr_t，但也声明了这些类型不是编译器必须实现的类型。
+<p>指针与整数的转换由实现定义，整数的符号和取值范围可能与指针有冲突，错误的值转为指针也会导致标准未定义的行为。在某些平台上指针与 size_t 可以安全转换，但不具备可移植性，审计工具不妨通过配置决定是否放过这种转换。C 标准规定指针可以转为 intptr_t 或 uintptr_t，但也声明了这些类型不是编译器必须实现的类型。</p>
 
-示例：
-<div class="code">void foo(int* p) {
+<p>示例：</p>
+<code>void foo(int* p) {
     vector&lt;int&gt; v;
-    v.emplace_back((int)p);  //<span class="comment"> Non-compliant</span>
+    v.emplace_back((int)p);  //<i> Non-compliant</i>
     ....
-}</div>
-例中将指针转为 int 是不符合要求的，指针的值可能会超过 int 的范围。
+}</code>
+<p>例中将指针转为 int 是不符合要求的，指针的值可能会超过 int 的范围。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allowPointerToSizeType: 是否放过指针与 size_t 的转换
-</p>
+<div class="ref-items">allowPointerToSizeType: 是否放过指针与 size_t 的转换</div>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_fixedAddrToPointer.html" target="_blank" class="related-link">ID_fixedAddrToPointer</a>
-
-</p>
+<div class="ref-items"><a href="./ID_fixedAddrToPointer.html" class="related-link">ID_fixedAddrToPointer</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.3.2.3(5)-implementation
+<div class="ref-items">ISO/IEC 9899:1999 6.3.2.3(5)-implementation
 ISO/IEC 9899:1999 7.18.1.4(1)
 ISO/IEC 9899:2011 6.3.2.3(5)-implementation
 ISO/IEC 9899:2011 7.20.1.4(1)
 ISO/IEC 14882:2003 5.2.10(4 5)-implementation
 ISO/IEC 14882:2011 3.7.4.3(1)
-ISO/IEC 14882:2011 5.2.10(4 5)-implementation
-
-</p>
+ISO/IEC 14882:2011 5.2.10(4 5)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 11.3
+<div class="ref-items">MISRA C 2004 11.3
 MISRA C 2012 11.4
 MISRA C++ 2008 5-2-9
-SEI CERT INT36-C
-
-</p>
+SEI CERT INT36-C</div>
 </article>
 </html>

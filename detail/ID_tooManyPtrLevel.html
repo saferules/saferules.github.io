@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：指针嵌套层级过多意味着指针的解引用逻辑过于复杂，相关代码将难以理解，指针嵌套不宜超过 2 级。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>声明中不应包含过多的指针嵌套 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>声明中不应包含过多的指针嵌套</h1>
@@ -19,37 +20,32 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-指针嵌套层级过多意味着指针的解引用逻辑过于复杂，相关代码将难以理解，指针嵌套不宜超过 2 级。
+<main>
+<p>指针嵌套层级过多意味着指针的解引用逻辑过于复杂，相关代码将难以理解，指针嵌套不宜超过 2 级。</p>
 
-示例：
-<div class="code">T *** x;   //<span class="comment"> Bad</span>
-T * volatile * * const * y;   //<span class="comment"> Terrible</span></div>
-例中 T 为任意类型，如果发现这种指针，意味着需要改进对相关数据的访问方式。
+<p>示例：</p>
+<code>T *** x;   //<i> Bad</i>
+T * volatile * * const * y;   //<i> Terrible</i></code>
+<p>例中 T 为任意类型，如果发现这种指针，意味着需要改进对相关数据的访问方式。</p>
 
-出于灵活性的考虑，非连续的指针嵌套可不受本规则约束，如：
-<div class="code">int** (*pa)[100];   //<span class="comment"> Let it go</span>
-int** (*pf)(int);   //<span class="comment"> Let it go</span></div>
-例中 pa 是指向数组的指针，数组元素为 2 级指针，pf 是函数指针，函数返回 2 级指针，这种情况是可接受的。
+<p>出于灵活性的考虑，非连续的指针嵌套可不受本规则约束，如：</p>
+<code>int** (*pa)[100];   //<i> Let it go</i>
+int** (*pf)(int);   //<i> Let it go</i></code>
+<p>例中 pa 是指向数组的指针，数组元素为 2 级指针，pf 是函数指针，函数返回 2 级指针，这种情况是可接受的。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxPtrLevel: 指针嵌套的最大层数，超过则报出
-</p>
+<div class="ref-items">maxPtrLevel: 指针嵌套的最大层数，超过则报出</div>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_complexDeclaration.html" target="_blank" class="related-link">ID_complexDeclaration</a>
-
-</p>
+<div class="ref-items"><a href="./ID_complexDeclaration.html" class="related-link">ID_complexDeclaration</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 17.5
-MISRA C 2012 18.5
-
-</p>
+<div class="ref-items">MISRA C 2004 17.5
+MISRA C 2012 18.5</div>
 </article>
 </html>

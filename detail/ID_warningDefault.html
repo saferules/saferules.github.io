@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：编译器一般允许设定编译警告的级别，级别越高关注的问题就越多，也可以将警告设为错误，当有警告产生时停止编译，建议代码在高级别的警告设置下编译。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>在高级别的警告设置下编译 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>在高级别的警告设置下编译</h1>
@@ -19,37 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-编译器一般允许设定编译警告的级别，级别越高关注的问题就越多，也可以将警告设为错误，当有警告产生时停止编译，建议代码在高级别的警告设置下编译。
+<main>
+<p>编译器一般允许设定编译警告的级别，级别越高关注的问题就越多，也可以将警告设为错误，当有警告产生时停止编译，建议代码在高级别的警告设置下编译。</p>
 
-应避免代码中出现 #pragma warning(default:...) 等指令，这种指令将警告级别设为默认，可能与整个项目的设置不一致，如果一定要使用，应改用 #pragma warning(pop) 方式。
+<p>应避免代码中出现 #pragma warning(default:...) 等指令，这种指令将警告级别设为默认，可能与整个项目的设置不一致，如果一定要使用，应改用 #pragma warning(pop) 方式。</p>
 
-示例：
-<div class="code">#pragma warning(disable:4706)
+<p>示例：</p>
+<code>#pragma warning(disable:4706)
 #include &quot;somecode&quot;
-#pragma warning(default:4706)  //<span class="comment"> Non-compliant</span></div>
-示例代码在导入某些代码之前将代号为 4706 的警告屏蔽，之后又将其设为默认级别，首先要关注 4706 是否应该被屏蔽，还要关注如果将其设为默认是否与整个项目的设置有冲突。
+#pragma warning(default:4706)  //<i> Non-compliant</i></code>
+<p>示例代码在导入某些代码之前将代号为 4706 的警告屏蔽，之后又将其设为默认级别，首先要关注 4706 是否应该被屏蔽，还要关注如果将其设为默认是否与整个项目的设置有冲突。</p>
 
-应改为：
-<div class="code">#pragma warning(push)
+<p>应改为：</p>
+<code>#pragma warning(push)
 #pragma warning(disable:4706)
 #include &quot;somecode&quot;
-#pragma warning(pop)  //<span class="comment"> Compliant</span></div>
-改用这种方式之后不必再关注是否与整个项目的设置有冲突了。
+#pragma warning(pop)  //<i> Compliant</i></code>
+<p>改用这种方式之后不必再关注是否与整个项目的设置有冲突了。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_warningDisabled.html" target="_blank" class="related-link">ID_warningDisabled</a>
-
-</p>
+<div class="ref-items"><a href="./ID_warningDisabled.html" class="related-link">ID_warningDisabled</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT MSC00-C
-
-</p>
+<div class="ref-items">SEI CERT MSC00-C</div>
 </article>
 </html>

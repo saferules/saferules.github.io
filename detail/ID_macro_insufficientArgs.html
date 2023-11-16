@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：宏的实参个数小于形参个数是不符合 C/C++ 标准的，参数个数不一致必然意味着某种错误，然而在某些编译环境下却可以通过编译。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>宏的实参个数不可小于形参个数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>宏的实参个数不可小于形参个数</h1>
@@ -19,40 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-宏的实参个数小于形参个数是不符合 C/C++ 标准的，参数个数不一致必然意味着某种错误，然而在某些编译环境下却可以通过编译。
+<main>
+<p>宏的实参个数小于形参个数是不符合 C/C++ 标准的，参数个数不一致必然意味着某种错误，然而在某些编译环境下却可以通过编译。</p>
 
-示例：
-<div class="code">#define M(a, b, c)  a ## b ## c
+<p>示例：</p>
+<code>#define M(a, b, c)  a ## b ## c
 
 const char* foo() {
-    return M(&quot;x&quot;, &quot;y&quot;);  //<span class="comment"> Non-compliant</span>
+    return M(&quot;x&quot;, &quot;y&quot;);  //<i> Non-compliant</i>
 }
-</div>
-早期标准（ISO 9899:1990）对这种情况没有明确定义，后续标准对其进行了约束，但 MSVC 等编译器至今仍不把这种问题视作编译错误，需要特别注意。
+</code>
+<p>早期标准（ISO 9899:1990）对这种情况没有明确定义，后续标准对其进行了约束，但 MSVC 等编译器至今仍不把这种问题视作编译错误，需要特别注意。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_macro_redundantArgs.html" target="_blank" class="related-link">ID_macro_redundantArgs</a>
-
-</p>
+<div class="ref-items"><a href="./ID_macro_redundantArgs.html" class="related-link">ID_macro_redundantArgs</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.10.3(4)
+<div class="ref-items">ISO/IEC 9899:1999 6.10.3(4)
 ISO/IEC 9899:2011 6.10.3(4)
 ISO/IEC 14882:2003 16.3(4)
-ISO/IEC 14882:2011 16.3(4)
-
-</p>
+ISO/IEC 14882:2011 16.3(4)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-628
-MISRA C 2004 19.8
-
-</p>
+<div class="ref-items">CWE-628
+MISRA C 2004 19.8</div>
 </article>
 </html>

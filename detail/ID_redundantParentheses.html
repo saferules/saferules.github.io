@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：重复的或与优先级无关的括号使代码显得繁琐，应去掉。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免多余的括号 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免多余的括号</h1>
@@ -19,34 +20,32 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-重复的或与优先级无关的括号使代码显得繁琐，应去掉。
+<main>
+<p>重复的或与优先级无关的括号使代码显得繁琐，应去掉。</p>
 
-宏定义中的括号不受本规则限制。
+<p>宏定义中的括号不受本规则限制。</p>
 
-示例：
-<div class="code">a = 1 + (p[0]);      //<span class="comment"> Non-compliant</span>
-a = 2 + (p-&gt;n);      //<span class="comment"> Non-compliant</span>
-a = (fun(x));        //<span class="comment"> Non-compliant</span>
-a = ((u + v)) * w;   //<span class="comment"> Non-compliant</span></div>
-例中括号均作用于“后缀表达式”，与优先级无关。可参见 <a href="./ID_nonPostfixSubCondition.html" target="_blank" class="dashed-link">ID_nonPostfixSubCondition</a> 对“后缀表达式”的说明。
+<p>示例：</p>
+<code>a = 1 + (p[0]);      //<i> Non-compliant</i>
+a = 2 + (p-&gt;n);      //<i> Non-compliant</i>
+a = (fun(x));        //<i> Non-compliant</i>
+a = ((u + v)) * w;   //<i> Non-compliant</i></code>
+<p>例中括号均作用于“后缀表达式”，与优先级无关。可参见 <a href="./ID_nonPostfixSubCondition.html" class="dashed-link">ID_nonPostfixSubCondition</a> 对“后缀表达式”的说明。</p>
 
-应去掉多余的括号：
-<div class="code">a = 1 + p[0];        //<span class="comment"> Compliant</span>
-a = 2 + p-&gt;n;        //<span class="comment"> Compliant</span>
-a = fun(x);          //<span class="comment"> Compliant</span>
-a = (u + v) * w;     //<span class="comment"> Compliant</span>
-</div>
-注意，设立本规则并不是为了提倡省略括号，如果可以更好地表达逻辑意义，或不确定运算符优先级时，应及时使用括号。
+<p>应去掉多余的括号：</p>
+<code>a = 1 + p[0];        //<i> Compliant</i>
+a = 2 + p-&gt;n;        //<i> Compliant</i>
+a = fun(x);          //<i> Compliant</i>
+a = (u + v) * w;     //<i> Compliant</i>
+</code>
+<p>注意，设立本规则并不是为了提倡省略括号，如果可以更好地表达逻辑意义，或不确定运算符优先级时，应及时使用括号。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 5-0-2
-
-</p>
+<div class="ref-items">MISRA C++ 2008 5-0-2</div>
 </article>
 </html>

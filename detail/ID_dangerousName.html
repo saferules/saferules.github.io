@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：弱加密、弱哈希、弱随机、不安全的协议等相关库、函数、类、宏、常量等名称不应出现在代码中。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免引用危险符号名称 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免引用危险符号名称</h1>
@@ -19,42 +20,42 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-弱加密、弱哈希、弱随机、不安全的协议等相关库、函数、类、宏、常量等名称不应出现在代码中。
+<main>
+<p>弱加密、弱哈希、弱随机、不安全的协议等相关库、函数、类、宏、常量等名称不应出现在代码中。</p>
 
-这种危险符号名称主要来自：
- ● 低质量随机数生成算法，如 srand、rand 等
- ● 不再适用的哈希算法，如 MD2、MD4、MD5、MD6、RIPEMD 以及 SHA-1 等
- ● 非加密协议，如 HTTP、FTP 等
- ● 低版本的传输层安全协议，如 TLSv1.2 之前的版本
- ● 弱加密算法，如 DES、3DES 等
+<p>这种危险符号名称主要来自：</p>
+<ul>
+<li>低质量随机数生成算法，如 srand、rand 等</li>
+<li>不再适用的哈希算法，如 MD2、MD4、MD5、MD6、RIPEMD 以及 SHA-1 等</li>
+<li>非加密协议，如 HTTP、FTP 等</li>
+<li>低版本的传输层安全协议，如 TLSv1.2 之前的版本</li>
+<li>弱加密算法，如 DES、3DES 等</li>
 
-示例：
-<div class="code">#include &lt;openssl/md5.h&gt;   //<span class="comment"> Non-compliant, obsolete hash algorithm</span>
+</ul>
+<p>示例：</p>
+<code>#include &lt;openssl/md5.h&gt;   //<i> Non-compliant, obsolete hash algorithm</i>
 
-const string myUrl = &quot;http://foo/bar&quot;;   //<span class="comment"> Non-compliant, use https instead</span>
+const string myUrl = &quot;http://foo/bar&quot;;   //<i> Non-compliant, use https instead</i>
 
 void foo() {
-    MD5_CTX c;       //<span class="comment"> Non-compliant</span>
-    MD5_Init(&amp;c);    //<span class="comment"> Non-compliant, obsolete hash algorithm</span>
+    MD5_CTX c;       //<i> Non-compliant</i>
+    MD5_Init(&amp;c);    //<i> Non-compliant, obsolete hash algorithm</i>
     ....
 }
 
 void bar() {
-    srand(0);        //<span class="comment"> Non-compliant, unsafe random seed</span>
-    EVP_des_ecb();   //<span class="comment"> Non-compliant, unsafe encryption algorithm</span>
+    srand(0);        //<i> Non-compliant, unsafe random seed</i>
+    EVP_des_ecb();   //<i> Non-compliant, unsafe encryption algorithm</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-326
-CWE-327
-
-</p>
+<div class="ref-items">CWE-326
+CWE-327</div>
 </article>
 </html>

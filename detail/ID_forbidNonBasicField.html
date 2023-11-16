@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：因为联合体成员之间共享内存地址，所以成员具有构造或析构函数时会导致混乱。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>联合体内禁用非基本类型的对象 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>联合体内禁用非基本类型的对象</h1>
@@ -19,15 +20,15 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-因为联合体成员之间共享内存地址，所以成员具有构造或析构函数时会导致混乱。
+<main>
+<p>因为联合体成员之间共享内存地址，所以成员具有构造或析构函数时会导致混乱。</p>
 
-C++98/03 禁止具有拷贝构造函数或析构函数的对象出现在联合体中，C++11 解除了这条禁令，但在语言层面上不保障正确性，相当于把问题抛给了用户。
+<p>C++98/03 禁止具有拷贝构造函数或析构函数的对象出现在联合体中，C++11 解除了这条禁令，但在语言层面上不保障正确性，相当于把问题抛给了用户。</p>
 
-示例：
-<div class="code">union U {
+<p>示例：</p>
+<code>union U {
     int i;
-    string s;  //<span class="comment"> Non-compliant</span>
+    string s;  //<i> Non-compliant</i>
 
     U(int x): i(x) {
     }
@@ -42,22 +43,20 @@ C++98/03 禁止具有拷贝构造函数或析构函数的对象出现在联合�
 };
 
 U u(1);
-u.s = &quot;abc&quot;;  //<span class="comment"> No error, no warning, just crash</span>
-</div>
-示例代码在某些环境中会崩溃，原因是没能正确区分对象当前持有的类型，执行了错误的构造或析构过程。
+u.s = &quot;abc&quot;;  //<i> No error, no warning, just crash</i>
+</code>
+<p>示例代码在某些环境中会崩溃，原因是没能正确区分对象当前持有的类型，执行了错误的构造或析构过程。</p>
 
-正确的做法是在类中用一个成员变量记录当前持有的类型，再将匿名联合体与类的构造函数以及析构函数相关联，从而根据当前持有的类型正确地初始化或销毁对象。
+<p>正确的做法是在类中用一个成员变量记录当前持有的类型，再将匿名联合体与类的构造函数以及析构函数相关联，从而根据当前持有的类型正确地初始化或销毁对象。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:1998 9.5(1)
+<div class="ref-items">ISO/IEC 14882:1998 9.5(1)
 ISO/IEC 14882:2003 9.5(1)
-ISO/IEC 14882:2011 9.5(2 3 4)
-
-</p>
+ISO/IEC 14882:2011 9.5(2 3 4)</div>
 
 
 </article>

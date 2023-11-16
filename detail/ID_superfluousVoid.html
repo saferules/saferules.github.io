@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：与 C 语言不同，在 C++ 语言中空括号和“(void)”均表示没有参数，所以应采用更简洁的方式。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>C++ 代码中参数列表如果为空不应声明为“(void)” - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>C++ 代码中参数列表如果为空不应声明为“(void)”</h1>
@@ -19,35 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-与 C 语言不同，在 C++ 语言中空括号和“(void)”均表示没有参数，所以应采用更简洁的方式。
+<main>
+<p>与 C 语言不同，在 C++ 语言中空括号和“(void)”均表示没有参数，所以应采用更简洁的方式。</p>
 
-示例：
-<div class="code">struct A {
-    int foo(void);  //<span class="comment"> Verbose</span>
-    int bar();      //<span class="comment"> OK</span>
-};</div>
+<p>示例：</p>
+<code>struct A {
+    int foo(void);  //<i> Verbose</i>
+    int bar();      //<i> OK</i>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_missingVoid.html" target="_blank" class="related-link">ID_missingVoid</a>
-
-</p>
+<div class="ref-items"><a href="./ID_missingVoid.html" class="related-link">ID_missingVoid</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 C.1.6 Clause 8
+<div class="ref-items">ISO/IEC 14882:2003 C.1.6 Clause 8
 ISO/IEC 14882:2011 C.1.7 Clause 8
-ISO/IEC 14882:2017 C.1.7 Clause 11
-
-</p>
+ISO/IEC 14882:2017 C.1.7 Clause 11</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines NL.25
-
-</p>
+<div class="ref-items">C++ Core Guidelines NL.25</div>
 </article>
 </html>

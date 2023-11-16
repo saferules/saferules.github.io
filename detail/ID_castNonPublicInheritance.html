@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：public 继承表示派生类是基类的某种扩展，而非 public 继承往往表示派生类是基类的某种例外，基类的方法不再适用于派生类的对象。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应转换无 public 继承关系的指针或引用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应转换无 public 继承关系的指针或引用</h1>
@@ -19,34 +20,30 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-public 继承表示派生类是基类的某种扩展，而非 public 继承往往表示派生类是基类的某种例外，基类的方法不再适用于派生类的对象。
+<main>
+<p>public 继承表示派生类是基类的某种扩展，而非 public 继承往往表示派生类是基类的某种例外，基类的方法不再适用于派生类的对象。</p>
 
-示例：
-<div class="code">class A { .... };
+<p>示例：</p>
+<code>class A { .... };
 class B: private A { .... };
 
 void bar(A* a);
 
 void foo(B* b) {
-    bar((A*)b);    //<span class="comment"> Non-compliant</span>
-}</div>
-例中派生类 B 是对基类 A 的改造，再用 A 类方法处理 B 类对象是有问题的。
+    bar((A*)b);    //<i> Non-compliant</i>
+}</code>
+<p>例中派生类 B 是对基类 A 的改造，再用 A 类方法处理 B 类对象是有问题的。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_castNoInheritance.html" target="_blank" class="related-link">ID_castNoInheritance</a>
-
-</p>
+<div class="ref-items"><a href="./ID_castNoInheritance.html" class="related-link">ID_castNoInheritance</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 4.10(3)
-ISO/IEC 14882:2011 4.10(3)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 4.10(3)
+ISO/IEC 14882:2011 4.10(3)</div>
 
 
 </article>

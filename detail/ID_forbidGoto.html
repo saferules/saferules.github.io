@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：历史表明，goto 语句会破坏程序的结构性规划，很容易导致逻辑混乱且不利于阅读和维护，在非自动生成的、对可读性有要求的代码中，建议禁用 goto 语句。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用 goto 语句 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用 goto 语句</h1>
@@ -19,26 +20,26 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-历史表明，goto 语句会破坏程序的结构性规划，很容易导致逻辑混乱且不利于阅读和维护，在非自动生成的、对可读性有要求的代码中，建议禁用 goto 语句。
+<main>
+<p>历史表明，goto 语句会破坏程序的结构性规划，很容易导致逻辑混乱且不利于阅读和维护，在非自动生成的、对可读性有要求的代码中，建议禁用 goto 语句。</p>
 
-示例：
-<div class="code">if (cond0) {
-    goto L;    //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>if (cond0) {
+    goto L;    //<i> Non-compliant</i>
 }
 ....
 if (cond1) {
 L:
     ....
-}</div>
-语句的排列和作用域的嵌套描述了程序的静态结构，清晰的静态结构使人易于理解程序的行为，而 goto 语句会打破这种结构，无规律的跳转会严重地降低代码可读性，例中 goto L 会绕过第二个 if 语句的条件约束，可读性很差，应被禁止。
+}</code>
+<p>语句的排列和作用域的嵌套描述了程序的静态结构，清晰的静态结构使人易于理解程序的行为，而 goto 语句会打破这种结构，无规律的跳转会严重地降低代码可读性，例中 goto L 会绕过第二个 if 语句的条件约束，可读性很差，应被禁止。</p>
 
-C 语言的流程管理较为简单，goto 语句可提供一定的灵活性，但不应作为常规实现手段，也应受一定的限制，在 C 代码中使用 goto 语句应遵循 <a href="./ID_forbidGotoBlocks.html" target="_blank" class="dashed-link">ID_forbidGotoBlocks</a> 和 <a href="./ID_forbidGotoBack.html" target="_blank" class="dashed-link">ID_forbidGotoBack</a> 等规则。
+<p>C 语言的流程管理较为简单，goto 语句可提供一定的灵活性，但不应作为常规实现手段，也应受一定的限制，在 C 代码中使用 goto 语句应遵循 <a href="./ID_forbidGotoBlocks.html" class="dashed-link">ID_forbidGotoBlocks</a> 和 <a href="./ID_forbidGotoBack.html" class="dashed-link">ID_forbidGotoBack</a> 等规则。</p>
 
-C++ 语言提供了更丰富的流程管理功能，在 C++ 代码中不应再使用 goto 语句。
+<p>C++ 语言提供了更丰富的流程管理功能，在 C++ 代码中不应再使用 goto 语句。</p>
 
-下面给出 goto 语句的一种常用模式：
-<div class="code">void foo(size_t n)
+<p>下面给出 goto 语句的一种常用模式：</p>
+<code>void foo(size_t n)
 {
     int *a = NULL, *b = NULL, *c = NULL;
     a = (int*)malloc(n);
@@ -49,39 +50,35 @@ C++ 语言提供了更丰富的流程管理功能，在 C++ 代码中不应再�
     if (!b) {
         goto E;
     }
-    c = (int*)malloc(n);    //<span class="comment"> Multiple resource allocation</span>
+    c = (int*)malloc(n);    //<i> Multiple resource allocation</i>
     if (!c) {
         goto E;
     }
     ....
-E:                          //<span class="comment"> Single exit point</span>
+E:                          //<i> Single exit point</i>
     free(a);
     free(b);
     free(c);
-}</div>
-在多次资源分配过程中，如果某次分配失败则需要释放已分配的资源，利用 goto 语句可实现资源的统一释放，在 C 代码中如果不用 goto 语句反而会很繁琐，所以这种模式在 C 代码中可以复用。
+}</code>
+<p>在多次资源分配过程中，如果某次分配失败则需要释放已分配的资源，利用 goto 语句可实现资源的统一释放，在 C 代码中如果不用 goto 语句反而会很繁琐，所以这种模式在 C 代码中可以复用。</p>
 
-由于 C++ 提供容器、智能指针等更丰富的资源管理手段，所以不建议在 C++ 代码中再使用这种模式，即使标准库没有和相关资源对应的功能，也应该利用“<a href="https://en.cppreference.com/w/cpp/language/raii" target="_blank" class="dashed-link">RAII</a>”等机制对其先封装再使用。
-<div class="code">void foo(size_t n) {
-    std::vector&lt;int&gt; a, b, c;   //<span class="comment"> Safe and brief</span>
+<p>由于 C++ 提供容器、智能指针等更丰富的资源管理手段，所以不建议在 C++ 代码中再使用这种模式，即使标准库没有和相关资源对应的功能，也应该利用“<a href="https://en.cppreference.com/w/cpp/language/raii" target="_blank" class="dashed-link">RAII</a>”等机制对其先封装再使用。</p>
+<code>void foo(size_t n) {
+    std::vector&lt;int&gt; a, b, c;   //<i> Safe and brief</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_forbidGotoBlocks.html" target="_blank" class="related-link">ID_forbidGotoBlocks</a>
-<a href="./ID_forbidGotoBack.html" target="_blank" class="related-link">ID_forbidGotoBack</a>
-
-</p>
+<div class="ref-items"><a href="./ID_forbidGotoBlocks.html" class="related-link">ID_forbidGotoBlocks</a>
+<a href="./ID_forbidGotoBack.html" class="related-link">ID_forbidGotoBack</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.76
-MISRA C 2012 15.1
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.76
+MISRA C 2012 15.1</div>
 </article>
 </html>

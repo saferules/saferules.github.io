@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：通过 using directive 将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>全局及命名空间作用域中禁用 using directive - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>全局及命名空间作用域中禁用 using directive</h1>
@@ -19,49 +20,45 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-通过 using directive 将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。
+<main>
+<p>通过 using directive 将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。</p>
 
-示例：
-<div class="code">//<span class="comment"> In global namespace</span>
-using namespace std;           //<span class="comment"> Non-compliant</span>
-using namespace myspace;       //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>//<i> In global namespace</i>
+using namespace std;           //<i> Non-compliant</i>
+using namespace myspace;       //<i> Non-compliant</i>
 
 namespace myspace {
-    using namespace hisspace   //<span class="comment"> Non-compliant</span>
+    using namespace hisspace   //<i> Non-compliant</i>
 }
-</div>
-在函数作用域内可适当放宽要求，如：
-<div class="code">void foo() {
-    using namespace myspace;   //<span class="comment"> Let it go</span>
+</code>
+<p>在函数作用域内可适当放宽要求，如：</p>
+<code>void foo() {
+    using namespace myspace;   //<i> Let it go</i>
 
-    type x;                    //<span class="comment"> Using myspace::type</span>
-    some_fun(x);               //<span class="comment"> Using mysapce::some_fun</span>
+    type x;                    //<i> Using myspace::type</i>
+    some_fun(x);               //<i> Using mysapce::some_fun</i>
 }
-</div>
-建议用 using declaration 代替 using directive：
-<div class="code">void foo() {
-    using myspace::type;       //<span class="comment"> Compliant</span>
-    using myspace::some_fun;   //<span class="comment"> Compliant</span>
+</code>
+<p>建议用 using declaration 代替 using directive：</p>
+<code>void foo() {
+    using myspace::type;       //<i> Compliant</i>
+    using myspace::some_fun;   //<i> Compliant</i>
 
     type x;
     some_fun(x);
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_usingNamespaceInHeader.html" target="_blank" class="related-link">ID_usingNamespaceInHeader</a>
-
-</p>
+<div class="ref-items"><a href="./ID_usingNamespaceInHeader.html" class="related-link">ID_usingNamespaceInHeader</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines SF.6
-MISRA C++ 2008 7-3-4
-
-</p>
+<div class="ref-items">C++ Core Guidelines SF.6
+MISRA C++ 2008 7-3-4</div>
 </article>
 </html>

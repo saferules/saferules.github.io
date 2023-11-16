@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：if 语句不应被分号隔断。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>if 语句不应被分号隔断 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>if 语句不应被分号隔断</h1>
@@ -19,25 +20,23 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-if 语句不应被分号隔断。
+<main>
+<p>if 语句不应被分号隔断。</p>
 
-示例：
-<div class="code">if (condition);  //<span class="comment"> Non-compliant, see the semicolon</span>
+<p>示例：</p>
+<code>if (condition);  //<i> Non-compliant, see the semicolon</i>
 {
     ....
 }
-</div>
-一个分号使整个 if 语句失效，这可能是笔误，也可能是需求变化不再需要条件判断了，在维护过程中加入了分号，形成了令人费解的残留代码，也不能排除是有人恶意篡改了代码，应立即修正。
+</code>
+<p>一个分号使整个 if 语句失效，这可能是笔误，也可能是需求变化不再需要条件判断了，在维护过程中加入了分号，形成了令人费解的残留代码，也不能排除是有人恶意篡改了代码，应立即修正。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-670
-
-</p>
+<div class="ref-items">CWE-670</div>
 </article>
 </html>

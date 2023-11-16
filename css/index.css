@@ -35,6 +35,9 @@ article {
     height: auto;
     min-height: 100%;
 }
+p {
+    text-indent: 2em;
+}
 #article-wrapper {
     padding-bottom: 25px;
 }
@@ -105,6 +108,11 @@ footer a:hover {
 }
 .content-last-section {
     padding-bottom: 60px;
+}
+.simple-list {
+}
+.simple-list li {
+    line-height: 1.6em;
 }
 #rules-toc {
     max-width: 800px;

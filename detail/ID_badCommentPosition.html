@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：注释应出现在段落的前后或行尾，不应出现在行首或中间，否则干扰阅读，甚至会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>注释应出现在合理的位置 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>注释应出现在合理的位置</h1>
@@ -19,49 +20,47 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-注释应出现在段落的前后或行尾，不应出现在行首或中间，否则干扰阅读，甚至会导致标准未定义的行为。
+<main>
+<p>注释应出现在段落的前后或行尾，不应出现在行首或中间，否则干扰阅读，甚至会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">#/*comment*/include &quot;foo.h&quot;         //<span class="comment"> Non-compliant</span>
-#include &lt;bar.h /*comment*/&gt;        //<span class="comment"> Non-compliant, undefined behavior</span>
+<p>示例：</p>
+<code>#/*comment*/include &quot;foo.h&quot;         //<i> Non-compliant</i>
+#include &lt;bar.h /*comment*/&gt;        //<i> Non-compliant, undefined behavior</i>
 
-/*comment*/ int main()              //<span class="comment"> Non-compliant</span>
+/*comment*/ int main()              //<i> Non-compliant</i>
 {
-    return a + b /*comment*/ + c;   //<span class="comment"> Non-compliant</span>
+    return a + b /*comment*/ + c;   //<i> Non-compliant</i>
 }
-</div>
-应改为：
-<div class="code">#include &quot;foo.h&quot;    // comment      //<span class="comment"> Compliant</span>
-#include &lt;bar.h&gt;    // comment      //<span class="comment"> Compliant</span>
+</code>
+<p>应改为：</p>
+<code>#include &quot;foo.h&quot;    // comment      //<i> Compliant</i>
+#include &lt;bar.h&gt;    // comment      //<i> Compliant</i>
 
 /*
- * comment                          //<span class="comment"> Compliant</span>
+ * comment                          //<i> Compliant</i>
  */
 int main()
 {
-    return a + b + c;  // comment   //<span class="comment"> Compliant</span>
+    return a + b + c;  // comment   //<i> Compliant</i>
 }
-</div>
-例外：
-<div class="code">void foo(int i = 0);                //<span class="comment"> Declaration</span>
+</code>
+<p>例外：</p>
+<code>void foo(int i = 0);                //<i> Declaration</i>
 
-void foo(int i /*= 0*/) {           //<span class="comment"> Let it go</span>
+void foo(int i /*= 0*/) {           //<i> Let it go</i>
     ....
-}</div>
-如果参数有默认值，在函数实现中参数声明的结尾可用注释说明，不受本规则限制。
+}</code>
+<p>如果参数有默认值，在函数实现中参数声明的结尾可用注释说明，不受本规则限制。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.4.7(3)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.4.7(3)-undefined
 ISO/IEC 9899:2011 6.4.7(3)-undefined
 ISO/IEC 14882:2003 2.8(2)-undefined
-ISO/IEC 14882:2011 2.9(2)-implementation
-
-</p>
+ISO/IEC 14882:2011 2.9(2)-implementation</div>
 
 
 </article>

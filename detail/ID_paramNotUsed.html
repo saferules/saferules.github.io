@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果函数的某个参数在函数内没有被用到，意味着函数的功能与设计之间存在差距。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在未被使用的具名形式参数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在未被使用的具名形式参数</h1>
@@ -19,36 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果函数的某个参数在函数内没有被用到，意味着函数的功能与设计之间存在差距。
+<main>
+<p>如果函数的某个参数在函数内没有被用到，意味着函数的功能与设计之间存在差距。</p>
 
-如果某个参数确实不需要被用到，应尽量从参数列表中将其删除，如果需要遵循某种约定而必须保留参数（如虚函数或回调函数），在 C++ 代码中不妨将参数的名称删掉，在 C 代码中可用 void 转换指明未使用的参数在预期之内，并用注释说明参数未被使用的原因。
+<p>如果某个参数确实不需要被用到，应尽量从参数列表中将其删除，如果需要遵循某种约定而必须保留参数（如虚函数或回调函数），在 C++ 代码中不妨将参数的名称删掉，在 C 代码中可用 void 转换指明未使用的参数在预期之内，并用注释说明参数未被使用的原因。</p>
 
-示例：
-<div class="code">int foo(int x) {   //<span class="comment"> Non-compliant, ‘x’ is not used</span>
+<p>示例：</p>
+<code>int foo(int x) {   //<i> Non-compliant, ‘x’ is not used</i>
     return 0;
 }
-</div>
-应改为：
-<div class="code">int foo(int x) {   //<span class="comment"> Compliant in C</span>
+</code>
+<p>应改为：</p>
+<code>int foo(int x) {   //<i> Compliant in C</i>
     (void)x;
     return 0;
 }
 
-int foo(int) {     //<span class="comment"> Compliant in C++</span>
+int foo(int) {     //<i> Compliant in C++</i>
     return 0;   
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines F.9
+<div class="ref-items">C++ Core Guidelines F.9
 MISRA C 2012 2.7
-MISRA C++ 2008 0-1-11
-
-</p>
+MISRA C++ 2008 0-1-11</div>
 </article>
 </html>

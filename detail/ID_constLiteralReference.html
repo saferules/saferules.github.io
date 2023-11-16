@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：虽然 C++ 语言十分灵活，可以通过多种方式达到同一种目的，但应该选择最简洁且通俗易懂的方式实现。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>对常量的定义不应为引用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>对常量的定义不应为引用</h1>
@@ -19,18 +20,18 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-虽然 C++ 语言十分灵活，可以通过多种方式达到同一种目的，但应该选择最简洁且通俗易懂的方式实现。
+<main>
+<p>虽然 C++ 语言十分灵活，可以通过多种方式达到同一种目的，但应该选择最简洁且通俗易懂的方式实现。</p>
 
-示例：
-<div class="code">const int&amp; i = 1024;   //<span class="comment"> Non-compliant</span>
-const int&amp;&amp; j = 1024;  //<span class="comment"> Non-compliant</span>
-</div>
-应改为：
-<div class="code">const int i = 1024;  //<span class="comment"> Compliant</span>
-const int j = 1024;  //<span class="comment"> Compliant</span></div>
+<p>示例：</p>
+<code>const int&amp; i = 1024;   //<i> Non-compliant</i>
+const int&amp;&amp; j = 1024;  //<i> Non-compliant</i>
+</code>
+<p>应改为：</p>
+<code>const int i = 1024;  //<i> Compliant</i>
+const int j = 1024;  //<i> Compliant</i></code>
 
-</div>
+</main>
 
 
 

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：所有 switch 语句都配有 default 分枝是“防御性编程”思想的良好体现。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>switch 语句应配有 default 分枝 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>switch 语句应配有 default 分枝</h1>
@@ -19,11 +20,11 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-所有 switch 语句都配有 default 分枝是“<a href="https://en.wikipedia.org/wiki/Defensive_programming" target="_blank" class="dashed-link">防御性编程</a>”思想的良好体现。
+<main>
+<p>所有 switch 语句都配有 default 分枝是“<a href="https://en.wikipedia.org/wiki/Defensive_programming" target="_blank" class="dashed-link">防御性编程</a>”思想的良好体现。</p>
 
-示例：
-<div class="code">switch (v)
+<p>示例：</p>
+<code>switch (v)
 {
 case 0:
     ....
@@ -32,30 +33,26 @@ case 1:
     ....
     break;
 default:
-    //<span class="comment"> Comment is the minimum requirement,</span>
-    //<span class="comment"> if here is unreachable logically,</span>
-    //<span class="comment"> it&#x27;s better to log or throw an exception</span>
+    //<i> Comment is the minimum requirement,</i>
+    //<i> if here is unreachable logically,</i>
+    //<i> it&#x27;s better to log or throw an exception</i>
     break;
 }
-</div>
-例外：
-当 switch 条件为枚举类型，且 case 标签已对应所有枚举项时，不再要求有 default 分枝。
+</code>
+<p>例外：</p>
+<p>当 switch 条件为枚举类型，且 case 标签已对应所有枚举项时，不再要求有 default 分枝。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_if_missingEndingElse.html" target="_blank" class="related-link">ID_if_missingEndingElse</a>
-
-</p>
+<div class="ref-items"><a href="./ID_if_missingEndingElse.html" class="related-link">ID_if_missingEndingElse</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-478
+<div class="ref-items">CWE-478
 MISRA C 2012 16.4
-MISRA C++ 2008 6-4-6
-
-</p>
+MISRA C++ 2008 6-4-6</div>
 </article>
 </html>

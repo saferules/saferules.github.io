@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：将对象、指针、引用、数组、函数等不同类别的声明写入一个语句可读性较差，易引起误解。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应将不同类别的声明写在一个语句中 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应将不同类别的声明写在一个语句中</h1>
@@ -19,39 +20,35 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-将对象、指针、引用、数组、函数等不同类别的声明写入一个语句可读性较差，易引起误解。
+<main>
+<p>将对象、指针、引用、数组、函数等不同类别的声明写入一个语句可读性较差，易引起误解。</p>
 
-本规则是 <a href="./ID_tooManyDeclarators.html" target="_blank" class="dashed-link">ID_tooManyDeclarators</a> 的特化。
+<p>本规则是 <a href="./ID_tooManyDeclarators.html" class="dashed-link">ID_tooManyDeclarators</a> 的特化。</p>
 
-示例：
-<div class="code">typedef int* p, n;                //<span class="comment"> Non-compliant</span>
-int* a, b, c[8], d(int), e = 0;   //<span class="comment"> Non-compliant</span></div>
-混在一起的声明易引起误解，例中 p 和 n 是不同的类型，只有 e 被初始化，d 为函数。
+<p>示例：</p>
+<code>typedef int* p, n;                //<i> Non-compliant</i>
+int* a, b, c[8], d(int), e = 0;   //<i> Non-compliant</i></code>
+<p>混在一起的声明易引起误解，例中 p 和 n 是不同的类型，只有 e 被初始化，d 为函数。</p>
 
-应分开声明：
-<div class="code">typedef int* p;   //<span class="comment"> Compliant</span>
-typedef int n;    //<span class="comment"> Compliant</span>
+<p>应分开声明：</p>
+<code>typedef int* p;   //<i> Compliant</i>
+typedef int n;    //<i> Compliant</i>
 
-int* a;       //<span class="comment"> Compliant</span>
-int b;        //<span class="comment"> Compliant</span>
-int c[8];     //<span class="comment"> Compliant</span>
-int d(int);   //<span class="comment"> Compliant</span>
-int e = 0;    //<span class="comment"> Compliant</span></div>
+int* a;       //<i> Compliant</i>
+int b;        //<i> Compliant</i>
+int c[8];     //<i> Compliant</i>
+int d(int);   //<i> Compliant</i>
+int e = 0;    //<i> Compliant</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_tooManyDeclarators.html" target="_blank" class="related-link">ID_tooManyDeclarators</a>
-
-</p>
+<div class="ref-items"><a href="./ID_tooManyDeclarators.html" class="related-link">ID_tooManyDeclarators</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.10
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.10</div>
 </article>
 </html>

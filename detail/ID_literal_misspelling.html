@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果含有拼写错误的常量字符串对用户可见，也可以认为是产品的一种 bug，会对用户造成困扰，故应认真对待。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>字符串常量中不应存在拼写错误 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>字符串常量中不应存在拼写错误</h1>
@@ -19,26 +20,24 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果含有拼写错误的常量字符串对用户可见，也可以认为是产品的一种 bug，会对用户造成困扰，故应认真对待。
+<main>
+<p>如果含有拼写错误的常量字符串对用户可见，也可以认为是产品的一种 bug，会对用户造成困扰，故应认真对待。</p>
 
-示例：
-<div class="code">void showMessage(int err) {
+<p>示例：</p>
+<code>void showMessage(int err) {
     if (err) {
         cout &lt;&lt; &quot;Error\n&quot;;
     } else {
-        cout &lt;&lt; &quot;Successfull\n&quot;;  //<span class="comment"> Non-compliant</span>
+        cout &lt;&lt; &quot;Successfull\n&quot;;  //<i> Non-compliant</i>
     }
-}</div>
-例中“Successfull”存在拼写错误，应改为“Successful”。
+}</code>
+<p>例中“Successfull”存在拼写错误，应改为“Successful”。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_misspelling.html" target="_blank" class="related-link">ID_misspelling</a>
-
-</p>
+<div class="ref-items"><a href="./ID_misspelling.html" class="related-link">ID_misspelling</a></div>
 
 
 

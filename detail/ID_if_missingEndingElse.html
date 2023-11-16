@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：所有 if...else-if 分枝都以 else 子句结束是“防御性编程”思想的良好体现。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>所有 if...else-if 分枝都应以 else 子句结束 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>所有 if...else-if 分枝都应以 else 子句结束</h1>
@@ -19,41 +20,37 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-所有 if...else-if 分枝都以 else 子句结束是“<a href="https://en.wikipedia.org/wiki/Defensive_programming" target="_blank" class="dashed-link">防御性编程</a>”思想的良好体现。
+<main>
+<p>所有 if...else-if 分枝都以 else 子句结束是“<a href="https://en.wikipedia.org/wiki/Defensive_programming" target="_blank" class="dashed-link">防御性编程</a>”思想的良好体现。</p>
 
-单独的一个 if 分枝不要求接有 else 子句：
-<div class="code">if (x &gt; 0) {
+<p>单独的一个 if 分枝不要求接有 else 子句：</p>
+<code>if (x &gt; 0) {
     ....
 }
-</div>
-存在多个 if...else-if 分枝时，要求接有 else 子句：
-<div class="code">if (x &gt; 0) {
+</code>
+<p>存在多个 if...else-if 分枝时，要求接有 else 子句：</p>
+<code>if (x &gt; 0) {
     ....
 }
 else if (y &lt; 0){
     ....
 }
 else {
-    //<span class="comment"> Comment is the minimum requirement,</span>
-    //<span class="comment"> if here is unreachable logically,</span>
-    //<span class="comment"> it&#x27;s better to log or throw an exception</span>
-}</div>
+    //<i> Comment is the minimum requirement,</i>
+    //<i> if here is unreachable logically,</i>
+    //<i> it&#x27;s better to log or throw an exception</i>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_switch_missingDefault.html" target="_blank" class="related-link">ID_switch_missingDefault</a>
-
-</p>
+<div class="ref-items"><a href="./ID_switch_missingDefault.html" class="related-link">ID_switch_missingDefault</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 15.7
-MISRA C++ 2008 6-4-2
-
-</p>
+<div class="ref-items">MISRA C 2012 15.7
+MISRA C++ 2008 6-4-2</div>
 </article>
 </html>

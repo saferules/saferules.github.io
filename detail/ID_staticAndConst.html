@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在 C++ 语言中，由 const 或 constexpr 关键字限定的全局对象已具有内部链接性（internal linkage），不应再被 static 关键字限定。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>全局对象不应同时被 static 和 const 等关键字限定 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>全局对象不应同时被 static 和 const 等关键字限定</h1>
@@ -19,29 +20,25 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在 C++ 语言中，由 const 或 constexpr 关键字限定的全局对象已具有内部链接性（internal linkage），不应再被 static 关键字限定。
+<main>
+<p>在 C++ 语言中，由 const 或 constexpr 关键字限定的全局对象已具有内部链接性（internal linkage），不应再被 static 关键字限定。</p>
 
-示例：
-<div class="code">static const int i = 123;   //<span class="comment"> Non-compliant, redundant ‘static’</span>
-</div>
-应改为：
-<div class="code">const int i = 123;   //<span class="comment"> Compliant</span></div>
+<p>示例：</p>
+<code>static const int i = 123;   //<i> Non-compliant, redundant ‘static’</i>
+</code>
+<p>应改为：</p>
+<code>const int i = 123;   //<i> Compliant</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_staticInHeader.html" target="_blank" class="related-link">ID_staticInHeader</a>
-
-</p>
+<div class="ref-items"><a href="./ID_staticInHeader.html" class="related-link">ID_staticInHeader</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 7.1.1(6)
-ISO/IEC 14882:2011 7.1.1(7)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 7.1.1(6)
+ISO/IEC 14882:2011 7.1.1(7)</div>
 
 
 </article>

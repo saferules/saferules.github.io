@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：异常的传播机制依赖编译器的具体实现，在不同编译器产生的模块间传播异常会造成运行时错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应在模块之间传播异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应在模块之间传播异常</h1>
@@ -19,38 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-异常的传播机制依赖编译器的具体实现，在不同编译器产生的模块间传播异常会造成运行时错误。
+<main>
+<p>异常的传播机制依赖编译器的具体实现，在不同编译器产生的模块间传播异常会造成运行时错误。</p>
 
-除非模块均由同一编译器的同一版本生成，否则模块供外部使用的接口不应抛出异常。
+<p>除非模块均由同一编译器的同一版本生成，否则模块供外部使用的接口不应抛出异常。</p>
 
-示例：
-<div class="code">//<span class="comment"> a.dll</span>
+<p>示例：</p>
+<code>//<i> a.dll</i>
 void foo() {
-    throw Exception();   //<span class="comment"> Non-compliant</span>
+    throw Exception();   //<i> Non-compliant</i>
 }
 
-//<span class="comment"> b.exe</span>
+//<i> b.exe</i>
 int main() try {
     foo();
-} catch (Exception&amp;) {   //<span class="comment"> May not catch</span>
+} catch (Exception&amp;) {   //<i> May not catch</i>
     ....
-}</div>
-设例中 a.dll 和 b.exe 由不同的编译器生成，异常的抛出机制和捕获机制可能并不匹配，进而导致冲突。
+}</code>
+<p>设例中 a.dll 和 b.exe 由不同的编译器生成，异常的抛出机制和捕获机制可能并不匹配，进而导致冲突。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_ABIConflict.html" target="_blank" class="related-link">ID_ABIConflict</a>
-
-</p>
+<div class="ref-items"><a href="./ID_ABIConflict.html" class="related-link">ID_ABIConflict</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT ERR59-CPP
-
-</p>
+<div class="ref-items">SEI CERT ERR59-CPP</div>
 </article>
 </html>

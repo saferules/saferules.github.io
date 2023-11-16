@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：当异常类有多个基类，这些基类又派生自同一非虚基类时，无法通过该非虚基类捕获异常。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免异常类多重继承自同一非虚基类 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免异常类多重继承自同一非虚基类</h1>
@@ -19,48 +20,44 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-当异常类有多个基类，这些基类又派生自同一非虚基类时，无法通过该非虚基类捕获异常。
+<main>
+<p>当异常类有多个基类，这些基类又派生自同一非虚基类时，无法通过该非虚基类捕获异常。</p>
 
-本规则是 <a href="./ID_diamondInheritance.html" target="_blank" class="dashed-link">ID_diamondInheritance</a> 的特化。
+<p>本规则是 <a href="./ID_diamondInheritance.html" class="dashed-link">ID_diamondInheritance</a> 的特化。</p>
 
-示例：
-<div class="code">class A {};
+<p>示例：</p>
+<code>class A {};
 class B: public A {};
 class C: public A {};
-class D: public B, public C {};  //<span class="comment"> Non-compliant</span>
+class D: public B, public C {};  //<i> Non-compliant</i>
 
 int main()
 {
     try {
         throw D();
     }
-    catch (A&amp;) {  //<span class="comment"> Cannot catch derived objects</span>
+    catch (A&amp;) {  //<i> Cannot catch derived objects</i>
         ....
     }
-}</div>
-例中基类 A 在派生类 D 中会有多个实例，在这种情况下无法通过基类 A 捕获派生类的对象。
+}</code>
+<p>例中基类 A 在派生类 D 中会有多个实例，在这种情况下无法通过基类 A 捕获派生类的对象。</p>
 
-应将 A 设为虚基类：
-<div class="code">class A {};
+<p>应将 A 设为虚基类：</p>
+<code>class A {};
 class B: virtual public A {};
 class C: virtual public A {};
-class D: public B, public C {};  //<span class="comment"> Compliant</span></div>
+class D: public B, public C {};  //<i> Compliant</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_diamondInheritance.html" target="_blank" class="related-link">ID_diamondInheritance</a>
-
-</p>
+<div class="ref-items"><a href="./ID_diamondInheritance.html" class="related-link">ID_diamondInheritance</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 10.1(4 5 6)
-ISO/IEC 14882:2011 10.1(4 5 6 7)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 10.1(4 5 6)
+ISO/IEC 14882:2011 10.1(4 5 6 7)</div>
 
 
 </article>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：new 表达式本身是类型明确的，转换 new 表达式的类型也容易造成分配、访问或回收相关的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>对 new 表达式不应进行类型转换 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>对 new 表达式不应进行类型转换</h1>
@@ -19,22 +20,20 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-new 表达式本身是类型明确的，转换 new 表达式的类型也容易造成分配、访问或回收相关的错误。
+<main>
+<p>new 表达式本身是类型明确的，转换 new 表达式的类型也容易造成分配、访问或回收相关的错误。</p>
 
-示例：
-<div class="code">int* p = (int*)new char[123];  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>int* p = (int*)new char[123];  //<i> Non-compliant</i>
 ....
-delete[] p;  //<span class="comment"> What will happen?</span></div>
-例中 char 数组被转为 int 数组，由于元素个数不兼容也会导致内存访问与回收的错误。
+delete[] p;  //<i> What will happen?</i></code>
+<p>例中 char 数组被转为 int 数组，由于元素个数不兼容也会导致内存访问与回收的错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_arrayPointerCast.html" target="_blank" class="related-link">ID_arrayPointerCast</a>
-
-</p>
+<div class="ref-items"><a href="./ID_arrayPointerCast.html" class="related-link">ID_arrayPointerCast</a></div>
 
 
 

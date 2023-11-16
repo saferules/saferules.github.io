@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：原子对象可以保证某些特定操作的原子性，但特定操作的组合并不具备原子性，非同步地访问原子对象仍然存在数据竞争。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免在事务中多次非同步地访问原子对象 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免在事务中多次非同步地访问原子对象</h1>
@@ -19,49 +20,45 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-原子对象可以保证某些特定操作的原子性，但特定操作的组合并不具备原子性，非同步地访问原子对象仍然存在数据竞争。
+<main>
+<p>原子对象可以保证某些特定操作的原子性，但特定操作的组合并不具备原子性，非同步地访问原子对象仍然存在数据竞争。</p>
 
-示例：
-<div class="code">atomic_int i = ATOMIC_VAR_INIT(0);
+<p>示例：</p>
+<code>atomic_int i = ATOMIC_VAR_INIT(0);
 
 void thd() {
-    i = i + 1;   //<span class="comment"> Non-compliant, data races</span>
-}</div>
-设 thd 为线程函数，原子对象 i 在表达式中出现了多次，其读取、计算、写入等过程在多线程中仍然是交织在一起的，造成数据竞争。
+    i = i + 1;   //<i> Non-compliant, data races</i>
+}</code>
+<p>设 thd 为线程函数，原子对象 i 在表达式中出现了多次，其读取、计算、写入等过程在多线程中仍然是交织在一起的，造成数据竞争。</p>
 
-应改为：
-<div class="code">void thd() {
-    atomic_fetch_add(&amp;i, 1);   //<span class="comment"> Compliant, or use ‘operator++’ in C++</span>
+<p>应改为：</p>
+<code>void thd() {
+    atomic_fetch_add(&amp;i, 1);   //<i> Compliant, or use ‘operator++’ in C++</i>
 }
-</div>
-对于一些复杂的原子运算，如：
-<div class="code">i = (i + 1) % 5;   //<span class="comment"> Non-compliant</span>
-</div>
-可采用“<a href="https://en.wikipedia.org/wiki/Compare-and-swap" target="_blank" class="dashed-link">CAS（compare and swap）</a>” 方法同步：
-<div class="code">int old_i = atomic_load(&amp;i);
+</code>
+<p>对于一些复杂的原子运算，如：</p>
+<code>i = (i + 1) % 5;   //<i> Non-compliant</i>
+</code>
+<p>可采用“<a href="https://en.wikipedia.org/wiki/Compare-and-swap" target="_blank" class="dashed-link">CAS（compare and swap）</a>” 方法同步：</p>
+<code>int old_i = atomic_load(&amp;i);
 int new_i = 0;
 do {
     new_i = (old_i + 1) % 5;
-} while (!compare_and_swap(&amp;i, &amp;old_i, new_i));   //<span class="comment"> Compliant</span>
-</div>
-首先读取原子对象的值 old_i，old_i 经过运算得到新值 new_i，再通过 compare_and_swap 更新原子对象的值。compare_and_swap 具有原子性，将 old_i 和原子对象当前值比较，相等则说明在运算过程中原子对象没有被其他线程更新，将原子对象的值设为 new_i，不相等则说明原子对象已被其他线程更新，将 old_i 设为原子对象当前值，再重复这个过程，直到原子对象可用 new_i 更新。
+} while (!compare_and_swap(&amp;i, &amp;old_i, new_i));   //<i> Compliant</i>
+</code>
+<p>首先读取原子对象的值 old_i，old_i 经过运算得到新值 new_i，再通过 compare_and_swap 更新原子对象的值。compare_and_swap 具有原子性，将 old_i 和原子对象当前值比较，相等则说明在运算过程中原子对象没有被其他线程更新，将原子对象的值设为 new_i，不相等则说明原子对象已被其他线程更新，将 old_i 设为原子对象当前值，再重复这个过程，直到原子对象可用 new_i 更新。</p>
 
-compare_and_swap 是重要的原子对象同步手段，在实际代码中可与 atomic_compare_exchange_weak、atomic_compare_exchange_strong 等函数对应。
+<p>compare_and_swap 是重要的原子对象同步手段，在实际代码中可与 atomic_compare_exchange_weak、atomic_compare_exchange_strong 等函数对应。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_dataRaces.html" target="_blank" class="related-link">ID_dataRaces</a>
-
-</p>
+<div class="ref-items"><a href="./ID_dataRaces.html" class="related-link">ID_dataRaces</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT CON40-C
-
-</p>
+<div class="ref-items">SEI CERT CON40-C</div>
 </article>
 </html>

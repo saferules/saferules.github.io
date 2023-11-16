@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：二元算术表达式、以二元算术表达式为分枝的三元表达式不应被隐式或显式地转为取值范围更大的类型。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免数据丢失造成类型转换失效 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免数据丢失造成类型转换失效</h1>
@@ -19,55 +20,53 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-下列表达式的类型不应被隐式或显式地转为取值范围更大的类型：
- ● 二元算术表达式
- ● 以二元算术表达式为分枝的三元表达式
+<main>
+<p>下列表达式的类型不应被隐式或显式地转为取值范围更大的类型：</p>
+<ul>
+<li>二元算术表达式</li>
+<li>以二元算术表达式为分枝的三元表达式</li>
 
-这种表达式的溢出或精度损失会发生在类型转换之前，使类型转换失效。
+</ul>
+<p>这种表达式的溢出或精度损失会发生在类型转换之前，使类型转换失效。</p>
 
-示例：
-<div class="code">void foo(int32_t a, int32_t b)
+<p>示例：</p>
+<code>void foo(int32_t a, int32_t b)
 {
-    int64_t i = a * b;            //<span class="comment"> Non-compliant</span>
-    int64_t j = int64_t(a + b);   //<span class="comment"> Non-compliant</span>
+    int64_t i = a * b;            //<i> Non-compliant</i>
+    int64_t j = int64_t(a + b);   //<i> Non-compliant</i>
 
-    double x = a / b;             //<span class="comment"> Non-compliant</span>
-    double y = double(a / b);     //<span class="comment"> Non-compliant</span>
+    double x = a / b;             //<i> Non-compliant</i>
+    double y = double(a / b);     //<i> Non-compliant</i>
     ....
-}</div>
-例中表达式 a * b、a + b 的类型为 32 位整型，如果溢出则无法正确转为 64 位整型；a / b 的结果仍是整数，小数部分将丢失。
+}</code>
+<p>例中表达式 a * b、a + b 的类型为 32 位整型，如果溢出则无法正确转为 64 位整型；a / b 的结果仍是整数，小数部分将丢失。</p>
 
-应将操作数转为目标类型，使算术表达式与被赋值的对象具有相同的类型：
-<div class="code">void foo(int32_t a, int32_t b)
+<p>应将操作数转为目标类型，使算术表达式与被赋值的对象具有相同的类型：</p>
+<code>void foo(int32_t a, int32_t b)
 {
-    int64_t i = int64_t(a) * b;   //<span class="comment"> Compliant</span>
-    int64_t j = a + int64_t(b);   //<span class="comment"> Compliant</span>
+    int64_t i = int64_t(a) * b;   //<i> Compliant</i>
+    int64_t j = a + int64_t(b);   //<i> Compliant</i>
 
-    double x = double(a) / b;     //<span class="comment"> Compliant</span>
-    double y = a / double(b);     //<span class="comment"> Compliant</span>
+    double x = double(a) / b;     //<i> Compliant</i>
+    double y = a / double(b);     //<i> Compliant</i>
     ....
-}</div>
-这样便可避免类型转换失效。
+}</code>
+<p>这样便可避免类型转换失效。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_evalOverflow.html" target="_blank" class="related-link">ID_evalOverflow</a>
-
-</p>
+<div class="ref-items"><a href="./ID_evalOverflow.html" class="related-link">ID_evalOverflow</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 10.6
+<div class="ref-items">MISRA C 2012 10.6
 MISRA C 2012 10.7
 MISRA C 2012 10.8
 MISRA C++ 2008 5-0-3
 MISRA C++ 2008 5-0-7
-MISRA C++ 2008 5-0-8
-
-</p>
+MISRA C++ 2008 5-0-8</div>
 </article>
 </html>

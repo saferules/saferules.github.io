@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：protected 数据成员在派生类中仍可被随意读写，破坏了封装理念。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>类的非常量数据成员不应定义为 protected - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>类的非常量数据成员不应定义为 protected</h1>
@@ -19,44 +20,40 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-protected 数据成员在派生类中仍可被随意读写，破坏了封装理念。
+<main>
+<p>protected 数据成员在派生类中仍可被随意读写，破坏了封装理念。</p>
 
-本规则是 <a href="./ID_nonPrivateData.html" target="_blank" class="dashed-link">ID_nonPrivateData</a> 的特化，关于封装的进一步讨论可参见 <a href="./ID_nonPrivateData.html" target="_blank" class="dashed-link">ID_nonPrivateData</a>。
+<p>本规则是 <a href="./ID_nonPrivateData.html" class="dashed-link">ID_nonPrivateData</a> 的特化，关于封装的进一步讨论可参见 <a href="./ID_nonPrivateData.html" class="dashed-link">ID_nonPrivateData</a>。</p>
 
-常量数据成员不可被改变，所以可不受本规则约束。
+<p>常量数据成员不可被改变，所以可不受本规则约束。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
     ....
 protected:
-    int data;   //<span class="comment"> Non-compliant</span>
+    int data;   //<i> Non-compliant</i>
 };
-</div>
-应改为由接口访问：
-<div class="code">class A {
+</code>
+<p>应改为由接口访问：</p>
+<code>class A {
     ....
 protected:
-    int access_data();   //<span class="comment"> Interfaces for data</span>
+    int access_data();   //<i> Interfaces for data</i>
 private:
-    int data;   //<span class="comment"> Compliant</span>
-};</div>
+    int data;   //<i> Compliant</i>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_mixPublicPrivateData.html" target="_blank" class="related-link">ID_mixPublicPrivateData</a>
-<a href="./ID_nonPrivateData.html" target="_blank" class="related-link">ID_nonPrivateData</a>
-
-</p>
+<div class="ref-items"><a href="./ID_mixPublicPrivateData.html" class="related-link">ID_mixPublicPrivateData</a>
+<a href="./ID_nonPrivateData.html" class="related-link">ID_nonPrivateData</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.9
-C++ Core Guidelines C.133
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.9
+C++ Core Guidelines C.133</div>
 </article>
 </html>

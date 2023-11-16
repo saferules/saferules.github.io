@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：出于可读性和安全性的考量，格式化字符串最好直接写成常量字符串的形式。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>格式化字符串应为常量 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>格式化字符串应为常量</h1>
@@ -19,34 +20,30 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-出于可读性和安全性的考量，格式化字符串最好直接写成常量字符串的形式。
+<main>
+<p>出于可读性和安全性的考量，格式化字符串最好直接写成常量字符串的形式。</p>
 
-本规则是 <a href="./ID_hijack.html" target="_blank" class="dashed-link">ID_hijack</a> 的特化。
+<p>本规则是 <a href="./ID_hijack.html" class="dashed-link">ID_hijack</a> 的特化。</p>
 
-示例：
-<div class="code">int a, b, c;
+<p>示例：</p>
+<code>int a, b, c;
 const char* fmt = foo();
 ....
-printf(fmt, a, b, c);  //<span class="comment"> Non-compliant</span></div>
-例中格式化字符串 fmt 是变量，这种方式可读性较差，而且要注意如果 fmt 可受外界影响，则可能被攻击者利用造成不良后果。
+printf(fmt, a, b, c);  //<i> Non-compliant</i></code>
+<p>例中格式化字符串 fmt 是变量，这种方式可读性较差，而且要注意如果 fmt 可受外界影响，则可能被攻击者利用造成不良后果。</p>
 
-应将 fmt 改为常量：
-<div class="code">printf(&quot;%d %d %d&quot;, a, b, c);  //<span class="comment"> Compliant</span></div>
+<p>应将 fmt 改为常量：</p>
+<code>printf(&quot;%d %d %d&quot;, a, b, c);  //<i> Compliant</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_hijack.html" target="_blank" class="related-link">ID_hijack</a>
-
-</p>
+<div class="ref-items"><a href="./ID_hijack.html" class="related-link">ID_hijack</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-134
-
-</p>
+<div class="ref-items">CWE-134</div>
 </article>
 </html>

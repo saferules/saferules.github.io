@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：用 new 分配的对象应该用 delete 释放，不可用 delete[] 释放，否则导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>用 delete 释放对象不可多写中括号 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>用 delete 释放对象不可多写中括号</h1>
@@ -19,34 +20,28 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-用 new 分配的对象应该用 delete 释放，不可用 delete[] 释放，否则导致标准未定义的行为。
+<main>
+<p>用 new 分配的对象应该用 delete 释放，不可用 delete[] 释放，否则导致标准未定义的行为。</p>
 
-示例：
-<div class="code">auto* p = new X;  //<span class="comment"> One object</span>
+<p>示例：</p>
+<code>auto* p = new X;  //<i> One object</i>
 ....
-delete[] p;       //<span class="comment"> Non-compliant, use ‘delete p;’ instead</span></div>
+delete[] p;       //<i> Non-compliant, use ‘delete p;’ instead</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_insufficientDelete.html" target="_blank" class="related-link">ID_insufficientDelete</a>
-
-</p>
+<div class="ref-items"><a href="./ID_insufficientDelete.html" class="related-link">ID_insufficientDelete</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 5.3.5(2)-undefined
+<div class="ref-items">ISO/IEC 14882:2003 5.3.5(2)-undefined
 ISO/IEC 14882:2011 5.3.5(2)-undefined
-ISO/IEC 14882:2017 8.3.5(2)-undefined
-
-</p>
+ISO/IEC 14882:2017 8.3.5(2)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.61
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.61</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：析构函数抛出异常会违反异常处理机制。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>析构函数不可抛出异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>析构函数不可抛出异常</h1>
@@ -19,62 +20,58 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-析构函数抛出异常会违反异常处理机制。
+<main>
+<p>析构函数抛出异常会违反异常处理机制。</p>
 
-当抛出异常时，从异常被抛出到异常被处理之间的对象，也就是从“throw”到“catch”各层调用栈中的对象会被自动析构，如果这个过程中某个对象的析构函数又抛出异常便违反了异常处理机制，这种情况将直接引发 std::terminate 函数的执行，所以从析构函数抛出的异常可能无法被捕获和处理，也可能导致程序异常终止。
+<p>当抛出异常时，从异常被抛出到异常被处理之间的对象，也就是从“throw”到“catch”各层调用栈中的对象会被自动析构，如果这个过程中某个对象的析构函数又抛出异常便违反了异常处理机制，这种情况将直接引发 std::terminate 函数的执行，所以从析构函数抛出的异常可能无法被捕获和处理，也可能导致程序异常终止。</p>
 
-示例（设 E0 和 E1 是不相关的异常类）：
-<div class="code">class A {
+<p>示例（设 E0 和 E1 是不相关的异常类）：</p>
+<code>class A {
     ....
 public:
    ~A() try {
         if (cond0) {
-            throw E0();    //<span class="comment"> Non-compliant, propagate out</span>
+            throw E0();    //<i> Non-compliant, propagate out</i>
         }
         else if (cond1) {
-            throw E1();    //<span class="comment"> OK, digested by itself</span>
+            throw E1();    //<i> OK, digested by itself</i>
         }
     }
     catch (const E1&amp;) {
         ....
     }
-};</div>
-建议将析构函数声明为 noexcept。
+};</code>
+<p>建议将析构函数声明为 noexcept。</p>
 
-与析构相关的过程也不应抛出异常：
- ● 资源回收
- ● delete、delete[] 运算符
- ● 具有 free、clear、release 等语义的函数
+<p>与析构相关的过程也不应抛出异常：</p>
+<ul>
+<li>资源回收</li>
+<li>delete、delete[] 运算符</li>
+<li>具有 free、clear、release 等语义的函数</li>
 
-另外，具有 swap、hash 等语义以及移动构造或赋值相关的过程也不应抛出异常，详见相关规则。
+</ul>
+<p>另外，具有 swap、hash 等语义以及移动构造或赋值相关的过程也不应抛出异常，详见相关规则。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_throwInDelete.html" target="_blank" class="related-link">ID_throwInDelete</a>
-<a href="./ID_throwInHash.html" target="_blank" class="related-link">ID_throwInHash</a>
-<a href="./ID_throwInSwap.html" target="_blank" class="related-link">ID_throwInSwap</a>
-<a href="./ID_throwInMove.html" target="_blank" class="related-link">ID_throwInMove</a>
-
-</p>
+<div class="ref-items"><a href="./ID_throwInDelete.html" class="related-link">ID_throwInDelete</a>
+<a href="./ID_throwInHash.html" class="related-link">ID_throwInHash</a>
+<a href="./ID_throwInSwap.html" class="related-link">ID_throwInSwap</a>
+<a href="./ID_throwInMove.html" class="related-link">ID_throwInMove</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 15.2(3)
+<div class="ref-items">ISO/IEC 14882:2003 15.2(3)
 ISO/IEC 14882:2011 3.7.4.2(3)-undefined
-ISO/IEC 14882:2011 15.2(3)
-
-</p>
+ISO/IEC 14882:2011 15.2(3)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.36
+<div class="ref-items">C++ Core Guidelines C.36
 C++ Core Guidelines C.37
 MISRA C++ 2008 15-5-1
-SEI CERT DCL57-CPP
-
-</p>
+SEI CERT DCL57-CPP</div>
 </article>
 </html>

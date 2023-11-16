@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：if...else-if 分枝过多不利于阅读和维护，而且执行时需逐一判断各分枝的条件，效率较低，建议改为遵循某种算法的索引结构。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>if...else-if 分枝数量应在规定范围之内 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>if...else-if 分枝数量应在规定范围之内</h1>
@@ -19,26 +20,25 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-if...else-if 分枝过多不利于阅读和维护，而且执行时需逐一判断各分枝的条件，效率较低，建议改为遵循某种算法的索引结构。
+<main>
+<p>if...else-if 分枝过多不利于阅读和维护，而且执行时需逐一判断各分枝的条件，效率较低，建议改为遵循某种算法的索引结构。</p>
 
-示例：
-<div class="code">if (rabbit) {
+<p>示例：</p>
+<code>if (rabbit) {
 }
 else if (hamster) {
 }
-//<span class="comment"> ... 3000 branches ...</span>
-//<span class="comment"> Computers have the courage to execute,</span>
-//<span class="comment"> but do you have the courage to read?</span>
+//<i> ... 3000 branches ...</i>
+//<i> Computers have the courage to execute,</i>
+//<i> but do you have the courage to read?</i>
 else {
-}</div>
-建议 if...else-if 分枝数量不超过 5 个。
+}</code>
+<p>建议 if...else-if 分枝数量不超过 5 个。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxElseIfCount: 分枝数量上限，超过则报出
-</p>
+<div class="ref-items">maxElseIfCount: 分枝数量上限，超过则报出</div>
 
 
 

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：攻击者可以在两次通过路径访问文件的中途对文件做手脚，从而造成不良后果。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免在事务中通过路径多次访问同一文件 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免在事务中通过路径多次访问同一文件</h1>
@@ -19,52 +20,48 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-攻击者可以在两次通过路径访问文件的中途对文件做手脚，从而造成不良后果。
+<main>
+<p>攻击者可以在两次通过路径访问文件的中途对文件做手脚，从而造成不良后果。</p>
 
-这种问题称为“TOCTOU（Time-of-check to time-of-use）”。有时需要先检查文件的某种状态，如果状态满足条件的话，再使用该文件，如果“检查”和“使用”都是通过路径完成的，攻击者可以在中途将文件替换成不满足条件的文件，如将文件替换成指向另一个文件的链接，从而对系统造成破坏，这是一种典型的“<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" class="dashed-link">竞态条件</a>”。
+<p>这种问题称为“TOCTOU（Time-of-check to time-of-use）”。有时需要先检查文件的某种状态，如果状态满足条件的话，再使用该文件，如果“检查”和“使用”都是通过路径完成的，攻击者可以在中途将文件替换成不满足条件的文件，如将文件替换成指向另一个文件的链接，从而对系统造成破坏，这是一种典型的“<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" class="dashed-link">竞态条件</a>”。</p>
 
-示例：
-<div class="code">void create(const char* path) {
+<p>示例：</p>
+<code>void create(const char* path) {
     FILE* fp = fopen(path, &quot;r&quot;);
-    if (fp != NULL) {              //<span class="comment"> #1, time-of-check</span>
+    if (fp != NULL) {              //<i> #1, time-of-check</i>
         fclose(fp);
         return;
     }
-    fp = fopen(path, &quot;w&quot;);         //<span class="comment"> #2, time-of-use, non-compliant</span>
+    fp = fopen(path, &quot;w&quot;);         //<i> #2, time-of-use, non-compliant</i>
     if (fp != NULL) {
         fwrite(&quot;abc&quot;, 1, 3, fp);
         fclose(fp);
     }
-}</div>
-示例代码先通过路径判断文件是否存在，如果存在则不作处理，如果不存在则再次通过路径创建文件并写入数据。如果攻击者把握住时机，在程序执行到 #1 和 #2 之间时按 path 创建指向其他文件的链接，那么被指向的文件会遭到破坏，尤其是当被攻击的进程权限比较高时，破坏力是难以控制的。
+}</code>
+<p>示例代码先通过路径判断文件是否存在，如果存在则不作处理，如果不存在则再次通过路径创建文件并写入数据。如果攻击者把握住时机，在程序执行到 #1 和 #2 之间时按 path 创建指向其他文件的链接，那么被指向的文件会遭到破坏，尤其是当被攻击的进程权限比较高时，破坏力是难以控制的。</p>
 
-应只通过路径打开文件对象一次，只通过文件对象操作文件：
-<div class="code">void create(const char* path) {
-    FILE* fp = fopen(path, &quot;wx&quot;);   //<span class="comment"> Compliant, since C11</span>
+<p>应只通过路径打开文件对象一次，只通过文件对象操作文件：</p>
+<code>void create(const char* path) {
+    FILE* fp = fopen(path, &quot;wx&quot;);   //<i> Compliant, since C11</i>
     if (fp != NULL) {
         fwrite(&quot;abc&quot;, 1, 3, fp);
         fclose(fp);
     }
-}</div>
-利用“wx”模式即可保证 fopen 在文件不存在时创建文件，文件存在时返回空。
+}</code>
+<p>利用“wx”模式即可保证 fopen 在文件不存在时创建文件，文件存在时返回空。</p>
 
-注意，目前 C++ 的 fstream 尚无法完成与“wx”模式相同的功能，相同功能的代码要用 fopen 实现。
+<p>注意，目前 C++ 的 fstream 尚无法完成与“wx”模式相同的功能，相同功能的代码要用 fopen 实现。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.19.5.3(3)
-ISO/IEC 9899:2011 7.21.5.3(3)
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.19.5.3(3)
+ISO/IEC 9899:2011 7.21.5.3(3)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-367
-
-</p>
+<div class="ref-items">CWE-367</div>
 </article>
 </html>

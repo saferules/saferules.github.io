@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：以恒为真或恒为假的表达式作为条件是没有意义的，属于逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>作为条件的逻辑表达式不应恒为真或恒为假 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>作为条件的逻辑表达式不应恒为真或恒为假</h1>
@@ -19,37 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-以恒为真或恒为假的表达式作为条件是没有意义的，属于逻辑错误。
+<main>
+<p>以恒为真或恒为假的表达式作为条件是没有意义的，属于逻辑错误。</p>
 
-示例：
-<div class="code">void foo() {
+<p>示例：</p>
+<code>void foo() {
     int i = 1;
-    if (i &gt; 0) {   //<span class="comment"> Non-compliant, always true</span>
+    if (i &gt; 0) {   //<i> Non-compliant, always true</i>
         ....       
     } else {
-        ....       //<span class="comment"> Infeasible path</span>
+        ....       //<i> Infeasible path</i>
     }
-}</div>
-例中变量 i 初始化为 1 后在没有被修改过的情况下，仍对其进行判断是没有意义的，else 分枝的代码得不到执行机会。
+}</code>
+<p>例中变量 i 初始化为 1 后在没有被修改过的情况下，仍对其进行判断是没有意义的，else 分枝的代码得不到执行机会。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_constLogicExpression.html" target="_blank" class="related-link">ID_constLogicExpression</a>
-
-</p>
+<div class="ref-items"><a href="./ID_constLogicExpression.html" class="related-link">ID_constLogicExpression</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-570
+<div class="ref-items">CWE-570
 CWE-571
 MISRA C 2004 13.7
 MISRA C 2012 14.3
-MISRA C++ 2008 0-1-2
-
-</p>
+MISRA C++ 2008 0-1-2</div>
 </article>
 </html>

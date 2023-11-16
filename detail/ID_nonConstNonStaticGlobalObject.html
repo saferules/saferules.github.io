@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：非常量全局对象破坏了面向对象的封装理念，如果必须使用全局对象，应将其限定在文件范围之内。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>全局对象只应为常量或静态对象 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>全局对象只应为常量或静态对象</h1>
@@ -19,32 +20,28 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-非常量全局对象破坏了面向对象的封装理念，如果必须使用全局对象，应将其限定在文件范围之内。
+<main>
+<p>非常量全局对象破坏了面向对象的封装理念，如果必须使用全局对象，应将其限定在文件范围之内。</p>
 
-本规则放宽了 <a href="./ID_nonConstGlobalObject.html" target="_blank" class="dashed-link">ID_nonConstGlobalObject</a> 的要求，对于 C++ 代码不建议选取本规则，对于 C 代码可酌情选取。
+<p>本规则放宽了 <a href="./ID_nonConstGlobalObject.html" class="dashed-link">ID_nonConstGlobalObject</a> 的要求，对于 C++ 代码不建议选取本规则，对于 C 代码可酌情选取。</p>
 
-示例：
-<div class="code">//<span class="comment"> In global scope</span>
-int i = 0;          //<span class="comment"> Non-compliant</span>
-static int j = 0;   //<span class="comment"> Let it go</span>
-const int k = 0;    //<span class="comment"> Compliant</span></div>
+<p>示例：</p>
+<code>//<i> In global scope</i>
+int i = 0;          //<i> Non-compliant</i>
+static int j = 0;   //<i> Let it go</i>
+const int k = 0;    //<i> Compliant</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_nonConstGlobalObject.html" target="_blank" class="related-link">ID_nonConstGlobalObject</a>
-
-</p>
+<div class="ref-items"><a href="./ID_nonConstGlobalObject.html" class="related-link">ID_nonConstGlobalObject</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines I.2
+<div class="ref-items">C++ Core Guidelines I.2
 C++ Core Guidelines CP.3
-C++ Core Guidelines R.6
-
-</p>
+C++ Core Guidelines R.6</div>
 </article>
 </html>

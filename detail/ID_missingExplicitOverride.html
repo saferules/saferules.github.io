@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：将重写的虚函数都声明为 override 或 final 有利于提高可读性，并可确保虚函数被有效重写。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>重写的虚函数应声明为 override 或 final - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>重写的虚函数应声明为 override 或 final</h1>
@@ -19,42 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-将重写的虚函数都声明为 override 或 final 有利于提高可读性，并可确保虚函数被有效重写。
+<main>
+<p>将重写的虚函数都声明为 override 或 final 有利于提高可读性，并可确保虚函数被有效重写。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
     virtual int foo();
     virtual int bar();
 };
 
 class B: public A {
-    int foo();          //<span class="comment"> Non-compliant</span>
-    virtual int bar();  //<span class="comment"> Non-compliant</span>
-};</div>
-例中 B 重写 A 的 foo 和 bar 这两个虚函数，如果不看 A 的声明，则看不出 B::foo 是虚函数，也看不出 B::bar 是重写的虚函数。
+    int foo();          //<i> Non-compliant</i>
+    virtual int bar();  //<i> Non-compliant</i>
+};</code>
+<p>例中 B 重写 A 的 foo 和 bar 这两个虚函数，如果不看 A 的声明，则看不出 B::foo 是虚函数，也看不出 B::bar 是重写的虚函数。</p>
 
-改为如下方式会清晰很多：
-<div class="code">class B: public A {
-    int foo() override;  //<span class="comment"> Compliant</span>
-    int bar() override;  //<span class="comment"> Compliant</span>
-};</div>
-而且当重写的函数名、参数、返回类型与基类声明不符时，不能通过编译，可及时修正问题。
+<p>改为如下方式会清晰很多：</p>
+<code>class B: public A {
+    int foo() override;  //<i> Compliant</i>
+    int bar() override;  //<i> Compliant</i>
+};</code>
+<p>而且当重写的函数名、参数、返回类型与基类声明不符时，不能通过编译，可及时修正问题。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2011 10.3(4 5)
-ISO/IEC 14882:2017 13.3(4 5)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2011 10.3(4 5)
+ISO/IEC 14882:2017 13.3(4 5)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.128
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.128</div>
 </article>
 </html>

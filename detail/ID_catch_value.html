@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：通过值捕获异常可能会导致“对象切片”，通过指针捕获异常会增加内存管理成本，通过引用捕获异常才是最合理的方式。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>通过引用捕获异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>通过引用捕获异常</h1>
@@ -19,43 +20,39 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-通过值捕获异常可能会导致“<a href="https://en.wikipedia.org/wiki/Object_slicing" target="_blank" class="dashed-link">对象切片</a>”，通过指针捕获异常会增加内存管理成本，通过引用捕获异常才是最合理的方式。
+<main>
+<p>通过值捕获异常可能会导致“<a href="https://en.wikipedia.org/wiki/Object_slicing" target="_blank" class="dashed-link">对象切片</a>”，通过指针捕获异常会增加内存管理成本，通过引用捕获异常才是最合理的方式。</p>
 
-示例：
-<div class="code">try {
+<p>示例：</p>
+<code>try {
     ....
-} catch (Exception e) {   //<span class="comment"> Non-compliant</span>
+} catch (Exception e) {   //<i> Non-compliant</i>
     ....
-}</div>
-例中 Exception 是异常类，用传值的方式捕获异常是不符合要求的。
+}</code>
+<p>例中 Exception 是异常类，用传值的方式捕获异常是不符合要求的。</p>
 
-应改为：
-<div class="code">try {
+<p>应改为：</p>
+<code>try {
     ....
-} catch (Exception&amp; e) {   //<span class="comment"> Compliant</span>
+} catch (Exception&amp; e) {   //<i> Compliant</i>
     ....
 }
-</div>
-通过指针捕获异常也是不符合要求的，参见 <a href="./ID_throwPointer.html" target="_blank" class="dashed-link">ID_throwPointer</a>。
+</code>
+<p>通过指针捕获异常也是不符合要求的，参见 <a href="./ID_throwPointer.html" class="dashed-link">ID_throwPointer</a>。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_catch_slicing.html" target="_blank" class="related-link">ID_catch_slicing</a>
-<a href="./ID_throwPointer.html" target="_blank" class="related-link">ID_throwPointer</a>
-
-</p>
+<div class="ref-items"><a href="./ID_catch_slicing.html" class="related-link">ID_catch_slicing</a>
+<a href="./ID_throwPointer.html" class="related-link">ID_throwPointer</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines E.15
+<div class="ref-items">C++ Core Guidelines E.15
 C++ Core Guidelines ES.63
 MISRA C++ 2008 15-3-5
-SEI CERT ERR61-CPP
-
-</p>
+SEI CERT ERR61-CPP</div>
 </article>
 </html>

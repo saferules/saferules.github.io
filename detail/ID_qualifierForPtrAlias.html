@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果用 const、volatile 限定指针类型的别名，很可能会造成意料之外的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>const、volatile 限定指针类型的别名是可疑的 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>const、volatile 限定指针类型的别名是可疑的</h1>
@@ -19,45 +20,41 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果用 const、volatile 限定指针类型的别名，很可能会造成意料之外的错误。
+<main>
+<p>如果用 const、volatile 限定指针类型的别名，很可能会造成意料之外的错误。</p>
 
-示例：
-<div class="code">struct Type {
+<p>示例：</p>
+<code>struct Type {
     void foo();
     void foo() const;
 };
 
 typedef Type* Alias;
 
-void bar(const Alias a) {  //<span class="comment"> Rather suspicious</span>
-    a-&gt;foo();              //<span class="comment"> Calls ‘void Type::foo();’</span>
-}</div>
-例中 Alias 是 Type* 的别名，“const Alias a”很容易引起误解，好像对象是不可被改变的，但实际上 a 的类型是 Type *const，const 限定的是指针而不是指针指向的对象，对象仍可被修改，其调用的函数也可能与预期不符。
+void bar(const Alias a) {  //<i> Rather suspicious</i>
+    a-&gt;foo();              //<i> Calls ‘void Type::foo();’</i>
+}</code>
+<p>例中 Alias 是 Type* 的别名，“const Alias a”很容易引起误解，好像对象是不可被改变的，但实际上 a 的类型是 Type *const，const 限定的是指针而不是指针指向的对象，对象仍可被修改，其调用的函数也可能与预期不符。</p>
 
-应避免为指针类型定义别名，否则应提供常量和非常量两种别名，如：
-<div class="code">typedef Type* Alias;
+<p>应避免为指针类型定义别名，否则应提供常量和非常量两种别名，如：</p>
+<code>typedef Type* Alias;
 typedef const Type* ConstAlias;
 
 void bar(ConstAlias a) {
-    a-&gt;foo();              //<span class="comment"> Calls ‘void Type::foo() const;’</span>
+    a-&gt;foo();              //<i> Calls ‘void Type::foo() const;’</i>
 }
-</div>
-注意，如果用 const、volatile 限定引用的别名则是错误的，详见 <a href="./ID_qualifierInvalid.html" target="_blank" class="dashed-link">ID_qualifierInvalid</a>。
+</code>
+<p>注意，如果用 const、volatile 限定引用的别名则是错误的，详见 <a href="./ID_qualifierInvalid.html" class="dashed-link">ID_qualifierInvalid</a>。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_qualifierInvalid.html" target="_blank" class="related-link">ID_qualifierInvalid</a>
-
-</p>
+<div class="ref-items"><a href="./ID_qualifierInvalid.html" class="related-link">ID_qualifierInvalid</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT DCL05-C
-
-</p>
+<div class="ref-items">SEI CERT DCL05-C</div>
 </article>
 </html>

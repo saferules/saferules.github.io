@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：malloc 等函数在分配失败时返回空指针，如果不加判断直接使用会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>判断资源分配函数的返回值是否有效 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>判断资源分配函数的返回值是否有效</h1>
@@ -19,36 +20,32 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-malloc 等函数在分配失败时返回空指针，如果不加判断直接使用会导致标准未定义的行为。
+<main>
+<p>malloc 等函数在分配失败时返回空指针，如果不加判断直接使用会导致标准未定义的行为。</p>
 
-在有虚拟内存支持的平台中，正常的内存分配一般不会失败，但申请内存过多或有误时（如参数为负数）也会导致分配失败，而对于没有虚拟内存支持的或可用内存有限的嵌入式系统，检查分配资源是否成功是十分重要的，所以本规则应该作为代码编写的一般性要求。
+<p>在有虚拟内存支持的平台中，正常的内存分配一般不会失败，但申请内存过多或有误时（如参数为负数）也会导致分配失败，而对于没有虚拟内存支持的或可用内存有限的嵌入式系统，检查分配资源是否成功是十分重要的，所以本规则应该作为代码编写的一般性要求。</p>
 
-库的实现更需要注意这一点，如果库由于分配失败而使程序直接崩溃，相当于干扰了主程序的决策权，很可能会造成难以排查的问题，对于有高可靠性要求的软件，在极端环境中的行为是需要明确设定的。
+<p>库的实现更需要注意这一点，如果库由于分配失败而使程序直接崩溃，相当于干扰了主程序的决策权，很可能会造成难以排查的问题，对于有高可靠性要求的软件，在极端环境中的行为是需要明确设定的。</p>
 
-示例：
-<div class="code">void foo(size_t n) {
+<p>示例：</p>
+<code>void foo(size_t n) {
     char* p = (char*)malloc(n);
-    p[n - 1] = &#x27;\0&#x27;;              //<span class="comment"> Non-compliant, check ‘p’ first</span>
+    p[n - 1] = &#x27;\0&#x27;;              //<i> Non-compliant, check ‘p’ first</i>
     ....
-}</div>
-示例代码未检查 p 的有效性便直接使用是不符合要求的。
+}</code>
+<p>示例代码未检查 p 的有效性便直接使用是不符合要求的。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.20.3(1)
-ISO/IEC 9899:2011 7.22.3(1)
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.20.3(1)
+ISO/IEC 9899:2011 7.22.3(1)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-252
-CWE-476
-
-</p>
+<div class="ref-items">CWE-252
+CWE-476</div>
 </article>
 </html>

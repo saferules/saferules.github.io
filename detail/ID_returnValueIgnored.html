@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：与状态判断、信息获取、资源分配有关的返回值不应被忽略。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应忽略重要的返回值 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应忽略重要的返回值</h1>
@@ -19,44 +20,39 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-与状态判断、信息获取、资源分配有关的返回值不应被忽略。
+<main>
+<p>与状态判断、信息获取、资源分配有关的返回值不应被忽略。</p>
 
-示例：
-<div class="code">void bar(string&amp; s) {
-    s.empty();          //<span class="comment"> Non-compliant</span>
-}</div>
-例中 empty 函数返回字符串是否为空，如果忽略返回值会使函数调用失去意义。
+<p>示例：</p>
+<code>void bar(string&amp; s) {
+    s.empty();          //<i> Non-compliant</i>
+}</code>
+<p>例中 empty 函数返回字符串是否为空，如果忽略返回值会使函数调用失去意义。</p>
 
-C++17 nodiscard 属性表示返回值具有重要意义，标准库中以及由用户标注的具有 nodiscard 属性的返回值不应被忽略，如：
-<div class="code">[[nodiscard]] int fun();   //<span class="comment"> Or use __attribute__((warn_unused_result)) in GCC</span>
+<p>C++17 nodiscard 属性表示返回值具有重要意义，标准库中以及由用户标注的具有 nodiscard 属性的返回值不应被忽略，如：</p>
+<code>[[nodiscard]] int fun();   //<i> Or use __attribute__((warn_unused_result)) in GCC</i>
 
 int main() {
-    fun();           //<span class="comment"> Non-compliant</span>
-    int r = fun();   //<span class="comment"> Compliant, ‘r’ should be used in subsequent code   </span>
+    fun();           //<i> Non-compliant</i>
+    int r = fun();   //<i> Compliant, ‘r’ should be used in subsequent code   </i>
     ....
-    (void)fun();     //<span class="comment"> Let it go?</span>
-}</div>
-经 void 转换的函数调用可以认为是有意放弃返回值，审计工具不妨通过配置决定是否放过这种情况。
+    (void)fun();     //<i> Let it go?</i>
+}</code>
+<p>经 void 转换的函数调用可以认为是有意放弃返回值，审计工具不妨通过配置决定是否放过这种情况。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allowVoidCastedDiscard: 是否允许通过 void 转换忽略返回值
-</p>
+<div class="ref-items">allowVoidCastedDiscard: 是否允许通过 void 转换忽略返回值</div>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2017 10.6.7
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2017 10.6.7</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 17.7
-MISRA C++ 2008 0-1-7
-
-</p>
+<div class="ref-items">MISRA C 2012 17.7
+MISRA C++ 2008 0-1-7</div>
 </article>
 </html>

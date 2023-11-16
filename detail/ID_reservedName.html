@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：自定义的名称不应与标准库或编译环境中的名称相同，否则会导致标准未定义的行为，也不利于阅读和维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应定义具有保留意义的名称 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应定义具有保留意义的名称</h1>
@@ -19,81 +20,81 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-自定义的名称不应与标准库或编译环境中的名称相同，否则会导致标准未定义的行为，也不利于阅读和维护。
+<main>
+<p>自定义的名称不应与标准库或编译环境中的名称相同，否则会导致标准未定义的行为，也不利于阅读和维护。</p>
 
-下列名称具有保留意义，自定义名称不应与之相同：
- ● 标准库或编译环境中的宏名称
- ● 标准库中具有外部链接性的对象或函数名称
- ● 标准库中的类型名称
+<p>下列名称具有保留意义，自定义名称不应与之相同：</p>
+<ul>
+<li>标准库或编译环境中的宏名称</li>
+<li>标准库中具有外部链接性的对象或函数名称</li>
+<li>标准库中的类型名称</li>
 
-自定义字面常量后缀应以下划线开头，否则为保留名称，除此之外：
- ● 以两个下划线开头的名称
- ● 以一个下划线和一个大写字母开头的名称
- ● 以下划线开头的全局名称
+</ul>
+<p>自定义字面常量后缀应以下划线开头，否则为保留名称，除此之外：</p>
+<ul>
+<li>以两个下划线开头的名称</li>
+<li>以一个下划线和一个大写字母开头的名称</li>
+<li>以下划线开头的全局名称</li>
 
-均具有保留意义，自定义名称应避免这种命名方式。
+</ul>
+<p>均具有保留意义，自定义名称应避免这种命名方式。</p>
 
-对于宏，本规则特化为 <a href="./ID_macro_defineReserved.html" target="_blank" class="dashed-link">ID_macro_defineReserved</a>、<a href="./ID_macro_undefReserved.html" target="_blank" class="dashed-link">ID_macro_undefReserved</a>。
+<p>对于宏，本规则特化为 <a href="./ID_macro_defineReserved.html" class="dashed-link">ID_macro_defineReserved</a>、<a href="./ID_macro_undefReserved.html" class="dashed-link">ID_macro_undefReserved</a>。</p>
 
-示例：
-<div class="code">#include &lt;errno.h&gt;
+<p>示例：</p>
+<code>#include &lt;errno.h&gt;
 
 struct A {
     void foo() {
-        if (errno != 0) {  //<span class="comment"> Which errno?</span>
+        if (errno != 0) {  //<i> Which errno?</i>
             ....
         }
     }
 private:
-    int errno;  //<span class="comment"> Non-compliant</span>
-};</div>
-例中成员变量 errno 与标准库中的 errno 名称相同，不便于区分是自定义的还是系统定义的。
+    int errno;  //<i> Non-compliant</i>
+};</code>
+<p>例中成员变量 errno 与标准库中的 errno 名称相同，不便于区分是自定义的还是系统定义的。</p>
 
-又如：
-<div class="code">size_t _Size();   //<span class="comment"> Non-compliant</span>
+<p>又如：</p>
+<code>size_t _Size();   //<i> Non-compliant</i>
 
-size_t operator &quot;&quot; KB(unsigned long long n) {   //<span class="comment"> Non-compliant</span>
+size_t operator &quot;&quot; KB(unsigned long long n) {   //<i> Non-compliant</i>
     return n * 1024;
-}</div>
-例中函数名 _Size 以一个下划线和一个大写字母开头，自定义字面常量后缀 KB 未以下划线开头，均不符合要求。
+}</code>
+<p>例中函数名 _Size 以一个下划线和一个大写字母开头，自定义字面常量后缀 KB 未以下划线开头，均不符合要求。</p>
 
-为避免冲突和误解，以下命名方式可供参考：
- ● 除自定义字面常量后缀之外，避免名称以下划线开头
- ● 无命名空间限制的全局名称以模块名称开头
- ● 从名称上体现作用域，如全局对象名以 g_ 开头，成员对象名以 m_ 开头或以 _ 结尾
- ● 从名称上体现类别，如宏名采用全大写字母，类型名以大写字母开头，函数或对象名以小写字母开头
+<p>为避免冲突和误解，以下命名方式可供参考：</p>
+<ul>
+<li>除自定义字面常量后缀之外，避免名称以下划线开头</li>
+<li>无命名空间限制的全局名称以模块名称开头</li>
+<li>从名称上体现作用域，如全局对象名以 g_ 开头，成员对象名以 m_ 开头或以 _ 结尾</li>
+<li>从名称上体现类别，如宏名采用全大写字母，类型名以大写字母开头，函数或对象名以小写字母开头</li>
 
-本规则集合对具体的命名方式暂不作量化要求，但读者应具备相关意识。
+</ul>
+<p>本规则集合对具体的命名方式暂不作量化要求，但读者应具备相关意识。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_macro_defineReserved.html" target="_blank" class="related-link">ID_macro_defineReserved</a>
-<a href="./ID_macro_undefReserved.html" target="_blank" class="related-link">ID_macro_undefReserved</a>
-
-</p>
+<div class="ref-items"><a href="./ID_macro_defineReserved.html" class="related-link">ID_macro_defineReserved</a>
+<a href="./ID_macro_undefReserved.html" class="related-link">ID_macro_undefReserved</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.1.3(1)
+<div class="ref-items">ISO/IEC 9899:1999 7.1.3(1)
 ISO/IEC 9899:2011 7.1.3(1)
 ISO/IEC 14882:2003 17.4.3.1
 ISO/IEC 14882:2011 17.6.4.3
-ISO/IEC 14882:2017 20.5.4.3
-
-</p>
+ISO/IEC 14882:2017 20.5.4.3</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 21.2
+<div class="ref-items">MISRA C 2012 21.2
 MISRA C++ 2008 17-0-1
 MISRA C++ 2008 17-0-2
 MISRA C++ 2008 17-0-3
 SEI CERT DCL37-C
-SEI CERT DCL51-CPP
-
-</p>
+SEI CERT DCL51-CPP</div>
 </article>
 </html>

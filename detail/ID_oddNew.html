@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：new 表达式只应作为“=”的直接右子表达式，或直接作为参数，其他形式均有问题。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>new 表达式只可用于赋值或当作参数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>new 表达式只可用于赋值或当作参数</h1>
@@ -19,33 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-new 表达式只应作为“=”的直接右子表达式，或直接作为参数，其他形式均有问题。
+<main>
+<p>new 表达式只应作为“=”的直接右子表达式，或直接作为参数，其他形式均有问题。</p>
 
-本规则对 replacement new 不作要求。
+<p>本规则对 replacement new 不作要求。</p>
 
-示例：
-<div class="code">int i = *new int(10);         //<span class="comment"> Non-compliant, memory leak</span>
+<p>示例：</p>
+<code>int i = *new int(10);         //<i> Non-compliant, memory leak</i>
 
-int&amp; j = *new int(10);        //<span class="comment"> Non-compliant</span>
-delete &amp;j;                    //<span class="comment"> Very odd</span>
+int&amp; j = *new int(10);        //<i> Non-compliant</i>
+delete &amp;j;                    //<i> Very odd</i>
 
-char* p = new char[10] + 5;   //<span class="comment"> Non-compliant</span>
-delete[] p - 5;               //<span class="comment"> Very odd</span>
+char* p = new char[10] + 5;   //<i> Non-compliant</i>
+delete[] p - 5;               //<i> Very odd</i>
 
-if (new int[10]) {            //<span class="comment"> Non-compliant, memory leak</span>
+if (new int[10]) {            //<i> Non-compliant, memory leak</i>
     ....
 }
-</div>
-这种问题多数是由笔误或错误的宏展开造成的。
+</code>
+<p>这种问题多数是由笔误或错误的宏展开造成的。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_multiAllocation.html" target="_blank" class="related-link">ID_multiAllocation</a>
-
-</p>
+<div class="ref-items"><a href="./ID_multiAllocation.html" class="related-link">ID_multiAllocation</a></div>
 
 
 

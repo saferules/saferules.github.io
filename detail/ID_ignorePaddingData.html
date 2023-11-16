@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：成员之间存在填充数据，且没有声明对齐方式时，填充数据的长度是由实现定义的，这种数据不应在不同的环境之间传输，而且应注意成员的声明顺序，避免由填充数据造成的空间浪费。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>数据成员之间的填充数据不应被忽视 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>数据成员之间的填充数据不应被忽视</h1>
@@ -19,51 +20,45 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-成员之间存在填充数据，且没有声明对齐方式时，填充数据的长度是由实现定义的，这种数据不应在不同的环境之间传输，而且应注意成员的声明顺序，避免由填充数据造成的空间浪费。
+<main>
+<p>成员之间存在填充数据，且没有声明对齐方式时，填充数据的长度是由实现定义的，这种数据不应在不同的环境之间传输，而且应注意成员的声明顺序，避免由填充数据造成的空间浪费。</p>
 
-关于填充数据的具体组织方式，详见“<a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" class="dashed-link">内存对齐</a>”。
+<p>关于填充数据的具体组织方式，详见“<a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" class="dashed-link">内存对齐</a>”。</p>
 
-示例：
-<div class="code">struct T {
+<p>示例：</p>
+<code>struct T {
     int8_t  a;
     int32_t b;
 } obj;
 
-recv(sockfd, &amp;obj, sizeof obj, flags);   //<span class="comment"> Non-compliant</span></div>
-例中成员 a 和 b 之间存在填充数据，但没有声明对齐方式，直接在网络上传输这种类型的对象是不符合要求的，如果发送端的对齐方式与接收端不一致就会造成混乱。
+recv(sockfd, &amp;obj, sizeof obj, flags);   //<i> Non-compliant</i></code>
+<p>例中成员 a 和 b 之间存在填充数据，但没有声明对齐方式，直接在网络上传输这种类型的对象是不符合要求的，如果发送端的对齐方式与接收端不一致就会造成混乱。</p>
 
-应在发送端和接收端统一声明对齐方式：
-<div class="code">struct alignas(4) T {   //<span class="comment"> Or use _Alignas in C</span>
+<p>应在发送端和接收端统一声明对齐方式：</p>
+<code>struct alignas(4) T {   //<i> Or use _Alignas in C</i>
     int8_t  a;
     int32_t b;
 };
-</div>
-注意，敏感数据可能会残留在填充数据中，所以当存储或传输对象前有必要清理填充数据的值，如：
-<div class="code">T obj;
-memset(&amp;obj, 0, sizeof(obj));   //<span class="comment"> Required</span>
+</code>
+<p>注意，敏感数据可能会残留在填充数据中，所以当存储或传输对象前有必要清理填充数据的值，如：</p>
+<code>T obj;
+memset(&amp;obj, 0, sizeof(obj));   //<i> Required</i>
 ....
-fwrite(&amp;obj, sizeof(obj), 1, fp);</div>
+fwrite(&amp;obj, sizeof(obj), 1, fp);</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_accessPaddingData.html" target="_blank" class="related-link">ID_accessPaddingData</a>
-
-</p>
+<div class="ref-items"><a href="./ID_accessPaddingData.html" class="related-link">ID_accessPaddingData</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:2011 6.2.8(1)-implementation
-ISO/IEC 14882:2011 3.11(1)-implementation
-
-</p>
+<div class="ref-items">ISO/IEC 9899:2011 6.2.8(1)-implementation
+ISO/IEC 14882:2011 3.11(1)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT DCL39-C
-
-</p>
+<div class="ref-items">SEI CERT DCL39-C</div>
 </article>
 </html>

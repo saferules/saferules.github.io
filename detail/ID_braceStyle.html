@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：大括号应遵循统一的换行和缩进风格，否则不利于阅读和维护，甚至形成笔误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>大括号应遵循统一风格 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>大括号应遵循统一风格</h1>
@@ -19,13 +20,13 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-大括号应遵循统一的换行和缩进风格，否则不利于阅读和维护，甚至形成笔误。
+<main>
+<p>大括号应遵循统一的换行和缩进风格，否则不利于阅读和维护，甚至形成笔误。</p>
 
-命名空间、类、函数体、复合语句等不同类别的大括号，换行方式可以不同，但同类大括号的换行方式应该是一致的，本规则暂不限定具体风格，但强调一致性。
+<p>命名空间、类、函数体、复合语句等不同类别的大括号，换行方式可以不同，但同类大括号的换行方式应该是一致的，本规则暂不限定具体风格，但强调一致性。</p>
 
-示例：
-<div class="code">void foo() {     //<span class="comment"> Non-compliant, missing a unified style</span>
+<p>示例：</p>
+<code>void foo() {     //<i> Non-compliant, missing a unified style</i>
     if (cond)
     {
         ....
@@ -35,7 +36,7 @@
     }
 }
 
-void bar()       //<span class="comment"> Non-compliant, missing a unified style</span>
+void bar()       //<i> Non-compliant, missing a unified style</i>
 {
     if (cond) {
         ....
@@ -43,18 +44,16 @@ void bar()       //<span class="comment"> Non-compliant, missing a unified style
     {
         ....
     }
-}</div>
-例中大括号换行的方式不一致，代码显得很混乱。
+}</code>
+<p>例中大括号换行的方式不一致，代码显得很混乱。</p>
 
-本规则是 <a href="./ID_if_mayBeElseIf.html" target="_blank" class="dashed-link">ID_if_mayBeElseIf</a> 的泛化，该规则描述了一种由换行造成的错误。
+<p>本规则是 <a href="./ID_if_mayBeElseIf.html" class="dashed-link">ID_if_mayBeElseIf</a> 的泛化，该规则描述了一种由换行造成的错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_if_mayBeElseIf.html" target="_blank" class="related-link">ID_if_mayBeElseIf</a>
-
-</p>
+<div class="ref-items"><a href="./ID_if_mayBeElseIf.html" class="related-link">ID_if_mayBeElseIf</a></div>
 
 
 

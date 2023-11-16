@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：C 语言中的 restrict 指针要求其他指针不能再指向相同区域，有助于编译器优化，但不符合这种限制时会导致标准未定义的行为，相当于增加了误用风险，也增加了测试成本。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用 restrict 指针 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用 restrict 指针</h1>
@@ -19,43 +20,39 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-C 语言中的 restrict 指针要求其他指针不能再指向相同区域，有助于编译器优化，但不符合这种限制时会导致标准未定义的行为，相当于增加了误用风险，也增加了测试成本。
+<main>
+<p>C 语言中的 restrict 指针要求其他指针不能再指向相同区域，有助于编译器优化，但不符合这种限制时会导致标准未定义的行为，相当于增加了误用风险，也增加了测试成本。</p>
 
-示例：
-<div class="code">void foo(int c[]) {
-    int *restrict a = &amp;c[0];   //<span class="comment"> Non-compliant</span>
-    int *restrict b = &amp;c[1];   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>void foo(int c[]) {
+    int *restrict a = &amp;c[0];   //<i> Non-compliant</i>
+    int *restrict b = &amp;c[1];   //<i> Non-compliant</i>
     ....
-    a = b;                     //<span class="comment"> Undefined behavior</span>
+    a = b;                     //<i> Undefined behavior</i>
     ....
 }
 
-int bar(int *restrict x, int *restrict y) {   //<span class="comment"> Non-compliant</span>
+int bar(int *restrict x, int *restrict y) {   //<i> Non-compliant</i>
     return *x + *y;
 }
 
 int baz(int* p) {
-    return bar(p, p);   //<span class="comment"> Undefined behavior</span>
+    return bar(p, p);   //<i> Undefined behavior</i>
 }
-</div>
-restrict 指针虽然有助于编译器优化，但应在效率的提高和存在的风险之间进行取舍，非系统库中的代码、改动频繁的代码不建议使用 restrict 指针，而且这种优化大部分情况下也难以真正解决效率的瓶颈问题。
+</code>
+<p>restrict 指针虽然有助于编译器优化，但应在效率的提高和存在的风险之间进行取舍，非系统库中的代码、改动频繁的代码不建议使用 restrict 指针，而且这种优化大部分情况下也难以真正解决效率的瓶颈问题。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7.3.1(4 9 11)-undefined
-ISO/IEC 9899:2011 6.7.3.1(4 9 11)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.7.3.1(4 9 11)-undefined
+ISO/IEC 9899:2011 6.7.3.1(4 9 11)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 8.14
-SEI CERT EXP43-C
-
-</p>
+<div class="ref-items">MISRA C 2012 8.14
+SEI CERT EXP43-C</div>
 </article>
 </html>

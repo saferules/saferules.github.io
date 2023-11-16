@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：非标准预编译指令往往属于某种编译器独有，在有可移植性要求的代码中应避免使用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应使用非标准预编译指令 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应使用非标准预编译指令</h1>
@@ -19,31 +20,27 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-非标准预编译指令往往属于某种编译器独有，在有可移植性要求的代码中应避免使用。
+<main>
+<p>非标准预编译指令往往属于某种编译器独有，在有可移植性要求的代码中应避免使用。</p>
 
-示例：
-<div class="code">#import &quot;foo&quot;          //<span class="comment"> Non-compliant</span>
-#include_next &quot;bar.h&quot;  //<span class="comment"> Non-compliant</span></div>
+<p>示例：</p>
+<code>#import &quot;foo&quot;          //<i> Non-compliant</i>
+#include_next &quot;bar.h&quot;  //<i> Non-compliant</i></code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.10(1)
+<div class="ref-items">ISO/IEC 9899:1999 6.10(1)
 ISO/IEC 9899:2011 6.10(1)
 ISO/IEC 14882:2003 16(1)
 ISO/IEC 14882:2011 16(1)
-ISO/IEC 14882:2017 19(1)
-
-</p>
+ISO/IEC 14882:2017 19(1)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 19.16
-MISRA C 2012 20.13
-
-</p>
+<div class="ref-items">MISRA C 2004 19.16
+MISRA C 2012 20.13</div>
 </article>
 </html>

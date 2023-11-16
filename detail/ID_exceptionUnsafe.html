@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：保证异常安全。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>保证异常安全 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>保证异常安全</h1>
@@ -19,41 +20,43 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-当产生异常时，保证：
- ● 相关资源不会泄漏
- ● 相关对象处于正确状态
+<main>
+<p>当产生异常时，保证：</p>
+<ul>
+<li>相关资源不会泄漏</li>
+<li>相关对象处于正确状态</li>
 
-是 C++ 异常机制可以正确工作的重要基础。
+</ul>
+<p>是 C++ 异常机制可以正确工作的重要基础。</p>
 
-示例：
-<div class="code">void foo() {
+<p>示例：</p>
+<code>void foo() {
     lock();
-    procedure_may_throw();  //<span class="comment"> Unsafe</span>
+    procedure_may_throw();  //<i> Unsafe</i>
     unlock();
-}</div>
-设 lock 是某种获取资源的操作，unlock 是释放资源的操作，procedure_may_throw 是可能抛出异常的过程，那么 foo 函数就不是异常安全的，一旦有异常抛出会导致死锁或泄露等问题。
+}</code>
+<p>设 lock 是某种获取资源的操作，unlock 是释放资源的操作，procedure_may_throw 是可能抛出异常的过程，那么 foo 函数就不是异常安全的，一旦有异常抛出会导致死锁或泄露等问题。</p>
 
-应保证资源从分配到回收的过程不被异常中断，采用对象化管理方法，使分配和回收得以自动完成：
-<div class="code">void foo() {
+<p>应保证资源从分配到回收的过程不被异常中断，采用对象化管理方法，使分配和回收得以自动完成：</p>
+<code>void foo() {
     LockOwner object;
-    procedure_may_throw();  //<span class="comment"> Safe</span>
-}</div>
-将 lock 和 unlock 分别由 object 的构造和析构函数完成，即使 procedure_may_throw 抛出异常，相关资源也可被自动回收，实现了异常安全，资源的对象化管理方法可参见 <a href="./ID_ownerlessResource.html" target="_blank" class="dashed-link">ID_ownerlessResource</a>。
+    procedure_may_throw();  //<i> Safe</i>
+}</code>
+<p>将 lock 和 unlock 分别由 object 的构造和析构函数完成，即使 procedure_may_throw 抛出异常，相关资源也可被自动回收，实现了异常安全，资源的对象化管理方法可参见 <a href="./ID_ownerlessResource.html" class="dashed-link">ID_ownerlessResource</a>。</p>
 
-异常安全的另一个重要方面是抛出异常时应保证相关对象的状态是正确的，事务或算法在处理对象时可能要分多个步骤处理对象的多个成员，要注意中途抛出异常会造成数据不一致等问题。
-<div class="code">class X {
+<p>异常安全的另一个重要方面是抛出异常时应保证相关对象的状态是正确的，事务或算法在处理对象时可能要分多个步骤处理对象的多个成员，要注意中途抛出异常会造成数据不一致等问题。</p>
+<code>class X {
     T a, b;
 
 public:
     void foo() {
         proc(a);
-        //<span class="comment"> ... if throw an exception ...</span>
+        //<i> ... if throw an exception ...</i>
         proc(b);
     }
-};</div>
-设 a 和 b 是两个密切相关的成员，如账号和金额等，foo 是一个处理事务的函数，如果在中途抛出异常就会使对象处于错误的状态，解决方法可以考虑“复制 - 交换”模式，如：
-<div class="code">class X {
+};</code>
+<p>设 a 和 b 是两个密切相关的成员，如账号和金额等，foo 是一个处理事务的函数，如果在中途抛出异常就会使对象处于错误的状态，解决方法可以考虑“复制 - 交换”模式，如：</p>
+<code>class X {
     T a, b;
 
 public:
@@ -67,27 +70,23 @@ public:
     void swap(X&amp; v) noexcept {
         ....
     }
-};</div>
-事务先处理对象的副本，处理成功后交换副本与对象的数据，交换过程需要保证不抛出异常，这样从对象副本的生成到事务处理完毕的过程中即使抛出异常也不影响对象的状态。
+};</code>
+<p>事务先处理对象的副本，处理成功后交换副本与对象的数据，交换过程需要保证不抛出异常，这样从对象副本的生成到事务处理完毕的过程中即使抛出异常也不影响对象的状态。</p>
 
-swap 过程不可抛出异常也是一个规则，参见 <a href="./ID_throwInSwap.html" target="_blank" class="dashed-link">ID_throwInSwap</a>。
+<p>swap 过程不可抛出异常也是一个规则，参见 <a href="./ID_throwInSwap.html" class="dashed-link">ID_throwInSwap</a>。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_resourceLeak.html" target="_blank" class="related-link">ID_resourceLeak</a>
-<a href="./ID_ownerlessResource.html" target="_blank" class="related-link">ID_ownerlessResource</a>
-<a href="./ID_throwInSwap.html" target="_blank" class="related-link">ID_throwInSwap</a>
-
-</p>
+<div class="ref-items"><a href="./ID_resourceLeak.html" class="related-link">ID_resourceLeak</a>
+<a href="./ID_ownerlessResource.html" class="related-link">ID_ownerlessResource</a>
+<a href="./ID_throwInSwap.html" class="related-link">ID_throwInSwap</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT ERR56-CPP
-Effective C++ item 29
-
-</p>
+<div class="ref-items">SEI CERT ERR56-CPP
+Effective C++ item 29</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：除 0 等在数学上没有定义的运算、浮点异常、非法指令、段错误等问题称为“计算异常”，意味着程序发生了严重的底层运行时错误，而且这种异常无法用语言层面的常规方法捕获。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免除 0 等计算异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免除 0 等计算异常</h1>
@@ -19,44 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-除 0 等在数学上没有定义的运算、浮点异常、非法指令、段错误等问题称为“计算异常”，意味着严重的底层运行时错误，而且这种异常无法用语言层面的常规方法捕获。
+<main>
+<p>除 0 等在数学上没有定义的运算、浮点异常、非法指令、段错误等问题称为“计算异常”，意味着严重的底层运行时错误，而且这种异常无法用语言层面的常规方法捕获。</p>
 
-示例：
-<div class="code">int foo(int n) {
+<p>示例：</p>
+<code>int foo(int n) {
     if (n) {
-        return 100 / n;   //<span class="comment"> Compliant</span>
+        return 100 / n;   //<i> Compliant</i>
     }
-    return 200 / n;   //<span class="comment"> Non-compliant, undefined behavior</span>
-}</div>
-整数除 0 往往会使程序崩溃，浮点数除 0 可以产生“<a href="https://en.wikipedia.org/wiki/Infinity#Computing" target="_blank" class="dashed-link">Inf</a>”或“<a href="https://en.wikipedia.org/wiki/NaN" target="_blank" class="dashed-link">NaN</a>”等无效结果，在某些环境中也可以设置浮点异常使程序收到特定信号。
+    return 200 / n;   //<i> Non-compliant, undefined behavior</i>
+}</code>
+<p>整数除 0 往往会使程序崩溃，浮点数除 0 可以产生“<a href="https://en.wikipedia.org/wiki/Infinity#Computing" target="_blank" class="dashed-link">Inf</a>”或“<a href="https://en.wikipedia.org/wiki/NaN" target="_blank" class="dashed-link">NaN</a>”等无效结果，在某些环境中也可以设置浮点异常使程序收到特定信号。</p>
 
-崩溃会使程序异常终止，无法或难以执行必要的善后工作。如果崩溃可由外部输入引起，会被攻击者利用从而迫使程序无法正常工作，具有高可靠性要求的服务类程序更应该注意这一点，可参见“<a href="https://en.wikipedia.org/wiki/Denial-of-service_attack" target="_blank" class="dashed-link">拒绝服务攻击</a>”。对于客户端程序，也要防止攻击者对崩溃产生的“<a href="https://en.wikipedia.org/wiki/Core_dump" target="_blank" class="dashed-link">core dump</a>”进行恶意调试，避免泄露敏感数据，总之程序的健壮性与安全性是紧密相关的。
+<p>崩溃会使程序异常终止，无法或难以执行必要的善后工作。如果崩溃可由外部输入引起，会被攻击者利用从而迫使程序无法正常工作，具有高可靠性要求的服务类程序更应该注意这一点，可参见“<a href="https://en.wikipedia.org/wiki/Denial-of-service_attack" target="_blank" class="dashed-link">拒绝服务攻击</a>”。对于客户端程序，也要防止攻击者对崩溃产生的“<a href="https://en.wikipedia.org/wiki/Core_dump" target="_blank" class="dashed-link">core dump</a>”进行恶意调试，避免泄露敏感数据，总之程序的健壮性与安全性是紧密相关的。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_sig_illReturn.html" target="_blank" class="related-link">ID_sig_illReturn</a>
-
-</p>
+<div class="ref-items"><a href="./ID_sig_illReturn.html" class="related-link">ID_sig_illReturn</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.5(5)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.5.5(5)-undefined
 ISO/IEC 9899:2011 6.5.5(5)-undefined
 ISO/IEC 14882:2003 5.6(4)-undefined
 ISO/IEC 14882:2011 5.6(4)-undefined
-ISO/IEC 14882:2017 8.6(4)-undefined
-
-</p>
+ISO/IEC 14882:2017 8.6(4)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-189
+<div class="ref-items">CWE-189
 CWE-369
-C++ Core Guidelines ES.105
-
-</p>
+C++ Core Guidelines ES.105</div>
 </article>
 </html>

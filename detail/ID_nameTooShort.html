@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：全局名称应具有标识性，长度不应过短，否则易与局部名称产生冲突。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>全局名称应遵循合理的命名方式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>全局名称应遵循合理的命名方式</h1>
@@ -19,42 +20,37 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-全局名称应具有标识性，长度不应过短，否则易与局部名称产生冲突。
+<main>
+<p>全局名称应具有标识性，长度不应过短，否则易与局部名称产生冲突。</p>
 
-本规则是 <a href="./ID_badName.html" target="_blank" class="dashed-link">ID_badName</a> 的特化。
+<p>本规则是 <a href="./ID_badName.html" class="dashed-link">ID_badName</a> 的特化。</p>
 
-示例：
-<div class="code">//<span class="comment"> In global scope</span>
-const int i = 0;     //<span class="comment"> Non-compliant, name too short</span>
-typedef int t;       //<span class="comment"> Non-compliant, name too short</span>
-class A { .... };    //<span class="comment"> Non-compliant, name too short</span>
+<p>示例：</p>
+<code>//<i> In global scope</i>
+const int i = 0;     //<i> Non-compliant, name too short</i>
+typedef int t;       //<i> Non-compliant, name too short</i>
+class A { .... };    //<i> Non-compliant, name too short</i>
 
 int foo(int i) {
-    return i + i;    //<span class="comment"> Confusing</span>
-}</div>
-名称适用的作用域范围越广，其长度也应该越长，建议全局名称长度不小于 3 个字符。
+    return i + i;    //<i> Confusing</i>
+}</code>
+<p>名称适用的作用域范围越广，其长度也应该越长，建议全局名称长度不小于 3 个字符。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">minVariableNameLength: 全局对象名称长度下限，小于则报出
+<div class="ref-items">minVariableNameLength: 全局对象名称长度下限，小于则报出
 minFunctionNameLength: 全局函数名称长度下限，小于则报出
 minNameSpaceNameLength: 全局命名空间名称长度下限，小于则报出
-minTypeNameLength: 全局类型名称长度下限，小于则报出
-</p>
+minTypeNameLength: 全局类型名称长度下限，小于则报出</div>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_badName.html" target="_blank" class="related-link">ID_badName</a>
-
-</p>
+<div class="ref-items"><a href="./ID_badName.html" class="related-link">ID_badName</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines NL.7
-
-</p>
+<div class="ref-items">C++ Core Guidelines NL.7</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：赋值运算符应返回所属类不受 const 关键字限定的左值引用，以便调用者使用并满足泛型编程的要求。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>赋值运算符应返回所属类的非 const 左值引用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>赋值运算符应返回所属类的非 const 左值引用</h1>
@@ -19,46 +20,40 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-赋值运算符应返回所属类不受 const 关键字限定的左值引用，以便调用者使用并满足泛型编程的要求。
+<main>
+<p>赋值运算符应返回所属类不受 const 关键字限定的左值引用，以便调用者使用并满足泛型编程的要求。</p>
 
-重载赋值运算符的行为应与内置赋值运算符一致，使类对象的赋值表达式可以灵活地作为各种语句的子表达式，这也是“<a href="https://en.wikipedia.org/wiki/Generic_programming" target="_blank" class="dashed-link">泛型程序设计</a>”的必要条件，使同一套代码既可以适应普通变量，也可以适应类对象。
+<p>重载赋值运算符的行为应与内置赋值运算符一致，使类对象的赋值表达式可以灵活地作为各种语句的子表达式，这也是“<a href="https://en.wikipedia.org/wiki/Generic_programming" target="_blank" class="dashed-link">泛型程序设计</a>”的必要条件，使同一套代码既可以适应普通变量，也可以适应类对象。</p>
 
-本规则是 <a href="./ID_illOperatorRetType.html" target="_blank" class="dashed-link">ID_illOperatorRetType</a> 的特化，对复合赋值运算符也有相同的要求。
+<p>本规则是 <a href="./ID_illOperatorRetType.html" class="dashed-link">ID_illOperatorRetType</a> 的特化，对复合赋值运算符也有相同的要求。</p>
 
-示例：
-<div class="code">struct A {
-    void operator = (const A&amp;);  //<span class="comment"> Non-compliant</span>
-    void operator = (A&amp;&amp;);       //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>struct A {
+    void operator = (const A&amp;);  //<i> Non-compliant</i>
+    void operator = (A&amp;&amp;);       //<i> Non-compliant</i>
 };
-</div>
-应改为：
-<div class="code">struct A {
-    A&amp; operator = (const A&amp;);  //<span class="comment"> Compliant</span>
-    A&amp; operator = (A&amp;&amp;);       //<span class="comment"> Compliant</span>
-};</div>
+</code>
+<p>应改为：</p>
+<code>struct A {
+    A&amp; operator = (const A&amp;);  //<i> Compliant</i>
+    A&amp; operator = (A&amp;&amp;);       //<i> Compliant</i>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_illOperatorRetType.html" target="_blank" class="related-link">ID_illOperatorRetType</a>
-
-</p>
+<div class="ref-items"><a href="./ID_illOperatorRetType.html" class="related-link">ID_illOperatorRetType</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 12.8(10)
-ISO/IEC 14882:2011 12.8(22)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 12.8(10)
+ISO/IEC 14882:2011 12.8(22)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines F.47
+<div class="ref-items">C++ Core Guidelines F.47
 C++ Core Guidelines C.60
-C++ Core Guidelines C.63
-
-</p>
+C++ Core Guidelines C.63</div>
 </article>
 </html>

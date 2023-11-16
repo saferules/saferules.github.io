@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：作用域及类型嵌套过深会造成阅读和维护困难。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>作用域及类型嵌套不应过深 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>作用域及类型嵌套不应过深</h1>
@@ -19,34 +20,35 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-作用域及类型嵌套过深会造成阅读和维护困难。
+<main>
+<p>作用域及类型嵌套过深会造成阅读和维护困难。</p>
 
-建议：
- ● 函数作用域嵌套不超过 7 层
- ● 内联函数作用域嵌套不超过 2 层
- ● lambda 表达式内作用域嵌套不超过 5 层
- ● 类、结构体嵌套不超过 3 层
- ● 命名空间嵌套不超过 4 层
+<p>建议：</p>
+<ul>
+<li>函数作用域嵌套不超过 7 层</li>
+<li>内联函数作用域嵌套不超过 2 层</li>
+<li>lambda 表达式内作用域嵌套不超过 5 层</li>
+<li>类、结构体嵌套不超过 3 层</li>
+<li>命名空间嵌套不超过 4 层</li>
 
-示例：
-<div class="code">if (cond0)
+</ul>
+<p>示例：</p>
+<code>if (cond0)
     if (cond1)
         .... nested 10 layers ....
-                if (cond10)  //<span class="comment"> Terrible</span>
+                if (cond10)  //<i> Terrible</i>
                     ....   
-</div>
-审计工具不妨通过配置决定嵌套层数是否合规。
+</code>
+<p>审计工具不妨通过配置决定嵌套层数是否合规。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxFunctionNestedDepth: 函数作用域最大嵌套层数，超过则报出
+<div class="ref-items">maxFunctionNestedDepth: 函数作用域最大嵌套层数，超过则报出
 maxInlineFunctionNestedDepth: 内联函数作用域最大嵌套层数，超过则报出
 maxLambdaNestedDepth: 函数作用域最大嵌套层数，超过则报出
 maxTypeNestedDepth: 类型最大嵌套层数，超过则报出
-maxNamespaceNestedDepth: 命名空间最大嵌套层数，超过则报出
-</p>
+maxNamespaceNestedDepth: 命名空间最大嵌套层数，超过则报出</div>
 
 
 

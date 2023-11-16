@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：switch 语句分枝过多不利于阅读和维护，这种情况下建议将分枝抽取成函数，再按遵循某种算法的索引结构组织在一起。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>switch 语句分枝数量应在规定范围之内 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>switch 语句分枝数量应在规定范围之内</h1>
@@ -19,25 +20,24 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-switch 语句分枝过多不利于阅读和维护，这种情况下建议将分枝抽取成函数，再按遵循某种算法的索引结构组织在一起。
+<main>
+<p>switch 语句分枝过多不利于阅读和维护，这种情况下建议将分枝抽取成函数，再按遵循某种算法的索引结构组织在一起。</p>
 
-示例：
-<div class="code">switch (v)
+<p>示例：</p>
+<code>switch (v)
 {
 case 1: .... break;
 case 2: .... break;
-        ....             //<span class="comment"> Lots of cases</span>
-case 1000: .... break;   //<span class="comment"> Non-compliant</span>
+        ....             //<i> Lots of cases</i>
+case 1000: .... break;   //<i> Non-compliant</i>
 }
-</div>
-建议 case 数量不超过 10 个。
+</code>
+<p>建议 case 数量不超过 10 个。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">maxCasesCount: 分枝数量上限，超过则报出
-</p>
+<div class="ref-items">maxCasesCount: 分枝数量上限，超过则报出</div>
 
 
 

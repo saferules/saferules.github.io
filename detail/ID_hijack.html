@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：须对用户输入的脚本、路径、资源请求等信息进行预判，对产生不良后果的输入予以拒绝。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>预判用户输入造成的不良后果 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>预判用户输入造成的不良后果</h1>
@@ -19,38 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-须对用户输入的脚本、路径、资源请求等信息进行预判，对产生不良后果的输入予以拒绝。
+<main>
+<p>须对用户输入的脚本、路径、资源请求等信息进行预判，对产生不良后果的输入予以拒绝。</p>
 
-示例：
-<div class="code">Result foo() {
+<p>示例：</p>
+<code>Result foo() {
     return sqlQuery(
-        &quot;select * from db where key=&#x27;%s&#x27;&quot;, userInput()   //<span class="comment"> Non-compliant</span>
+        &quot;select * from db where key=&#x27;%s&#x27;&quot;, userInput()   //<i> Non-compliant</i>
     );
-}</div>
-设 userInput 返回用户输入的字符串，sqlQuery 将用户输入替换格式化占位符后执行 SQL 语句，如果用户输入“xxx&#x27; or &#x27;x&#x27;=&#x27;x”一类的字符串则相当于执行的是“select * from db where key=&#x27;xxx&#x27; or &#x27;x&#x27;=&#x27;x&#x27;”，一个恒为真的条件使 where 限制失效，造成所有数据被返回，这是一种常见的攻击方式，称为“<a href="https://en.wikipedia.org/wiki/SQL_injection" target="_blank" class="dashed-link">SQL 注入（SQL injection）</a>”，对于 XPath、XQuery、LDAP 等脚本均需考虑这种问题，应在执行前判断用户输入的安全性。
+}</code>
+<p>设 userInput 返回用户输入的字符串，sqlQuery 将用户输入替换格式化占位符后执行 SQL 语句，如果用户输入“xxx&#x27; or &#x27;x&#x27;=&#x27;x”一类的字符串则相当于执行的是“select * from db where key=&#x27;xxx&#x27; or &#x27;x&#x27;=&#x27;x&#x27;”，一个恒为真的条件使 where 限制失效，造成所有数据被返回，这是一种常见的攻击方式，称为“<a href="https://en.wikipedia.org/wiki/SQL_injection" target="_blank" class="dashed-link">SQL 注入（SQL injection）</a>”，对于 XPath、XQuery、LDAP 等脚本均需考虑这种问题，应在执行前判断用户输入的安全性。</p>
 
-又如：
-<div class="code">string bar() {
+<p>又如：</p>
+<code>string bar() {
     return readFile(
-        &quot;/myhome/mydata/&quot; + userInput()   //<span class="comment"> Non-compliant</span>
+        &quot;/myhome/mydata/&quot; + userInput()   //<i> Non-compliant</i>
     );
-}</div>
-这段代码意在将用户输入的路径限制在 /myhome/mydata 目录下，然而这么做是不安全的，如果用户输入带有“../”这种相对路径，则仍可绕过限制，这也是一种常见的攻击方式，称为“<a href="https://en.wikipedia.org/wiki/Directory_traversal_attack" target="_blank" class="dashed-link">路径遍历（directory traversal）</a>”，应在读取文件之前判断路径的安全性。
+}</code>
+<p>这段代码意在将用户输入的路径限制在 /myhome/mydata 目录下，然而这么做是不安全的，如果用户输入带有“../”这种相对路径，则仍可绕过限制，这也是一种常见的攻击方式，称为“<a href="https://en.wikipedia.org/wiki/Directory_traversal_attack" target="_blank" class="dashed-link">路径遍历（directory traversal）</a>”，应在读取文件之前判断路径的安全性。</p>
 
-注意，“用户输入”不单指人的手工输入，源自环境变量、配置文件以及其他软硬件的输入均在此范围内。
+<p>注意，“用户输入”不单指人的手工输入，源自环境变量、配置文件以及其他软硬件的输入均在此范围内。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-23
+<div class="ref-items">CWE-23
 CWE-73
 CWE-89
-CWE-943
-
-</p>
+CWE-943</div>
 </article>
 </html>

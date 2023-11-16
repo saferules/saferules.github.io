@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：只应在定义新的虚函数时使用 virtual 关键字，当重写虚函数时，应使用 override 或 final 关键字，不应再出现 virtual 关键字，使代码更清晰简洁。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>override 或 final 关键字不应与 virtual 关键字同时出现在声明中 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>override 或 final 关键字不应与 virtual 关键字同时出现在声明中</h1>
@@ -19,36 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-只应在定义新的虚函数时使用 virtual 关键字，重写虚函数应使用 override 或 final 关键字，不应再出现 virtual 关键字。
+<main>
+<p>只应在定义新的虚函数时使用 virtual 关键字，重写虚函数应使用 override 或 final 关键字，不应再出现 virtual 关键字。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
 public:
-    virtual int foo();   //<span class="comment"> Compliant, a new virtual function</span>
-    virtual int bar();   //<span class="comment"> Compliant, a new virtual function</span>
+    virtual int foo();   //<i> Compliant, a new virtual function</i>
+    virtual int bar();   //<i> Compliant, a new virtual function</i>
 };
 
 class B: public A {
 public:
-    virtual int foo() final;     //<span class="comment"> Non-compliant, ‘virtual’ is redundant</span>
-    virtual int bar() override;  //<span class="comment"> Non-compliant, ‘virtual’ is redundant</span>
-};</div>
-去掉多余的 virtual 关键字使代码更简洁：
-<div class="code">class B: public A {
+    virtual int foo() final;     //<i> Non-compliant, ‘virtual’ is redundant</i>
+    virtual int bar() override;  //<i> Non-compliant, ‘virtual’ is redundant</i>
+};</code>
+<p>去掉多余的 virtual 关键字使代码更简洁：</p>
+<code>class B: public A {
 public:
-    int foo() final;     //<span class="comment"> Compliant</span>
-    int bar() override;  //<span class="comment"> Compliant</span>
-};</div>
+    int foo() final;     //<i> Compliant</i>
+    int bar() override;  //<i> Compliant</i>
+};</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.128
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.128</div>
 </article>
 </html>

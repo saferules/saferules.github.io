@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：公共成员、全局对象可被外部代码引用，如果存有敏感数据则可能会被误用或窃取。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>公共成员或全局对象不应记录敏感数据 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>公共成员或全局对象不应记录敏感数据</h1>
@@ -19,35 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-公共成员、全局对象可被外部代码引用，如果存有敏感数据则可能会被误用或窃取。
+<main>
+<p>公共成员、全局对象可被外部代码引用，如果存有敏感数据则可能会被误用或窃取。</p>
 
-示例：
-<div class="code">extern string password;   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>extern string password;   //<i> Non-compliant</i>
 
 struct A {
     string username;
-    string password;      //<span class="comment"> Non-compliant</span>
+    string password;      //<i> Non-compliant</i>
 };
-</div>
-至少应将相关成员改为 private：
-<div class="code">class A {
+</code>
+<p>至少应将相关成员改为 private：</p>
+<code>class A {
 public:
-    ....                  //<span class="comment"> Interfaces for accessing passwords safely</span>
+    ....                  //<i> Interfaces for accessing passwords safely</i>
 private:
     string username;
-    string password;      //<span class="comment"> Compliant</span>
-};</div>
-敏感数据最好对引用者完全隐藏，避免被恶意分析、复制或序列化。使数据与接口进一步分离，可参见“<a href="https://en.cppreference.com/w/cpp/language/pimpl" target="_blank" class="dashed-link">Pimpl idiom</a>”等模式。
+    string password;      //<i> Compliant</i>
+};</code>
+<p>敏感数据最好对引用者完全隐藏，避免被恶意分析、复制或序列化。使数据与接口进一步分离，可参见“<a href="https://en.cppreference.com/w/cpp/language/pimpl" target="_blank" class="dashed-link">Pimpl idiom</a>”等模式。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-766
-
-</p>
+<div class="ref-items">CWE-766</div>
 </article>
 </html>

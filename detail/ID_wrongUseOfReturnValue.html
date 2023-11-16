@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：应遵循接口文档使用接口，不可臆断返回值的意义，否则造成逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不可臆断返回值的意义 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不可臆断返回值的意义</h1>
@@ -19,58 +20,56 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-应遵循接口文档使用接口，不可臆断返回值的意义，否则造成逻辑错误。
+<main>
+<p>应遵循接口文档使用接口，不可臆断返回值的意义，否则造成逻辑错误。</p>
 
-示例：
-<div class="code">void foo(const string&amp; s) {
-    if (s.find(&quot;bar&quot;)) {      //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>void foo(const string&amp; s) {
+    if (s.find(&quot;bar&quot;)) {      //<i> Non-compliant</i>
         ....
     }
-}</div>
-例中 find 函数返回 &quot;bar&quot; 在 s 中的位置，当 s 中不存在 &quot;bar&quot; 时返回 string::npos，将 find 函数的返回值转为 bool 型是没有逻辑意义的。
+}</code>
+<p>例中 find 函数返回 &quot;bar&quot; 在 s 中的位置，当 s 中不存在 &quot;bar&quot; 时返回 string::npos，将 find 函数的返回值转为 bool 型是没有逻辑意义的。</p>
 
-应改为：
-<div class="code">void foo(const string&amp; s) {
-    if (s.find(&quot;bar&quot;) != string::npos) {   //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>void foo(const string&amp; s) {
+    if (s.find(&quot;bar&quot;) != string::npos) {   //<i> Compliant</i>
         ....
     }
-}</div>
-想当然地认为返回 0 表示失败或不存在，非 0 表示成功或存在，是造成错误的常见原因。
+}</code>
+<p>想当然地认为返回 0 表示失败或不存在，非 0 表示成功或存在，是造成错误的常见原因。</p>
 
-又如：
-<div class="code">bool gt(const char* a, const char* b) {
-    return strcmp(a, b) == 1;             //<span class="comment"> Non-compliant</span>
-}</div>
-strcmp 函数的返回值可以是等于、大于或小于 0 的任意整数，分别对应字符串的等于、大于或小于关系，认为其只能返回 0、1 或 -1 是一种常见的误解。
+<p>又如：</p>
+<code>bool gt(const char* a, const char* b) {
+    return strcmp(a, b) == 1;             //<i> Non-compliant</i>
+}</code>
+<p>strcmp 函数的返回值可以是等于、大于或小于 0 的任意整数，分别对应字符串的等于、大于或小于关系，认为其只能返回 0、1 或 -1 是一种常见的误解。</p>
 
-应改为：
-<div class="code">bool gt(const char* a, const char* b) {
-    return strcmp(a, b) &gt; 0;              //<span class="comment"> Compliant</span>
-}</div>
-strcmp、wcscmp 以及 memcmp 等函数不应与 0 之外的任何值比较。
+<p>应改为：</p>
+<code>bool gt(const char* a, const char* b) {
+    return strcmp(a, b) &gt; 0;              //<i> Compliant</i>
+}</code>
+<p>strcmp、wcscmp 以及 memcmp 等函数不应与 0 之外的任何值比较。</p>
 
-下列函数的返回值不应与 0 比较，也不应转为 bool 型：
- ● open、create 等 Linux 系统调用，失败时返回负数，成功时返回非负数
- ● CreateFile、CreateNamedPipe 等 Windows API，失败时返回 INVALID_HANDLE_VALUE，而不是 0
- ● HRESULT 型 Windows API 返回值，负数表示失败、非负数表示成功
+<p>下列函数的返回值不应与 0 比较，也不应转为 bool 型：</p>
+<ul>
+<li>open、create 等 Linux 系统调用，失败时返回负数，成功时返回非负数</li>
+<li>CreateFile、CreateNamedPipe 等 Windows API，失败时返回 INVALID_HANDLE_VALUE，而不是 0</li>
+<li>HRESULT 型 Windows API 返回值，负数表示失败、非负数表示成功</li>
 
-另外，有相当一部分函数成功时返回 0，失败时返回非 0，如 access、chmod、rename 等 Linux 系统调用，不可将其返回值当作 bool 型使用。
+</ul>
+<p>另外，有相当一部分函数成功时返回 0，失败时返回非 0，如 access、chmod、rename 等 Linux 系统调用，不可将其返回值当作 bool 型使用。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.21.4
-ISO/IEC 9899:2011 7.24.4
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.21.4
+ISO/IEC 9899:2011 7.24.4</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-253
-
-</p>
+<div class="ref-items">CWE-253</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：# 和 ## 运算符的求值顺序在标准中是未声明的，不应嵌套使用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>宏定义中的 # 和 ## 运算符不应嵌套使用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>宏定义中的 # 和 ## 运算符不应嵌套使用</h1>
@@ -19,22 +20,22 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-# 和 ## 运算符的求值顺序在标准中是未声明的，不应嵌套使用。
+<main>
+<p># 和 ## 运算符的求值顺序在标准中是未声明的，不应嵌套使用。</p>
 
-示例：
-<div class="code">#define M0(a, b) #a ## b          //<span class="comment"> Non-compliant</span>
-#define M1(a, b, c) a ## b ## c   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>#define M0(a, b) #a ## b          //<i> Non-compliant</i>
+#define M1(a, b, c) a ## b ## c   //<i> Non-compliant</i>
 
-#define M2(a) #a                  //<span class="comment"> Compliant</span>
-#define M3(a, b) M2(a ## b)       //<span class="comment"> Compliant</span></div>
+#define M2(a) #a                  //<i> Compliant</i>
+#define M3(a, b) M2(a ## b)       //<i> Compliant</i></code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.10.3.2(2)-unspecified
+<div class="ref-items">ISO/IEC 9899:1999 6.10.3.2(2)-unspecified
 ISO/IEC 9899:1999 6.10.3.3(3)-unspecified
 ISO/IEC 9899:2011 6.10.3.2(2)-unspecified
 ISO/IEC 9899:2011 6.10.3.3(3)-unspecified
@@ -43,16 +44,12 @@ ISO/IEC 14882:2003 16.3.3(3)-unspecified
 ISO/IEC 14882:2011 16.3.2(2)-unspecified
 ISO/IEC 14882:2011 16.3.3(3)-unspecified
 ISO/IEC 14882:2017 19.3.2(2)-unspecified
-ISO/IEC 14882:2017 19.3.3(3)-unspecified
-
-</p>
+ISO/IEC 14882:2017 19.3.3(3)-unspecified</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 19.12
+<div class="ref-items">MISRA C 2004 19.12
 MISRA C 2012 20.11
-MISRA C++ 2008 16-3-1
-
-</p>
+MISRA C++ 2008 16-3-1</div>
 </article>
 </html>

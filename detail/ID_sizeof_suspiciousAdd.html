@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：指针加减偏移量时会自动计入指针指向类型的大小，如果再计入 sizeof 的值，很可能是某种错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>指针加减偏移量时计入 sizeof 是可疑的 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>指针加减偏移量时计入 sizeof 是可疑的</h1>
@@ -19,33 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-指针加减偏移量时会自动计入指针指向类型的大小，如果再计入 sizeof 的值，很可能是某种错误。
+<main>
+<p>指针加减偏移量时会自动计入指针指向类型的大小，如果再计入 sizeof 的值，很可能是某种错误。</p>
 
-示例：
-<div class="code">int foo(int* p, int i) {
-    return *(p + i * sizeof(int));   //<span class="comment"> Rather suspicious</span>
+<p>示例：</p>
+<code>int foo(int* p, int i) {
+    return *(p + i * sizeof(int));   //<i> Rather suspicious</i>
 }
-</div>
-如果 foo 函数是为了获取指针 p 之后第 i 个整数的值，那么这种实现是错误的，应改为：
-<div class="code">int foo(int* p, int i) {
-    return *(p + i);       //<span class="comment"> Right</span>
-}</div>
+</code>
+<p>如果 foo 函数是为了获取指针 p 之后第 i 个整数的值，那么这种实现是错误的，应改为：</p>
+<code>int foo(int* p, int i) {
+    return *(p + i);       //<i> Right</i>
+}</code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.6(8)
-ISO/IEC 9899:2011 6.5.6(8)
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.5.6(8)
+ISO/IEC 9899:2011 6.5.6(8)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-468
-
-</p>
+<div class="ref-items">CWE-468</div>
 </article>
 </html>

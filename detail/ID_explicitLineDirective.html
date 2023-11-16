@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在非自动生成的代码中没有必要使用 line 指令，否则会干扰编译器的输出，使问题难以定位。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>非自动生成的代码中不应出现 line 指令 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>非自动生成的代码中不应出现 line 指令</h1>
@@ -19,22 +20,20 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在非自动生成的代码中没有必要使用 line 指令，否则会干扰编译器的输出，使问题难以定位。
+<main>
+<p>在非自动生成的代码中没有必要使用 line 指令，否则会干扰编译器的输出，使问题难以定位。</p>
 
-示例：
-<div class="code">#line 123           //<span class="comment"> Non-compliant</span>
-#line 456 &quot;foo.c&quot;   //<span class="comment"> Non-compliant</span></div>
+<p>示例：</p>
+<code>#line 123           //<i> Non-compliant</i>
+#line 456 &quot;foo.c&quot;   //<i> Non-compliant</i></code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.10.4
-ISO/IEC 9899:2011 6.10.4
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.10.4
+ISO/IEC 9899:2011 6.10.4</div>
 
 
 </article>

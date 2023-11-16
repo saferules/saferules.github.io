@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：断言中的表达式如果有副作用，不能保证在所有编译设置下都有效。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>断言中的表达式不应有副作用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>断言中的表达式不应有副作用</h1>
@@ -19,42 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-断言中的表达式如果有副作用，不能保证在所有编译设置下都有效。
+<main>
+<p>断言中的表达式如果有副作用，不能保证在所有编译设置下都有效。</p>
 
-如标准断言 assert 会受宏 NDEBUG 的影响，当该宏被定义时 assert 中的表达式不会被执行。
+<p>如标准断言 assert 会受宏 NDEBUG 的影响，当该宏被定义时 assert 中的表达式不会被执行。</p>
 
-示例：
-<div class="code">void foo(int* p) {
-    assert(++(*p) &gt; 0);  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>void foo(int* p) {
+    assert(++(*p) &gt; 0);  //<i> Non-compliant</i>
 }
-</div>
-表达式的副作用均应在 assert 之前完成：
-<div class="code">void foo(int* p) {
+</code>
+<p>表达式的副作用均应在 assert 之前完成：</p>
+<code>void foo(int* p) {
     ++(*p);
-    assert(*p &gt; 0);      //<span class="comment"> Compliant</span>
-}</div>
+    assert(*p &gt; 0);      //<i> Compliant</i>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_macro_sideEffectArgs.html" target="_blank" class="related-link">ID_macro_sideEffectArgs</a>
-<a href="./ID_unevaluatedSideEffect.html" target="_blank" class="related-link">ID_unevaluatedSideEffect</a>
-
-</p>
+<div class="ref-items"><a href="./ID_macro_sideEffectArgs.html" class="related-link">ID_macro_sideEffectArgs</a>
+<a href="./ID_unevaluatedSideEffect.html" class="related-link">ID_unevaluatedSideEffect</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.2
-ISO/IEC 9899:2011 7.2
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.2
+ISO/IEC 9899:2011 7.2</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT PRE31-C
-
-</p>
+<div class="ref-items">SEI CERT PRE31-C</div>
 </article>
 </html>

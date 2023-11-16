@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：已过时的、无意义的或有不良副作用的头文件应禁用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用不合规的头文件 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用不合规的头文件</h1>
@@ -19,60 +20,55 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-已过时的、无意义的或有不良副作用的头文件应禁用。
+<main>
+<p>已过时的、无意义的或有不良副作用的头文件应禁用。</p>
 
-示例：
-<div class="code">#include &lt;tgmath.h&gt;   //<span class="comment"> Non-compliant</span>
-#include &lt;setjmp.h&gt;   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>#include &lt;tgmath.h&gt;   //<i> Non-compliant</i>
+#include &lt;setjmp.h&gt;   //<i> Non-compliant</i>
 
-#include &lt;iso646.h&gt;   //<span class="comment"> Non-compliant in C++</span>
-#include &lt;stdbool.h&gt;  //<span class="comment"> Non-compliant in C++</span>
-#include &lt;ciso646&gt;    //<span class="comment"> Non-compliant in C++</span>
-#include &lt;cstdbool&gt;   //<span class="comment"> Non-compliant in C++</span>
-#include &lt;ctgmath&gt;    //<span class="comment"> Non-compliant in C++</span>
-#include &lt;ccomplex&gt;   //<span class="comment"> Non-compliant in C++</span>
-#include &lt;cstdalign&gt;  //<span class="comment"> Non-compliant in C++</span>
-</div>
-tgmath.h 和 ctgmath 会使用语言标准之外的技术实现某种重载效果，而且其中的部分函数名称会干扰其他标准库中的名称，setjmp.h 和 csetjmp 则包含危险的过程间跳转函数。
+#include &lt;iso646.h&gt;   //<i> Non-compliant in C++</i>
+#include &lt;stdbool.h&gt;  //<i> Non-compliant in C++</i>
+#include &lt;ciso646&gt;    //<i> Non-compliant in C++</i>
+#include &lt;cstdbool&gt;   //<i> Non-compliant in C++</i>
+#include &lt;ctgmath&gt;    //<i> Non-compliant in C++</i>
+#include &lt;ccomplex&gt;   //<i> Non-compliant in C++</i>
+#include &lt;cstdalign&gt;  //<i> Non-compliant in C++</i>
+</code>
+<p>tgmath.h 和 ctgmath 会使用语言标准之外的技术实现某种重载效果，而且其中的部分函数名称会干扰其他标准库中的名称，setjmp.h 和 csetjmp 则包含危险的过程间跳转函数。</p>
 
-iso646.h、stdalign.h、stdbool.h 以及 ciso646、cstdalign、cstdbool 等头文件对 C++ 语言没有意义，ccomplex、cstdalign、cstdbool、ctgmath 等头文件在 C++17 标准中已过时，在 C++ 代码中不应使用这些头文件。
+<p>iso646.h、stdalign.h、stdbool.h 以及 ciso646、cstdalign、cstdbool 等头文件对 C++ 语言没有意义，ccomplex、cstdalign、cstdbool、ctgmath 等头文件在 C++17 标准中已过时，在 C++ 代码中不应使用这些头文件。</p>
 
-stdio.h、signal.h、time.h、fenv.h 等头文件含有较多标准未声明或由实现定义的内容，对有高可靠性要求的软件系统也不建议使用。
+<p>stdio.h、signal.h、time.h、fenv.h 等头文件含有较多标准未声明或由实现定义的内容，对有高可靠性要求的软件系统也不建议使用。</p>
 
-审计工具不妨通过配置设定不合规头文件的名称，如：
-<div class="code">[<a href="./ID_forbiddenHeader.html" target="_blank" class="dashed-link">ID_forbiddenHeader</a>]
+<p>审计工具不妨通过配置设定不合规头文件的名称，如：</p>
+<code>[<a href="./ID_forbiddenHeader.html" class="dashed-link">ID_forbiddenHeader</a>]
 inC=tgmath.h|setjmp.h
 inCpp=tgmath.h|ctgmath|setjmp.h|csetjmp
-</div>
-表示对 C 代码将 tgmath.h、setjmp.h 设为不合规，对 C++ 代码将 tgmath.h、ctgmath、setjmp.h、csetjmp 设为不合规。
+</code>
+<p>表示对 C 代码将 tgmath.h、setjmp.h 设为不合规，对 C++ 代码将 tgmath.h、ctgmath、setjmp.h、csetjmp 设为不合规。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">inC: C 代码中不合规头文件名称
-inCpp: C++ 代码中不合规头文件名称
-</p>
+<div class="ref-items">inC: C 代码中不合规头文件名称
+inCpp: C++ 代码中不合规头文件名称</div>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2017 C.5.1(4)
-ISO/IEC 14882:2017 D.4(1)-deprecated
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2017 C.5.1(4)
+ISO/IEC 14882:2017 D.4(1)-deprecated</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 21.4
+<div class="ref-items">MISRA C 2012 21.4
 MISRA C 2012 21.5
 MISRA C 2012 21.10
 MISRA C 2012 21.11
 MISRA C 2012 21.12
 MISRA C++ 2008 18-0-4
 MISRA C++ 2008 18-7-1
-MISRA C++ 2008 27-0-1
-
-</p>
+MISRA C++ 2008 27-0-1</div>
 </article>
 </html>

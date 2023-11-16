@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：与 void* 相互转换会打破类型限制，是不安全的类型转换。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免与 void* 相互转换 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免与 void* 相互转换</h1>
@@ -19,42 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-与 void* 相互转换会打破类型限制，是不安全的类型转换。
+<main>
+<p>与 void* 相互转换会打破类型限制，是不安全的类型转换。</p>
 
-C 语言的某些传统接口会使用 void*，可不受本规则限制，但在 C++ 代码中应避与 void* 相互转换。
+<p>C 语言的某些传统接口会使用 void*，可不受本规则限制，但在 C++ 代码中应避与 void* 相互转换。</p>
 
-示例：
-<div class="code">struct A { .... };
+<p>示例：</p>
+<code>struct A { .... };
 
 void foo(void* v) {
-    A* a = (A*)v;     //<span class="comment"> Non-compliant</span>
+    A* a = (A*)v;     //<i> Non-compliant</i>
     ....
-}</div>
-例中参数 v 可以随意接受非 A 对象的指针，进而导致标准未定义的行为，代码的正确性单方面依赖开发者是不可靠的。
+}</code>
+<p>例中参数 v 可以随意接受非 A 对象的指针，进而导致标准未定义的行为，代码的正确性单方面依赖开发者是不可靠的。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_forbidMemberVoidPtr.html" target="_blank" class="related-link">ID_forbidMemberVoidPtr</a>
-<a href="./ID_forbidFunctionVoidPtr.html" target="_blank" class="related-link">ID_forbidFunctionVoidPtr</a>
-
-</p>
+<div class="ref-items"><a href="./ID_forbidMemberVoidPtr.html" class="related-link">ID_forbidMemberVoidPtr</a>
+<a href="./ID_forbidFunctionVoidPtr.html" class="related-link">ID_forbidFunctionVoidPtr</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 5.2.10(7)-unspecified
-ISO/IEC 14882:2011 5.2.10(7)-unspecified
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 5.2.10(7)-unspecified
+ISO/IEC 14882:2011 5.2.10(7)-unspecified</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 11.5
+<div class="ref-items">MISRA C 2012 11.5
 MISRA C 2012 11.6
-MISRA C++ 2008 5-2-8
-
-</p>
+MISRA C++ 2008 5-2-8</div>
 </article>
 </html>

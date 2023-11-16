@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对象的 hash 过程中不应抛出异常，否则相关的容器和算法无法正常工作。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>与标准库相关的 hash 过程不应抛出异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>与标准库相关的 hash 过程不应抛出异常</h1>
@@ -19,35 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对象的 hash 过程中不应抛出异常，否则相关的容器和算法无法正常工作。
+<main>
+<p>对象的 hash 过程中不应抛出异常，否则相关的容器和算法无法正常工作。</p>
 
-示例：
-<div class="code">struct U {   //<span class="comment"> User defined type</span>
+<p>示例：</p>
+<code>struct U {   //<i> User defined type</i>
     int* p;
 };
 
-template &lt;&gt; struct std::hash&lt;U&gt; {   //<span class="comment"> Hash specialization</span>
+template &lt;&gt; struct std::hash&lt;U&gt; {   //<i> Hash specialization</i>
     using argument_type = U;
     using result_type = size_t;
 
     size_t operator()(const U&amp; u) const {
         if (!u.p) {
-            throw Exception();   //<span class="comment"> Non-compliant</span>
+            throw Exception();   //<i> Non-compliant</i>
         }
         return hash&lt;int*&gt;()(u.p);
     }
-};</div>
-标准库规定容器的 find、count 等方法应通过返回值表示对象存在与否，然而如果 hash 过程抛出异常，这些方法也会抛出异常，相当于打破了这种约定，易造成意料之外的结果。
+};</code>
+<p>标准库规定容器的 find、count 等方法应通过返回值表示对象存在与否，然而如果 hash 过程抛出异常，这些方法也会抛出异常，相当于打破了这种约定，易造成意料之外的结果。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.89
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.89</div>
 </article>
 </html>

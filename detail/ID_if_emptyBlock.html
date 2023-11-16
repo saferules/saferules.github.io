@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：空的 if 语句或 else 子句无实际意义，往往是残留代码或功能未实现。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>if 语句不应为空 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>if 语句不应为空</h1>
@@ -19,38 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-空的 if 语句或 else 子句无实际意义，往往是残留代码或功能未实现。
+<main>
+<p>空的 if 语句或 else 子句无实际意义，往往是残留代码或功能未实现。</p>
 
-示例：
-<div class="code">if (cond);     //<span class="comment"> Non-compliant</span>
-if (cond) {}   //<span class="comment"> Non-compliant</span></div>
-如果 if 语句没有 else 分枝，且其分枝内容为空，这样的 if 语句无任何意义，即使其条件有副作用，也不应继续保留该 if 结构。
+<p>示例：</p>
+<code>if (cond);     //<i> Non-compliant</i>
+if (cond) {}   //<i> Non-compliant</i></code>
+<p>如果 if 语句没有 else 分枝，且其分枝内容为空，这样的 if 语句无任何意义，即使其条件有副作用，也不应继续保留该 if 结构。</p>
 
-又如：
-<div class="code">if (cond) {    //<span class="comment"> Non-compliant, empty</span>
+<p>又如：</p>
+<code>if (cond) {    //<i> Non-compliant, empty</i>
 } else {
-    ....       //<span class="comment"> Nonempty statements</span>
-}</div>
-应改为：
-<div class="code">if (!cond) {   //<span class="comment"> Compliant</span>
+    ....       //<i> Nonempty statements</i>
+}</code>
+<p>应改为：</p>
+<code>if (!cond) {   //<i> Compliant</i>
     ....
-}</div>
-或者添加注释说明为何为空：
-<div class="code">if (cond) {  
-    ;          //<span class="comment"> Compliant if reasonable comments are provided</span>
+}</code>
+<p>或者添加注释说明为何为空：</p>
+<code>if (cond) {  
+    ;          //<i> Compliant if reasonable comments are provided</i>
 } else {
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1071
-
-</p>
+<div class="ref-items">CWE-1071</div>
 </article>
 </html>

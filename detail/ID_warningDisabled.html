@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：编译器一般允许使用预编译指令屏蔽某些编译警告，但对于反映风险或安全问题的警告不应屏蔽。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>对编译警告的屏蔽应慎重 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>对编译警告的屏蔽应慎重</h1>
@@ -19,27 +20,25 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-编译器一般允许使用预编译指令屏蔽某些编译警告，但对于反映风险或安全问题的警告不应屏蔽。
+<main>
+<p>编译器一般允许使用预编译指令屏蔽某些编译警告，但对于反映风险或安全问题的警告不应屏蔽。</p>
 
-示例：
-<div class="code">#ifdef _MSC_VER
-#pragma warning(disable: 4172)  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>#ifdef _MSC_VER
+#pragma warning(disable: 4172)  //<i> Non-compliant</i>
 #elif defined __GNUC__
-#pragma GCC diagnostic ignored &quot;-Wreturn-local-addr&quot;  //<span class="comment"> Non-compliant</span>
+#pragma GCC diagnostic ignored &quot;-Wreturn-local-addr&quot;  //<i> Non-compliant</i>
 #endif
-</div>
-示例代码屏蔽了 Visual Studio C4172 和 GCC -Wreturn-local-addr 对应的警告，当局部变量的地址被返回时编译器不会给出警告，但这种警告是不应该被屏蔽的，详见 <a href="./ID_localAddressFlowOut.html" target="_blank" class="dashed-link">ID_localAddressFlowOut</a>。
+</code>
+<p>示例代码屏蔽了 Visual Studio C4172 和 GCC -Wreturn-local-addr 对应的警告，当局部变量的地址被返回时编译器不会给出警告，但这种警告是不应该被屏蔽的，详见 <a href="./ID_localAddressFlowOut.html" class="dashed-link">ID_localAddressFlowOut</a>。</p>
 
-本规则集合提到的部分问题编译器也可以给出警告，这种警告均不应被屏蔽。
+<p>本规则集合提到的部分问题编译器也可以给出警告，这种警告均不应被屏蔽。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_warningDefault.html" target="_blank" class="related-link">ID_warningDefault</a>
-
-</p>
+<div class="ref-items"><a href="./ID_warningDefault.html" class="related-link">ID_warningDefault</a></div>
 
 
 

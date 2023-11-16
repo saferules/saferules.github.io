@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：可变参数列表相关的 va_start 或 va_copy 和 va_end 应在同一函数中使用，否则会导致标准未定义的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>va_start 或 va_copy 应配合 va_end 使用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>va_start 或 va_copy 应配合 va_end 使用</h1>
@@ -19,35 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-可变参数列表相关的 va_start 或 va_copy 和 va_end 应在同一函数中使用，否则会导致标准未定义的行为。
+<main>
+<p>可变参数列表相关的 va_start 或 va_copy 和 va_end 应在同一函数中使用，否则会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">int foo(int n, ...) {
+<p>示例：</p>
+<code>int foo(int n, ...) {
     va_list ap;
     va_start(ap, n);
     int sum = 0;
     for (int i = 0; i &lt; n; i++) {
         sum += va_arg(ap, int);
     }
-    return sum;   //<span class="comment"> Non-compliant, missing ‘va_end(ap);’</span>
-}</div>
-应在函数返回前使用 va_end。
+    return sum;   //<i> Non-compliant, missing ‘va_end(ap);’</i>
+}</code>
+<p>应在函数返回前使用 va_end。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_forbidVariadicFunction.html" target="_blank" class="related-link">ID_forbidVariadicFunction</a>
-
-</p>
+<div class="ref-items"><a href="./ID_forbidVariadicFunction.html" class="related-link">ID_forbidVariadicFunction</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.15.1.3(2)-undefined
-ISO/IEC 9899:2011 7.16.1.3(2)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.15.1.3(2)-undefined
+ISO/IEC 9899:2011 7.16.1.3(2)-undefined</div>
 
 
 </article>

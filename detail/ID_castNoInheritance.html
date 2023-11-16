@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：无继承关系的指针或引用之间没有逻辑关系，转换意味着设计缺陷或逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应转换无继承关系的指针或引用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应转换无继承关系的指针或引用</h1>
@@ -19,78 +20,71 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-无继承关系的指针或引用之间没有逻辑关系，转换意味着设计缺陷或逻辑错误。
+<main>
+<p>无继承关系的指针或引用之间没有逻辑关系，转换意味着设计缺陷或逻辑错误。</p>
 
-示例：
-<div class="code">float f = 0;
-int* p = (int*)&amp;f;  //<span class="comment"> Non-compliant</span>
-(*p)++;             //<span class="comment"> Undefined behavior</span></div>
-基本类型之间没有继承关系，float* 转为 int* 属于逻辑错误，导致标准未定义的行为。
+<p>示例：</p>
+<code>float f = 0;
+int* p = (int*)&amp;f;  //<i> Non-compliant</i>
+(*p)++;             //<i> Undefined behavior</i></code>
+<p>基本类型之间没有继承关系，float* 转为 int* 属于逻辑错误，导致标准未定义的行为。</p>
 
-有时为了考察对象内部结构，需要将对象指针转为 unsigned char* 等类型，但这种转换脱离了类型的保护，也会降低代码的可移植性，审计工具不妨通过配置决定是否放过这种转换。
+<p>有时为了考察对象内部结构，需要将对象指针转为 unsigned char* 等类型，但这种转换脱离了类型的保护，也会降低代码的可移植性，审计工具不妨通过配置决定是否放过这种转换。</p>
 
-又如：
-<div class="code">class A { .... };
+<p>又如：</p>
+<code>class A { .... };
 class B { .... };
 class C: public A, public B { .... };
 
 A* a = new C;
 
-B* b0 = (B*)a;                    //<span class="comment"> Non-compliant</span>
-B* b1 = reinterpret_cast&lt;B*&gt;(a);  //<span class="comment"> Non-compliant</span>
+B* b0 = (B*)a;                    //<i> Non-compliant</i>
+B* b1 = reinterpret_cast&lt;B*&gt;(a);  //<i> Non-compliant</i>
 
-B* b2 = static_cast&lt;B*&gt;(a);       //<span class="comment"> Compliant, compile-time protected</span>
-B* b3 = dynamic_cast&lt;B*&gt;(a);      //<span class="comment"> Compliant, run-time protected</span></div>
-例中 A 与 B 没有继承关系，C 从 A 和 B 继承，指针 a 为 A 类型但实际指向 C 的实例，这种情况下将 a 直接强制转为 B 类型的指针将得到错误的结果，这种问题在实际代码中也很常见。
+B* b2 = static_cast&lt;B*&gt;(a);       //<i> Compliant, compile-time protected</i>
+B* b3 = dynamic_cast&lt;B*&gt;(a);      //<i> Compliant, run-time protected</i></code>
+<p>例中 A 与 B 没有继承关系，C 从 A 和 B 继承，指针 a 为 A 类型但实际指向 C 的实例，这种情况下将 a 直接强制转为 B 类型的指针将得到错误的结果，这种问题在实际代码中也很常见。</p>
 
-本规则限制无继承关系的 C 风格类型转换以及 reinterpret_cast 转换，不限制 static_cast 和 dynamic_cast 转换，示例中的 static_cast 转换将得到编译错误从而锁定问题，如果 A 和 B 是多态类型，用 dynamic_cast 会得到正确的结果。
+<p>本规则限制无继承关系的 C 风格类型转换以及 reinterpret_cast 转换，不限制 static_cast 和 dynamic_cast 转换，示例中的 static_cast 转换将得到编译错误从而锁定问题，如果 A 和 B 是多态类型，用 dynamic_cast 会得到正确的结果。</p>
 
-例外：
-<div class="code">class V { .... };
+<p>例外：</p>
+<code>class V { .... };
 
 class U {
     ....
 public:
-    operator V*();   //<span class="comment"> Conversion operator</span>
+    operator V*();   //<i> Conversion operator</i>
 };
 
 U* u = new U;
 
-V* v0 = (V*)u;                     //<span class="comment"> Compliant, but bad</span>
-V* v1 = reinterpret_cast&lt;V*&gt;(u);   //<span class="comment"> Still non-compliant</span></div>
-例中 U 和 V 是无继承关系的类，但 U 实现了向 V 的转换运算符，U 和 V 之间存在逻辑关系，这时的 C 风格类型转换可不受本规则限制，但不符合规则 <a href="./ID_forbidCStyleCast.html" target="_blank" class="dashed-link">ID_forbidCStyleCast</a>，这种情况仍然不能使用 reinterpret_cast，参见 <a href="./ID_unsuitableReinterpretCast.html" target="_blank" class="dashed-link">ID_unsuitableReinterpretCast</a>。
+V* v0 = (V*)u;                     //<i> Compliant, but bad</i>
+V* v1 = reinterpret_cast&lt;V*&gt;(u);   //<i> Still non-compliant</i></code>
+<p>例中 U 和 V 是无继承关系的类，但 U 实现了向 V 的转换运算符，U 和 V 之间存在逻辑关系，这时的 C 风格类型转换可不受本规则限制，但不符合规则 <a href="./ID_forbidCStyleCast.html" class="dashed-link">ID_forbidCStyleCast</a>，这种情况仍然不能使用 reinterpret_cast，参见 <a href="./ID_unsuitableReinterpretCast.html" class="dashed-link">ID_unsuitableReinterpretCast</a>。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allowWeakerCast: 是否放过与 unsigned char* 的转换
-</p>
+<div class="ref-items">allowWeakerCast: 是否放过与 unsigned char* 的转换</div>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_stricterAlignedCast.html" target="_blank" class="related-link">ID_stricterAlignedCast</a>
-<a href="./ID_castNonPublicInheritance.html" target="_blank" class="related-link">ID_castNonPublicInheritance</a>
-
-</p>
+<div class="ref-items"><a href="./ID_stricterAlignedCast.html" class="related-link">ID_stricterAlignedCast</a>
+<a href="./ID_castNonPublicInheritance.html" class="related-link">ID_castNonPublicInheritance</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5(7)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.5(7)-undefined
 ISO/IEC 9899:2011 6.5(7)-undefined
 ISO/IEC 14882:2003 3.10(15)-undefined
 ISO/IEC 14882:2003 4.1(1)-undefined
 ISO/IEC 14882:2011 3.10(10)-undefined
-ISO/IEC 14882:2011 4.1(1)-undefined
-
-</p>
+ISO/IEC 14882:2011 4.1(1)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 11.3
+<div class="ref-items">MISRA C 2012 11.3
 MISRA C++ 2008 5-2-7
-SEI CERT EXP39-C
-
-</p>
+SEI CERT EXP39-C</div>
 </article>
 </html>

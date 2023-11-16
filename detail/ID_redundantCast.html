@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：多余的类型转换是没有意义的，往往意味着某种错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在多余的类型转换 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在多余的类型转换</h1>
@@ -19,50 +20,50 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-多余的类型转换是没有意义的，往往意味着某种错误。
+<main>
+<p>多余的类型转换是没有意义的，往往意味着某种错误。</p>
 
-不应出现下列情况：
- ● 原类型与转换后的类型完全相同
- ● 非 void 转换的结果没有被读取
+<p>不应出现下列情况：</p>
+<ul>
+<li>原类型与转换后的类型完全相同</li>
+<li>非 void 转换的结果没有被读取</li>
 
-示例：
-<div class="code">float foo(int x) {
-    return (int)x;   //<span class="comment"> Non-compliant</span>
+</ul>
+<p>示例：</p>
+<code>float foo(int x) {
+    return (int)x;   //<i> Non-compliant</i>
 }
 
 float bar(int y) {
-    (float)y;        //<span class="comment"> Non-compliant</span>
-}</div>
-例中参数 x 转换后的类型与转换前完全相同，参数 y 转换后没有被读取，均不符合要求。
+    (float)y;        //<i> Non-compliant</i>
+}</code>
+<p>例中参数 x 转换后的类型与转换前完全相同，参数 y 转换后没有被读取，均不符合要求。</p>
 
-应改为：
-<div class="code">float foo(int x) {
-    return (float)x;   //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>float foo(int x) {
+    return (float)x;   //<i> Compliant</i>
 }
 
 float bar(int y) {
-    return (float)y;   //<span class="comment"> Compliant</span>
+    return (float)y;   //<i> Compliant</i>
 }
-</div>
-可用 void 转换表示有意放弃读取，但对无返回值的函数不应再使用 void 转换，如：
-<div class="code">char foo();
+</code>
+<p>可用 void 转换表示有意放弃读取，但对无返回值的函数不应再使用 void 转换，如：</p>
+<code>char foo();
 void bar();
 
 void baz(int x) {
-    (void)x;        //<span class="comment"> Compliant</span>
-    (void)foo();    //<span class="comment"> Compliant</span>
-    (void)bar();    //<span class="comment"> Non-compliant, ‘(void)’ is redundant</span>
-}</div>
+    (void)x;        //<i> Compliant</i>
+    (void)foo();    //<i> Compliant</i>
+    (void)bar();    //<i> Non-compliant, ‘(void)’ is redundant</i>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-704
-
-</p>
+<div class="ref-items">CWE-704</div>
 </article>
 </html>

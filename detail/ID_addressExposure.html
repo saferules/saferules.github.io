@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：函数、对象、缓冲区的地址以及相关内存区域的长度等信息不可被外界感知，否则会成为攻击者的线索。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>与内存空间布局相关的信息不可被外界感知 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>与内存空间布局相关的信息不可被外界感知</h1>
@@ -19,30 +20,26 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-函数、对象、缓冲区的地址以及相关内存区域的长度等信息不可被外界感知，否则会成为攻击者的线索。
+<main>
+<p>函数、对象、缓冲区的地址以及相关内存区域的长度等信息不可被外界感知，否则会成为攻击者的线索。</p>
 
-示例：
-<div class="code">int foo(int* p, int n) {
+<p>示例：</p>
+<code>int foo(int* p, int n) {
     if (n &gt;= some_value) {
-        log(&quot;buffer address: %p, size: %d&quot;, p, n);   //<span class="comment"> Non-compliant</span>
+        log(&quot;buffer address: %p, size: %d&quot;, p, n);   //<i> Non-compliant</i>
     }
-}</div>
-示例代码将缓冲区的地址和长度输出到日志是不安全的，这种代码多以调试为目的，不应将其编译到产品的正式版本中。
+}</code>
+<p>示例代码将缓冲区的地址和长度输出到日志是不安全的，这种代码多以调试为目的，不应将其编译到产品的正式版本中。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_bufferOverflow.html" target="_blank" class="related-link">ID_bufferOverflow</a>
-
-</p>
+<div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-200
-
-</p>
+<div class="ref-items">CWE-200</div>
 </article>
 </html>

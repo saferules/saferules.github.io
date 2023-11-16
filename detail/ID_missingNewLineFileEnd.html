@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果非空源文件未以换行符结尾，或以换行符结尾但换行符之前是反斜杠，在 C 和 C++03 标准中会导致未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>非空源文件应以换行符结尾 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>非空源文件应以换行符结尾</h1>
@@ -19,26 +20,23 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果非空源文件未以换行符结尾，或以换行符结尾但换行符之前是反斜杠，在 C 和 C++03 标准中会导致未定义的行为。
+<main>
+<p>如果非空源文件未以换行符结尾，或以换行符结尾但换行符之前是反斜杠，在 C 和 C++03 标准中会导致未定义的行为。</p>
 
-一般情况下 IDE 或编辑器会保证源文件以空行结尾，而且 C++11 规定编译器应补全所需的空行，但为了提高兼容性，并便于各种相关工具的使用，所有与代码相关的文本文件均应以有效的换行符结尾。
+<p>一般情况下 IDE 或编辑器会保证源文件以空行结尾，而且 C++11 规定编译器应补全所需的空行，但为了提高兼容性，并便于各种相关工具的使用，所有与代码相关的文本文件均应以有效的换行符结尾。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allTxtFileNeedNewLineEnd: 是否要求所有文本文件均以换行符结尾
-</p>
+<div class="ref-items">allTxtFileNeedNewLineEnd: 是否要求所有文本文件均以换行符结尾</div>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 5.1.1.2(1)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 5.1.1.2(1)-undefined
 ISO/IEC 9899:2011 5.1.1.2(1)-undefined
 ISO/IEC 14882:2003 2.1(1)-undefined
-ISO/IEC 14882:2011 2.2(1)
-
-</p>
+ISO/IEC 14882:2011 2.2(1)</div>
 
 
 </article>

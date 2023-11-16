@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：取地址运算符（一元 &amp; 运算符），重载之后可以返回任意地址，极易误用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应重载取地址运算符 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应重载取地址运算符</h1>
@@ -19,44 +20,40 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-取地址运算符（一元 &amp; 运算符），重载之后可以返回任意地址，极易误用。
+<main>
+<p>取地址运算符（一元 &amp; 运算符），重载之后可以返回任意地址，极易误用。</p>
 
-获取不完整类型的对象地址时，如果其完整类型重载了取地址运算符，会导致标准未定义的行为。
+<p>获取不完整类型的对象地址时，如果其完整类型重载了取地址运算符，会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">struct X;   //<span class="comment"> Incomplete type</span>
+<p>示例：</p>
+<code>struct X;   //<i> Incomplete type</i>
 
 X* foo(X&amp; x) {
-    return &amp;x;   //<span class="comment"> Undefined behavior</span>
+    return &amp;x;   //<i> Undefined behavior</i>
 }
 
 struct X {
-    X* operator &amp;() {   //<span class="comment"> Non-compliant</span>
+    X* operator &amp;() {   //<i> Non-compliant</i>
         return nullptr;
     }
 };
 
 X* bar(X&amp; x) {
-    return &amp;x;   //<span class="comment"> Call ‘X::operator&amp;’</span>
-}</div>
-例中 foo 会导致未定义的行为，可能会返回 x 对象的实际地址，而 bar 会调用重载了的取地址运算符，这是一种混乱的局面。
+    return &amp;x;   //<i> Call ‘X::operator&amp;’</i>
+}</code>
+<p>例中 foo 会导致未定义的行为，可能会返回 x 对象的实际地址，而 bar 会调用重载了的取地址运算符，这是一种混乱的局面。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 5.3.1(4)-undefined
-ISO/IEC 14882:2011 5.3.1(5)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 5.3.1(4)-undefined
+ISO/IEC 14882:2011 5.3.1(5)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.166
-MISRA C++ 2008 5-3-3
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.166
+MISRA C++ 2008 5-3-3</div>
 </article>
 </html>

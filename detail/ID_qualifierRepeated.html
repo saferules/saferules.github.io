@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：重复的 const 或 volatile 限定符是没意义的，很可能意味着某种错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>const、volatile 不应重复 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>const、volatile 不应重复</h1>
@@ -19,28 +20,26 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-重复的 const 或 volatile 限定符是没意义的，很可能意味着某种错误。
+<main>
+<p>重复的 const 或 volatile 限定符是没意义的，很可能意味着某种错误。</p>
 
-示例：
-<div class="code">const const char* p0 = &quot;....&quot;;   //<span class="comment"> Non-compliant</span>
-const char const* p1 = &quot;....&quot;;   //<span class="comment"> Non-compliant</span>
-char* const const p2 = &quot;....&quot;;   //<span class="comment"> Non-compliant</span>
-</div>
-对于 p0 和 p1，const 重复限定 char，其中一个 const 很可能是为了限定 * 号，但形成了笔误，应改为：
-<div class="code">const char * const p0 = &quot;....&quot;;  //<span class="comment"> Compliant</span>
-const char * const p1 = &quot;....&quot;;  //<span class="comment"> Compliant</span>
-</div>
-对于 p2，const 重复限定 * 号，其中一个 const 很可能是为了限定 char，应改为：
-<div class="code">const char * const p2 = &quot;....&quot;;  //<span class="comment"> Compliant</span></div>
+<p>示例：</p>
+<code>const const char* p0 = &quot;....&quot;;   //<i> Non-compliant</i>
+const char const* p1 = &quot;....&quot;;   //<i> Non-compliant</i>
+char* const const p2 = &quot;....&quot;;   //<i> Non-compliant</i>
+</code>
+<p>对于 p0 和 p1，const 重复限定 char，其中一个 const 很可能是为了限定 * 号，但形成了笔误，应改为：</p>
+<code>const char * const p0 = &quot;....&quot;;  //<i> Compliant</i>
+const char * const p1 = &quot;....&quot;;  //<i> Compliant</i>
+</code>
+<p>对于 p2，const 重复限定 * 号，其中一个 const 很可能是为了限定 char，应改为：</p>
+<code>const char * const p2 = &quot;....&quot;;  //<i> Compliant</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_badQualifierPosition.html" target="_blank" class="related-link">ID_badQualifierPosition</a>
-
-</p>
+<div class="ref-items"><a href="./ID_badQualifierPosition.html" class="related-link">ID_badQualifierPosition</a></div>
 
 
 

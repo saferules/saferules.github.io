@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：当宏参数有“副作用（side effect）”时，如果宏定义中没有或多次引用到该参数，会导致意料之外的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>宏的实参不应有副作用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>宏的实参不应有副作用</h1>
@@ -19,36 +20,32 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-当宏参数有“<a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)" target="_blank" class="dashed-link">副作用（side effect）</a>”时，如果宏定义中没有或多次引用到该参数，会导致意料之外的错误。
+<main>
+<p>当宏参数有“<a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)" target="_blank" class="dashed-link">副作用（side effect）</a>”时，如果宏定义中没有或多次引用到该参数，会导致意料之外的错误。</p>
 
-示例：
-<div class="code">#define I(a)
+<p>示例：</p>
+<code>#define I(a)
 #define M(a) ((a) + (a))
 
 int foo(int&amp; a) {
-    return M(++a);   //<span class="comment"> Non-compliant, returns ‘((++a) + (++a))’</span>
+    return M(++a);   //<i> Non-compliant, returns ‘((++a) + (++a))’</i>
 }
 
 void bar(int&amp; a) {
-    I(a--);          //<span class="comment"> Non-compliant, does nothing</span>
-}</div>
-例中 M 和 I 看起来像是函数调用，而展开后的结果却在意料之外。
+    I(a--);          //<i> Non-compliant, does nothing</i>
+}</code>
+<p>例中 M 和 I 看起来像是函数调用，而展开后的结果却在意料之外。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_sideEffectAssertion.html" target="_blank" class="related-link">ID_sideEffectAssertion</a>
-<a href="./ID_macro_function.html" target="_blank" class="related-link">ID_macro_function</a>
-
-</p>
+<div class="ref-items"><a href="./ID_sideEffectAssertion.html" class="related-link">ID_sideEffectAssertion</a>
+<a href="./ID_macro_function.html" class="related-link">ID_macro_function</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT PRE31-C
-
-</p>
+<div class="ref-items">SEI CERT PRE31-C</div>
 </article>
 </html>

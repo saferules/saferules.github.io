@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：可变参数列表对参数的类型和数量缺乏有效的限定和控制，是公认的不安全因素。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用可变参数列表 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用可变参数列表</h1>
@@ -19,15 +20,15 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-可变参数列表对参数的类型和数量缺乏有效的限定和控制，是公认的不安全因素。
+<main>
+<p>可变参数列表对参数的类型和数量缺乏有效的限定和控制，是公认的不安全因素。</p>
 
-示例：
-<div class="code">string format(const char* fmt, ...);  //<span class="comment"> Non-compliant</span></div>
-假设 format 函数与 sprintf 函数功能相似，由参数 fmt 设定格式，将其他参数转为字符串后依次替换 fmt 中的占位符并返回结果。设 &#x27;@&#x27; 和 &#x27;$&#x27; 为占位符，分别对应字符串和整数，如调用 format(&quot;@: $&quot;, &quot;value&quot;, 123) 则返回字符串 &quot;value: 123&quot;。
+<p>示例：</p>
+<code>string format(const char* fmt, ...);  //<i> Non-compliant</i></code>
+<p>假设 format 函数与 sprintf 函数功能相似，由参数 fmt 设定格式，将其他参数转为字符串后依次替换 fmt 中的占位符并返回结果。设 &#x27;@&#x27; 和 &#x27;$&#x27; 为占位符，分别对应字符串和整数，如调用 format(&quot;@: $&quot;, &quot;value&quot;, 123) 则返回字符串 &quot;value: 123&quot;。</p>
 
-如果用可变参数列表实现：
-<div class="code">string format(const char* fmt, ...) {
+<p>如果用可变参数列表实现：</p>
+<code>string format(const char* fmt, ...) {
     va_list ap;
     stringstream res;
     va_start(ap, fmt);
@@ -40,11 +41,11 @@
     }
     va_end(ap);
     return res.str();
-}</div>
-例中 va_start、va_arg、va_end 是可变参数列表的标准支持，这种方法只能在运行时以 fmt 为依据获取后续参数，当实际参数与 fmt 不符时会造成严重问题，单纯地要求开发者小心谨慎是不可靠的，改用更安全的方法才是明智的选择。
+}</code>
+<p>例中 va_start、va_arg、va_end 是可变参数列表的标准支持，这种方法只能在运行时以 fmt 为依据获取后续参数，当实际参数与 fmt 不符时会造成严重问题，单纯地要求开发者小心谨慎是不可靠的，改用更安全的方法才是明智的选择。</p>
 
-在 C++ 代码中可采用“<a href="https://en.cppreference.com/w/cpp/language/parameter_pack" target="_blank" class="dashed-link">模板参数包</a>”来实现这种功能：
-<div class="code">template &lt;class T, class ...Args&gt;
+<p>在 C++ 代码中可采用“<a href="https://en.cppreference.com/w/cpp/language/parameter_pack" target="_blank" class="dashed-link">模板参数包</a>”来实现这种功能：</p>
+<code>template &lt;class T, class ...Args&gt;
 void get_argstrs(vector&lt;string&gt;&amp; vs, const T&amp; arg, const Args&amp; ...rest) {
     ostringstream oss;
     oss &lt;&lt; arg;
@@ -55,7 +56,7 @@ void get_argstrs(vector&lt;string&gt;&amp; vs, const T&amp; arg, const Args&amp;
 }
 
 template &lt;class ...Args&gt;
-string format(const char* fmt, const Args&amp; ...args) {  //<span class="comment"> Compliant</span>
+string format(const char* fmt, const Args&amp; ...args) {  //<i> Compliant</i>
     string res;
     if constexpr(sizeof...(args) &gt; 0) {
         vector&lt;string&gt; vs;
@@ -70,35 +71,29 @@ string format(const char* fmt, const Args&amp; ...args) {  //<span class="commen
         }
     }
     return res;
-}</div>
-示例代码用 get_argstrs 函数递归地将参数都转为 string 对象存入容器，再将 fmt 中的 &#x27;@&#x27; 和 &#x27;$&#x27; 依次替换成容器中的字符串，实际上这种实现是可以不区分 &#x27;@&#x27; 和 &#x27;$&#x27; 的，这个过程中参数的个数和类型是可以由代码主动判断的，如果参数不能转为字符串则不会通过编译，如果参数个数与占位符不符也容易作出处理。
+}</code>
+<p>示例代码用 get_argstrs 函数递归地将参数都转为 string 对象存入容器，再将 fmt 中的 &#x27;@&#x27; 和 &#x27;$&#x27; 依次替换成容器中的字符串，实际上这种实现是可以不区分 &#x27;@&#x27; 和 &#x27;$&#x27; 的，这个过程中参数的个数和类型是可以由代码主动判断的，如果参数不能转为字符串则不会通过编译，如果参数个数与占位符不符也容易作出处理。</p>
 
-“<a href="https://en.cppreference.com/w/cpp/language/parameter_pack" target="_blank" class="dashed-link">模板参数包</a>”、“<a href="https://en.cppreference.com/w/cpp/language/constexpr" target="_blank" class="dashed-link">constexpr</a>”等特性是 C++ 语言在编译理论上的重大突破，合理运用这些特性可以有效提升代码的安全性和可维护性。
+<p>“<a href="https://en.cppreference.com/w/cpp/language/parameter_pack" target="_blank" class="dashed-link">模板参数包</a>”、“<a href="https://en.cppreference.com/w/cpp/language/constexpr" target="_blank" class="dashed-link">constexpr</a>”等特性是 C++ 语言在编译理论上的重大突破，合理运用这些特性可以有效提升代码的安全性和可维护性。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_badParmN.html" target="_blank" class="related-link">ID_badParmN</a>
-<a href="./ID_badVaArgType.html" target="_blank" class="related-link">ID_badVaArgType</a>
-
-</p>
+<div class="ref-items"><a href="./ID_badParmN.html" class="related-link">ID_badParmN</a>
+<a href="./ID_badVaArgType.html" class="related-link">ID_badVaArgType</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 5.2.2(7)-undefined
-ISO/IEC 14882:2011 5.2.2(7)-implementation
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 5.2.2(7)-undefined
+ISO/IEC 14882:2011 5.2.2(7)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.34
+<div class="ref-items">C++ Core Guidelines ES.34
 C++ Core Guidelines F.55
 MISRA C 2004 16.1
 MISRA C 2012 17.1
-MISRA C++ 2008 8-4-1
-
-</p>
+MISRA C++ 2008 8-4-1</div>
 </article>
 </html>

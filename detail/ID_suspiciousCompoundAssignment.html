@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：避免出现复合赋值的可疑形式。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免出现复合赋值的可疑形式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免出现复合赋值的可疑形式</h1>
@@ -19,32 +20,30 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如下形式的复合赋值表达式（设 a 和 x 为变量或表达式）：
-<div class="code">a += a + x;
+<main>
+<p>如下形式的复合赋值表达式（设 a 和 x 为变量或表达式）：</p>
+<code>a += a + x;
 a *= a * x;
 a %= a % x;
 a &lt;&lt;= a &lt;&lt; x;
 a &gt;&gt;= a &gt;&gt; x;
-</div>
-均为常见笔误，但在特定需求下也有其逻辑意义，故对这种表达式应给出可疑提醒。即使这类表达式没有逻辑错误，也应该换成普通赋值表达式以便提高可读性。
+</code>
+<p>均为常见笔误，但在特定需求下也有其逻辑意义，故对这种表达式应给出可疑提醒。即使这类表达式没有逻辑错误，也应该换成普通赋值表达式以便提高可读性。</p>
 
-示例：
-<div class="code">a += a + x;   //<span class="comment"> Rather suspicious</span>
-</div>
-应改为：
-<div class="code">a = a + x;
+<p>示例：</p>
+<code>a += a + x;   //<i> Rather suspicious</i>
+</code>
+<p>应改为：</p>
+<code>a = a + x;
 a = 2 * a + x;
-a = a + (a + x);</div>
+a = a + (a + x);</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-682
-
-</p>
+<div class="ref-items">CWE-682</div>
 </article>
 </html>

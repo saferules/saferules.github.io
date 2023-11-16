@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：为了避免意料之外的类型转换，重载的类型转换运算符需用 explicit 关键字限定。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>重载的类型转换运算符需用 explicit 关键字限定 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>重载的类型转换运算符需用 explicit 关键字限定</h1>
@@ -19,42 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-为了避免意料之外的类型转换，重载的类型转换运算符需用 explicit 关键字限定。
+<main>
+<p>为了避免意料之外的类型转换，重载的类型转换运算符需用 explicit 关键字限定。</p>
 
-示例：
-<div class="code">struct A {
+<p>示例：</p>
+<code>struct A {
     ....
-    operator char*();   //<span class="comment"> Non-compliant</span>
+    operator char*();   //<i> Non-compliant</i>
 };
 
 A foo();
 
 char* bar() {
-    return foo();   //<span class="comment"> Invalid address returned</span>
-}</div>
-例中 foo 返回临时对象，类型转换运算符被隐式调用，然而当 bar 返回后，临时对象被销毁，返回的指针是无效的。
+    return foo();   //<i> Invalid address returned</i>
+}</code>
+<p>例中 foo 返回临时对象，类型转换运算符被隐式调用，然而当 bar 返回后，临时对象被销毁，返回的指针是无效的。</p>
 
-将类型转换运算符用 explicit 关键字限定，有问题的代码便不会通过编译：
-<div class="code">struct A {
+<p>将类型转换运算符用 explicit 关键字限定，有问题的代码便不会通过编译：</p>
+<code>struct A {
     ....
-    explicit operator char*();   //<span class="comment"> Compliant</span>
-};</div>
-在类的接口设计中，应尽量减少隐式转换以避免不易察觉的问题。
+    explicit operator char*();   //<i> Compliant</i>
+};</code>
+<p>在类的接口设计中，应尽量减少隐式转换以避免不易察觉的问题。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_missingExplicitConstructor.html" target="_blank" class="related-link">ID_missingExplicitConstructor</a>
-
-</p>
+<div class="ref-items"><a href="./ID_missingExplicitConstructor.html" class="related-link">ID_missingExplicitConstructor</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.164
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.164</div>
 </article>
 </html>

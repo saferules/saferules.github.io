@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：不应出现复合赋值的错误形式。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应出现复合赋值的错误形式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应出现复合赋值的错误形式</h1>
@@ -19,23 +20,21 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如下形式的复合赋值表达式（设 a 和 x 为变量或表达式）：
-<div class="code">a -= a - x;
+<main>
+<p>如下形式的复合赋值表达式（设 a 和 x 为变量或表达式）：</p>
+<code>a -= a - x;
 a /= a / x;
 a &amp;= a &amp; x;
 a |= a | x;
-a ^= a ^ x;</div>
-均为常见笔误，应将复合赋值改为普通赋值，或去掉重复的子表达式。
+a ^= a ^ x;</code>
+<p>均为常见笔误，应将复合赋值改为普通赋值，或去掉重复的子表达式。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-682
-
-</p>
+<div class="ref-items">CWE-682</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：位域改变了类型约定俗成的取值范围和存储方式，易造成理解上的偏差，增加维护成本，在不受特定协议限制的代码中不应使用位域。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用位域 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用位域</h1>
@@ -19,41 +20,37 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-位域改变了类型约定俗成的取值范围和存储方式，易造成理解上的偏差，增加维护成本，在不受特定协议限制的代码中不应使用位域。
+<main>
+<p>位域改变了类型约定俗成的取值范围和存储方式，易造成理解上的偏差，增加维护成本，在不受特定协议限制的代码中不应使用位域。</p>
 
-位域与“引用”等 C++ 概念有冲突，而且标准在位域的内存布局等方面定义的不够充分，存在很多由实现定义的内容，要特别注意的是多线程访问位域还会造成数据竞争，参见 <a href="./ID_bitfieldDataRaces.html" target="_blank" class="dashed-link">ID_bitfieldDataRaces</a>。
+<p>位域与“引用”等 C++ 概念有冲突，而且标准在位域的内存布局等方面定义的不够充分，存在很多由实现定义的内容，要特别注意的是多线程访问位域还会造成数据竞争，参见 <a href="./ID_bitfieldDataRaces.html" class="dashed-link">ID_bitfieldDataRaces</a>。</p>
 
-示例：
-<div class="code">struct A {
-    int x: 3;   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>struct A {
+    int x: 3;   //<i> Non-compliant</i>
 } a;
 
-int&amp; x = a.x;   //<span class="comment"> Error</span></div>
+int&amp; x = a.x;   //<i> Error</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_exceededBitfield.html" target="_blank" class="related-link">ID_exceededBitfield</a>
-<a href="./ID_singleSignedBitfield.html" target="_blank" class="related-link">ID_singleSignedBitfield</a>
-<a href="./ID_bitfieldDataRaces.html" target="_blank" class="related-link">ID_bitfieldDataRaces</a>
-<a href="./ID_forbidEnumBitfield.html" target="_blank" class="related-link">ID_forbidEnumBitfield</a>
-
-</p>
+<div class="ref-items"><a href="./ID_exceededBitfield.html" class="related-link">ID_exceededBitfield</a>
+<a href="./ID_singleSignedBitfield.html" class="related-link">ID_singleSignedBitfield</a>
+<a href="./ID_bitfieldDataRaces.html" class="related-link">ID_bitfieldDataRaces</a>
+<a href="./ID_forbidEnumBitfield.html" class="related-link">ID_forbidEnumBitfield</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 J.3.9(1)-implementation
+<div class="ref-items">ISO/IEC 9899:1999 J.3.9(1)-implementation
 ISO/IEC 9899:2011 J.3.9(1)-implementation
 ISO/IEC 14882:2003 9.6(1)-implementation
 ISO/IEC 14882:2003 9.6(3)
 ISO/IEC 14882:2011 9.6(1)-implementation
 ISO/IEC 14882:2011 9.6(3)
 ISO/IEC 14882:2017 12.2.4(1)-implementation
-ISO/IEC 14882:2017 12.2.4(3)
-
-</p>
+ISO/IEC 14882:2017 12.2.4(3)</div>
 
 
 </article>

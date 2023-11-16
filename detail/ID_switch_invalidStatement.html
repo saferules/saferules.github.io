@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：switch 语句中任何子句都应从属于某个 case 或 default 分枝，否则不会被执行。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>switch 语句中任何子句都应从属于某个 case 或 default 分枝 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>switch 语句中任何子句都应从属于某个 case 或 default 分枝</h1>
@@ -19,33 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-switch 语句中任何子句都应从属于某个 case 或 default 分枝，否则不会被执行。
+<main>
+<p>switch 语句中任何子句都应从属于某个 case 或 default 分枝，否则不会被执行。</p>
 
-示例：
-<div class="code">switch (v)
+<p>示例：</p>
+<code>switch (v)
 {
-    int i;    //<span class="comment"> Non-compliant</span>
-    i = 0;    //<span class="comment"> Non-compliant</span>
+    int i;    //<i> Non-compliant</i>
+    i = 0;    //<i> Non-compliant</i>
 case 1:
     ....
     break;
 default:
-    bar(i);   //<span class="comment"> Logic error, ‘i’ is not initialized</span>
+    bar(i);   //<i> Logic error, ‘i’ is not initialized</i>
     break;
-}</div>
-例中对变量 i 的声明和赋值不从属于任何 case 或 default 分枝，是无效语句。
+}</code>
+<p>例中对变量 i 的声明和赋值不从属于任何 case 或 default 分枝，是无效语句。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-561
+<div class="ref-items">CWE-561
 MISRA C 2012 16.1
-MISRA C++ 2008 6-4-3
-
-</p>
+MISRA C++ 2008 6-4-3</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：显式声明数组大小有利于提高可读性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>数组大小应被显式声明 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>数组大小应被显式声明</h1>
@@ -19,37 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-显式声明数组大小有利于提高可读性。
+<main>
+<p>显式声明数组大小有利于提高可读性。</p>
 
-示例：
-<div class="code">extern int a[];     //<span class="comment"> Non-compliant</span>
-extern int b[10];   //<span class="comment"> Compliant</span>
-</div>
-由初始化列表定义数组大小是一种惯用方式，但列表较为复杂时不便于读出数组大小，如：
-<div class="code">int a[] = {
-    1, 2, 3, ....   //<span class="comment"> Many items, let it go?</span>
-};</div>
-审计工具不妨通过配置决定这种方式是否合规。
+<p>示例：</p>
+<code>extern int a[];     //<i> Non-compliant</i>
+extern int b[10];   //<i> Compliant</i>
+</code>
+<p>由初始化列表定义数组大小是一种惯用方式，但列表较为复杂时不便于读出数组大小，如：</p>
+<code>int a[] = {
+    1, 2, 3, ....   //<i> Many items, let it go?</i>
+};</code>
+<p>审计工具不妨通过配置决定这种方式是否合规。</p>
 
-例外：
-<div class="code">void foo(int a[], int n);   //<span class="comment"> Let it go</span></div>
-数组参数可不受本规则限制。
+<p>例外：</p>
+<code>void foo(int a[], int n);   //<i> Let it go</i></code>
+<p>数组参数可不受本规则限制。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allowNoArraySizeWithInitList: 是否放过带有初始化列表的数组
-</p>
+<div class="ref-items">allowNoArraySizeWithInitList: 是否放过带有初始化列表的数组</div>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 8.12
+<div class="ref-items">MISRA C 2004 8.12
 MISRA C 2012 8.11
-MISRA C++ 2008 3-1-3
-
-</p>
+MISRA C++ 2008 3-1-3</div>
 </article>
 </html>

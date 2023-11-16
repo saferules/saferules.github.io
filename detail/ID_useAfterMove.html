@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对象被移动后在逻辑上不再有效，如果没有通过清空数据或重新初始化等方法更新对象的状态，不应再使用该对象。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>对象被移动后应重置状态再使用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>对象被移动后应重置状态再使用</h1>
@@ -19,49 +20,43 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对象被移动后在逻辑上不再有效，如果没有通过清空数据或重新初始化等方法更新对象的状态，不应再使用该对象。
+<main>
+<p>对象被移动后在逻辑上不再有效，如果没有通过清空数据或重新初始化等方法更新对象的状态，不应再使用该对象。</p>
 
-示例：
-<div class="code">#include &lt;vector&gt;
+<p>示例：</p>
+<code>#include &lt;vector&gt;
 
 using V = std::vector&lt;int&gt;;
 
 void foo(V&amp; a, V&amp; b)
 {
-    a = std::move(b);   //<span class="comment"> After moving, the state of ‘b’ is unspecified</span>
-    b.push_back(0);     //<span class="comment"> Non-compliant</span>
-}</div>
-例中容器 b 的数据被移动到容器 a，可能是通过交换的方法实现的，也可能是通过其他方法实现的，标准容器被移动后的状态在 C++ 标准中是未声明的，程序不应依赖未声明的状态。
+    a = std::move(b);   //<i> After moving, the state of ‘b’ is unspecified</i>
+    b.push_back(0);     //<i> Non-compliant</i>
+}</code>
+<p>例中容器 b 的数据被移动到容器 a，可能是通过交换的方法实现的，也可能是通过其他方法实现的，标准容器被移动后的状态在 C++ 标准中是未声明的，程序不应依赖未声明的状态。</p>
 
-应改为：
-<div class="code">void foo(V&amp; a, V&amp; b)
+<p>应改为：</p>
+<code>void foo(V&amp; a, V&amp; b)
 {
     a = std::move(b);
-    b.clear();          //<span class="comment"> Clear</span>
-    b.push_back(0);     //<span class="comment"> Compliant</span>
-}</div>
+    b.clear();          //<i> Clear</i>
+    b.push_back(0);     //<i> Compliant</i>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_unsuitableMove.html" target="_blank" class="related-link">ID_unsuitableMove</a>
-
-</p>
+<div class="ref-items"><a href="./ID_unsuitableMove.html" class="related-link">ID_unsuitableMove</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2011 17.6.5.15(1)-unspecified
-ISO/IEC 14882:2017 20.5.5.15(1)-unspecified
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2011 17.6.5.15(1)-unspecified
+ISO/IEC 14882:2017 20.5.5.15(1)-unspecified</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.56
-SEI CERT EXP63-CPP
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.56
+SEI CERT EXP63-CPP</div>
 </article>
 </html>

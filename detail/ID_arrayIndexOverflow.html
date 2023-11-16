@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：数组下标超过数组大小范围会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>数组下标不可越界 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>数组下标不可越界</h1>
@@ -19,51 +20,47 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-数组下标超过数组大小范围会导致标准未定义的行为。
+<main>
+<p>数组下标超过数组大小范围会导致标准未定义的行为。</p>
 
-设数组元素个数为 N，p 为指向数组第一个元素的指针，i 为整数，标准规定：
- ● 当 i &gt;= 0 且 i &lt; N 时，p + i 的结果不会溢出
- ● 当 i 等于 N 时，p + i 的结果不会溢出，但不可对其解引用
- ● 当 i &lt; 0 或 i &gt; N 时，p + i 的结果可能会溢出
- ● 使数组下标超出 [0, N] 的运算可能会使指针值溢出，导致未定义的行为
+<p>设数组元素个数为 N，p 为指向数组第一个元素的指针，i 为整数，标准规定：</p>
+<ul>
+<li>当 i &gt;= 0 且 i &lt; N 时，p + i 的结果不会溢出</li>
+<li>当 i 等于 N 时，p + i 的结果不会溢出，但不可对其解引用</li>
+<li>当 i &lt; 0 或 i &gt; N 时，p + i 的结果可能会溢出</li>
+<li>使数组下标超出 [0, N] 的运算可能会使指针值溢出，导致未定义的行为</li>
 
-示例：
-<div class="code">int a[10];
+</ul>
+<p>示例：</p>
+<code>int a[10];
 int *p, *e;
 
-p = a + 0;    //<span class="comment"> Compliant</span>
-p = a + 5;    //<span class="comment"> Compliant</span>
-e = a + 10;   //<span class="comment"> Compliant, won&#x27;t overflow</span>
+p = a + 0;    //<i> Compliant</i>
+p = a + 5;    //<i> Compliant</i>
+e = a + 10;   //<i> Compliant, won&#x27;t overflow</i>
 
-p = a - 1;    //<span class="comment"> Non-compliant, the array subscript is -1, which exceeds [0, N]</span>
-e = a + 11;   //<span class="comment"> Non-compliant, the array subscript is 11, which exceeds [0, N]</span>
+p = a - 1;    //<i> Non-compliant, the array subscript is -1, which exceeds [0, N]</i>
+e = a + 11;   //<i> Non-compliant, the array subscript is 11, which exceeds [0, N]</i>
 
---p;          //<span class="comment"> Non-compliant, may overflow</span>
-e++;          //<span class="comment"> Non-compliant, may overflow</span></div>
+--p;          //<i> Non-compliant, may overflow</i>
+e++;          //<i> Non-compliant, may overflow</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_bufferOverflow.html" target="_blank" class="related-link">ID_bufferOverflow</a>
-
-</p>
+<div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.6(8)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.5.6(8)-undefined
 ISO/IEC 9899:2011 6.5.6(8)-undefined
 ISO/IEC 14882:2003 5.7(5)-undefined
-ISO/IEC 14882:2011 5.7(5)-undefined
-
-</p>
+ISO/IEC 14882:2011 5.7(5)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.103
-SEI CERT ARR30-C
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.103
+SEI CERT ARR30-C</div>
 </article>
 </html>

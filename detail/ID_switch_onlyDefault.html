@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：只有 default 标签的 switch 语句是没有意义的，起不到分枝选择的作用，往往是残留代码或功能未实现。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>switch 语句不应只包含 default 标签 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>switch 语句不应只包含 default 标签</h1>
@@ -19,34 +20,32 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-只有 default 标签的 switch 语句是没有意义的，起不到分枝选择的作用，往往是残留代码或功能未实现。
+<main>
+<p>只有 default 标签的 switch 语句是没有意义的，起不到分枝选择的作用，往往是残留代码或功能未实现。</p>
 
-示例： 
-<div class="code">switch (v)
+<p>示例： </p>
+<code>switch (v)
 {
-default:    //<span class="comment"> Non-compliant</span>
+default:    //<i> Non-compliant</i>
     ....
 }
-</div>
-这种空的可以 fallthrough 到 default 标签的空 case 标签也是没有意义的：
-<div class="code">switch (v)
+</code>
+<p>这种空的可以 fallthrough 到 default 标签的空 case 标签也是没有意义的：</p>
+<code>switch (v)
 {
-case 1:     //<span class="comment"> Non-compliant</span>
+case 1:     //<i> Non-compliant</i>
 case 2:
 default:
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 16.6
-MISRA C++ 2008 6-4-8
-
-</p>
+<div class="ref-items">MISRA C 2012 16.6
+MISRA C++ 2008 6-4-8</div>
 </article>
 </html>

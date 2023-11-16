@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：枚举项用于标记不同的事物，名称不同但值相同的枚举项往往意味着错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>同类枚举项的值不应相同 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>同类枚举项的值不应相同</h1>
@@ -19,44 +20,42 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-枚举项用于标记不同的事物，名称不同但值相同的枚举项往往意味着错误。
+<main>
+<p>枚举项用于标记不同的事物，名称不同但值相同的枚举项往往意味着错误。</p>
 
-示例：
-<div class="code">enum Color {
+<p>示例：</p>
+<code>enum Color {
     red = 1,
     yellow = 2,
-    blue = 2,    //<span class="comment"> Non-compliant, see ‘yellow’</span>
-};</div>
-例中三个枚举项应分别表示三种颜色，但 blue 与 yellow 的值相同会造成逻辑错误。
+    blue = 2,    //<i> Non-compliant, see ‘yellow’</i>
+};</code>
+<p>例中三个枚举项应分别表示三种颜色，但 blue 与 yellow 的值相同会造成逻辑错误。</p>
 
-又如：
-<div class="code">enum Fruit {
+<p>又如：</p>
+<code>enum Fruit {
     apple,
     pear,
     grape,
-    favorite = grape,  //<span class="comment"> Non-compliant</span>
-};</div>
-例中 Fruit 定义了三种水果，而 favorite 表示最喜欢的水果，与其他枚举项不是同一层面的概念，不应聚为一类。
+    favorite = grape,  //<i> Non-compliant</i>
+};</code>
+<p>例中 Fruit 定义了三种水果，而 favorite 表示最喜欢的水果，与其他枚举项不是同一层面的概念，不应聚为一类。</p>
 
-应采用更结构化的方式：
-<div class="code">enum Fruit {
+<p>应采用更结构化的方式：</p>
+<code>enum Fruit {
     apple, pear, grape
 };
 
 Fruit favorite () {
     return grape;
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines Enum.8
-MISRA C 2012 8.12
-
-</p>
+<div class="ref-items">C++ Core Guidelines Enum.8
+MISRA C 2012 8.12</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：宏用于文本处理，不受作用域、参数传递、重载等语言规则限制，且难以调试，可由函数实现的功能不应使用宏实现。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>可由函数实现的功能不应使用宏实现 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>可由函数实现的功能不应使用宏实现</h1>
@@ -19,36 +20,32 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-宏用于文本处理，不受作用域、参数传递、重载等语言规则限制，且难以调试，可由函数实现的功能不应使用宏实现。
+<main>
+<p>宏用于文本处理，不受作用域、参数传递、重载等语言规则限制，且难以调试，可由函数实现的功能不应使用宏实现。</p>
 
-示例：
-<div class="code">#define SUM(a, b) ((a) + (b))            //<span class="comment"> Non-compliant</span>
-#define SUM(a, b, c) ((a) + (b) + (c))   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>#define SUM(a, b) ((a) + (b))            //<i> Non-compliant</i>
+#define SUM(a, b, c) ((a) + (b) + (c))   //<i> Non-compliant</i>
 
 int foo(int a, int b) {
-    return SUM(a, b);     //<span class="comment"> Error</span>
-}</div>
-例中宏 SUM 意在获取参数的和，但宏无法被重载，最终只有一个宏被定义，foo 函数中的宏展开会造成错误。
+    return SUM(a, b);     //<i> Error</i>
+}</code>
+<p>例中宏 SUM 意在获取参数的和，但宏无法被重载，最终只有一个宏被定义，foo 函数中的宏展开会造成错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_macro_sideEffectArgs.html" target="_blank" class="related-link">ID_macro_sideEffectArgs</a>
-<a href="./ID_macro_const.html" target="_blank" class="related-link">ID_macro_const</a>
-<a href="./ID_macro_typeid.html" target="_blank" class="related-link">ID_macro_typeid</a>
-
-</p>
+<div class="ref-items"><a href="./ID_macro_sideEffectArgs.html" class="related-link">ID_macro_sideEffectArgs</a>
+<a href="./ID_macro_const.html" class="related-link">ID_macro_const</a>
+<a href="./ID_macro_typeid.html" class="related-link">ID_macro_typeid</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.31
+<div class="ref-items">C++ Core Guidelines ES.31
 MISRA C 2004 19.7
 MISRA C 2012 Dir 4.9
-MISRA C++ 2008 16-0-4
-
-</p>
+MISRA C++ 2008 16-0-4</div>
 </article>
 </html>

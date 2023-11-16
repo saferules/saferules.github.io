@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：不应使用 == 或 != 判断浮点数是否相等。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应使用 == 或 != 判断浮点数是否相等 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应使用 == 或 != 判断浮点数是否相等</h1>
@@ -19,41 +20,39 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-一般来说，除了可以记作 a * 2&lt;sup&gt;n&lt;/sup&gt;（a、n 为整数）的浮点数值可以被精确存储之外，其他均为近似值。用 == 或 != 判断浮点数（float、double、long double）是否相等往往得不到预期的结果。
+<main>
+<p>一般来说，除了可以记作 a * 2&lt;sup&gt;n&lt;/sup&gt;（a、n 为整数）的浮点数值可以被精确存储之外，其他均为近似值。用 == 或 != 判断浮点数（float、double、long double）是否相等往往得不到预期的结果。</p>
 
-如 0、1、2、3、1.5、1.25、… 可以被精确存储，而除此之外绝大部分数值如 0.1、0.2、0.3、… 只能存储其近似值。
+<p>如 0、1、2、3、1.5、1.25、… 可以被精确存储，而除此之外绝大部分数值如 0.1、0.2、0.3、… 只能存储其近似值。</p>
 
-示例：
-<div class="code">float f = 1;
+<p>示例：</p>
+<code>float f = 1;
 f /= 10;
-if (f == 0.1) {     //<span class="comment"> Non-compliant, do not use ‘==’ or ‘!=’</span>
+if (f == 0.1) {     //<i> Non-compliant, do not use ‘==’ or ‘!=’</i>
     cout &lt;&lt; &quot;OK&quot;;
 } else {
     cout &lt;&lt; &quot;Oops&quot;;
-}</div>
-输出 Oops，这是因为 f == 0.1 在运算时将变量和常量转为 double 型，而转换过程中生成了两个不同的对 0.1 的近似值（如 0.10000000149011611938 和 0.10000000000000000555），其结果自然为 false。
-这非常容易造成意料之外的混乱，所以判断浮点数是否相等不应直接使用 == 或 != 运算符，即使浮点数可以被精确存储。
+}</code>
+<p>输出 Oops，这是因为 f == 0.1 在运算时将变量和常量转为 double 型，而转换过程中生成了两个不同的对 0.1 的近似值（如 0.10000000149011611938 和 0.10000000000000000555），其结果自然为 false。</p>
+<p>这非常容易造成意料之外的混乱，所以判断浮点数是否相等不应直接使用 == 或 != 运算符，即使浮点数可以被精确存储。</p>
 
-解决方法：
-<div class="code">bool feq(float a, float b, float e = 0.0001f) {
+<p>解决方法：</p>
+<code>bool feq(float a, float b, float e = 0.0001f) {
     return fabs(a - b) &lt; e;
-}</div>
-利用 feq 函数判断浮点数是否相等，如果两个浮点数的差值非常小则可以认为相等，其中 fabs 为计算浮点数差值绝对值的函数，如果差值绝对值小于 e 则认为相等，否则不等。
-<div class="code">if (feq(f, 0.1)) {   //<span class="comment"> Compliant</span>
+}</code>
+<p>利用 feq 函数判断浮点数是否相等，如果两个浮点数的差值非常小则可以认为相等，其中 fabs 为计算浮点数差值绝对值的函数，如果差值绝对值小于 e 则认为相等，否则不等。</p>
+<code>if (feq(f, 0.1)) {   //<i> Compliant</i>
     cout &lt;&lt; &quot;OK&quot;;
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1025
+<div class="ref-items">CWE-1025
 MISRA C 2004 13.3
-MISRA C++ 2008 6-2-2
-
-</p>
+MISRA C++ 2008 6-2-2</div>
 </article>
 </html>

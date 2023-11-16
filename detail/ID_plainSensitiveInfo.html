@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：代码中的敏感数据极易泄露，产品以及相关运维、测试工具的代码均不可记录任何敏感数据。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>敏感数据不可写入代码 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>敏感数据不可写入代码</h1>
@@ -19,38 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-代码中的敏感数据极易泄露，产品及相关运维、测试工具的代码均不可记录任何敏感数据。
+<main>
+<p>代码中的敏感数据极易泄露，产品及相关运维、测试工具的代码均不可记录任何敏感数据。</p>
 
-示例：
-<div class="code">/**
+<p>示例：</p>
+<code>/**
  * My name is Rabbit
- * My passphrase is Y2Fycm90         //<span class="comment"> Non-compliant</span>
+ * My passphrase is Y2Fycm90         //<i> Non-compliant</i>
  */
 
-#define PASSWORD &quot;Y2Fycm90&quot;          //<span class="comment"> Non-compliant</span>
+#define PASSWORD &quot;Y2Fycm90&quot;          //<i> Non-compliant</i>
 
-const char* passcode = &quot;Y2Fycm90&quot;;   //<span class="comment"> Non-compliant</span>
-</div>
-将密码等敏感数据写入代码是非常不安全的，即使例中 Y2Fycm90 是实际密码的某种变换，聪明的读者也会很快将其破解。
+const char* passcode = &quot;Y2Fycm90&quot;;   //<i> Non-compliant</i>
+</code>
+<p>将密码等敏感数据写入代码是非常不安全的，即使例中 Y2Fycm90 是实际密码的某种变换，聪明的读者也会很快将其破解。</p>
 
-敏感数据的界定是产品设计的重要环节。对具有高可靠性要求的客户端软件，不建议保存任何敏感数据，对于必须保存敏感数据的软件系统，则需要落实安全的存储机制以及相关的评审与测试。
+<p>敏感数据的界定是产品设计的重要环节。对具有高可靠性要求的客户端软件，不建议保存任何敏感数据，对于必须保存敏感数据的软件系统，则需要落实安全的存储机制以及相关的评审与测试。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_secretLeak.html" target="_blank" class="related-link">ID_secretLeak</a>
-
-</p>
+<div class="ref-items"><a href="./ID_secretLeak.html" class="related-link">ID_secretLeak</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-259
+<div class="ref-items">CWE-259
 CWE-798
-SEI CERT MSC41-C
-
-</p>
+SEI CERT MSC41-C</div>
 </article>
 </html>

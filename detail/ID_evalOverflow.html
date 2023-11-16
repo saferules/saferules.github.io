@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：溢出即运算结果超出了对应类型的取值范围，使相关数据无法被完整存储，造成数据丢失。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>运算结果不应溢出 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>运算结果不应溢出</h1>
@@ -19,20 +20,20 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-溢出即运算结果超出了对应类型的取值范围，使相关数据无法被完整存储，造成数据丢失。
+<main>
+<p>溢出即运算结果超出了对应类型的取值范围，使相关数据无法被完整存储，造成数据丢失。</p>
 
-有符号整型和浮点型溢出会导致标准未定义的行为。无符号整数的运算结果是数学上的结果与无符号整型最大值求模的结果，标准认为这是一种算法特性，规定无符号整型不存在溢出，然而实践表明，运算结果超出取值范围往往意味着错误。
+<p>有符号整型和浮点型溢出会导致标准未定义的行为。无符号整数的运算结果是数学上的结果与无符号整型最大值求模的结果，标准认为这是一种算法特性，规定无符号整型不存在溢出，然而实践表明，运算结果超出取值范围往往意味着错误。</p>
 
-示例：
-<div class="code">int32_t mul(int32_t a, int32_t b)
+<p>示例：</p>
+<code>int32_t mul(int32_t a, int32_t b)
 {
-    return a * b;   //<span class="comment"> May overflow or underflow</span>
-}</div>
-例中 32 位整数相乘可能产生溢出，使函数返回错误结果。
+    return a * b;   //<i> May overflow or underflow</i>
+}</code>
+<p>例中 32 位整数相乘可能产生溢出，使函数返回错误结果。</p>
 
-应对溢出作出判断：
-<div class="code">int32_t mul(int32_t a, int32_t b)
+<p>应对溢出作出判断：</p>
+<code>int32_t mul(int32_t a, int32_t b)
 {
     int64_t r = static_cast&lt;int64_t&gt;(a) * b;
     if (r &gt; INT32_MAX) {
@@ -41,30 +42,26 @@
     if (r &lt; INT32_MIN) {
         throw Underflow();
     }
-    return static_cast&lt;int32_t&gt;(r);   //<span class="comment"> Safe result</span>
-}</div>
-其中 INT32_MAX 和 INT32_MIN 分别为 32 位整数的最大值与最小值。
+    return static_cast&lt;int32_t&gt;(r);   //<i> Safe result</i>
+}</code>
+<p>其中 INT32_MAX 和 INT32_MIN 分别为 32 位整数的最大值与最小值。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.2.5(9)
+<div class="ref-items">ISO/IEC 9899:1999 6.2.5(9)
 ISO/IEC 9899:1999 6.5(5)-undefined
 ISO/IEC 9899:2011 6.2.5(9)
 ISO/IEC 9899:2011 6.5(5)-undefined
 ISO/IEC 14882:2003 5(5)-undefined
-ISO/IEC 14882:2011 5(4)-undefined
-
-</p>
+ISO/IEC 14882:2011 5(4)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-190
+<div class="ref-items">CWE-190
 C++ Core Guidelines ES.103
-C++ Core Guidelines ES.104
-
-</p>
+C++ Core Guidelines ES.104</div>
 </article>
 </html>

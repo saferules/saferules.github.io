@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：去掉 const、volatile 等属性会使相关机制失去意义，往往意味着设计上的缺陷，也会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>类型转换不应去掉 const、volatile 等属性 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>类型转换不应去掉 const、volatile 等属性</h1>
@@ -19,59 +20,55 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-去掉 const、volatile 等属性会使相关机制失去意义，往往意味着设计上的缺陷，也会导致标准未定义的行为。
+<main>
+<p>去掉 const、volatile 等属性会使相关机制失去意义，往往意味着设计上的缺陷，也会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">const int c = 1;
+<p>示例：</p>
+<code>const int c = 1;
 volatile int v = 2;
 
-*(int*)&amp;c = 3;   //<span class="comment"> Non-compliant, undefined behavior</span>
-*(int*)&amp;v = 4;   //<span class="comment"> Non-compliant, undefined behavior</span></div>
-通过去掉 const 或 volatile 的转换修改相关对象会导致标准未定义的行为。
+*(int*)&amp;c = 3;   //<i> Non-compliant, undefined behavior</i>
+*(int*)&amp;v = 4;   //<i> Non-compliant, undefined behavior</i></code>
+<p>通过去掉 const 或 volatile 的转换修改相关对象会导致标准未定义的行为。</p>
 
-又如：
-<div class="code">struct A {
+<p>又如：</p>
+<code>struct A {
     void foo() const {
-        const_cast&lt;A*&gt;(this)-&gt;n++;   //<span class="comment"> Non-compliant</span>
+        const_cast&lt;A*&gt;(this)-&gt;n++;   //<i> Non-compliant</i>
         ....
     }
 private:
     int n = 0;
-};</div>
-例中 foo 为常量成员函数，用 const_cast 去掉 this 指针的 const 限定是不符合要求的。
+};</code>
+<p>例中 foo 为常量成员函数，用 const_cast 去掉 this 指针的 const 限定是不符合要求的。</p>
 
-如果成员的改变只起辅助作用而不影响对象状态，可将成员设为 mutable，否则应重新设计类，如： 
-<div class="code">struct A {
+<p>如果成员的改变只起辅助作用而不影响对象状态，可将成员设为 mutable，否则应重新设计类，如： </p>
+<code>struct A {
     void foo() const {
-        n++;             //<span class="comment"> OK</span>
+        n++;             //<i> OK</i>
         ....
     }
 private:
-    mutable int n = 0;   //<span class="comment"> Can be modified by const member functions</span>
-};</div>
+    mutable int n = 0;   //<i> Can be modified by const member functions</i>
+};</code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7.3(5)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.7.3(5)-undefined
 ISO/IEC 9899:2011 6.7.3(6)-undefined
 ISO/IEC 14882:2003 7.1.5.1(4 7)-undefined
-ISO/IEC 14882:2011 7.1.6.1(4 6)-undefined
-
-</p>
+ISO/IEC 14882:2011 7.1.6.1(4 6)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines Type.3
+<div class="ref-items">C++ Core Guidelines Type.3
 MISRA C 2004 11.5
 MISRA C 2012 11.8
 MISRA C++ 2008 5-2-5
 SEI CERT EXP32-C
-SEI CERT EXP55-CPP
-
-</p>
+SEI CERT EXP55-CPP</div>
 </article>
 </html>

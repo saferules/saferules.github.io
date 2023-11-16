@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：空的 do-while 循环将功能全部压缩到了条件表达式中，各子句的职责划分不明确，可读性较差。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>do-while 循环体不应为空 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>do-while 循环体不应为空</h1>
@@ -19,29 +20,25 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-空的 do-while 循环将功能全部压缩到了条件表达式中，各子句的职责划分不明确，可读性较差。
+<main>
+<p>空的 do-while 循环将功能全部压缩到了条件表达式中，各子句的职责划分不明确，可读性较差。</p>
 
-示例：
-<div class="code">void foo(char* d, const char* s) {
-    do {} while (*d++ = *s++);       //<span class="comment"> Non-compliant</span>
-}</div>
-示例代码将循环的条件和循环产生的副作用叠加在了一起，易使人误解。
+<p>示例：</p>
+<code>void foo(char* d, const char* s) {
+    do {} while (*d++ = *s++);       //<i> Non-compliant</i>
+}</code>
+<p>示例代码将循环的条件和循环产生的副作用叠加在了一起，易使人误解。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_while_emptyBlock.html" target="_blank" class="related-link">ID_while_emptyBlock</a>
-
-</p>
+<div class="ref-items"><a href="./ID_while_emptyBlock.html" class="related-link">ID_while_emptyBlock</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1071
-C++ Core Guidelines ES.85
-
-</p>
+<div class="ref-items">CWE-1071
+C++ Core Guidelines ES.85</div>
 </article>
 </html>

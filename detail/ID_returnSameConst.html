@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：函数所有返回值均为相同的常量是没有意义的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>被返回的表达式不应为相同的常量 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>被返回的表达式不应为相同的常量</h1>
@@ -19,21 +20,21 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-被返回的表达式均为相同的常量是没有意义的。
+<main>
+<p>被返回的表达式均为相同的常量是没有意义的。</p>
 
-示例：
-<div class="code">bool foo(int a) {
+<p>示例：</p>
+<code>bool foo(int a) {
     if (a &gt; 100) {
         return true;
     }
     if (a &gt; 50) {
         return true;
     }
-    return true;   //<span class="comment"> Non-compliant, all the values returned are the same</span>
-}</div>
+    return true;   //<i> Non-compliant, all the values returned are the same</i>
+}</code>
 
-</div>
+</main>
 
 
 

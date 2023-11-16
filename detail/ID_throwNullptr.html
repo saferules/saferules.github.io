@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：nullptr 可被所有接受指针的 catch 子句捕获，使异常处理失去针对性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应抛出 nullptr - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应抛出 nullptr</h1>
@@ -19,37 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-nullptr 可被所有接受指针的 catch 子句捕获，使异常处理失去针对性。
+<main>
+<p>nullptr 可被所有接受指针的 catch 子句捕获，使异常处理失去针对性。</p>
 
-示例：
-<div class="code">void foo() {
-    throw nullptr;  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>void foo() {
+    throw nullptr;  //<i> Non-compliant</i>
 }
 
 void bar() {
     try {
         foo();
-    } catch (int*) {  //<span class="comment"> Which handler?</span>
+    } catch (int*) {  //<i> Which handler?</i>
         ....
     } catch (char*) {
         ....
     }
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_throwPointer.html" target="_blank" class="related-link">ID_throwPointer</a>
-
-</p>
+<div class="ref-items"><a href="./ID_throwPointer.html" class="related-link">ID_throwPointer</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 15-0-2
-
-</p>
+<div class="ref-items">MISRA C++ 2008 15-0-2</div>
 </article>
 </html>

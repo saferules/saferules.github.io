@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：内存回收函数抛出异常会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>内存回收函数不可抛出异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>内存回收函数不可抛出异常</h1>
@@ -19,44 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-内存回收函数抛出异常会导致标准未定义的行为。
+<main>
+<p>内存回收函数抛出异常会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
     ....
 public:
     void operator delete(void* p) {
         if (!p) {
-            throw Exception();    //<span class="comment"> Non-compliant, undefined behavior</span>
+            throw Exception();    //<i> Non-compliant, undefined behavior</i>
         }
         ....
     }
-};</div>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_throwInDestructor.html" target="_blank" class="related-link">ID_throwInDestructor</a>
-<a href="./ID_throwInHash.html" target="_blank" class="related-link">ID_throwInHash</a>
-<a href="./ID_throwInSwap.html" target="_blank" class="related-link">ID_throwInSwap</a>
-<a href="./ID_throwInMove.html" target="_blank" class="related-link">ID_throwInMove</a>
-
-</p>
+<div class="ref-items"><a href="./ID_throwInDestructor.html" class="related-link">ID_throwInDestructor</a>
+<a href="./ID_throwInHash.html" class="related-link">ID_throwInHash</a>
+<a href="./ID_throwInSwap.html" class="related-link">ID_throwInSwap</a>
+<a href="./ID_throwInMove.html" class="related-link">ID_throwInMove</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 15.2(3)
+<div class="ref-items">ISO/IEC 14882:2003 15.2(3)
 ISO/IEC 14882:2011 3.7.4.2(3)-undefined
-ISO/IEC 14882:2011 15.2(3)
-
-</p>
+ISO/IEC 14882:2011 15.2(3)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines E.16
-
-</p>
+<div class="ref-items">C++ Core Guidelines E.16</div>
 </article>
 </html>

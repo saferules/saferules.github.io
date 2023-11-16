@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果 atexit、at_quick_exit 指定的处理函数未正常返回，会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>由 atexit、at_quick_exit 指定的处理函数应正常返回 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>由 atexit、at_quick_exit 指定的处理函数应正常返回</h1>
@@ -19,24 +20,24 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果 atexit、at_quick_exit 指定的处理函数未正常返回，会导致标准未定义的行为。
+<main>
+<p>如果 atexit、at_quick_exit 指定的处理函数未正常返回，会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">void handler() {
-    exit(1);      //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>void handler() {
+    exit(1);      //<i> Non-compliant</i>
 }
 
 int main() {
     atexit(handler);
-}</div>
-例中程序在调用 exit 时会执行 handler，而 handler 又调用 exit，在逻辑上形成无限递归，其后果在标准中是未定义的。
+}</code>
+<p>例中程序在调用 exit 时会执行 handler，而 handler 又调用 exit，在逻辑上形成无限递归，其后果在标准中是未定义的。</p>
 
-又如：
-<div class="code">jmp_buf buf;
+<p>又如：</p>
+<code>jmp_buf buf;
 
 void handler() {
-    longjmp(buf, 1);   //<span class="comment"> Non-compliant</span>
+    longjmp(buf, 1);   //<i> Non-compliant</i>
 }
 
 int main() {
@@ -45,23 +46,19 @@ int main() {
         return 0;
     }
     return 1;
-}</div>
-例中 main 返回后会调用 handler，而 handler 又调用 longjmp 跳回 main 函数，在逻辑上形成死循环。
+}</code>
+<p>例中 main 返回后会调用 handler，而 handler 又调用 longjmp 跳回 main 函数，在逻辑上形成死循环。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.20.4.3(2 3)-undefined
-ISO/IEC 9899:2011 7.22.4.4(2 3)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.20.4.3(2 3)-undefined
+ISO/IEC 9899:2011 7.22.4.4(2 3)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT ENV32-C
-
-</p>
+<div class="ref-items">SEI CERT ENV32-C</div>
 </article>
 </html>

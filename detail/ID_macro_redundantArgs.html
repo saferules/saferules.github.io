@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：宏的实参个数大于形参个数是不符合 C/C++ 标准的，多余的宏参数是没有意义的，然而在某些编译环境下却可以通过编译。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>宏的实参个数不可大于形参个数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>宏的实参个数不可大于形参个数</h1>
@@ -19,45 +20,39 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-宏的实参个数大于形参个数是不符合 C/C++ 标准的，多余的宏参数是没有意义的，然而在某些编译环境下却可以通过编译。
+<main>
+<p>宏的实参个数大于形参个数是不符合 C/C++ 标准的，多余的宏参数是没有意义的，然而在某些编译环境下却可以通过编译。</p>
 
-示例：
-<div class="code">#define M(a, b, c)  a ## b ## c
+<p>示例：</p>
+<code>#define M(a, b, c)  a ## b ## c
 
 const char* foo() {
-    return M(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;);  //<span class="comment"> Non-compliant</span>
+    return M(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;);  //<i> Non-compliant</i>
 }
-</div>
-例外：
-<div class="code">#define MSG(fmt, ...) printf(fmt, __VA_ARGS__)
+</code>
+<p>例外：</p>
+<code>#define MSG(fmt, ...) printf(fmt, __VA_ARGS__)
 
 int main() {
-    MSG(&quot;%d %d\n&quot;, 1, 2);  //<span class="comment"> Compliant</span>
-}</div>
-可变宏参数列表可不受本规则约束。
+    MSG(&quot;%d %d\n&quot;, 1, 2);  //<i> Compliant</i>
+}</code>
+<p>可变宏参数列表可不受本规则约束。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_macro_insufficientArgs.html" target="_blank" class="related-link">ID_macro_insufficientArgs</a>
-
-</p>
+<div class="ref-items"><a href="./ID_macro_insufficientArgs.html" class="related-link">ID_macro_insufficientArgs</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.10.3(4)
+<div class="ref-items">ISO/IEC 9899:1999 6.10.3(4)
 ISO/IEC 9899:2011 6.10.3(4)
 ISO/IEC 14882:2003 16.3(4)
-ISO/IEC 14882:2011 16.3(4)
-
-</p>
+ISO/IEC 14882:2011 16.3(4)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-628
-
-</p>
+<div class="ref-items">CWE-628</div>
 </article>
 </html>

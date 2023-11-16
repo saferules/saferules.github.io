@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：异常类的拷贝构造函数抛出异常违反异常处理机制，导致程序异常终止。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>异常类的拷贝构造函数不可抛出异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>异常类的拷贝构造函数不可抛出异常</h1>
@@ -19,51 +20,45 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-异常类的拷贝构造函数抛出异常违反异常处理机制，导致程序异常终止。
+<main>
+<p>异常类的拷贝构造函数抛出异常违反异常处理机制，导致程序异常终止。</p>
 
-当抛出异常时，throw 表达式指定的异常对象会被复制，用以初始化对应的 catch 子句的参数，如果在复制过程中又抛出异常便违反了异常处理机制，这种情况将直接引发 std::terminate 函数的执行，使程序异常终止。
+<p>当抛出异常时，throw 表达式指定的异常对象会被复制，用以初始化对应的 catch 子句的参数，如果在复制过程中又抛出异常便违反了异常处理机制，这种情况将直接引发 std::terminate 函数的执行，使程序异常终止。</p>
 
-示例：
-<div class="code">class E {
+<p>示例：</p>
+<code>class E {
 public:
     E() {}
     E(const E&amp;) {
-        throw 0;    //<span class="comment"> Non-compliant</span>
+        throw 0;    //<i> Non-compliant</i>
     }
 };
 
 int main() {
     try {
         E e0;
-        throw e0;   //<span class="comment"> Throw while throwing, calls std::terminate()</span>
+        throw e0;   //<i> Throw while throwing, calls std::terminate()</i>
     }
     catch (E&amp; e1) {
         ....
     }
-}</div>
-例中 catch 子句的参数 e1 引用由 e0 复制而成的临时对象，在复制过程中抛出的异常无法被捕获，会直接导致程序异常终止。
+}</code>
+<p>例中 catch 子句的参数 e1 引用由 e0 复制而成的临时对象，在复制过程中抛出的异常无法被捕获，会直接导致程序异常终止。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_exceptionInException.html" target="_blank" class="related-link">ID_exceptionInException</a>
-
-</p>
+<div class="ref-items"><a href="./ID_exceptionInException.html" class="related-link">ID_exceptionInException</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 15.1(3)
+<div class="ref-items">ISO/IEC 14882:2003 15.1(3)
 ISO/IEC 14882:2011 15.1(3 7)
-ISO/IEC 14882:2017 18.1(3 7)
-
-</p>
+ISO/IEC 14882:2017 18.1(3 7)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT ERR60-CPP
-
-</p>
+<div class="ref-items">SEI CERT ERR60-CPP</div>
 </article>
 </html>

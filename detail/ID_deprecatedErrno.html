@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：避免使用 errno 和与其相同的模式，应根据实际需求选择通过函数返回值或 C++ 异常机制来处理异常情况。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>选择安全的异常处理方式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>选择安全的异常处理方式</h1>
@@ -19,41 +20,39 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-避免使用 errno 和与其相同的模式，应根据实际需求选择通过函数返回值或 C++ 异常机制来处理异常情况。
+<main>
+<p>避免使用 errno 和与其相同的模式，应根据实际需求选择通过函数返回值或 C++ 异常机制来处理异常情况。</p>
 
-errno 被设定的位置和被读取的位置相距较远，不遵循固定的静态结构，极易误用，是不安全的异常处理方式，对异常情况的错误处理往往会成为业务漏洞，使攻击者轻易地实现其目的。
+<p>errno 被设定的位置和被读取的位置相距较远，不遵循固定的静态结构，极易误用，是不安全的异常处理方式，对异常情况的错误处理往往会成为业务漏洞，使攻击者轻易地实现其目的。</p>
 
-示例：
-<div class="code">void foo() {
+<p>示例：</p>
+<code>void foo() {
     if (somecall() == FAILED) {
         printf(&quot;somecall failed\n&quot;);
-        if (errno == SOME_VALUE) {     //<span class="comment"> Non-compliant</span>
+        if (errno == SOME_VALUE) {     //<i> Non-compliant</i>
             .... 
         }
     }
-}</div>
-例中 somecall 执行异常，通过 errno 获取异常信息，但 errno 的值会被 printf 修改，相应的异常处理也失去了意义。
+}</code>
+<p>例中 somecall 执行异常，通过 errno 获取异常信息，但 errno 的值会被 printf 修改，相应的异常处理也失去了意义。</p>
 
-又如：
-<div class="code">void bar(const char* s) {
+<p>又如：</p>
+<code>void bar(const char* s) {
     int i = atoi(s);
-    if (errno) {        //<span class="comment"> Non-compliant</span>
+    if (errno) {        //<i> Non-compliant</i>
         ....
     }
-}</div>
-errno 并不能反映所有异常情况，atoi 等函数与 errno 无关，例中 errno 的值来自函数外部难以预料的位置，相应的异常处理也将是错误的。
+}</code>
+<p>errno 并不能反映所有异常情况，atoi 等函数与 errno 无关，例中 errno 的值来自函数外部难以预料的位置，相应的异常处理也将是错误的。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines E.28
+<div class="ref-items">C++ Core Guidelines E.28
 MISRA C 2004 20.5
-MISRA C++ 2008 19-3-1
-
-</p>
+MISRA C++ 2008 19-3-1</div>
 </article>
 </html>

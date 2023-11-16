@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：函数直接或间接调用自身可实现递归算法，但调用栈的消耗情况不够直观，易导致栈溢出等错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免函数调用自身 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免函数调用自身</h1>
@@ -19,35 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-函数直接或间接调用自身可实现递归算法，但调用栈的消耗情况不够直观，易导致栈溢出等错误。
+<main>
+<p>函数直接或间接调用自身可实现递归算法，但调用栈的消耗情况不够直观，易导致栈溢出等错误。</p>
 
-应使用复杂度更易控制的方法代替函数调用自身这种实现方式，对于难以代替的特殊算法，应做到资源消耗可控。
+<p>应使用复杂度更易控制的方法代替函数调用自身这种实现方式，对于难以代替的特殊算法，应做到资源消耗可控。</p>
 
-示例：
-<div class="code">size_t foo(size_t n) {
-    return n + foo(n - 1);  //<span class="comment"> Non-compliant</span>
-}</div>
-例中 foo 函数无条件地调用自身是一种逻辑错误，导致无限的递归调用。
+<p>示例：</p>
+<code>size_t foo(size_t n) {
+    return n + foo(n - 1);  //<i> Non-compliant</i>
+}</code>
+<p>例中 foo 函数无条件地调用自身是一种逻辑错误，导致无限的递归调用。</p>
 
-又如：
-<div class="code">size_t bar(size_t n) {
+<p>又如：</p>
+<code>size_t bar(size_t n) {
     if (n &gt; 1) {
-        return n + bar(n - 1);  //<span class="comment"> Non-compliant</span>
+        return n + bar(n - 1);  //<i> Non-compliant</i>
     }
     return n;
-}</div>
-例中 bar 函数设置了递归条件，但仍是不可取的，当参数 n 较大时仍然可以造成栈溢出错误。
+}</code>
+<p>例中 bar 函数设置了递归条件，但仍是不可取的，当参数 n 较大时仍然可以造成栈溢出错误。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 17.2
-MISRA C++ 2008 7-5-4
-
-</p>
+<div class="ref-items">MISRA C 2012 17.2
+MISRA C++ 2008 7-5-4</div>
 </article>
 </html>

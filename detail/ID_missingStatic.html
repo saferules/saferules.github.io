@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：声明和定义内部链接的对象和函数时均应使用 static 关键字，不可使用 extern 关键字，否则极易引起误解。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>声明和定义内部链接的对象和函数时均应使用 static 关键字 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>声明和定义内部链接的对象和函数时均应使用 static 关键字</h1>
@@ -19,20 +20,20 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-声明和定义内部链接的对象和函数时均应使用 static 关键字，不可使用 extern 关键字，否则极易引起误解。
+<main>
+<p>声明和定义内部链接的对象和函数时均应使用 static 关键字，不可使用 extern 关键字，否则极易引起误解。</p>
 
-示例：
-<div class="code">extern int a;   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>extern int a;   //<i> Non-compliant</i>
 ....
-static int a;   //<span class="comment"> ‘a’ is a static object</span>
-static int b;   //<span class="comment"> ‘b’ is a static object</span>
+static int a;   //<i> ‘a’ is a static object</i>
+static int b;   //<i> ‘b’ is a static object</i>
 ....
-extern int b;   //<span class="comment"> Non-compliant</span></div>
-例中 a、b 是内部链接的静态对象，在定义的前后不可再用 extern 声明，否则极易与全域对象混淆。
+extern int b;   //<i> Non-compliant</i></code>
+<p>例中 a、b 是内部链接的静态对象，在定义的前后不可再用 extern 声明，否则极易与全域对象混淆。</p>
 
-又如：
-<div class="code">int foo(int);          //<span class="comment"> Bad, missing ‘static’</span>
+<p>又如：</p>
+<code>int foo(int);          //<i> Bad, missing ‘static’</i>
 
 static int foo(int) {
     ....
@@ -40,21 +41,19 @@ static int foo(int) {
 
 static int bar(int);
 
-int bar(int) {         //<span class="comment"> Bad, missing ‘static’</span>
+int bar(int) {         //<i> Bad, missing ‘static’</i>
     ....
-}</div>
-在声明和定义内部链接的函数时，均应使用 static 关键字，否则也易引起误解。
+}</code>
+<p>在声明和定义内部链接的函数时，均应使用 static 关键字，否则也易引起误解。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 8.11
+<div class="ref-items">MISRA C 2004 8.11
 MISRA C 2012 8.8
-MISRA C++ 2008 3-3-2
-
-</p>
+MISRA C++ 2008 3-3-2</div>
 </article>
 </html>

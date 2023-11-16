@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：final 表示不可重写的重写，override 表示可再次重写的重写，这两个关键字不应同时出现在声明中。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>override 和 final 关键字不应同时出现在声明中 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>override 和 final 关键字不应同时出现在声明中</h1>
@@ -19,23 +20,21 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-final 表示不可重写的重写，override 表示可再次重写的重写，这两个关键字不应同时出现在声明中。
+<main>
+<p>final 表示不可重写的重写，override 表示可再次重写的重写，这两个关键字不应同时出现在声明中。</p>
 
-示例：
-<div class="code">class D: public B {
+<p>示例：</p>
+<code>class D: public B {
 public:
-    int foo() override final;  //<span class="comment"> Non-compliant, ‘override’ is redundant</span>
-};</div>
+    int foo() override final;  //<i> Non-compliant, ‘override’ is redundant</i>
+};</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.128
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.128</div>
 </article>
 </html>

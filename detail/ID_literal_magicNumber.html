@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：直接出现在代码中的字面数值称为 magic number，使人难以理解其含义，不利于阅读和维护，应改用具有适当名称的常量或枚举项。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在 magic number - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在 magic number</h1>
@@ -19,48 +20,44 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-直接出现在代码中的字面数值称为 magic number，使人难以理解其含义，不利于阅读和维护，应改用具有适当名称的常量或枚举项。
+<main>
+<p>直接出现在代码中的字面数值称为 magic number，使人难以理解其含义，不利于阅读和维护，应改用具有适当名称的常量或枚举项。</p>
 
-示例：
-<div class="code">double foo(double b) {
-    double a = b * 1.618034;   //<span class="comment"> Non-compliant, 1.618034 is a magic number</span>
+<p>示例：</p>
+<code>double foo(double b) {
+    double a = b * 1.618034;   //<i> Non-compliant, 1.618034 is a magic number</i>
     return a * (a + b);
 }
 
 double bar(double a) {
-    double b = a * 0.618034;   //<span class="comment"> Non-compliant, 0.618034 is a magic number</span>
+    double b = a * 0.618034;   //<i> Non-compliant, 0.618034 is a magic number</i>
     return a * (a + b);
-}</div>
-例中 1.618034 不能表示其含义，而且当这种 magic number 散落在代码的各个角落时，不便于统一管理，造成维护上的困难。
+}</code>
+<p>例中 1.618034 不能表示其含义，而且当这种 magic number 散落在代码的各个角落时，不便于统一管理，造成维护上的困难。</p>
 
-应改为具有名称的常量：
-<div class="code">const double goldenRatio = 1.618034;   //<span class="comment"> Compliant</span>
+<p>应改为具有名称的常量：</p>
+<code>const double goldenRatio = 1.618034;   //<i> Compliant</i>
 
 double foo(double b) {
-    double a = b * goldenRatio;   //<span class="comment"> Compliant</span>
+    double a = b * goldenRatio;   //<i> Compliant</i>
     return a * (a + b);
 }
 
 double bar(double a) {
-    double b = a * (goldenRatio - 1);   //<span class="comment"> Compliant</span>
+    double b = a * (goldenRatio - 1);   //<i> Compliant</i>
     return a * (a + b);
-}</div>
-常量初始化表达式中的字面数值，以及表示序号起始或简单状态的 0、1 等小字面数值可不受本规则约束。
+}</code>
+<p>常量初始化表达式中的字面数值，以及表示序号起始或简单状态的 0、1 等小字面数值可不受本规则约束。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_literal_magicString.html" target="_blank" class="related-link">ID_literal_magicString</a>
-
-</p>
+<div class="ref-items"><a href="./ID_literal_magicString.html" class="related-link">ID_literal_magicString</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.45
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.45</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：虽然语言允许在 if 语句的条件中赋值，但 = 和 == 极易混淆，建议所有产生 bool 型结果的表达式，都不要包含赋值运算符。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>if 语句的条件不应为赋值表达式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>if 语句的条件不应为赋值表达式</h1>
@@ -19,53 +20,48 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-虽然语言允许在 if 语句的条件中赋值，但 = 和 == 极易混淆，建议所有产生 bool 型结果的表达式，都不要包含赋值运算符。
+<main>
+<p>虽然语言允许在 if 语句的条件中赋值，但 = 和 == 极易混淆，建议所有产生 bool 型结果的表达式，都不要包含赋值运算符。</p>
 
-本规则是 <a href="./ID_assignmentAsSubExpression.html" target="_blank" class="dashed-link">ID_assignmentAsSubExpression</a> 的特化。
+<p>本规则是 <a href="./ID_assignmentAsSubExpression.html" class="dashed-link">ID_assignmentAsSubExpression</a> 的特化。</p>
 
-示例：
-<div class="code">void foo(HRESULT r) {
-    if (r = S_OK) {     //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>void foo(HRESULT r) {
+    if (r = S_OK) {     //<i> Non-compliant</i>
         ....
     }
-}</div>
-例中 S_OK 为常量，在条件中用常量对变量赋值是没有逻辑意义的，如果条件中等号右侧为常量，基本可以判定是 == 被误写成了 =。
+}</code>
+<p>例中 S_OK 为常量，在条件中用常量对变量赋值是没有逻辑意义的，如果条件中等号右侧为常量，基本可以判定是 == 被误写成了 =。</p>
 
-又如：
-<div class="code">if (r = fun()) {   //<span class="comment"> Non-compliant</span>
+<p>又如：</p>
+<code>if (r = fun()) {   //<i> Non-compliant</i>
     ....
-}</div>
-例中 fun 为函数，这也是一种公认的不良风格，应将赋值表达式拆分出来，或者在 C++ 代码中改为：
-<div class="code">if (auto r = fun()) {   //<span class="comment"> Compliant</span>
+}</code>
+<p>例中 fun 为函数，这也是一种公认的不良风格，应将赋值表达式拆分出来，或者在 C++ 代码中改为：</p>
+<code>if (auto r = fun()) {   //<i> Compliant</i>
     ....
 }
-</div>
-将赋值表达式加上括号表示有意为之，是一种惯用写法，但并不值得提倡，如：
-<div class="code">if ((r = fun())) {   //<span class="comment"> Let it go?</span>
+</code>
+<p>将赋值表达式加上括号表示有意为之，是一种惯用写法，但并不值得提倡，如：</p>
+<code>if ((r = fun())) {   //<i> Let it go?</i>
     ....
-}</div>
-审计工具不妨通过配置决定是否放过这种情况。
+}</code>
+<p>审计工具不妨通过配置决定是否放过这种情况。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allowEnclosedAssignment: 是否放过括号括起来的赋值表达式
-</p>
+<div class="ref-items">allowEnclosedAssignment: 是否放过括号括起来的赋值表达式</div>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_assignmentAsSubExpression.html" target="_blank" class="related-link">ID_assignmentAsSubExpression</a>
-
-</p>
+<div class="ref-items"><a href="./ID_assignmentAsSubExpression.html" class="related-link">ID_assignmentAsSubExpression</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-480
+<div class="ref-items">CWE-480
 CWE-481
-CWE-783
-
-</p>
+CWE-783</div>
 </article>
 </html>

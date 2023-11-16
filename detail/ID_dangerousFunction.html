@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：由于历史原因，有些系统接口甚至标准库函数存在缺陷，无法安全使用，也有一些接口的使用条件很苛刻，难以安全使用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免使用危险接口 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免使用危险接口</h1>
@@ -19,36 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-由于历史原因，有些系统接口甚至标准库函数存在缺陷，无法安全使用，也有一些接口的使用条件很苛刻，难以安全使用。
+<main>
+<p>由于历史原因，有些系统接口甚至标准库函数存在缺陷，无法安全使用，也有一些接口的使用条件很苛刻，难以安全使用。</p>
 
-示例：
-<div class="code">gets       //<span class="comment"> The most dangerous function</span>
-mktemp     //<span class="comment"> Every use of ‘mktemp’ is a security risk, use ‘mkstemp’ instead</span>
-getpass    //<span class="comment"> Unsafe and not portable</span>
-crypt      //<span class="comment"> Unsafe, exhaustive searches of the key space are possible</span>
-getpw      //<span class="comment"> It may overflow the provided buffer, use ‘getpwuid’ instead</span>
-cuserid    //<span class="comment"> Not portable and unreliable, use ‘getpwuid(geteuid())’ instead</span>
-chgrp      //<span class="comment"> Prone to TOCTOU race conditions, use ‘fchgrp’ instead</span>
-chown      //<span class="comment"> Prone to TOCTOU race conditions, use ‘fchown’ instead</span>
-chmod      //<span class="comment"> Prone to TOCTOU race conditions, use ‘fchmod’ instead</span>
+<p>示例：</p>
+<code>gets       //<i> The most dangerous function</i>
+mktemp     //<i> Every use of ‘mktemp’ is a security risk, use ‘mkstemp’ instead</i>
+getpass    //<i> Unsafe and not portable</i>
+crypt      //<i> Unsafe, exhaustive searches of the key space are possible</i>
+getpw      //<i> It may overflow the provided buffer, use ‘getpwuid’ instead</i>
+cuserid    //<i> Not portable and unreliable, use ‘getpwuid(geteuid())’ instead</i>
+chgrp      //<i> Prone to TOCTOU race conditions, use ‘fchgrp’ instead</i>
+chown      //<i> Prone to TOCTOU race conditions, use ‘fchown’ instead</i>
+chmod      //<i> Prone to TOCTOU race conditions, use ‘fchmod’ instead</i>
 
-SuspendThread       //<span class="comment"> Forced suspension of a thread can cause many problems</span>
-TerminateThread     //<span class="comment"> Forced termination of a thread can cause many problems</span>
-GlobalMemoryStatus        //<span class="comment"> Return incorrect information, use ‘GlobalMemoryStatusEx’ instead</span>
-SetProcessWorkingSetSize  //<span class="comment"> Cause adverse effects on other processes and the entire system</span>
-</div>
-例中 gets 函数不检查缓冲区边界，无法安全使用；TerminateThread 等 Windows API 强制终止线程，线程持有的资源难以正确释放，极易导致泄漏或死锁等问题，应避免使用这类函数。
+SuspendThread       //<i> Forced suspension of a thread can cause many problems</i>
+TerminateThread     //<i> Forced termination of a thread can cause many problems</i>
+GlobalMemoryStatus        //<i> Return incorrect information, use ‘GlobalMemoryStatusEx’ instead</i>
+SetProcessWorkingSetSize  //<i> Cause adverse effects on other processes and the entire system</i>
+</code>
+<p>例中 gets 函数不检查缓冲区边界，无法安全使用；TerminateThread 等 Windows API 强制终止线程，线程持有的资源难以正确释放，极易导致泄漏或死锁等问题，应避免使用这类函数。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-242
-CWE-676
-
-</p>
+<div class="ref-items">CWE-242
+CWE-676</div>
 </article>
 </html>

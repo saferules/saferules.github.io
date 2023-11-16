@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果移位数量为负数、大于或等于相关类型比特位的数量，会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>移位数量不应超过相关类型比特位的数量 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>移位数量不应超过相关类型比特位的数量</h1>
@@ -19,46 +20,42 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果移位数量为负数、大于或等于相关类型比特位的数量，会导致标准未定义的行为。
+<main>
+<p>如果移位数量为负数、大于或等于相关类型比特位的数量，会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">uint32_t foo(uint16_t a) {
-    return a &lt;&lt; 16;         //<span class="comment"> Non-compliant, unportable</span>
+<p>示例：</p>
+<code>uint32_t foo(uint16_t a) {
+    return a &lt;&lt; 16;         //<i> Non-compliant, unportable</i>
 }
 
 uint64_t bar(uint32_t b) {
-    return b &lt;&lt; 32;         //<span class="comment"> Non-compliant, undefined behavior</span>
-}</div>
-例中变量 a 为 16 位整数，是否会被提升为 32 位整型由实现定义，参见“<a href="https://en.cppreference.com/w/c/language/conversion#Integer_promotions" target="_blank" class="dashed-link">类型提升</a>”；变量 b 为 32 位整数，将其左移 32 位并不能得到 64 位整数，反而会导致标准未定义的行为。
+    return b &lt;&lt; 32;         //<i> Non-compliant, undefined behavior</i>
+}</code>
+<p>例中变量 a 为 16 位整数，是否会被提升为 32 位整型由实现定义，参见“<a href="https://en.cppreference.com/w/c/language/conversion#Integer_promotions" target="_blank" class="dashed-link">类型提升</a>”；变量 b 为 32 位整数，将其左移 32 位并不能得到 64 位整数，反而会导致标准未定义的行为。</p>
 
-应改为：
-<div class="code">uint32_t foo(uint16_t a) {
-    return uint32_t(a) &lt;&lt; 16;   //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>uint32_t foo(uint16_t a) {
+    return uint32_t(a) &lt;&lt; 16;   //<i> Compliant</i>
 }
 
 uint64_t bar(uint32_t b) {
-    return uint64_t(b) &lt;&lt; 32;   //<span class="comment"> Compliant</span>
-}</div>
+    return uint64_t(b) &lt;&lt; 32;   //<i> Compliant</i>
+}</code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.7(3)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.5.7(3)-undefined
 ISO/IEC 9899:2011 6.5.7(3)-undefined
 ISO/IEC 14882:2003 5.8(1)-undefined
 ISO/IEC 14882:2011 5.8(1)-undefined
-ISO/IEC 14882:2017 8.8(1)-undefined
-
-</p>
+ISO/IEC 14882:2017 8.8(1)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 12.2
-MISRA C++ 2008 5-8-1
-
-</p>
+<div class="ref-items">MISRA C 2012 12.2
+MISRA C++ 2008 5-8-1</div>
 </article>
 </html>

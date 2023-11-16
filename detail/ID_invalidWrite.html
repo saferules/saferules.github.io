@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对于内存中的数据，写入之后应被读取，否则没有意义。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在无效的写入操作 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在无效的写入操作</h1>
@@ -19,47 +20,51 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-内存中的数据写入之后应被读取，如果出现：
- ● 写入后未经读取便再次被无条件写入
- ● 写入后未经读取而相关对象的生命周期已结束
+<main>
+<p>内存中的数据写入之后应被读取，如果出现：</p>
+<ul>
+<li>写入后未经读取便再次被无条件写入</li>
+<li>写入后未经读取而相关对象的生命周期已结束</li>
 
-这种写入是无效的，出现这种问题往往意味着逻辑错误或功能不完整。
+</ul>
+<p>这种写入是无效的，出现这种问题往往意味着逻辑错误或功能不完整。</p>
 
-下列情况可不受本规则约束：
- ● 对象初始化时的写入
- ● 有特殊副作用的写入，如对 volatile 型数据的写入等
+<p>下列情况可不受本规则约束：</p>
+<ul>
+<li>对象初始化时的写入</li>
+<li>有特殊副作用的写入，如对 volatile 型数据的写入等</li>
 
-示例：
-<div class="code">void foo(int&amp; a, int&amp; b) {
+</ul>
+<p>示例：</p>
+<code>void foo(int&amp; a, int&amp; b) {
     ....
-    a = 123;   //<span class="comment"> Non-compliant</span>
+    a = 123;   //<i> Non-compliant</i>
     a = 456;
     ....
-}</div>
-例中参数 a 被赋值为 123 之后，又被无条件地赋值为 456，显然第一次赋值是没有意义的，很有可能是漏掉了什么。
+}</code>
+<p>例中参数 a 被赋值为 123 之后，又被无条件地赋值为 456，显然第一次赋值是没有意义的，很有可能是漏掉了什么。</p>
 
-又如：
-<div class="code">int bar() {
+<p>又如：</p>
+<code>int bar() {
     int i = 0;
     ....
-    return i++;     //<span class="comment"> Non-compliant</span>
-}</div>
-例中 bar 函数返回局部变量 i 自增前的值，自增运算是没有意义的。
+    return i++;     //<i> Non-compliant</i>
+}</code>
+<p>例中 bar 函数返回局部变量 i 自增前的值，自增运算是没有意义的。</p>
 
-对象的初始化可不受本规则限制，如：
-<div class="code">int baz() {
-    int n = 0;      //<span class="comment"> OK</span>
+<p>对象的初始化可不受本规则限制，如：</p>
+<code>int baz() {
+    int n = 0;      //<i> OK</i>
     if (cond) {
         n = 123;
     } else {
         n = 456;
     }
     return n;
-}</div>
-例中局部变量 n 初始化后经由 if-else 分枝，在其两个分枝中都被赋值，也相当于被无条件写入，但在声明处初始化是值得提倡的，故这种情况不受本规则限制。
+}</code>
+<p>例中局部变量 n 初始化后经由 if-else 分枝，在其两个分枝中都被赋值，也相当于被无条件写入，但在声明处初始化是值得提倡的，故这种情况不受本规则限制。</p>
 
-</div>
+</main>
 
 
 

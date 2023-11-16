@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：使用了某种分配方法，就应使用与其配套的回收方法，否则会引发严重错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>资源的分配与回收方法应配套使用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>资源的分配与回收方法应配套使用</h1>
@@ -19,44 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-使用了某种分配方法，就应使用与其配套的回收方法，否则会引发严重错误。
+<main>
+<p>使用了某种分配方法，就应使用与其配套的回收方法，否则会引发严重错误。</p>
 
-示例：
-<div class="code">void foo() {
+<p>示例：</p>
+<code>void foo() {
     T* p = new T;
     ....
-    free(p);   //<span class="comment"> Non-compliant, use ‘delete’ instead</span>
+    free(p);   //<i> Non-compliant, use ‘delete’ instead</i>
 }
 
 void bar(size_t n) {
     char* p = (char*)malloc(n);
     ....
-    delete[] p;   //<span class="comment"> Non-compliant, use ‘free’ instead</span>
-}</div>
-不同的分配回收方法属于不同的资源管理体系，用 new 分配的资源应使用 delete 回收，malloc 分配的应使用 free 回收。
+    delete[] p;   //<i> Non-compliant, use ‘free’ instead</i>
+}</code>
+<p>不同的分配回收方法属于不同的资源管理体系，用 new 分配的资源应使用 delete 回收，malloc 分配的应使用 free 回收。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_incompleteNewDeletePair.html" target="_blank" class="related-link">ID_incompleteNewDeletePair</a>
-
-</p>
+<div class="ref-items"><a href="./ID_incompleteNewDeletePair.html" class="related-link">ID_incompleteNewDeletePair</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.20.3.2(2)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 7.20.3.2(2)-undefined
 ISO/IEC 9899:2011 7.22.3.3(2)-undefined
 ISO/IEC 14882:2003 3.7.3.2(3)
-ISO/IEC 14882:2011 3.7.4.2(3)-undefined
-
-</p>
+ISO/IEC 14882:2011 3.7.4.2(3)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT MEM51-CPP
-
-</p>
+<div class="ref-items">SEI CERT MEM51-CPP</div>
 </article>
 </html>

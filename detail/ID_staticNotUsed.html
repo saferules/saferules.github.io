@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：没有被用到的静态声明往往是没有意义的，应删除或修正引用关系。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在没有被用到的静态声明 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在没有被用到的静态声明</h1>
@@ -19,32 +20,28 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-没有被用到的静态声明往往是没有意义的，应删除或修正引用关系。
+<main>
+<p>没有被用到的静态声明往往是没有意义的，应删除或修正引用关系。</p>
 
-类的静态成员可不受本规则限制。
+<p>类的静态成员可不受本规则限制。</p>
 
-示例：
-<div class="code">static int foo();   //<span class="comment"> Compliant, used</span>
-static int bar();   //<span class="comment"> Non-compliant, unused</span>
+<p>示例：</p>
+<code>static int foo();   //<i> Compliant, used</i>
+static int bar();   //<i> Non-compliant, unused</i>
 
 int main() {
     return foo();
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_unreachableCode.html" target="_blank" class="related-link">ID_unreachableCode</a>
-
-</p>
+<div class="ref-items"><a href="./ID_unreachableCode.html" class="related-link">ID_unreachableCode</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 0-1-10
-
-</p>
+<div class="ref-items">MISRA C++ 2008 0-1-10</div>
 </article>
 </html>

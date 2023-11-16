@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：if...else-if 分枝的条件不应有重复，否则相同条件排在前面的分枝会得以执行，而排在后面的分枝得不到执行机会。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>在 if...else-if 分枝中不应有重复的条件 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>在 if...else-if 分枝中不应有重复的条件</h1>
@@ -19,40 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-if...else-if 分枝的条件不应有重复，否则相同条件排在前面的分枝会得以执行，而排在后面的分枝得不到执行机会。
+<main>
+<p>if...else-if 分枝的条件不应有重复，否则相同条件排在前面的分枝会得以执行，而排在后面的分枝得不到执行机会。</p>
 
-示例：
-<div class="code">if (condition1) {
+<p>示例：</p>
+<code>if (condition1) {
     branch1
 }
 else if (condition2) {
     branch2
 }
-else if (condition1) {  //<span class="comment"> Non-compliant, see the previous ‘condition1’</span>
+else if (condition1) {  //<i> Non-compliant, see the previous ‘condition1’</i>
     branch3
 }
 else {
     branch4
-}</div>
-例中 branch1 和 branch3 的条件是相同的，所以 branch3 不会被执行。
+}</code>
+<p>例中 branch1 和 branch3 的条件是相同的，所以 branch3 不会被执行。</p>
 
-此问题为常见笔误，多数由复制粘贴造成，也可能是维护代码时对之前的逻辑不够了解造成的错误。
+<p>此问题为常见笔误，多数由复制粘贴造成，也可能是维护代码时对之前的逻辑不够了解造成的错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_if_hiddenCondition.html" target="_blank" class="related-link">ID_if_hiddenCondition</a>
-
-</p>
+<div class="ref-items"><a href="./ID_if_hiddenCondition.html" class="related-link">ID_if_hiddenCondition</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-561
-CWE-670
-
-</p>
+<div class="ref-items">CWE-561
+CWE-670</div>
 </article>
 </html>

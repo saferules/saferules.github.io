@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：通过值捕获多态类的异常对象会使其多态性失效，使异常被错误处理。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>捕获异常时不应产生对象切片问题 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>捕获异常时不应产生对象切片问题</h1>
@@ -19,13 +20,13 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-通过值捕获多态类的异常对象会使其多态性失效，使异常被错误处理。
+<main>
+<p>通过值捕获多态类的异常对象会使其多态性失效，使异常被错误处理。</p>
 
-本规则是 <a href="./ID_catch_value.html" target="_blank" class="dashed-link">ID_catch_value</a> 与 <a href="./ID_objectSlicing.html" target="_blank" class="dashed-link">ID_objectSlicing</a> 的特化。
+<p>本规则是 <a href="./ID_catch_value.html" class="dashed-link">ID_catch_value</a> 与 <a href="./ID_objectSlicing.html" class="dashed-link">ID_objectSlicing</a> 的特化。</p>
 
-示例：
-<div class="code">struct Exception {
+<p>示例：</p>
+<code>struct Exception {
     virtual const char* what() const { return nullptr; }
 };
 
@@ -37,27 +38,23 @@ void foo() {
     try {
         throw Error();
     }
-    catch (Exception e) {   //<span class="comment"> Non-compliant, use reference instead</span>
-        log(e.what());      //<span class="comment"> Only returns nullptr</span>
+    catch (Exception e) {   //<i> Non-compliant, use reference instead</i>
+        log(e.what());      //<i> Only returns nullptr</i>
     }
-}</div>
-例中抛出的是派生类对象，但 what 函数只能返回 nullptr。
+}</code>
+<p>例中抛出的是派生类对象，但 what 函数只能返回 nullptr。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_catch_value.html" target="_blank" class="related-link">ID_catch_value</a>
-<a href="./ID_objectSlicing.html" target="_blank" class="related-link">ID_objectSlicing</a>
-
-</p>
+<div class="ref-items"><a href="./ID_catch_value.html" class="related-link">ID_catch_value</a>
+<a href="./ID_objectSlicing.html" class="related-link">ID_objectSlicing</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.145
-C++ Core Guidelines ES.63
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.145
+C++ Core Guidelines ES.63</div>
 </article>
 </html>

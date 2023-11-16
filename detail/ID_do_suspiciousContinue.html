@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：continue 语句和 break 语句在语义上是不同的，但在 do-while(0) 中的功效是一样的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>注意 do-while(0) 中可疑的 continue 语句 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>注意 do-while(0) 中可疑的 continue 语句</h1>
@@ -19,13 +20,13 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-continue 语句和 break 语句在语义上是不同的，但在 do-while(0) 中的功效是一样的。
+<main>
+<p>continue 语句和 break 语句在语义上是不同的，但在 do-while(0) 中的功效是一样的。</p>
 
-在 do-while(0) 的循环体中如果既有 break 语句又有 continue 语句，continue 语句被误用的可能性较大。
+<p>在 do-while(0) 的循环体中如果既有 break 语句又有 continue 语句，continue 语句被误用的可能性较大。</p>
 
-示例：
-<div class="code">int foo() {
+<p>示例：</p>
+<code>int foo() {
     do {
         ....
         if (cond1) {
@@ -33,21 +34,19 @@ continue 语句和 break 语句在语义上是不同的，但在 do-while(0) 中
         }
         ....
         if (cond2) {
-            continue;   //<span class="comment"> Rather suspicious</span>
+            continue;   //<i> Rather suspicious</i>
         }
         ....
     } while (0);
-}</div>
-建议在 do-while(0) 中只使用 break 语句，不使用 continue 语句。
+}</code>
+<p>建议在 do-while(0) 中只使用 break 语句，不使用 continue 语句。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-670
-
-</p>
+<div class="ref-items">CWE-670</div>
 </article>
 </html>

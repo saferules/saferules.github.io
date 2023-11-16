@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：为缓冲区分配足够的空间，避免溢出等问题。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>为缓冲区分配足够的空间 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>为缓冲区分配足够的空间</h1>
@@ -19,44 +20,40 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-为缓冲区分配足够的空间，避免溢出等问题。
+<main>
+<p>为缓冲区分配足够的空间，避免溢出等问题。</p>
 
-示例：
-<div class="code">void foo(const char* s) {
-    char* p = (char*)malloc(strlen(s));  //<span class="comment"> Non-compliant, should be ‘strlen(s) + 1’</span>
+<p>示例：</p>
+<code>void foo(const char* s) {
+    char* p = (char*)malloc(strlen(s));  //<i> Non-compliant, should be ‘strlen(s) + 1’</i>
     strcpy(p, s);
-    printf(&quot;%s\n&quot;, p);  //<span class="comment"> Out of bounds, undefined behavior</span>
-}</div>
-字符串以空字符结尾，在分配字符串空间时不可漏掉空字符的空间。
+    printf(&quot;%s\n&quot;, p);  //<i> Out of bounds, undefined behavior</i>
+}</code>
+<p>字符串以空字符结尾，在分配字符串空间时不可漏掉空字符的空间。</p>
 
-又如：
-<div class="code">void bar() {
-    int* p = (int*)malloc(123);  //<span class="comment"> Non-compliant</span>
+<p>又如：</p>
+<code>void bar() {
+    int* p = (int*)malloc(123);  //<i> Non-compliant</i>
     ....
-}</div>
-例中 bar 函数为 int 型数组分配了 123 个字节的空间，而 123 不能被 sizeof(int) 整除，最后一个元素会越界。虽然 malloc 函数返回已对齐的地址，但这种代码往往意味着 sizeof 因子的缺失。
+}</code>
+<p>例中 bar 函数为 int 型数组分配了 123 个字节的空间，而 123 不能被 sizeof(int) 整除，最后一个元素会越界。虽然 malloc 函数返回已对齐的地址，但这种代码往往意味着 sizeof 因子的缺失。</p>
 
-应改为：
-<div class="code">void bar() {
-    int* p = (int*)malloc(123 * sizeof(int));  //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>void bar() {
+    int* p = (int*)malloc(123 * sizeof(int));  //<i> Compliant</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_bufferOverflow.html" target="_blank" class="related-link">ID_bufferOverflow</a>
-
-</p>
+<div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-131
-CWE-135
-
-</p>
+<div class="ref-items">CWE-131
+CWE-135</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果被抛出的异常没有被相应的 catch 子句处理会引发 std::terminate 函数的执行，使程序异常终止。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>处理所有异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>处理所有异常</h1>
@@ -19,13 +20,13 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果被抛出的异常没有被相应的 catch 子句处理会引发 std::terminate 函数的执行，使程序异常终止。
+<main>
+<p>如果被抛出的异常没有被相应的 catch 子句处理会引发 std::terminate 函数的执行，使程序异常终止。</p>
 
-应避免 std::terminate 函数被执行。std::terminate 函数执行前相关调用栈中的对象是否会被析构由实现定义。std::terminate 函数会调用由 std::set_terminate 指定的回调函数，在默认情况下会执行 abort 函数终止进程，但打开的流是否会被关闭，缓冲区内的数据是否会写入文件，临时文件是否会被清理等问题仍由实现定义。
+<p>应避免 std::terminate 函数被执行。std::terminate 函数执行前相关调用栈中的对象是否会被析构由实现定义。std::terminate 函数会调用由 std::set_terminate 指定的回调函数，在默认情况下会执行 abort 函数终止进程，但打开的流是否会被关闭，缓冲区内的数据是否会写入文件，临时文件是否会被清理等问题仍由实现定义。</p>
 
-示例：
-<div class="code">class A {};
+<p>示例：</p>
+<code>class A {};
 class B {};
 class C {};
 
@@ -34,13 +35,13 @@ int main()
     try {
         int i = userInput();
         if (i &lt; 0) {
-            throw A();   //<span class="comment"> Compliant </span>
+            throw A();   //<i> Compliant </i>
         }
         if (i == 0) {
-            throw B();   //<span class="comment"> Compliant</span>
+            throw B();   //<i> Compliant</i>
         }
         if (i &gt; 5) {
-            throw C();   //<span class="comment"> Non-compliant, missing handler</span>
+            throw C();   //<i> Non-compliant, missing handler</i>
         }
         ....
     }
@@ -48,34 +49,28 @@ int main()
         return 1;
     }
     catch (B&amp;) {
-        throw;     //<span class="comment"> Non-compliant, missing handler</span>
+        throw;     //<i> Non-compliant, missing handler</i>
     }
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_throwOutOfMain.html" target="_blank" class="related-link">ID_throwOutOfMain</a>
-<a href="./ID_implementationDefinedFunction.html" target="_blank" class="related-link">ID_implementationDefinedFunction</a>
-
-</p>
+<div class="ref-items"><a href="./ID_throwOutOfMain.html" class="related-link">ID_throwOutOfMain</a>
+<a href="./ID_implementationDefinedFunction.html" class="related-link">ID_implementationDefinedFunction</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 15.3(9)-implementation
+<div class="ref-items">ISO/IEC 14882:2003 15.3(9)-implementation
 ISO/IEC 14882:2003 15.5.1(2)-implementation
 ISO/IEC 14882:2011 15.3(9)-implementation
-ISO/IEC 14882:2011 15.5.1(2)-implementation
-
-</p>
+ISO/IEC 14882:2011 15.5.1(2)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 15-3-2
+<div class="ref-items">MISRA C++ 2008 15-3-2
 MISRA C++ 2008 15-3-4
-SEI CERT ERR51-CPP
-
-</p>
+SEI CERT ERR51-CPP</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：代码中不应存在拼写错误，尤其是供他人调用的代码，如命名空间名称、公共接口名称等，更不应存在拼写错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在拼写错误 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在拼写错误</h1>
@@ -19,19 +20,19 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-代码中不应存在拼写错误，尤其是供他人调用的代码，如命名空间名称、公共接口名称等，更不应存在拼写错误。
+<main>
+<p>代码中不应存在拼写错误，尤其是供他人调用的代码，如命名空间名称、公共接口名称等，更不应存在拼写错误。</p>
 
-拼写错误会使用户对代码的质量产生疑虑，而且相关代码被大量引用后也不便于改正。
+<p>拼写错误会使用户对代码的质量产生疑虑，而且相关代码被大量引用后也不便于改正。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
 public:
-    virtual void destory() = 0;  //<span class="comment"> Non-compliant, should be ‘destroy’</span>
-};</div>
-例中“destory”函数的名称有拼写错误，应改为“destroy”。
+    virtual void destory() = 0;  //<i> Non-compliant, should be ‘destroy’</i>
+};</code>
+<p>例中“destory”函数的名称有拼写错误，应改为“destroy”。</p>
 
-</div>
+</main>
 
 
 

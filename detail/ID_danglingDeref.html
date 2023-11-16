@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：已被释放的指针指向失效的内存空间，对其解引用会导致标准未定义的行为，往往会造成严重错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不可解引用已被释放的指针 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不可解引用已被释放的指针</h1>
@@ -19,72 +20,66 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-已被释放的指针指向失效的内存空间，对其解引用会导致标准未定义的行为，往往会造成严重错误。
+<main>
+<p>已被释放的指针指向失效的内存空间，对其解引用会导致标准未定义的行为，往往会造成严重错误。</p>
 
-示例：
-<div class="code">int foo() {
+<p>示例：</p>
+<code>int foo() {
     int* p = new int[100];
     if (cond) {
         ....
         delete[] p;
     }
-    return p[0];  //<span class="comment"> Non-compliant, ‘p’ may be deallocated</span>
-}</div>
-本来指针 p 指向有效的内存空间，但由于某种原因相关内存被释放，p 的值不变但已无效，这种情况被形象地称为“指针悬挂”，未经初始化的指针和这种被悬挂的指针统称“野指针”，均指向无效地址不可被解引用。
+    return p[0];  //<i> Non-compliant, ‘p’ may be deallocated</i>
+}</code>
+<p>本来指针 p 指向有效的内存空间，但由于某种原因相关内存被释放，p 的值不变但已无效，这种情况被形象地称为“指针悬挂”，未经初始化的指针和这种被悬挂的指针统称“野指针”，均指向无效地址不可被解引用。</p>
 
-应关注对象的生命周期，避免内层作用域中的地址向外层传递，如：
-<div class="code">int foo(int i) {
+<p>应关注对象的生命周期，避免内层作用域中的地址向外层传递，如：</p>
+<code>int foo(int i) {
     int* p = &amp;i;
     if (cond) {
         int j = 0;
         ....
-        p = &amp;j;   //<span class="comment"> Bad practice</span>
+        p = &amp;j;   //<i> Bad practice</i>
     }
-    return *p;    //<span class="comment"> Non-compliant, ‘p’ may be deallocated</span>
-}</div>
-例中局部变量 j 的地址被传给了外层作域中的指针 p，j 的生命周期结束后，p 会成为野指针。
+    return *p;    //<i> Non-compliant, ‘p’ may be deallocated</i>
+}</code>
+<p>例中局部变量 j 的地址被传给了外层作域中的指针 p，j 的生命周期结束后，p 会成为野指针。</p>
 
-另外，在 C++ 代码中，应避免持有可被自动销毁的对象地址，如容器中对象的地址、智能指针所指对象的地址等：
-<div class="code">int bar(vector&lt;int&gt;&amp; v) {
-    int* p = &amp;v.front();    //<span class="comment"> Bad practice</span>
+<p>另外，在 C++ 代码中，应避免持有可被自动销毁的对象地址，如容器中对象的地址、智能指针所指对象的地址等：</p>
+<code>int bar(vector&lt;int&gt;&amp; v) {
+    int* p = &amp;v.front();    //<i> Bad practice</i>
     v.push_back(1);
-    return *p;              //<span class="comment"> ‘p’ may be invalid</span>
-}</div>
-例中指针 p 记录了 vector 容器中对象的地址，根据 vector 容器持有对象的策略，随着元素的增加原有对象的地址可能不再有效。
+    return *p;              //<i> ‘p’ may be invalid</i>
+}</code>
+<p>例中指针 p 记录了 vector 容器中对象的地址，根据 vector 容器持有对象的策略，随着元素的增加原有对象的地址可能不再有效。</p>
 
-又如：
-<div class="code">int baz() {
+<p>又如：</p>
+<code>int baz() {
     auto u = make_unique&lt;int&gt;();
-    auto p = u.get();            //<span class="comment"> Bad practice</span>
+    auto p = u.get();            //<i> Bad practice</i>
     u = make_unique&lt;int&gt;();
-    return *p;                   //<span class="comment"> ‘p’ is invalid</span>
-}</div>
-例中指针 p 记录了 unique_ptr 所指对象的地址，当 unique_ptr 指向新的对象时，原对象的地址不再有效。
+    return *p;                   //<i> ‘p’ is invalid</i>
+}</code>
+<p>例中指针 p 记录了 unique_ptr 所指对象的地址，当 unique_ptr 指向新的对象时，原对象的地址不再有效。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_illAccess.html" target="_blank" class="related-link">ID_illAccess</a>
-<a href="./ID_localAddressFlowOut.html" target="_blank" class="related-link">ID_localAddressFlowOut</a>
-<a href="./ID_illLifetime.html" target="_blank" class="related-link">ID_illLifetime</a>
-
-</p>
+<div class="ref-items"><a href="./ID_illAccess.html" class="related-link">ID_illAccess</a>
+<a href="./ID_localAddressFlowOut.html" class="related-link">ID_localAddressFlowOut</a>
+<a href="./ID_illLifetime.html" class="related-link">ID_illLifetime</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.3.2(4)-undefined
-ISO/IEC 9899:2011 6.5.3.2(4)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.5.3.2(4)-undefined
+ISO/IEC 9899:2011 6.5.3.2(4)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-825
+<div class="ref-items">CWE-825
 C++ Core Guidelines ES.65
-SEI CERT EXP54-CPP
-
-</p>
+SEI CERT EXP54-CPP</div>
 </article>
 </html>

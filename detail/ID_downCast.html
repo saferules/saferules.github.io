@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：从基类到派生类的向下类型转换往往意味着现有接口已经不能满足需求，故应避免这种转换。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免向下类型转换 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免向下类型转换</h1>
@@ -19,24 +20,24 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-从基类到派生类的向下类型转换往往意味着现有接口已经不能满足需求，故应避免这种转换。
+<main>
+<p>从基类到派生类的向下类型转换往往意味着现有接口已经不能满足需求，故应避免这种转换。</p>
 
-示例：
-<div class="code">class A { .... };
+<p>示例：</p>
+<code>class A { .... };
 
 class B: public A {
 public:
-    void bar();   //<span class="comment"> A new function</span>
+    void bar();   //<i> A new function</i>
 };
 
 void foo(A* a) {
-    if (B* p = dynamic_cast&lt;B*&gt;(a)) {   //<span class="comment"> Bad, down cast</span>
+    if (B* p = dynamic_cast&lt;B*&gt;(a)) {   //<i> Bad, down cast</i>
         p-&gt;bar();
     }
-}</div>
-例中 foo 接口对基类参数进行向下类型转换是不利于维护的，当这种特殊处理较多时，应利用多态方法合理重构。
-<div class="code">class A {
+}</code>
+<p>例中 foo 接口对基类参数进行向下类型转换是不利于维护的，当这种特殊处理较多时，应利用多态方法合理重构。</p>
+<code>class A {
     ....
 public:
     virtual void bar();
@@ -49,24 +50,20 @@ public:
 
 void foo(A* a) {
     if (a) {
-        a-&gt;bar();   //<span class="comment"> Good</span>
+        a-&gt;bar();   //<i> Good</i>
     }
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_nonDynamicDownCast.html" target="_blank" class="related-link">ID_nonDynamicDownCast</a>
-<a href="./ID_narrowCast.html" target="_blank" class="related-link">ID_narrowCast</a>
-
-</p>
+<div class="ref-items"><a href="./ID_nonDynamicDownCast.html" class="related-link">ID_nonDynamicDownCast</a>
+<a href="./ID_narrowCast.html" class="related-link">ID_narrowCast</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.48
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.48</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：当类只负责成员对象的组合而没有特殊的复制、移动、析构需求时，不应定义相关函数。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免重复实现由默认拷贝、移动、析构函数完成的功能 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免重复实现由默认拷贝、移动、析构函数完成的功能</h1>
@@ -19,46 +20,44 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-当类只负责成员对象的包装或组合而没有特殊的复制、移动、析构需求时，不应定义下列函数：
- 1. 拷贝构造函数
- 2. 拷贝赋值运算符
- 3. 析构函数
- 4. 移动构造函数
- 5. 移动赋值运算符
+<main>
+<p>当类只负责成员对象的包装或组合而没有特殊的复制、移动、析构需求时，不应定义下列函数：</p>
+<ol>
+<li>拷贝构造函数</li>
+<li>拷贝赋值运算符</li>
+<li>析构函数</li>
+<li>移动构造函数</li>
+<li>移动赋值运算符</li>
 
-应由编译器生成相关默认函数，否则会产生多余的代码，增加维护成本，这种规则称为“<a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-zero" target="_blank" class="dashed-link">Rule of zero</a>”。
+</ol>
+<p>应由编译器生成相关默认函数，否则会产生多余的代码，增加维护成本，这种规则称为“<a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-zero" target="_blank" class="dashed-link">Rule of zero</a>”。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
     string a, b;
 
 public:
-    A(const A&amp; rhs): a(rhs.a), b(rhs.b) {  //<span class="comment"> Redundant</span>
+    A(const A&amp; rhs): a(rhs.a), b(rhs.b) {  //<i> Redundant</i>
     }
-    A&amp; operator = (const A&amp; rhs) {  //<span class="comment"> Redundant</span>
+    A&amp; operator = (const A&amp; rhs) {  //<i> Redundant</i>
         a = rhs.a;
         b = rhs.b;
         return *this;
     }
-   ~A() {  //<span class="comment"> Redundant</span>
+   ~A() {  //<i> Redundant</i>
     }
-};</div>
-例中的类只涉及字符串对象的组合，复制、移动和析构可交由成员对象完成，其拷贝构造函数、赋值运算符以及析构函数是多余的，应该去掉，编译器会进行更好地处理。
+};</code>
+<p>例中的类只涉及字符串对象的组合，复制、移动和析构可交由成员对象完成，其拷贝构造函数、赋值运算符以及析构函数是多余的，应该去掉，编译器会进行更好地处理。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_violateRuleOfFive.html" target="_blank" class="related-link">ID_violateRuleOfFive</a>
-
-</p>
+<div class="ref-items"><a href="./ID_violateRuleOfFive.html" class="related-link">ID_violateRuleOfFive</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.21
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.21</div>
 </article>
 </html>

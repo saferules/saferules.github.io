@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：TODO、FIXME、XXX、BUG 等特殊注释表示代码中存在问题，这种问题不应被遗忘，应有计划地予以解决。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>关注 TODO、FIXME、XXX、BUG 等特殊注释 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>关注 TODO、FIXME、XXX、BUG 等特殊注释</h1>
@@ -19,37 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-TODO、FIXME、XXX、BUG 等特殊注释表示代码中存在问题，这种问题不应被遗忘，应有计划地予以解决。
+<main>
+<p>TODO、FIXME、XXX、BUG 等特殊注释表示代码中存在问题，这种问题不应被遗忘，应有计划地予以解决。</p>
 
-及时记录问题是一种好习惯，而且最好有署名和日期。
+<p>及时记录问题是一种好习惯，而且最好有署名和日期。</p>
 
-示例：
-<div class="code">void foo() {
+<p>示例：</p>
+<code>void foo() {
     /*
-     * Some plans...         //<span class="comment"> Bad, easy to forget</span>
+     * Some plans...         //<i> Bad, easy to forget</i>
      */
 }
 
 void foo() {
     /* TODO:
-     * Some plans...  -- my name, date     //<span class="comment"> Good</span>
+     * Some plans...  -- my name, date     //<i> Good</i>
      */
-}</div>
-审计工具不妨定期搜索这些关键词对应的注释，以供相关人员核对问题解决情况。
+}</code>
+<p>审计工具不妨定期搜索这些关键词对应的注释，以供相关人员核对问题解决情况。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">specialCommentPatterns: 特殊注释的模式字符串（如正则表达式等），供审计工具查找
-</p>
+<div class="ref-items">specialCommentPatterns: 特殊注释的模式字符串（如正则表达式等），供审计工具查找</div>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-546
-
-</p>
+<div class="ref-items">CWE-546</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果控制条件均为 bool 型表达式，可使逻辑结构更清晰，有效避免隐式类型转换造成的问题。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>控制条件应为 bool 型表达式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>控制条件应为 bool 型表达式</h1>
@@ -19,58 +20,54 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果控制条件均为 bool 型表达式，可使逻辑结构更清晰，有效避免隐式类型转换造成的问题。
+<main>
+<p>如果控制条件均为 bool 型表达式，可使逻辑结构更清晰，有效避免隐式类型转换造成的问题。</p>
 
-示例：
-<div class="code">void foo(int* p, size_t n, bool b)
+<p>示例：</p>
+<code>void foo(int* p, size_t n, bool b)
 {
-    if (p) {     //<span class="comment"> Non-compliant</span>
+    if (p) {     //<i> Non-compliant</i>
         ....
     }
-    if (n) {     //<span class="comment"> Non-compliant</span>
+    if (n) {     //<i> Non-compliant</i>
         ....
     }
-    if (b) {     //<span class="comment"> Compliant</span>
+    if (b) {     //<i> Compliant</i>
         ....
     }
-}</div>
-例中 p 和 n 不应直接作为条件，b 为 bool 型，可直接作为条件。
+}</code>
+<p>例中 p 和 n 不应直接作为条件，b 为 bool 型，可直接作为条件。</p>
 
-应改为：
-<div class="code">void foo(int* p, size_t n, bool b)
+<p>应改为：</p>
+<code>void foo(int* p, size_t n, bool b)
 {
-    if (p != NULL) {   //<span class="comment"> Compliant</span>
+    if (p != NULL) {   //<i> Compliant</i>
         ....
     }
-    if (n != 0) {      //<span class="comment"> Compliant</span>
+    if (n != 0) {      //<i> Compliant</i>
         ....
     }
     ....
-}</div>
-循环条件、三元表达式的条件等所有可作为控制条件的表达式均受本规则限制。
+}</code>
+<p>循环条件、三元表达式的条件等所有可作为控制条件的表达式均受本规则限制。</p>
 
-例外：
-<div class="code">if (int* p = bar()) {  //<span class="comment"> Let it go</span>
+<p>例外：</p>
+<code>if (int* p = bar()) {  //<i> Let it go</i>
     ....
-}</div>
-C++03 允许将声明作为条件，这种情况可不受本规则限制。
+}</code>
+<p>C++03 允许将声明作为条件，这种情况可不受本规则限制。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_nonBoolSubCondition.html" target="_blank" class="related-link">ID_nonBoolSubCondition</a>
-
-</p>
+<div class="ref-items"><a href="./ID_nonBoolSubCondition.html" class="related-link">ID_nonBoolSubCondition</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 14.4
+<div class="ref-items">MISRA C 2012 14.4
 MISRA C++ 2008 5-0-13
-MISRA C++ 2008 5-0-14
-
-</p>
+MISRA C++ 2008 5-0-14</div>
 </article>
 </html>

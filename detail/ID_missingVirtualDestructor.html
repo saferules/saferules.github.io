@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：为了避免意料之外的资源泄漏，有虚函数的基类都应该具有虚析构函数。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>有虚函数的基类应具有虚析构函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>有虚函数的基类应具有虚析构函数</h1>
@@ -19,21 +20,21 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-为了避免意料之外的资源泄漏，有虚函数的基类都应该具有虚析构函数。
+<main>
+<p>为了避免意料之外的资源泄漏，有虚函数的基类都应该具有虚析构函数。</p>
 
-通过基类指针析构派生类对象时，如果基类没有虚析构函数会导致标准未定义的行为，无法正确执行派生类的析构函数。
+<p>通过基类指针析构派生类对象时，如果基类没有虚析构函数会导致标准未定义的行为，无法正确执行派生类的析构函数。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
 public:
     A() = default;
-   ~A() = default;          //<span class="comment"> Non-compliant, missing ‘virtual’</span>
+   ~A() = default;          //<i> Non-compliant, missing ‘virtual’</i>
     virtual int foo() = 0;
 };
 
 class B: public A {
-    int *m, n;              //<span class="comment"> New resource</span>
+    int *m, n;              //<i> New resource</i>
 
 public:
     B(int s): m(new int[s]), n(s) {}
@@ -43,37 +44,33 @@ public:
 
 A* p = new B(10);
 ....
-delete p;                   //<span class="comment"> Undefined behavior, may leak</span></div>
-由于基类 A 的析构函数不是虚函数，delete p 只调用了基类析构函数，派生类对象的资源没有得到释放。
+delete p;                   //<i> Undefined behavior, may leak</i></code>
+<p>由于基类 A 的析构函数不是虚函数，delete p 只调用了基类析构函数，派生类对象的资源没有得到释放。</p>
 
-例外：
-<div class="code">class C {
+<p>例外：</p>
+<code>class C {
     ....
 protected:
-   ~C();     //<span class="comment"> Compliant</span>
-};</div>
-如果有意阻止外界通过基类指针析构对象，如析构函数是 protected，可不受本规则限制。
+   ~C();     //<i> Compliant</i>
+};</code>
+<p>如果有意阻止外界通过基类指针析构对象，如析构函数是 protected，可不受本规则限制。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 5.3.5(3)-undefined
+<div class="ref-items">ISO/IEC 14882:2003 5.3.5(3)-undefined
 ISO/IEC 14882:2003 12.4(7)
 ISO/IEC 14882:2011 5.3.5(3)-undefined
-ISO/IEC 14882:2011 12.4(9)
-
-</p>
+ISO/IEC 14882:2011 12.4(9)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1045
+<div class="ref-items">CWE-1045
 CWE-1079
 CWE-1087
 C++ Core Guidelines C.35
-C++ Core Guidelines C.127
-
-</p>
+C++ Core Guidelines C.127</div>
 </article>
 </html>

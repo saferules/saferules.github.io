@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：有些运算符只关注类型，其子表达式不会被求值，子表达式的副作用也不会有实际效果。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不可依赖不会生效的副作用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不可依赖不会生效的副作用</h1>
@@ -19,59 +20,55 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-有些运算符只关注类型，其子表达式不会被求值，子表达式的副作用也不会有实际效果。
+<main>
+<p>有些运算符只关注类型，其子表达式不会被求值，子表达式的副作用也不会有实际效果。</p>
 
-这类运算在 C 语言中有：
-<div class="code">sizeof、_Alignof、_Generic
-</div>
-在 C++ 语言中有：
-<div class="code">sizeof、typeid、noexcept、decltype、declval
-</div>
-这类运算符不宜作用于逻辑、算术、位运算、函数调用等子表达式。
+<p>这类运算在 C 语言中有：</p>
+<code>sizeof、_Alignof、_Generic
+</code>
+<p>在 C++ 语言中有：</p>
+<code>sizeof、typeid、noexcept、decltype、declval
+</code>
+<p>这类运算符不宜作用于逻辑、算术、位运算、函数调用等子表达式。</p>
 
-特殊情况：
- ● 在 C 语言中，如果 sizeof 作用于变长数组类型，数组长度表达式会被求值。
- ● 在 C++ 语言中，如果 typeid 作用于返回多态类型的函数调用，该函数也会被执行。
+<p>特殊情况：</p>
+<ul>
+<li>在 C 语言中，如果 sizeof 作用于变长数组类型，数组长度表达式会被求值。</li>
+<li>在 C++ 语言中，如果 typeid 作用于返回多态类型的函数调用，该函数也会被执行。</li>
 
-虽然在某些特殊情况下相关子表达式会被求值，但为了避免意料之外的错误，本规则要求这类运算符的子表达式在任何情况下均不可含有任何副作用。
+</ul>
+<p>虽然在某些特殊情况下相关子表达式会被求值，但为了避免意料之外的错误，本规则要求这类运算符的子表达式在任何情况下均不可含有任何副作用。</p>
 
-示例：
-<div class="code">int a = 0;
+<p>示例：</p>
+<code>int a = 0;
 
-int b = sizeof(a++);   //<span class="comment"> Non-compliant</span>
+int b = sizeof(a++);   //<i> Non-compliant</i>
 printf(&quot;%d &quot;, a);
 
-int c = sizeof(int[a++]);   //<span class="comment"> Non-compliant, variable length array</span>
-printf(&quot;%d\n&quot;, a);</div>
-输出 0 1，sizeof(a++) 的副作用不生效，而 sizeof(int[a++]) 的副作用会生效，这往往会使人困惑。
+int c = sizeof(int[a++]);   //<i> Non-compliant, variable length array</i>
+printf(&quot;%d\n&quot;, a);</code>
+<p>输出 0 1，sizeof(a++) 的副作用不生效，而 sizeof(int[a++]) 的副作用会生效，这往往会使人困惑。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_sideEffectAssertion.html" target="_blank" class="related-link">ID_sideEffectAssertion</a>
-
-</p>
+<div class="ref-items"><a href="./ID_sideEffectAssertion.html" class="related-link">ID_sideEffectAssertion</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.3.4(2)
+<div class="ref-items">ISO/IEC 9899:1999 6.5.3.4(2)
 ISO/IEC 9899:2011 6.5.3.4(2)
 ISO/IEC 14882:2003 5.3.3(1)
 ISO/IEC 14882:2011 5.3.3(1)
-ISO/IEC 14882:2017 8.3.3(1)
-
-</p>
+ISO/IEC 14882:2017 8.3.3(1)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 12.3
+<div class="ref-items">MISRA C 2004 12.3
 MISRA C 2012 13.6
 MISRA C++ 2008 5-3-4
 SEI CERT EXP44-C
-SEI CERT EXP52-CPP
-
-</p>
+SEI CERT EXP52-CPP</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：宏用于文本处理，不受作用域等语言规则限制，不应使用宏实现类型等语言层面的概念。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应使用宏定义类型 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应使用宏定义类型</h1>
@@ -19,37 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-宏用于文本处理，不受作用域等语言规则限制，不应使用宏实现类型等语言层面的概念。
+<main>
+<p>宏用于文本处理，不受作用域等语言规则限制，不应使用宏实现类型等语言层面的概念。</p>
 
-示例：
-<div class="code">namespace U {
-    #define Type int  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>namespace U {
+    #define Type int  //<i> Non-compliant</i>
 }
 
 namespace V {
-    #define Type long  //<span class="comment"> Non-compliant</span>
+    #define Type long  //<i> Non-compliant</i>
 }
 
-void foo(Type);  //<span class="comment"> Unreliable</span>
-</div>
-例中 Type 的最终定义是 long，第二个宏定义会覆盖第一个宏定义，这显然是不可靠的。
+void foo(Type);  //<i> Unreliable</i>
+</code>
+<p>例中 Type 的最终定义是 long，第二个宏定义会覆盖第一个宏定义，这显然是不可靠的。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_macro_sideEffectArgs.html" target="_blank" class="related-link">ID_macro_sideEffectArgs</a>
-<a href="./ID_macro_const.html" target="_blank" class="related-link">ID_macro_const</a>
-<a href="./ID_macro_function.html" target="_blank" class="related-link">ID_macro_function</a>
-
-</p>
+<div class="ref-items"><a href="./ID_macro_sideEffectArgs.html" class="related-link">ID_macro_sideEffectArgs</a>
+<a href="./ID_macro_const.html" class="related-link">ID_macro_const</a>
+<a href="./ID_macro_function.html" class="related-link">ID_macro_function</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.30
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.30</div>
 </article>
 </html>

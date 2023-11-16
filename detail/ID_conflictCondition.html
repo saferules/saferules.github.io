@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：相互矛盾的逻辑子表达式会使整个表达式的结果恒为真或恒为假，导致逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>逻辑子表达式之间不应存在矛盾 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>逻辑子表达式之间不应存在矛盾</h1>
@@ -19,40 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-相互矛盾的逻辑子表达式会使整个表达式的结果恒为真或恒为假，导致逻辑错误。
+<main>
+<p>相互矛盾的逻辑子表达式会使整个表达式的结果恒为真或恒为假，导致逻辑错误。</p>
 
-示例：
-<div class="code">a == 1 &amp;&amp; a == 2   //<span class="comment"> always false</span>
-a != 1 || a != 2   //<span class="comment"> always true</span></div>
-同一变量不可能同时等于不同的值，这种表达式是无效的。
+<p>示例：</p>
+<code>a == 1 &amp;&amp; a == 2   //<i> always false</i>
+a != 1 || a != 2   //<i> always true</i></code>
+<p>同一变量不可能同时等于不同的值，这种表达式是无效的。</p>
 
-又如：
-<div class="code">a &gt; b &amp;&amp; a &lt;= b   //<span class="comment"> always false</span>
-a &gt; b || a &lt;= b   //<span class="comment"> always true</span>
+<p>又如：</p>
+<code>a &gt; b &amp;&amp; a &lt;= b   //<i> always false</i>
+a &gt; b || a &lt;= b   //<i> always true</i>
 
-a == b &amp;&amp; a != b   //<span class="comment"> always false</span>
-a == b || a != b   //<span class="comment"> always true</span>
+a == b &amp;&amp; a != b   //<i> always false</i>
+a == b || a != b   //<i> always true</i>
 
-a &lt; -128 &amp;&amp; a &gt; 127     //<span class="comment"> always false</span>
-a &gt;= -128 || a &lt;= 127   //<span class="comment"> always true</span></div>
-这种表达式均为常见笔误，应及时修正。
+a &lt; -128 &amp;&amp; a &gt; 127     //<i> always false</i>
+a &gt;= -128 || a &lt;= 127   //<i> always true</i></code>
+<p>这种表达式均为常见笔误，应及时修正。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_redundantCondition.html" target="_blank" class="related-link">ID_redundantCondition</a>
-<a href="./ID_simplifiableCondition.html" target="_blank" class="related-link">ID_simplifiableCondition</a>
-
-</p>
+<div class="ref-items"><a href="./ID_redundantCondition.html" class="related-link">ID_redundantCondition</a>
+<a href="./ID_simplifiableCondition.html" class="related-link">ID_simplifiableCondition</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-570
-CWE-571
-
-</p>
+<div class="ref-items">CWE-570
+CWE-571</div>
 </article>
 </html>

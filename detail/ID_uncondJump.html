@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：不受条件控制的跳转语句会剥夺其后续代码的执行机会，往往意味着逻辑错误，也可能是调试或维护痕迹。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在不受条件控制的跳转语句 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在不受条件控制的跳转语句</h1>
@@ -19,27 +20,25 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-不受条件控制的跳转语句会剥夺其后续代码的执行机会，往往意味着逻辑错误，也可能是调试或维护痕迹。
+<main>
+<p>不受条件控制的跳转语句会剥夺其后续代码的执行机会，往往意味着逻辑错误，也可能是调试或维护痕迹。</p>
 
-示例：
-<div class="code">void foo() {
+<p>示例：</p>
+<code>void foo() {
     if (cond) {
-        goto L;   //<span class="comment"> Non-compliant, unconditional goto</span>
-        bar();    //<span class="comment"> Unreachable code    </span>
+        goto L;   //<i> Non-compliant, unconditional goto</i>
+        bar();    //<i> Unreachable code    </i>
     }
 L:
     ....
-}</div>
-例中 goto 语句相对其同一作用域中的后续代码 bar(); 是不受条件控制的，bar 函数得不到执行机会。
+}</code>
+<p>例中 goto 语句相对其同一作用域中的后续代码 bar(); 是不受条件控制的，bar 函数得不到执行机会。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_unreachableCode.html" target="_blank" class="related-link">ID_unreachableCode</a>
-
-</p>
+<div class="ref-items"><a href="./ID_unreachableCode.html" class="related-link">ID_unreachableCode</a></div>
 
 
 

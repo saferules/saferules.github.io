@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：为了提高可移植性，应避免使用由实现定义的 pragma 指令。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免使用 pragma 指令 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免使用 pragma 指令</h1>
@@ -19,27 +20,23 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-应避免使用由实现定义的 pragma 指令以提高可移植性。
+<main>
+<p>应避免使用由实现定义的 pragma 指令以提高可移植性。</p>
 
-示例：
-<div class="code">#pragma once   //<span class="comment"> Non-compliant, use macro header guards instead</span></div>
-应使用标准方法代替 pragma 指令，如果难以代替，相关 pragma 指令应备以文档说明。
+<p>示例：</p>
+<code>#pragma once   //<i> Non-compliant, use macro header guards instead</i></code>
+<p>应使用标准方法代替 pragma 指令，如果难以代替，相关 pragma 指令应备以文档说明。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.10.6(1)-implementation
-ISO/IEC 9899:2011 6.10.6(1)-implementation
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.10.6(1)-implementation
+ISO/IEC 9899:2011 6.10.6(1)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 16-6-1
-
-</p>
+<div class="ref-items">MISRA C++ 2008 16-6-1</div>
 </article>
 </html>

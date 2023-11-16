@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：捕获异常后将其直接再次抛出是没有意义的，还会造成不必要的开销。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>捕获异常后不应直接再次抛出异常 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>捕获异常后不应直接再次抛出异常</h1>
@@ -19,21 +20,21 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-捕获异常后将其直接再次抛出是没有意义的，还会造成不必要的开销。
+<main>
+<p>捕获异常后将其直接再次抛出是没有意义的，还会造成不必要的开销。</p>
 
-示例：
-<div class="code">void foo() {
+<p>示例：</p>
+<code>void foo() {
     try {
         bar();
     }
     catch (...) {
-        throw;      //<span class="comment"> Non-compliant</span>
+        throw;      //<i> Non-compliant</i>
     }
-}</div>
-例中的 catch 子句是没有意义的，应将其去掉或对异常进行有效处理。
+}</code>
+<p>例中的 catch 子句是没有意义的，应将其去掉或对异常进行有效处理。</p>
 
-</div>
+</main>
 
 
 

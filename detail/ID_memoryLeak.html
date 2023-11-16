@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：动态分配的内存地址不可被遗失，否则相关内存无法被访问也无法被回收，这种问题称为“内存泄漏（memory leak）”，会导致可用内存被耗尽，使程序无法正常运行。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不可失去对已分配内存的控制 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不可失去对已分配内存的控制</h1>
@@ -19,61 +20,55 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-动态分配的内存地址不可被遗失，否则相关内存无法被访问也无法被回收，这种问题称为“<a href="https://en.wikipedia.org/wiki/Memory_leak" target="_blank" class="dashed-link">内存泄漏（memory leak）</a>”，会导致可用内存被耗尽，使程序无法正常运行。
+<main>
+<p>动态分配的内存地址不可被遗失，否则相关内存无法被访问也无法被回收，这种问题称为“<a href="https://en.wikipedia.org/wiki/Memory_leak" target="_blank" class="dashed-link">内存泄漏（memory leak）</a>”，会导致可用内存被耗尽，使程序无法正常运行。</p>
 
-程序需要保证内存分配与回收之间的流程可达，且不可被异常中断，相关线程也不可在中途停止。
+<p>程序需要保证内存分配与回收之间的流程可达，且不可被异常中断，相关线程也不可在中途停止。</p>
 
-本规则是 <a href="./ID_resourceLeak.html" target="_blank" class="dashed-link">ID_resourceLeak</a> 的特化。
+<p>本规则是 <a href="./ID_resourceLeak.html" class="dashed-link">ID_resourceLeak</a> 的特化。</p>
 
-示例：
-<div class="code">void foo(size_t n) {
+<p>示例：</p>
+<code>void foo(size_t n) {
     void* p = malloc(n);
     if (cond) {
-        return;  //<span class="comment"> Non-compliant, ‘p’ is lost</span>
+        return;  //<i> Non-compliant, ‘p’ is lost</i>
     }
     ....
     free(p);
-}</div>
-例中局部变量 p 记录已分配的内存地址，释放前在某种情况下函数返回，之后便再也无法访问到这块内存了，导致内存泄露。
+}</code>
+<p>例中局部变量 p 记录已分配的内存地址，释放前在某种情况下函数返回，之后便再也无法访问到这块内存了，导致内存泄露。</p>
 
-又如：
-<div class="code">void bar(size_t n) {
+<p>又如：</p>
+<code>void bar(size_t n) {
     void* p = malloc(n);
     if (n &lt; 100) {
-        p = realloc(p, 100);  //<span class="comment"> Non-compliant, the original value of ‘p’ is lost</span>
+        p = realloc(p, 100);  //<i> Non-compliant, the original value of ‘p’ is lost</i>
     }
     ....
-}</div>
-例中 realloc 函数分配失败会返回 NULL，p 未经释放而被重新赋值，导致内存泄露。
+}</code>
+<p>例中 realloc 函数分配失败会返回 NULL，p 未经释放而被重新赋值，导致内存泄露。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_resourceLeak.html" target="_blank" class="related-link">ID_resourceLeak</a>
-<a href="./ID_ownerlessResource.html" target="_blank" class="related-link">ID_ownerlessResource</a>
-<a href="./ID_throwInConstructor.html" target="_blank" class="related-link">ID_throwInConstructor</a>
-<a href="./ID_memberDeallocation.html" target="_blank" class="related-link">ID_memberDeallocation</a>
-<a href="./ID_multiAllocation.html" target="_blank" class="related-link">ID_multiAllocation</a>
-
-</p>
+<div class="ref-items"><a href="./ID_resourceLeak.html" class="related-link">ID_resourceLeak</a>
+<a href="./ID_ownerlessResource.html" class="related-link">ID_ownerlessResource</a>
+<a href="./ID_throwInConstructor.html" class="related-link">ID_throwInConstructor</a>
+<a href="./ID_memberDeallocation.html" class="related-link">ID_memberDeallocation</a>
+<a href="./ID_multiAllocation.html" class="related-link">ID_multiAllocation</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.20.3(1)
+<div class="ref-items">ISO/IEC 9899:1999 7.20.3(1)
 ISO/IEC 9899:2011 7.22.3(1)
 ISO/IEC 14882:2003 3.7.3.1(2)
-ISO/IEC 14882:2003 3.7.4.1(2)
-
-</p>
+ISO/IEC 14882:2003 3.7.4.1(2)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-401
+<div class="ref-items">CWE-401
 C++ Core Guidelines P.8
-C++ Core Guidelines E.13
-
-</p>
+C++ Core Guidelines E.13</div>
 </article>
 </html>

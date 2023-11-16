@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：嵌套的 try-catch 语句使代码显得复杂，不利于阅读和维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应嵌套 try-catch 语句 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应嵌套 try-catch 语句</h1>
@@ -19,31 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-嵌套的 try-catch 语句使代码显得复杂，不利于阅读和维护。
+<main>
+<p>嵌套的 try-catch 语句使代码显得复杂，不利于阅读和维护。</p>
 
-在嵌套的 try-catch 语句中较难看出各 catch 子句的从属关系，尤其是相关代码行数较多时这种问题会更为明显，应将内嵌的 try-catch 语句抽取成函数，使代码具有更清晰的静态结构。
+<p>在嵌套的 try-catch 语句中较难看出各 catch 子句的从属关系，尤其是相关代码行数较多时这种问题会更为明显，应将内嵌的 try-catch 语句抽取成函数，使代码具有更清晰的静态结构。</p>
 
-示例：
-<div class="code">try {
+<p>示例：</p>
+<code>try {
     ....
-    try {    //<span class="comment"> Non-compliant</span>
+    try {    //<i> Non-compliant</i>
         ....
-    } catch (A&amp;) {    //<span class="comment"> Confusing</span>
+    } catch (A&amp;) {    //<i> Confusing</i>
         ....
     }
 } catch (B&amp;) {
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines E.17
-
-</p>
+<div class="ref-items">C++ Core Guidelines E.17</div>
 </article>
 </html>

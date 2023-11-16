@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在 C++ 代码中不应使用 malloc、free 等 C 内存管理函数，应使用 C++ 内存管理方法。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>C++ 代码中禁用 C 内存管理函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>C++ 代码中禁用 C 内存管理函数</h1>
@@ -19,35 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在 C++ 代码中不应使用 malloc、free 等 C 内存管理函数，应使用 C++ 内存管理方法。
+<main>
+<p>在 C++ 代码中不应使用 malloc、free 等 C 内存管理函数，应使用 C++ 内存管理方法。</p>
 
-示例：
-<div class="code">void foo(size_t n) {
-    int* p = (int*)malloc(n * sizeof(int));  //<span class="comment"> Unsafe and verbose</span>
+<p>示例：</p>
+<code>void foo(size_t n) {
+    int* p = (int*)malloc(n * sizeof(int));  //<i> Unsafe and verbose</i>
     ....
     free(p);
 }
-</div>
-应改为：
-<div class="code">void foo(size_t n) {
-    auto p = make_unique&lt;int[]&gt;(n);  //<span class="comment"> Safe and brief</span>
+</code>
+<p>应改为：</p>
+<code>void foo(size_t n) {
+    auto p = make_unique&lt;int[]&gt;(n);  //<i> Safe and brief</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_ownerlessResource.html" target="_blank" class="related-link">ID_ownerlessResource</a>
-
-</p>
+<div class="ref-items"><a href="./ID_ownerlessResource.html" class="related-link">ID_ownerlessResource</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines R.10
-
-</p>
+<div class="ref-items">C++ Core Guidelines R.10</div>
 </article>
 </html>

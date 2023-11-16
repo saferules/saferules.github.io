@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：基本类型的函数返回值本来就是不可被修改的右值，不应再受 const 关键字限制。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>函数返回值不应为基本类型的常量 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>函数返回值不应为基本类型的常量</h1>
@@ -19,38 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-基本类型的函数返回值本来就是不可被修改的右值，不应再受 const 关键字限制。
+<main>
+<p>基本类型的函数返回值本来就是不可被修改的右值，不应再受 const 关键字限制。</p>
 
-本规则是 <a href="./ID_returnConstObject.html" target="_blank" class="dashed-link">ID_returnConstObject</a> 的特化。
+<p>本规则是 <a href="./ID_returnConstObject.html" class="dashed-link">ID_returnConstObject</a> 的特化。</p>
 
-示例：
-<div class="code">const int* foo();  //<span class="comment"> Compliant</span>
-const int bar();   //<span class="comment"> Non-compliant, ‘const’ is superfluous</span>
+<p>示例：</p>
+<code>const int* foo();  //<i> Compliant</i>
+const int bar();   //<i> Non-compliant, ‘const’ is superfluous</i>
 
 class A {
     ....
 
 public:
     int&amp; fun();
-    const int fun() const;  //<span class="comment"> Non-compliant, missing ‘&amp;’</span>
-};</div>
-出现这种问题说明设计与使用存在一定的偏差，也可能本意是返回引用或指针，而书写时漏掉了相关符号。
+    const int fun() const;  //<i> Non-compliant, missing ‘&amp;’</i>
+};</code>
+<p>出现这种问题说明设计与使用存在一定的偏差，也可能本意是返回引用或指针，而书写时漏掉了相关符号。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_returnConstObject.html" target="_blank" class="related-link">ID_returnConstObject</a>
-
-</p>
+<div class="ref-items"><a href="./ID_returnConstObject.html" class="related-link">ID_returnConstObject</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 3.10(5)
-ISO/IEC 14882:2011 3.10(1)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 3.10(5)
+ISO/IEC 14882:2011 3.10(1)</div>
 
 
 </article>

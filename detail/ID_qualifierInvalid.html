@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：在 C++ 语言中，const 或 volatile 可以限定指针，但不可限定引用，否则起不到任何作用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>const、volatile 不可限定引用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>const、volatile 不可限定引用</h1>
@@ -19,35 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-在 C++ 语言中，const 或 volatile 可以限定指针，但不可限定引用，否则起不到任何作用。
+<main>
+<p>在 C++ 语言中，const 或 volatile 可以限定指针，但不可限定引用，否则起不到任何作用。</p>
 
-示例：
-<div class="code">int a = 0;
-int &amp;const i = a;     //<span class="comment"> Non-compliant</span>
-int &amp;volatile j = a;  //<span class="comment"> Non-compliant</span></div>
-限定 &amp; 号的 const 和 volatile 是无效的，i 可被随意修改，j 也可能被优化。
+<p>示例：</p>
+<code>int a = 0;
+int &amp;const i = a;     //<i> Non-compliant</i>
+int &amp;volatile j = a;  //<i> Non-compliant</i></code>
+<p>限定 &amp; 号的 const 和 volatile 是无效的，i 可被随意修改，j 也可能被优化。</p>
 
-应去掉限定符，或使限定符作用于类型名称：
-<div class="code">const int&amp; i = a;     //<span class="comment"> Compliant</span>
-volatile int&amp; j = a;  //<span class="comment"> Compliant</span>
-</div>
-注意，如果限定符作用于引用类型的别名，会引起很大误解，如：
-<div class="code">typedef int&amp; int_r;   //<span class="comment"> Reference type alias, bad</span>
-const int_r r0 = a;   //<span class="comment"> Non-compliant, r0 is not a const-reference at all</span>
-const int_r&amp; r1 = a;  //<span class="comment"> Non-compliant, r1 is not a const-reference at all</span></div>
-例中 r0 像是一个常量对象，而 r1 像是常量对象的引用，但 const int_r 展开后相当于 int &amp; const，r0 不是常量，r1 也不是常量的引用。
+<p>应去掉限定符，或使限定符作用于类型名称：</p>
+<code>const int&amp; i = a;     //<i> Compliant</i>
+volatile int&amp; j = a;  //<i> Compliant</i>
+</code>
+<p>注意，如果限定符作用于引用类型的别名，会引起很大误解，如：</p>
+<code>typedef int&amp; int_r;   //<i> Reference type alias, bad</i>
+const int_r r0 = a;   //<i> Non-compliant, r0 is not a const-reference at all</i>
+const int_r&amp; r1 = a;  //<i> Non-compliant, r1 is not a const-reference at all</i></code>
+<p>例中 r0 像是一个常量对象，而 r1 像是常量对象的引用，但 const int_r 展开后相当于 int &amp; const，r0 不是常量，r1 也不是常量的引用。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 8.3.2(1)
+<div class="ref-items">ISO/IEC 14882:2003 8.3.2(1)
 ISO/IEC 14882:2011 8.3.2(1)
-ISO/IEC 14882:2017 11.3.2(1)
-
-</p>
+ISO/IEC 14882:2017 11.3.2(1)</div>
 
 
 </article>

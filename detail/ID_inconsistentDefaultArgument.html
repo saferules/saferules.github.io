@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：虚函数参数的默认值不受多态规则控制，通过基类指针或引用调用派生类重写的虚函数时，默认值仍采用基类中的定义。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>虚函数参数的默认值应与基类中声明的一致 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>虚函数参数的默认值应与基类中声明的一致</h1>
@@ -19,11 +20,11 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-虚函数参数的默认值不受多态规则控制，通过基类指针或引用调用派生类重写的虚函数时，默认值仍采用基类中的定义。
+<main>
+<p>虚函数参数的默认值不受多态规则控制，通过基类指针或引用调用派生类重写的虚函数时，默认值仍采用基类中的定义。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
 public:
     virtual int foo(int i = 0) {
         return i;
@@ -32,37 +33,31 @@ public:
 
 class B: public A {
 public:
-    int foo(int i = 1) override {  //<span class="comment"> Non-compliant</span>
+    int foo(int i = 1) override {  //<i> Non-compliant</i>
         return i + 1;
     }
 };
 
 A* p = new B;
-cout &lt;&lt; p-&gt;foo() &lt;&lt; &#x27;\n&#x27;;  //<span class="comment"> What is output?</span></div>
-输出 1，这种虚函数的非多态行为是非常令人困惑的。
+cout &lt;&lt; p-&gt;foo() &lt;&lt; &#x27;\n&#x27;;  //<i> What is output?</i></code>
+<p>输出 1，这种虚函数的非多态行为是非常令人困惑的。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_deprecatedDefaultArgument.html" target="_blank" class="related-link">ID_deprecatedDefaultArgument</a>
-
-</p>
+<div class="ref-items"><a href="./ID_deprecatedDefaultArgument.html" class="related-link">ID_deprecatedDefaultArgument</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 8.3.6(10)
+<div class="ref-items">ISO/IEC 14882:2003 8.3.6(10)
 ISO/IEC 14882:2011 8.3.6(10)
-ISO/IEC 14882:2017 11.3.6(10)
-
-</p>
+ISO/IEC 14882:2017 11.3.6(10)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-628
+<div class="ref-items">CWE-628
 C++ Core Guidelines C.140
-MISRA C++ 2008 8-3-1
-
-</p>
+MISRA C++ 2008 8-3-1</div>
 </article>
 </html>

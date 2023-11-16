@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：存在析构函数或拷贝赋值运算符时，不应缺少拷贝构造函数。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>存在析构函数或拷贝赋值运算符时，不应缺少拷贝构造函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>存在析构函数或拷贝赋值运算符时，不应缺少拷贝构造函数</h1>
@@ -19,63 +20,63 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-三个紧密相关的函数：
- 1. 拷贝构造函数
- 2. 拷贝赋值运算符
- 3. 析构函数
+<main>
+<p>三个紧密相关的函数：</p>
+<ol>
+<li>拷贝构造函数</li>
+<li>拷贝赋值运算符</li>
+<li>析构函数</li>
 
-当这三个函数中的任何一个函数被定义时，说明对象在资源管理等方面有特定的需求，其他两个函数也需要被定义，否则难以适应各种应用场景，易产生意料之外的错误，这种规则称为“<a href="https://en.wikipedia.org/wiki/Rule_of_three_(C%2B%2B_programming)" target="_blank" class="dashed-link">Rule of three</a>”。
+</ol>
+<p>当这三个函数中的任何一个函数被定义时，说明对象在资源管理等方面有特定的需求，其他两个函数也需要被定义，否则难以适应各种应用场景，易产生意料之外的错误，这种规则称为“<a href="https://en.wikipedia.org/wiki/Rule_of_three_(C%2B%2B_programming)" target="_blank" class="dashed-link">Rule of three</a>”。</p>
 
-如果缺少某个函数，编译器会生成相关默认函数，但其特定需求不会被实现。
+<p>如果缺少某个函数，编译器会生成相关默认函数，但其特定需求不会被实现。</p>
 
-示例：
-<div class="code">class A   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>class A   //<i> Non-compliant</i>
 {
     int* p = new int[8];
 public:
    ~A() {
         delete[] p;
     }
-};      //<span class="comment"> Missing copy constructor and assignment operator</span>
+};      //<i> Missing copy constructor and assignment operator</i>
 
 void foo()
 {
     A a;
-    A b(a);   //<span class="comment"> Shallow copy</span>
+    A b(a);   //<i> Shallow copy</i>
     ....
-}             //<span class="comment"> Double free</span>
+}             //<i> Double free</i>
 
 void bar(A&amp; a, A&amp; b)
 {
-    a = b;    //<span class="comment"> Memory leak</span>
-}</div>
-例中的类有析构函数，但没有拷贝构造函数和拷贝赋值运算符，只能进行变量值的复制，使多个对象的资源指针指向同一块内存区域，导致重复释放和内存泄漏，所以应定义拷贝构造函数和拷贝赋值运算符重新分配内存并复制数据。
+    a = b;    //<i> Memory leak</i>
+}</code>
+<p>例中的类有析构函数，但没有拷贝构造函数和拷贝赋值运算符，只能进行变量值的复制，使多个对象的资源指针指向同一块内存区域，导致重复释放和内存泄漏，所以应定义拷贝构造函数和拷贝赋值运算符重新分配内存并复制数据。</p>
 
-同理，在遵循 C++11 及之后标准的代码中：
- 1. 拷贝构造函数
- 2. 拷贝赋值运算符
- 3. 析构函数
- 4. 移动构造函数
- 5. 移动赋值运算符
+<p>同理，在遵循 C++11 及之后标准的代码中：</p>
+<ol>
+<li>拷贝构造函数</li>
+<li>拷贝赋值运算符</li>
+<li>析构函数</li>
+<li>移动构造函数</li>
+<li>移动赋值运算符</li>
 
-当定义了这五个函数中的任何一个函数时，其他四个函数也需要定义，详见 <a href="./ID_violateRuleOfFive.html" target="_blank" class="dashed-link">ID_violateRuleOfFive</a>。
+</ol>
+<p>当定义了这五个函数中的任何一个函数时，其他四个函数也需要定义，详见 <a href="./ID_violateRuleOfFive.html" class="dashed-link">ID_violateRuleOfFive</a>。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_missingDestructor.html" target="_blank" class="related-link">ID_missingDestructor</a>
-<a href="./ID_missingCopyAssignOperator.html" target="_blank" class="related-link">ID_missingCopyAssignOperator</a>
-<a href="./ID_violateRuleOfFive.html" target="_blank" class="related-link">ID_violateRuleOfFive</a>
-
-</p>
+<div class="ref-items"><a href="./ID_missingDestructor.html" class="related-link">ID_missingDestructor</a>
+<a href="./ID_missingCopyAssignOperator.html" class="related-link">ID_missingCopyAssignOperator</a>
+<a href="./ID_violateRuleOfFive.html" class="related-link">ID_violateRuleOfFive</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.21
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.21</div>
 </article>
 </html>

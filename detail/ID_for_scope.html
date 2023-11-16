@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：for 语句作用域的范围不应有误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>for 语句作用域的范围不应有误 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>for 语句作用域的范围不应有误</h1>
@@ -19,32 +20,28 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-for 语句作用域的范围不应有误。
+<main>
+<p>for 语句作用域的范围不应有误。</p>
 
-示例：
-<div class="code">for (....)
-    statement1; statement2;  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>for (....)
+    statement1; statement2;  //<i> Non-compliant</i>
 
 for (....)
     statement1;
-    statement2;  //<span class="comment"> Non-compliant</span>
-</div>
-例中 statement2 不在 for 循环的作用域中，但看起来又和 for 循环相关，这种问题多数是由宏展开或无效的缩进造成的。为了避免这种问题，for 语句应使用大括号括起来。
+    statement2;  //<i> Non-compliant</i>
+</code>
+<p>例中 statement2 不在 for 循环的作用域中，但看起来又和 for 循环相关，这种问题多数是由宏展开或无效的缩进造成的。为了避免这种问题，for 语句应使用大括号括起来。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_for_brace.html" target="_blank" class="related-link">ID_for_brace</a>
-
-</p>
+<div class="ref-items"><a href="./ID_for_brace.html" class="related-link">ID_for_brace</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-483
-
-</p>
+<div class="ref-items">CWE-483</div>
 </article>
 </html>

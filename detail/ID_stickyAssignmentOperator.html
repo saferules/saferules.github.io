@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果 = 与 +、-、*、!、&amp;、~ 等一元运算符之间没有空格，而一元运算符与其子表达式之间有空格，是一种非常怪异的格式，也可能是 +=、-=、*=、&amp;= 等复合赋值运算符的笔误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>注意赋值运算符与一元运算符的空格方式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>注意赋值运算符与一元运算符的空格方式</h1>
@@ -19,28 +20,26 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果 = 与 +、-、*、!、&amp;、~ 等一元运算符之间没有空格，而一元运算符与其子表达式之间有空格，是一种非常怪异的格式，也可能是 +=、-=、*=、&amp;= 等复合赋值运算符的笔误。
+<main>
+<p>如果 = 与 +、-、*、!、&amp;、~ 等一元运算符之间没有空格，而一元运算符与其子表达式之间有空格，是一种非常怪异的格式，也可能是 +=、-=、*=、&amp;= 等复合赋值运算符的笔误。</p>
 
-示例：
-<div class="code">a =+ b;    //<span class="comment"> Non-compliant</span>
-a =- b;    //<span class="comment"> Non-compliant</span>
-a =~ b;    //<span class="comment"> Non-compliant</span>
-a =! b;    //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>a =+ b;    //<i> Non-compliant</i>
+a =- b;    //<i> Non-compliant</i>
+a =~ b;    //<i> Non-compliant</i>
+a =! b;    //<i> Non-compliant</i>
 
-a += b;    //<span class="comment"> Compliant</span>
-a = -b;    //<span class="comment"> Compliant</span>
-a = ~b;    //<span class="comment"> Compliant</span>
-a = !b;    //<span class="comment"> Compliant</span></div>
+a += b;    //<i> Compliant</i>
+a = -b;    //<i> Compliant</i>
+a = ~b;    //<i> Compliant</i>
+a = !b;    //<i> Compliant</i></code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-480
-
-</p>
+<div class="ref-items">CWE-480</div>
 </article>
 </html>

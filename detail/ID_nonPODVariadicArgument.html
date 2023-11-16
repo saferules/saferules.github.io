@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果将非“POD”对象传入可变参数列表，程序的行为在 C++03 中是未定义的，在 C++11 中是部分由实现定义的。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应将非 POD 对象传入可变参数列表 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应将非 POD 对象传入可变参数列表</h1>
@@ -19,26 +20,26 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果将非“<a href="https://en.cppreference.com/w/cpp/named_req/PODType" target="_blank" class="dashed-link">POD</a>”对象传入可变参数列表，程序的行为在 C++03 中是未定义的，在 C++11 中是部分由实现定义的。
+<main>
+<p>如果将非“<a href="https://en.cppreference.com/w/cpp/named_req/PODType" target="_blank" class="dashed-link">POD</a>”对象传入可变参数列表，程序的行为在 C++03 中是未定义的，在 C++11 中是部分由实现定义的。</p>
 
-示例：
-<div class="code">using namespace std;
+<p>示例：</p>
+<code>using namespace std;
 
 void foo(int n, ...) {
     va_list ap;
     ....
-    string s = va_arg(ap, string);   //<span class="comment"> Undefined behavior</span>
+    string s = va_arg(ap, string);   //<i> Undefined behavior</i>
     ....
 }
 
 void bar(string&amp; s) {
-    foo(1, s);          //<span class="comment"> Non-compliant</span>
-}</div>
-例中 string 类对象不是 POD 对象，其拷贝构造和析构过程难以与可变参数列表机制兼容，通过 va_arg 难以获取正确的对象。
+    foo(1, s);          //<i> Non-compliant</i>
+}</code>
+<p>例中 string 类对象不是 POD 对象，其拷贝构造和析构过程难以与可变参数列表机制兼容，通过 va_arg 难以获取正确的对象。</p>
 
-又如：
-<div class="code">struct A {
+<p>又如：</p>
+<code>struct A {
     string s;
     operator const char*() const {
         return s.c_str();
@@ -46,34 +47,28 @@ void bar(string&amp; s) {
 };
 
 void foo(const A&amp; a) {
-    printf(&quot;%s\n&quot;, a);   //<span class="comment"> Non-compliant</span>
-}</div>
-即使对象有转为 const char* 的方法，在可变参数列表中也是无效的，printf 无法正确获取字符串地址，造成内存访问错误。
+    printf(&quot;%s\n&quot;, a);   //<i> Non-compliant</i>
+}</code>
+<p>即使对象有转为 const char* 的方法，在可变参数列表中也是无效的，printf 无法正确获取字符串地址，造成内存访问错误。</p>
 
-应改为：
-<div class="code">void foo(const A&amp; a) {
-    printf(&quot;%s\n&quot;, static_cast&lt;const char*&gt;(a));   //<span class="comment"> Compliant</span>
-}</div>
+<p>应改为：</p>
+<code>void foo(const A&amp; a) {
+    printf(&quot;%s\n&quot;, static_cast&lt;const char*&gt;(a));   //<i> Compliant</i>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_badVaArgType.html" target="_blank" class="related-link">ID_badVaArgType</a>
-
-</p>
+<div class="ref-items"><a href="./ID_badVaArgType.html" class="related-link">ID_badVaArgType</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 5.2.2(7)-undefined
-ISO/IEC 14882:2011 5.2.2(7)-implementation
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 5.2.2(7)-undefined
+ISO/IEC 14882:2011 5.2.2(7)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-686
-
-</p>
+<div class="ref-items">CWE-686</div>
 </article>
 </html>

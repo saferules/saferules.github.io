@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：简单结构体应采用 struct 关键字，具有封装或多态等特性的类应采用 class 关键字，以便提高可读性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>存在构造、析构或虚函数的类不应采用 struct 关键字 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>存在构造、析构或虚函数的类不应采用 struct 关键字</h1>
@@ -19,31 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-简单结构体应采用 struct 关键字，具有封装或多态等特性的类应采用 class 关键字，以便提高可读性。
+<main>
+<p>简单结构体应采用 struct 关键字，具有封装或多态等特性的类应采用 class 关键字，以便提高可读性。</p>
 
-示例：
-<div class="code">struct A {     //<span class="comment"> Compliant</span>
+<p>示例：</p>
+<code>struct A {     //<i> Compliant</i>
     int x, y;
 };
 
-struct B {     //<span class="comment"> Non-compliant</span>
+struct B {     //<i> Non-compliant</i>
     B();
    ~B();
 
 private:
     int x, y;
-};</div>
+};</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.2
-C++ Core Guidelines C.8
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.2
+C++ Core Guidelines C.8</div>
 </article>
 </html>

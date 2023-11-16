@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：将 sizeof 表达式的结果与 0 或负数比较往往意味着逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>sizeof 表达式的结果不应与 0 或负数比较 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>sizeof 表达式的结果不应与 0 或负数比较</h1>
@@ -19,43 +20,39 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-将 sizeof 表达式的结果与 0 或负数比较往往意味着逻辑错误。
+<main>
+<p>将 sizeof 表达式的结果与 0 或负数比较往往意味着逻辑错误。</p>
 
-标准规定，如果 sizeof 作用于完整类型结果一定大于 0，如果作用于不完整的类型则无法通过编译。
+<p>标准规定，如果 sizeof 作用于完整类型结果一定大于 0，如果作用于不完整的类型则无法通过编译。</p>
 
-示例：
-<div class="code">void foo(int* p) {
-    if (sizeof(p)) {  //<span class="comment"> Non-compliant, always true</span>
+<p>示例：</p>
+<code>void foo(int* p) {
+    if (sizeof(p)) {  //<i> Non-compliant, always true</i>
         ....
     }
 }
-</div>
-注意，在某些 C 环境中，sizeof 作用于空结构体或联合体结果可能是 0，但这属于未定义的行为，如：
-<div class="code">struct A {} a;
-printf(&quot;%zu\n&quot;, sizeof(a));  //<span class="comment"> What is output?</span></div>
-空结构体或联合体在 C 标准中属于非法类型，示例代码可能会输出 0，也可能不会通过编译。
+</code>
+<p>注意，在某些 C 环境中，sizeof 作用于空结构体或联合体结果可能是 0，但这属于未定义的行为，如：</p>
+<code>struct A {} a;
+printf(&quot;%zu\n&quot;, sizeof(a));  //<i> What is output?</i></code>
+<p>空结构体或联合体在 C 标准中属于非法类型，示例代码可能会输出 0，也可能不会通过编译。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7.2.1(7)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.7.2.1(7)-undefined
 ISO/IEC 9899:2011 6.7.2.1(8)-undefined
 ISO/IEC 14882:2003 5.3.3(1 6)
 ISO/IEC 14882:2003 9(3)
 ISO/IEC 14882:2011 5.3.3(1 6)
 ISO/IEC 14882:2011 9(3)
 ISO/IEC 14882:2017 8.3.3(1 6)
-ISO/IEC 14882:2017 12(4)
-
-</p>
+ISO/IEC 14882:2017 12(4)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1025
-
-</p>
+<div class="ref-items">CWE-1025</div>
 </article>
 </html>

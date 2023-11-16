@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：派生类不应重新定义与基类相同的非虚函数，否则与多态机制相矛盾，易造成意料之外的问题。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>派生类不应重新定义与基类相同的非虚函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>派生类不应重新定义与基类相同的非虚函数</h1>
@@ -19,16 +20,16 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-派生类不应重新定义与基类相同的非虚函数，否则与多态机制相矛盾，易造成意料之外的问题。
+<main>
+<p>派生类不应重新定义与基类相同的非虚函数，否则与多态机制相矛盾，易造成意料之外的问题。</p>
 
-示例：
-<div class="code">struct A {
+<p>示例：</p>
+<code>struct A {
     int foo() const { return 0; }
 };
 
 struct B: A {
-    int foo() const { return 1; }  //<span class="comment"> Non-compliant</span>
+    int foo() const { return 1; }  //<i> Non-compliant</i>
 };
 
 int bar(A* a) {
@@ -37,18 +38,16 @@ int bar(A* a) {
 
 int main() {
     B b;
-    return bar(&amp;b);  //<span class="comment"> Problematic</span>
-}</div>
-如果将 B 类型的指针传入 bar 函数，将执行 A::foo，然而参数实际指向的是 B 类型的对象，但 B::foo 不会被执行，这就形成了逻辑上的矛盾，极易造成意料之外的问题。
+    return bar(&amp;b);  //<i> Problematic</i>
+}</code>
+<p>如果将 B 类型的指针传入 bar 函数，将执行 A::foo，然而参数实际指向的是 B 类型的对象，但 B::foo 不会被执行，这就形成了逻辑上的矛盾，极易造成意料之外的问题。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">Effective C++ item 36
-
-</p>
+<div class="ref-items">Effective C++ item 36</div>
 </article>
 </html>

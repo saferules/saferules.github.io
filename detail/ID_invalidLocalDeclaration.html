@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：没有被用到的局部声明是没有意义的，往往意味着代码冗余或功能不完整，也可能导致严重的逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在没有被用到的局部声明 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在没有被用到的局部声明</h1>
@@ -19,54 +20,52 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-没有被用到的局部声明是没有意义的，往往意味着代码冗余或功能不完整，也可能导致严重的逻辑错误。
+<main>
+<p>没有被用到的局部声明是没有意义的，往往意味着代码冗余或功能不完整，也可能导致严重的逻辑错误。</p>
 
-示例：
-<div class="code">int foo(int n) {
+<p>示例：</p>
+<code>int foo(int n) {
     int x = 0;
     if (n) {
-        int x = 100 / n;   //<span class="comment"> Non-compliant</span>
+        int x = 100 / n;   //<i> Non-compliant</i>
     }
     return x;
-}</div>
-在 if 作用域中声明的 x 对象没有被使用，与其相关的计算过程是无效的。
+}</code>
+<p>在 if 作用域中声明的 x 对象没有被使用，与其相关的计算过程是无效的。</p>
 
-应改为：
-<div class="code">int foo(int n) {
+<p>应改为：</p>
+<code>int foo(int n) {
     int x = 0;
     if (n) {
-        x = 100 / n;   //<span class="comment"> Compliant</span>
+        x = 100 / n;   //<i> Compliant</i>
     }
     return x;
 }
-</div>
-具有特定构造或析构函数的 C++ 对象可以做到“声明即使用”，但要注意如下情况：
-<div class="code">class LockGuard {
+</code>
+<p>具有特定构造或析构函数的 C++ 对象可以做到“声明即使用”，但要注意如下情况：</p>
+<code>class LockGuard {
     LockGuard();
    ~LockGuard();
 };
 
 void bar() {
-    LockGuard guard();   //<span class="comment"> Non-compliant, this is a function</span>
+    LockGuard guard();   //<i> Non-compliant, this is a function</i>
     do_something();
-}</div>
-例中 guard 意在实现某种 RAII 锁，但 LockGuard guard(); 声明的是函数而不是对象，构造和析构函数不会按预期执行，这也是一种常见笔误。
+}</code>
+<p>例中 guard 意在实现某种 RAII 锁，但 LockGuard guard(); 声明的是函数而不是对象，构造和析构函数不会按预期执行，这也是一种常见笔误。</p>
 
-应改为：
-<div class="code">void bar() {
-    LockGuard guard;   //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>void bar() {
+    LockGuard guard;   //<i> Compliant</i>
     do_something();
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 0-1-3
-
-</p>
+<div class="ref-items">MISRA C++ 2008 0-1-3</div>
 </article>
 </html>

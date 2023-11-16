@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：当派生类有多个基类，这些基类又派生自同一非虚基类时，派生类对象会持有该非虚基类的多个实例，造成逻辑和存储上的冗余。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免多重继承自同一非虚基类 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免多重继承自同一非虚基类</h1>
@@ -19,66 +20,60 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-当派生类有多个基类，这些基类又派生自同一非虚基类时，派生类对象会持有该非虚基类的多个实例，造成逻辑和存储上的冗余。
+<main>
+<p>当派生类有多个基类，这些基类又派生自同一非虚基类时，派生类对象会持有该非虚基类的多个实例，造成逻辑和存储上的冗余。</p>
 
-示例：
-<div class="code">struct A {
+<p>示例：</p>
+<code>struct A {
     int i = 0;
 };
 
 class B: public A {};
 class C: public A {};
-class D: public B, public C {};   //<span class="comment"> Non-compliant</span>
+class D: public B, public C {};   //<i> Non-compliant</i>
 
 void foo(D&amp; d) {
-    d.i = 1;       //<span class="comment"> Compile error</span>
-    d.B::i = 1;    //<span class="comment"> Odd</span>
-    d.C::i = 1;    //<span class="comment"> Odd</span>
-}</div>
-在 D 类对象 d 中，基类 A 的成员 i 有两个不同的实例，d 不能直接访问 i，只能通过 d.B::i 或 d.C::i 这种怪异的方式访问。
+    d.i = 1;       //<i> Compile error</i>
+    d.B::i = 1;    //<i> Odd</i>
+    d.C::i = 1;    //<i> Odd</i>
+}</code>
+<p>在 D 类对象 d 中，基类 A 的成员 i 有两个不同的实例，d 不能直接访问 i，只能通过 d.B::i 或 d.C::i 这种怪异的方式访问。</p>
 
-将共同的基类设为虚基类可以解决这种问题： 
-<div class="code">class B: virtual public A {};
+<p>将共同的基类设为虚基类可以解决这种问题： </p>
+<code>class B: virtual public A {};
 class C: virtual public A {};
-class D: public B, public C {};   //<span class="comment"> Compliant</span>
+class D: public B, public C {};   //<i> Compliant</i>
 
 void foo(D&amp; d) {
-    d.i = 1;       //<span class="comment"> OK</span>
+    d.i = 1;       //<i> OK</i>
 }
-</div>
-注意，直接将虚基类指针转为派生类指针会导致标准未定义的行为，如：
-<div class="code">void bar(A* a) {
-    B* p = (B*)a;  //<span class="comment"> Undefined behavior</span>
+</code>
+<p>注意，直接将虚基类指针转为派生类指针会导致标准未定义的行为，如：</p>
+<code>void bar(A* a) {
+    B* p = (B*)a;  //<i> Undefined behavior</i>
     ....
-}</div>
-这种转换一般不会通过编译，但标准并未要求编译器必须阻止这种转换，改用 dynamic_cast 可解决这些问题：
-<div class="code">void bar(A* a) {
-    B* p = dynamic_cast&lt;B*&gt;(a);  //<span class="comment"> OK</span>
+}</code>
+<p>这种转换一般不会通过编译，但标准并未要求编译器必须阻止这种转换，改用 dynamic_cast 可解决这些问题：</p>
+<code>void bar(A* a) {
+    B* p = dynamic_cast&lt;B*&gt;(a);  //<i> OK</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_diamondExceptionInheritance.html" target="_blank" class="related-link">ID_diamondExceptionInheritance</a>
-
-</p>
+<div class="ref-items"><a href="./ID_diamondExceptionInheritance.html" class="related-link">ID_diamondExceptionInheritance</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 5.2.9(5 8)-undefined
+<div class="ref-items">ISO/IEC 14882:2003 5.2.9(5 8)-undefined
 ISO/IEC 14882:2003 10.1(4 5 6)
 ISO/IEC 14882:2011 5.2.9(11 12)-undefined
-ISO/IEC 14882:2011 10.1(4 5 6 7)
-
-</p>
+ISO/IEC 14882:2011 10.1(4 5 6 7)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.137
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.137</div>
 </article>
 </html>

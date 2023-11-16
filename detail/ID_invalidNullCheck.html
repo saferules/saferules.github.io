@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：当指针的值一定不为空时，再对其进行检查是没有意义的，往往意味着逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免无效的空指针检查 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免无效的空指针检查</h1>
@@ -19,44 +20,40 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-当指针的值一定不为空时，再对其进行检查是没有意义的，往往意味着逻辑错误。
+<main>
+<p>当指针的值一定不为空时，再对其进行检查是没有意义的，往往意味着逻辑错误。</p>
 
-示例：
-<div class="code">if (int* p = new int[100]) {   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>if (int* p = new int[100]) {   //<i> Non-compliant</i>
     ....
-} else {   //<span class="comment"> Invalid</span>
+} else {   //<i> Invalid</i>
     ....
-}</div>
-标准规定默认 new 运算符的返回值不会为空，如果分配失败则抛出异常，所以这种检查和相关错误处理是无效的。
+}</code>
+<p>标准规定默认 new 运算符的返回值不会为空，如果分配失败则抛出异常，所以这种检查和相关错误处理是无效的。</p>
 
-应改为：
-<div class="code">if (int* p = new(std::nothrow) int[100]) {   //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>if (int* p = new(std::nothrow) int[100]) {   //<i> Compliant</i>
     ....
-} else {   //<span class="comment"> OK</span>
+} else {   //<i> OK</i>
     ....
 }
-</div>
-又如：
-<div class="code">if (p) {        //<span class="comment"> Meaningless</span>
+</code>
+<p>又如：</p>
+<code>if (p) {        //<i> Meaningless</i>
     delete p;
-}</div>
-对于可接受空指针的接口，不必总在调用前判断指针是否为空，否则会使代码变得繁琐。delete 关键字或 free 函数可以作用于空指针，调用之前的检查是没有意义的。
+}</code>
+<p>对于可接受空指针的接口，不必总在调用前判断指针是否为空，否则会使代码变得繁琐。delete 关键字或 free 函数可以作用于空指针，调用之前的检查是没有意义的。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_repeatedNullCheck.html" target="_blank" class="related-link">ID_repeatedNullCheck</a>
-
-</p>
+<div class="ref-items"><a href="./ID_repeatedNullCheck.html" class="related-link">ID_repeatedNullCheck</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 18.4
-ISO/IEC 14882:2011 18.6
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 18.4
+ISO/IEC 14882:2011 18.6</div>
 
 
 </article>

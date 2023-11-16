@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果 case 标签的值超出了 switch 条件的范围，会导致相应分枝永远不会被执行。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>case 标签的值不可超出 switch 条件的范围 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>case 标签的值不可超出 switch 条件的范围</h1>
@@ -19,37 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果 case 标签的值超出了 switch 条件的范围，会导致相应分枝永远不会被执行。
+<main>
+<p>如果 case 标签的值超出了 switch 条件的范围，会导致相应分枝永远不会被执行。</p>
 
-示例：
-<div class="code">void foo(char c)
+<p>示例：</p>
+<code>void foo(char c)
 {
     switch (c)
     {
-    case 100:    //<span class="comment"> Compliant</span>
+    case 100:    //<i> Compliant</i>
         ....
         break;
-    case 256:    //<span class="comment"> Non-compliant, unreachable branch</span>
+    case 256:    //<i> Non-compliant, unreachable branch</i>
         ....
         break;
     }
-}</div>
-例中变量 c 的值不可能为 256，所以 case 256 对应的分枝永远不会被执行。
+}</code>
+<p>例中变量 c 的值不可能为 256，所以 case 256 对应的分枝永远不会被执行。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_illComparison.html" target="_blank" class="related-link">ID_illComparison</a>
-
-</p>
+<div class="ref-items"><a href="./ID_illComparison.html" class="related-link">ID_illComparison</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-561
-
-</p>
+<div class="ref-items">CWE-561</div>
 </article>
 </html>

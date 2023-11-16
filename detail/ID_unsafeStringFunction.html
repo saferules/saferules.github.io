@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：由于历史原因，C 标准库中的某些字符串函数不执行边界检查，易造成运行时错误和安全漏洞。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用不安全的字符串函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用不安全的字符串函数</h1>
@@ -19,61 +20,55 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-由于历史原因，C 标准库中的某些字符串函数不执行边界检查，易造成运行时错误和安全漏洞。
+<main>
+<p>由于历史原因，C 标准库中的某些字符串函数不执行边界检查，易造成运行时错误和安全漏洞。</p>
 
-这类函数包括：
-<div class="code">gets、strcpy、strcat、wcscpy、wcscat、
+<p>这类函数包括：</p>
+<code>gets、strcpy、strcat、wcscpy、wcscat、
 sprintf、vsprintf、swprintf、vswprintf、
 scanf、sscanf、fscanf、vfscanf、vscanf、vsscanf
-</div>
-与这类函数相似的函数同样受本规则约束，如下列 Windows API：
-<div class="code">StrCpy、StrCpyA、StrCpyW、StrCat、StrCatA、StrCatW、
+</code>
+<p>与这类函数相似的函数同样受本规则约束，如下列 Windows API：</p>
+<code>StrCpy、StrCpyA、StrCpyW、StrCat、StrCatA、StrCatW、
 lstrcpy、lstrcpyA、lstrcpyW、lstrcat、lstrcatA、lstrcatW
-</div>
-在 C 代码中应采用更安全的库函数，如用 fgets 代替 gets，snprintf 代替 sprintf。在 C++ 代码中应采用 STL 标准库提供的相关功能。
+</code>
+<p>在 C 代码中应采用更安全的库函数，如用 fgets 代替 gets，snprintf 代替 sprintf。在 C++ 代码中应采用 STL 标准库提供的相关功能。</p>
 
-示例：
-<div class="code">char buf[100];
-gets(buf);      //<span class="comment"> Non-compliant</span></div>
-例中 gets 函数无法检查缓冲区的大小，一旦输入超过了 buf 数组的边界，程序的数据或流程就会遭到破坏，这种情况会被攻击者利用，可参见 <a href="./ID_bufferOverflow.html" target="_blank" class="dashed-link">ID_bufferOverflow</a> 的进一步说明。如果代码中存在 gets 等函数，可以直接判定程序是有漏洞的。
+<p>示例：</p>
+<code>char buf[100];
+gets(buf);      //<i> Non-compliant</i></code>
+<p>例中 gets 函数无法检查缓冲区的大小，一旦输入超过了 buf 数组的边界，程序的数据或流程就会遭到破坏，这种情况会被攻击者利用，可参见 <a href="./ID_bufferOverflow.html" class="dashed-link">ID_bufferOverflow</a> 的进一步说明。如果代码中存在 gets 等函数，可以直接判定程序是有漏洞的。</p>
 
-应改为：
-<div class="code">char buf[100];
-fgets(buf, sizeof(buf), stdin);  //<span class="comment"> Compliant</span></div>
-fgets 与 gets 不同，当输入超过缓冲区大小时会被截断，保证缓冲区之外的数据不会被破坏。
+<p>应改为：</p>
+<code>char buf[100];
+fgets(buf, sizeof(buf), stdin);  //<i> Compliant</i></code>
+<p>fgets 与 gets 不同，当输入超过缓冲区大小时会被截断，保证缓冲区之外的数据不会被破坏。</p>
 
-又如：
-<div class="code">char buf[100];
-scanf(&quot;%s&quot;, buf);  //<span class="comment"> Non-compliant</span></div>
-例中 scanf 函数与 gets 函数有相同的问题，可改为：
-<div class="code">char buf[100];
-scanf(&quot;%99s&quot;, buf);  //<span class="comment"> Let it go, but ‘fgets’ is better</span></div>
-scanf、sprintf、strcpy 等函数无视缓冲区大小，需要在外部另行实现防止缓冲区溢出的代码，完全依赖于开发者的小心谨慎。历史表明，对人的单方面依赖是不可靠的，改用更安全的方法才是明智的选择。
+<p>又如：</p>
+<code>char buf[100];
+scanf(&quot;%s&quot;, buf);  //<i> Non-compliant</i></code>
+<p>例中 scanf 函数与 gets 函数有相同的问题，可改为：</p>
+<code>char buf[100];
+scanf(&quot;%99s&quot;, buf);  //<i> Let it go, but ‘fgets’ is better</i></code>
+<p>scanf、sprintf、strcpy 等函数无视缓冲区大小，需要在外部另行实现防止缓冲区溢出的代码，完全依赖于开发者的小心谨慎。历史表明，对人的单方面依赖是不可靠的，改用更安全的方法才是明智的选择。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_bufferOverflow.html" target="_blank" class="related-link">ID_bufferOverflow</a>
-
-</p>
+<div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:2011 Annex K
+<div class="ref-items">ISO/IEC 9899:2011 Annex K
 ISO/IEC 9899:2011 K.3.7
-ISO/IEC 9899:2011 K.3.9
-
-</p>
+ISO/IEC 9899:2011 K.3.9</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-119
+<div class="ref-items">CWE-119
 CWE-120
 CWE-676
-MISRA C++ 2008 18-0-5
-
-</p>
+MISRA C++ 2008 18-0-5</div>
 </article>
 </html>

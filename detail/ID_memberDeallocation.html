@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对象在析构函数中释放自己申请的资源是 C++ 程序设计的重要原则，不可被遗忘，也不应要求用户释放。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>对象申请的资源应在析构函数中释放 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>对象申请的资源应在析构函数中释放</h1>
@@ -19,37 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对象在析构函数中释放自己申请的资源是 C++ 程序设计的重要原则，不可被遗忘，也不应要求用户释放。
+<main>
+<p>对象在析构函数中释放自己申请的资源是 C++ 程序设计的重要原则，不可被遗忘，也不应要求用户释放。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
     int* p = nullptr;
 
 public:
     A(size_t n): p(new int[n]) {
     }
 
-   ~A() {  //<span class="comment"> Non-compliant, must delete[] p</span>
+   ~A() {  //<i> Non-compliant, must delete[] p</i>
     }
-};</div>
-例中成员 p 与内存分配有关，但析构函数为空，不符合本规则要求。
+};</code>
+<p>例中成员 p 与内存分配有关，但析构函数为空，不符合本规则要求。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_memoryLeak.html" target="_blank" class="related-link">ID_memoryLeak</a>
-<a href="./ID_resourceLeak.html" target="_blank" class="related-link">ID_resourceLeak</a>
-
-</p>
+<div class="ref-items"><a href="./ID_memoryLeak.html" class="related-link">ID_memoryLeak</a>
+<a href="./ID_resourceLeak.html" class="related-link">ID_resourceLeak</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.31
-C++ Core Guidelines E.6
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.31
+C++ Core Guidelines E.6</div>
 </article>
 </html>

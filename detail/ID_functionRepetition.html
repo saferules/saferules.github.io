@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：重复的或过于相似的代码不利于维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免重复的函数实现 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免重复的函数实现</h1>
@@ -19,14 +20,14 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-重复的或过于相似的代码不利于维护。
+<main>
+<p>重复的或过于相似的代码不利于维护。</p>
 
-示例：
-<div class="code">struct A {
+<p>示例：</p>
+<code>struct A {
     int a[10];
     ....
-    int* foo() {     //<span class="comment"> Non-compliant, almost identical to ‘foo() const’</span>
+    int* foo() {     //<i> Non-compliant, almost identical to ‘foo() const’</i>
         int* p = a;
         for (int i = 1; i != 10; i++) {
             if (a[i] &gt; *p) {
@@ -35,7 +36,7 @@
         }
         return p;
     }
-    const int* foo() const {     //<span class="comment"> Non-compliant, almost identical to ‘foo()’</span>
+    const int* foo() const {     //<i> Non-compliant, almost identical to ‘foo()’</i>
         const int* p = a;
         for (int i = 1; i != 10; i++) {
             if (a[i] &gt; *p) {
@@ -44,12 +45,12 @@
         }
         return p;
     }
-};</div>
-例中 foo() 返回数组中最大元素的地址，代码与 foo() const 几乎完全相同，当需求有变化时，需要同时修改两个函数，极易造成意料之外的差异，显然是不利于维护的。
+};</code>
+<p>例中 foo() 返回数组中最大元素的地址，代码与 foo() const 几乎完全相同，当需求有变化时，需要同时修改两个函数，极易造成意料之外的差异，显然是不利于维护的。</p>
 
-本例可通过模板和自动类型推理将公有代码抽取出来：
-<div class="code">template &lt;class T&gt;
-auto* foo_impl(T* t) {   //<span class="comment"> The common function extracted</span>
+<p>本例可通过模板和自动类型推理将公有代码抽取出来：</p>
+<code>template &lt;class T&gt;
+auto* foo_impl(T* t) {   //<i> The common function extracted</i>
     auto* p = t-&gt;a;
     for (auto i = 1; i != 10; i++) {
         if (t-&gt;a[i] &gt; *p) {
@@ -62,28 +63,25 @@ auto* foo_impl(T* t) {   //<span class="comment"> The common function extracted<
 struct A {
     ....
     int* foo() {
-        return foo_impl(this);   //<span class="comment"> Compliant</span>
+        return foo_impl(this);   //<i> Compliant</i>
     }
     const int* foo() const {
-        return foo_impl(this);   //<span class="comment"> Compliant</span>
+        return foo_impl(this);   //<i> Compliant</i>
     }
-};</div>
-这样，foo() 与 foo() const 的代码便得到了简化，虽然简化后仍然是相同的，但仅为接口调用，可以接受。
+};</code>
+<p>这样，foo() 与 foo() const 的代码便得到了简化，虽然简化后仍然是相同的，但仅为接口调用，可以接受。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">tokenCountThreshold: 符号数量阈值，小于此阈值的函数不参与比较
-repetitionRateThreshold: 函数相似度阈值，超过则报出
-</p>
+<div class="ref-items">tokenCountThreshold: 符号数量阈值，小于此阈值的函数不参与比较
+repetitionRateThreshold: 函数相似度阈值，超过则报出</div>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1041
-C++ Core Guidelines ES.3
-
-</p>
+<div class="ref-items">CWE-1041
+C++ Core Guidelines ES.3</div>
 </article>
 </html>

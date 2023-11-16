@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：未经转义的制表符和控制字符不利于阅读和维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>在字符串常量中用转义字符表示制表符和控制字符 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>在字符串常量中用转义字符表示制表符和控制字符</h1>
@@ -19,26 +20,24 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-未经转义的制表符和控制字符不利于阅读和维护。
+<main>
+<p>未经转义的制表符和控制字符不利于阅读和维护。</p>
 
-C++ 原始字符串（raw string）不受本规则限制，但不建议在原始字符串中使用制表符和换行符之外的控制字符。
+<p>C++ 原始字符串（raw string）不受本规则限制，但不建议在原始字符串中使用制表符和换行符之外的控制字符。</p>
 
-示例：
-<div class="code">const char* s = &quot;	&quot;;  //<span class="comment"> Non-compliant</span>
-</div>
-例中字符串包含制表符，易被误解为空格，在终端上复制粘贴后也可能变成数目不确定的空格，导致与预期不符的结果。
+<p>示例：</p>
+<code>const char* s = &quot;	&quot;;  //<i> Non-compliant</i>
+</code>
+<p>例中字符串包含制表符，易被误解为空格，在终端上复制粘贴后也可能变成数目不确定的空格，导致与预期不符的结果。</p>
 
-故应使用转义字符：
-<div class="code">const char* s = &quot;\t&quot;;  //<span class="comment"> Compliant</span></div>
+<p>故应使用转义字符：</p>
+<code>const char* s = &quot;\t&quot;;  //<i> Compliant</i></code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_literal_hardCodeChar.html" target="_blank" class="related-link">ID_literal_hardCodeChar</a>
-
-</p>
+<div class="ref-items"><a href="./ID_literal_hardCodeChar.html" class="related-link">ID_literal_hardCodeChar</a></div>
 
 
 

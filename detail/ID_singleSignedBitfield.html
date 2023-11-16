@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：有符号整型对象的位域长度如果为 1 表示只有一个比特位，而该比特位是符号位，极易造成意料之外的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>有符号整型对象的位域长度不应为 1 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>有符号整型对象的位域长度不应为 1</h1>
@@ -19,38 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-有符号整型对象的位域长度如果为 1 表示只有一个比特位，而该比特位是符号位，极易造成意料之外的错误。
+<main>
+<p>有符号整型对象的位域长度如果为 1 表示只有一个比特位，而该比特位是符号位，极易造成意料之外的错误。</p>
 
-匿名成员的位域长度不受本规则限制。
+<p>匿名成员的位域长度不受本规则限制。</p>
 
-示例：
-<div class="code">struct X {
-    signed a: 1;     //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>struct X {
+    signed a: 1;     //<i> Non-compliant</i>
 
-    signed  : 0;     //<span class="comment"> Compliant</span>
-    signed  : 1;     //<span class="comment"> Compliant</span>
-    signed b: 2;     //<span class="comment"> Compliant</span>
+    signed  : 0;     //<i> Compliant</i>
+    signed  : 1;     //<i> Compliant</i>
+    signed b: 2;     //<i> Compliant</i>
 
-    unsigned c: 1;   //<span class="comment"> Compliant</span>
+    unsigned c: 1;   //<i> Compliant</i>
 };
 
 int main() {
     X x;
     x.a = 1, x.b = 1, x.c = 1;
-    printf(&quot;%d %d %u\n&quot;, x.a, x.b, x.c);   //<span class="comment"> What is output?</span>
-}</div>
-输出 -1 1 1，x.b 和 x.c 为 1 与预期相符，x.a 预期是 1，但实际是 -1。
+    printf(&quot;%d %d %u\n&quot;, x.a, x.b, x.c);   //<i> What is output?</i>
+}</code>
+<p>输出 -1 1 1，x.b 和 x.c 为 1 与预期相符，x.a 预期是 1，但实际是 -1。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 6.2
-MISRA C++ 2008 9-6-4
-
-</p>
+<div class="ref-items">MISRA C 2012 6.2
+MISRA C++ 2008 9-6-4</div>
 </article>
 </html>

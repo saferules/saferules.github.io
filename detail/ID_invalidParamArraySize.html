@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：数组作为形式参数时，其大小声明起不到实际的限制作用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应将数组作为函数的形式参数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应将数组作为函数的形式参数</h1>
@@ -19,45 +20,41 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-数组作为形式参数时，其大小声明起不到实际的限制作用。
+<main>
+<p>数组作为形式参数时，其大小声明起不到实际的限制作用。</p>
 
-示例：
-<div class="code">int foo(int a[100]);   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>int foo(int a[100]);   //<i> Non-compliant</i>
 
 int bar() {
     int a[50] = {};
-    return foo(a);     //<span class="comment"> It can be compiled</span>
+    return foo(a);     //<i> It can be compiled</i>
 }
-</div>
-建议在 C++ 代码中采用数组引用或模板的方式：
-<div class="code">void foo(int (&amp;a)[100]);     //<span class="comment"> Compliant</span>
+</code>
+<p>建议在 C++ 代码中采用数组引用或模板的方式：</p>
+<code>void foo(int (&amp;a)[100]);     //<i> Compliant</i>
 
 template &lt;size_t size&gt;
-void foo(int (&amp;a)[size]) {   //<span class="comment"> Compliant</span>
+void foo(int (&amp;a)[size]) {   //<i> Compliant</i>
     ....
 }
-</div>
-例外：
-<div class="code">int foo(int a[], int n);   //<span class="comment"> Let it go</span></div>
-用空的方括号声明数组，并用另一个参数表示数组大小的情况可不受本规则限制。
+</code>
+<p>例外：</p>
+<code>int foo(int a[], int n);   //<i> Let it go</i></code>
+<p>用空的方括号声明数组，并用另一个参数表示数组大小的情况可不受本规则限制。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7.5.3(7)
-ISO/IEC 9899:2011 6.7.6.3(7)
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.7.5.3(7)
+ISO/IEC 9899:2011 6.7.6.3(7)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines I.13
+<div class="ref-items">C++ Core Guidelines I.13
 C++ Core Guidelines R.14
-MISRA C++ 2008 5-2-12
-
-</p>
+MISRA C++ 2008 5-2-12</div>
 </article>
 </html>

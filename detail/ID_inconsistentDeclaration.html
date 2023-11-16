@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：声明与实现在书写上应完全一致，否则极易引起误解，而且对同一对象或函数进行类型不兼容的声明，也会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>声明与实现应一致 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>声明与实现应一致</h1>
@@ -19,58 +20,52 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-声明与实现在书写上应完全一致，否则极易引起误解，而且对同一对象或函数进行类型不兼容的声明，也会导致标准未定义的行为。
+<main>
+<p>声明与实现在书写上应完全一致，否则极易引起误解，而且对同一对象或函数进行类型不兼容的声明，也会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">extern long n;   //<span class="comment"> Non-compliant, undefined behavior</span>
+<p>示例：</p>
+<code>extern long n;   //<i> Non-compliant, undefined behavior</i>
 
 int foo() {
-    return n++;   //<span class="comment"> Undefined behavior</span>
+    return n++;   //<i> Undefined behavior</i>
 }
 
-short n;</div>
-例中变量 n 有多处声明，但类型不一致，会导致标准未定义的行为。
+short n;</code>
+<p>例中变量 n 有多处声明，但类型不一致，会导致标准未定义的行为。</p>
 
-又如：
-<div class="code">int foo(int x);
+<p>又如：</p>
+<code>int foo(int x);
 
 typedef int type;
-type foo(type x) {   //<span class="comment"> Non-compliant, confusing</span>
+type foo(type x) {   //<i> Non-compliant, confusing</i>
     ....
-}</div>
-例中在实现处为参数类型定义别名是不符合要求的，在允许重载的 C++ 代码中会引起更大的误解。
+}</code>
+<p>例中在实现处为参数类型定义别名是不符合要求的，在允许重载的 C++ 代码中会引起更大的误解。</p>
 
-应改为：
-<div class="code">typedef int type;
+<p>应改为：</p>
+<code>typedef int type;
 type foo(type x);
 
-type foo(type x) {   //<span class="comment"> Compliant</span>
+type foo(type x) {   //<i> Compliant</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_inconsistentParamName.html" target="_blank" class="related-link">ID_inconsistentParamName</a>
-
-</p>
+<div class="ref-items"><a href="./ID_inconsistentParamName.html" class="related-link">ID_inconsistentParamName</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.2.7(2)-undefined
-ISO/IEC 9899:2011 6.2.7(2)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.2.7(2)-undefined
+ISO/IEC 9899:2011 6.2.7(2)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 8.4
+<div class="ref-items">MISRA C 2004 8.4
 MISRA C 2012 8.3
 MISRA C++ 2008 3-9-1
-SEI CERT DCL40-C
-
-</p>
+SEI CERT DCL40-C</div>
 </article>
 </html>

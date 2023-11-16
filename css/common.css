@@ -19,3 +19,13 @@ h2 {
 h3 {
     font-size: 1.2em;
 }
+p {
+    display: block;
+    word-break: break-word;
+    line-height: 1.6em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+

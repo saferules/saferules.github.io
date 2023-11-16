@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：不同的作用域对应不同的条件约束，在不同的作用域间跳转是对约束的破坏，很容易导致逻辑混乱。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁止 goto 语句向嵌套的或无包含关系的作用域跳转 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁止 goto 语句向嵌套的或无包含关系的作用域跳转</h1>
@@ -19,45 +20,41 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-不同的作用域对应不同的条件约束，在不同的作用域间跳转是对约束的破坏，很容易导致逻辑混乱。
+<main>
+<p>不同的作用域对应不同的条件约束，在不同的作用域间跳转是对约束的破坏，很容易导致逻辑混乱。</p>
 
-向嵌套的或无包含关系的作用域跳转是不应被允许的，如果是为了结束当前流程而在同层或向外层作用域跳转，则可被本规则允许。
+<p>向嵌套的或无包含关系的作用域跳转是不应被允许的，如果是为了结束当前流程而在同层或向外层作用域跳转，则可被本规则允许。</p>
 
-示例：
-<div class="code">int foo(int a) {
+<p>示例：</p>
+<code>int foo(int a) {
     if (a == 0) {
-        goto L;    //<span class="comment"> Non-compliant, jumps into a block</span>
+        goto L;    //<i> Non-compliant, jumps into a block</i>
     }
     for (int i = 0; i &lt; a; i++) {
         for (int j = 0; j &lt; a; j++) {
 L:
             if (cond) {
-                goto M;   //<span class="comment"> Compliant, jumps out of loops</span>
+                goto M;   //<i> Compliant, jumps out of loops</i>
             }
         }
         ....
     }
 M:
     return a;
-}</div>
-例中 goto L 从 if 语句跳入循环语句是应当被禁止的，而 goto M 用于结束循环流程，可以保留。
+}</code>
+<p>例中 goto L 从 if 语句跳入循环语句是应当被禁止的，而 goto M 用于结束循环流程，可以保留。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_forbidGotoBack.html" target="_blank" class="related-link">ID_forbidGotoBack</a>
-<a href="./ID_forbidGoto.html" target="_blank" class="related-link">ID_forbidGoto</a>
-
-</p>
+<div class="ref-items"><a href="./ID_forbidGotoBack.html" class="related-link">ID_forbidGotoBack</a>
+<a href="./ID_forbidGoto.html" class="related-link">ID_forbidGoto</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 15.3
-MISRA C++ 2008 6-6-1
-
-</p>
+<div class="ref-items">MISRA C 2012 15.3
+MISRA C++ 2008 6-6-1</div>
 </article>
 </html>

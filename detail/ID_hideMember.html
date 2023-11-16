@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：成员函数内的局部名称与成员名称相同会干扰阅读，易引起误解。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>成员名称不应被覆盖 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>成员名称不应被覆盖</h1>
@@ -19,50 +20,48 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-成员函数内的局部名称与成员名称相同会干扰阅读，易引起误解。
+<main>
+<p>成员函数内的局部名称与成员名称相同会干扰阅读，易引起误解。</p>
 
-示例：
-<div class="code">class A {
-    int i = 0;          //<span class="comment"> Member object ‘i’</span>
+<p>示例：</p>
+<code>class A {
+    int i = 0;          //<i> Member object ‘i’</i>
 
 public:
     int foo() {
-        int i = 0;      //<span class="comment"> Non-compliant, hides the member ‘i’</span>
+        int i = 0;      //<i> Non-compliant, hides the member ‘i’</i>
         return bar(i);
     }
 
-    int bar(int i) {    //<span class="comment"> Non-compliant, hides the member ‘i’</span>
-        return i + i;   //<span class="comment"> Which ‘i’ is used?</span>
+    int bar(int i) {    //<i> Non-compliant, hides the member ‘i’</i>
+        return i + i;   //<i> Which ‘i’ is used?</i>
     }
 };
-</div>
-建议成员对象遵循统一的命名约定，如以“_”结尾或以“m_”开头，可有效规避这类问题：
-<div class="code">class A {
-    int i_ = 0;         //<span class="comment"> Member object ‘i_’</span>
+</code>
+<p>建议成员对象遵循统一的命名约定，如以“_”结尾或以“m_”开头，可有效规避这类问题：</p>
+<code>class A {
+    int i_ = 0;         //<i> Member object ‘i_’</i>
 
 public:
     int foo() {
-        int i = 0;      //<span class="comment"> Compliant</span>
+        int i = 0;      //<i> Compliant</i>
         return bar(i);
     }
 
-    int bar(int i) {    //<span class="comment"> Compliant</span>
+    int bar(int i) {    //<i> Compliant</i>
         return i_ + i;
     }
-};</div>
+};</code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1109
+<div class="ref-items">CWE-1109
 MISRA C 2004 5.2
 MISRA C 2012 5.3
-MISRA C++ 2008 2-10-2
-
-</p>
+MISRA C++ 2008 2-10-2</div>
 </article>
 </html>

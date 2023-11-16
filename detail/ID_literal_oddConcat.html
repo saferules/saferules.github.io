@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：注意可能导致非预期结果的字符串连接，尤其在初始化列表中，小心逗号被遗漏。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>小心遗漏逗号导致的非预期字符串连接 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>小心遗漏逗号导致的非预期字符串连接</h1>
@@ -19,32 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-注意可能导致非预期结果的字符串连接，尤其在初始化列表中，小心逗号被遗漏。
+<main>
+<p>注意可能导致非预期结果的字符串连接，尤其在初始化列表中，小心逗号被遗漏。</p>
 
-字符串连接的适用场景：
- ● 字符串过长不便于显示时可将字符串拆成多个子串分行书写
- ● 宏和字符串连接在一起完成一些更灵活的操作
+<p>字符串连接的适用场景：</p>
+<ul>
+<li>字符串过长不便于显示时可将字符串拆成多个子串分行书写</li>
+<li>宏和字符串连接在一起完成一些更灵活的操作</li>
 
-除此之外不应将一个字符串拆成多个子串。
+</ul>
+<p>除此之外不应将一个字符串拆成多个子串。</p>
 
-示例：
-<div class="code">string strs[] = {
+<p>示例：</p>
+<code>string strs[] = {
     &quot;123&quot;, &quot;456&quot;, &quot;789&quot;,
-    &quot;123&quot;, &quot;456&quot;, &quot;789&quot;   //<span class="comment"> Rather suspicious, missing a comma?</span>
+    &quot;123&quot;, &quot;456&quot;, &quot;789&quot;   //<i> Rather suspicious, missing a comma?</i>
     &quot;123&quot;, &quot;456&quot;, &quot;789&quot;
-};</div>
-例中初始化列表第 2 行的 &quot;789&quot; 与第 3 行的 &quot;123&quot; 中间没有逗号，会连接成 &quot;789123&quot;，显然是不符合预期的，这种问题属于常见笔误。
+};</code>
+<p>例中初始化列表第 2 行的 &quot;789&quot; 与第 3 行的 &quot;123&quot; 中间没有逗号，会连接成 &quot;789123&quot;，显然是不符合预期的，这种问题属于常见笔误。</p>
 
-又如：
-<div class="code">void foo(const char*);
+<p>又如：</p>
+<code>void foo(const char*);
 void foo(const char*, const char*);
 
 void bar() {
-    foo(&quot;abc&quot; &quot;123&quot;);  //<span class="comment"> Rather suspicious, which ‘foo’ is right?</span>
-}</div>
+    foo(&quot;abc&quot; &quot;123&quot;);  //<i> Rather suspicious, which ‘foo’ is right?</i>
+}</code>
 
-</div>
+</main>
 
 
 

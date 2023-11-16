@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：多余的分号使代码显得繁琐，也可能意味着某种错误，应去掉。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免多余的分号 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免多余的分号</h1>
@@ -19,17 +20,17 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-多余的分号使代码显得繁琐，也可能意味着某种错误，应去掉。
+<main>
+<p>多余的分号使代码显得繁琐，也可能意味着某种错误，应去掉。</p>
 
-示例：
-<div class="code">namespace N {
+<p>示例：</p>
+<code>namespace N {
     void foo() {
-        bar();;    //<span class="comment"> Non-compliant</span>
-    };             //<span class="comment"> Non-compliant</span>
-};                 //<span class="comment"> Non-compliant</span></div>
+        bar();;    //<i> Non-compliant</i>
+    };             //<i> Non-compliant</i>
+};                 //<i> Non-compliant</i></code>
 
-</div>
+</main>
 
 
 

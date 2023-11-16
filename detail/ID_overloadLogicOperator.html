@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对“逻辑与”、“逻辑或”等运算符的重载会影响效率，甚至造成不符合预期的结果。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应重载“逻辑与”和“逻辑或”运算符 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应重载“逻辑与”和“逻辑或”运算符</h1>
@@ -19,13 +20,13 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对“逻辑与”、“逻辑或”等运算符的重载会影响效率，甚至造成不符合预期的结果。
+<main>
+<p>对“逻辑与”、“逻辑或”等运算符的重载会影响效率，甚至造成不符合预期的结果。</p>
 
-C/C++ 标准明确规定了内置逗号、逻辑与、逻辑或等运算符的子表达式求值顺序。对于逻辑表达式，从左到右计算子表达式的值，当可以确定整个表达式的值时立即结束计算，如果还有其他子表达式未求值也不再计算了，这种规则称为“短路规则”，意在提高效率，然而运算符的重载却打破了这一规则。
+<p>C/C++ 标准明确规定了内置逗号、逻辑与、逻辑或等运算符的子表达式求值顺序。对于逻辑表达式，从左到右计算子表达式的值，当可以确定整个表达式的值时立即结束计算，如果还有其他子表达式未求值也不再计算了，这种规则称为“短路规则”，意在提高效率，然而运算符的重载却打破了这一规则。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
     int i;
 
 public:
@@ -42,45 +43,39 @@ public:
     }
 };
 
-bool operator &amp;&amp; (const A&amp; a, const A&amp; b) {  //<span class="comment"> Non-compliant</span>
+bool operator &amp;&amp; (const A&amp; a, const A&amp; b) {  //<i> Non-compliant</i>
     return a.valid() &amp;&amp; b.valid();
 }
-</div>
-注意表达式（设 a 和 b 为 A 类对象）：
-<div class="code">b &amp;&amp; a.assign(b)
-</div>
-按常理，此表达式的意思应该是如果 b 在某种意义上“有效”，就将 b 赋给 a，所以 b 的值应先被求出，但由于 &amp;&amp; 被重载成了一个函数，其左右子表达式成了函数的参数，“短路规则”不再有效，而且参数的求值顺序在标准中是未声明的，所以常规逻辑子表达式的求值顺序无法得到保证。目前 MSVC、g++ 等主流编译器默认都是从右到左计算参数的值，例中 a.assign(b) 会先被执行，造成完全不符合预期的结果。
+</code>
+<p>注意表达式（设 a 和 b 为 A 类对象）：</p>
+<code>b &amp;&amp; a.assign(b)
+</code>
+<p>按常理，此表达式的意思应该是如果 b 在某种意义上“有效”，就将 b 赋给 a，所以 b 的值应先被求出，但由于 &amp;&amp; 被重载成了一个函数，其左右子表达式成了函数的参数，“短路规则”不再有效，而且参数的求值顺序在标准中是未声明的，所以常规逻辑子表达式的求值顺序无法得到保证。目前 MSVC、g++ 等主流编译器默认都是从右到左计算参数的值，例中 a.assign(b) 会先被执行，造成完全不符合预期的结果。</p>
 
-解决方法：
-<div class="code">class A {
+<p>解决方法：</p>
+<code>class A {
     ....
 
 public:
     explicit operator bool() const {
         return valid();
     }
-};</div>
-去掉对 &amp;&amp; 的重载，在 A 中定义 bool 类型转换运算符，既可保证“短路规则”，又可保证求值顺序。
+};</code>
+<p>去掉对 &amp;&amp; 的重载，在 A 中定义 bool 类型转换运算符，既可保证“短路规则”，又可保证求值顺序。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_overloadComma.html" target="_blank" class="related-link">ID_overloadComma</a>
-
-</p>
+<div class="ref-items"><a href="./ID_overloadComma.html" class="related-link">ID_overloadComma</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 5.2.2(8)-unspecified
-ISO/IEC 14882:2011 5.2.2(8)
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 5.2.2(8)-unspecified
+ISO/IEC 14882:2011 5.2.2(8)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 5-2-11
-
-</p>
+<div class="ref-items">MISRA C++ 2008 5-2-11</div>
 </article>
 </html>

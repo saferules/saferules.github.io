@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：得不到执行机会的代码是没有意义的，往往意味着逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在得不到执行机会的代码 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在得不到执行机会的代码</h1>
@@ -19,62 +20,60 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-得不到执行机会的代码是没有意义的，往往意味着逻辑错误。
+<main>
+<p>得不到执行机会的代码是没有意义的，往往意味着逻辑错误。</p>
 
-这种代码的主要成因如下，括号内为特化规则：
- ● 所在函数无法被调用（<a href="./ID_staticNotUsed.html" target="_blank" class="dashed-link">ID_staticNotUsed</a>、<a href="./ID_privateNotUsed.html" target="_blank" class="dashed-link">ID_privateNotUsed</a>）
- ● 之前的所有分枝都提前结束了程序的执行
- ● 之前的必经分枝中存在不会结束执行的代码
- ● 所在分枝的条件恒为假（<a href="./ID_constLogicExpression.html" target="_blank" class="dashed-link">ID_constLogicExpression</a>、<a href="./ID_invalidCondition.html" target="_blank" class="dashed-link">ID_invalidCondition</a>、<a href="./ID_switch_caseOutOfRange.html" target="_blank" class="dashed-link">ID_switch_caseOutOfRange</a>）
- ● 所在分枝被其他分枝遮盖（<a href="./ID_if_identicalCondition.html" target="_blank" class="dashed-link">ID_if_identicalCondition</a>、<a href="./ID_if_hiddenCondition.html" target="_blank" class="dashed-link">ID_if_hiddenCondition</a>、<a href="./ID_try_disorderedHandlers.html" target="_blank" class="dashed-link">ID_try_disorderedHandlers</a>、<a href="./ID_try_disorderedEllipsis.html" target="_blank" class="dashed-link">ID_try_disorderedEllipsis</a>）
- ● 流程被不受条件控制的跳转语句跨过（<a href="./ID_uncondJump.html" target="_blank" class="dashed-link">ID_uncondJump</a>）
+<p>这种代码的主要成因如下，括号内为特化规则：</p>
+<ul>
+<li>所在函数无法被调用（<a href="./ID_staticNotUsed.html" class="dashed-link">ID_staticNotUsed</a>、<a href="./ID_privateNotUsed.html" class="dashed-link">ID_privateNotUsed</a>）</li>
+<li>之前的所有分枝都提前结束了程序的执行</li>
+<li>之前的必经分枝中存在不会结束执行的代码</li>
+<li>所在分枝的条件恒为假（<a href="./ID_constLogicExpression.html" class="dashed-link">ID_constLogicExpression</a>、<a href="./ID_invalidCondition.html" class="dashed-link">ID_invalidCondition</a>、<a href="./ID_switch_caseOutOfRange.html" class="dashed-link">ID_switch_caseOutOfRange</a>）</li>
+<li>所在分枝被其他分枝遮盖（<a href="./ID_if_identicalCondition.html" class="dashed-link">ID_if_identicalCondition</a>、<a href="./ID_if_hiddenCondition.html" class="dashed-link">ID_if_hiddenCondition</a>、<a href="./ID_try_disorderedHandlers.html" class="dashed-link">ID_try_disorderedHandlers</a>、<a href="./ID_try_disorderedEllipsis.html" class="dashed-link">ID_try_disorderedEllipsis</a>）</li>
+<li>流程被不受条件控制的跳转语句跨过（<a href="./ID_uncondJump.html" class="dashed-link">ID_uncondJump</a>）</li>
 
-示例：
-<div class="code">int fun() {
+</ul>
+<p>示例：</p>
+<code>int fun() {
     if (cond) {
         return 0;
     } else {
         return 1;
     }
-    statements    //<span class="comment"> Non-compliant, unreachable</span>
-}</div>
-例中 statements 之前的所有分枝都会结束函数的执行，所以 statements 不会被执行。
+    statements    //<i> Non-compliant, unreachable</i>
+}</code>
+<p>例中 statements 之前的所有分枝都会结束函数的执行，所以 statements 不会被执行。</p>
 
-另外，在正式代码中不应存在如下形式的代码：
-<div class="code">if (false) { .... }      //<span class="comment"> Non-compliant</span>
-while (false) { .... }   //<span class="comment"> Non-compliant</span>
-for (;false;) { .... }   //<span class="comment"> Non-compliant</span>
-</div>
-也不应该在 return 语句之后存在其他语句，这种代码如果不是被人恶意篡改，就是出于某种目的将本已无效的代码遗留了下来，可参见 <a href="./ID_constLogicExpression.html" target="_blank" class="dashed-link">ID_constLogicExpression</a>、<a href="./ID_invalidCondition.html" target="_blank" class="dashed-link">ID_invalidCondition</a> 的进一步讨论。
+<p>另外，在正式代码中不应存在如下形式的代码：</p>
+<code>if (false) { .... }      //<i> Non-compliant</i>
+while (false) { .... }   //<i> Non-compliant</i>
+for (;false;) { .... }   //<i> Non-compliant</i>
+</code>
+<p>也不应该在 return 语句之后存在其他语句，这种代码如果不是被人恶意篡改，就是出于某种目的将本已无效的代码遗留了下来，可参见 <a href="./ID_constLogicExpression.html" class="dashed-link">ID_constLogicExpression</a>、<a href="./ID_invalidCondition.html" class="dashed-link">ID_invalidCondition</a> 的进一步讨论。</p>
 
-建议时刻保持代码的整洁，并将维护过程中的变动及时地保存在版本管理系统中，这样可以清晰地查看各版本之间的变动，而如果将无效代码与有效代码混在一起，势必造成维护的负担。
+<p>建议时刻保持代码的整洁，并将维护过程中的变动及时地保存在版本管理系统中，这样可以清晰地查看各版本之间的变动，而如果将无效代码与有效代码混在一起，势必造成维护的负担。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_staticNotUsed.html" target="_blank" class="related-link">ID_staticNotUsed</a>
-<a href="./ID_privateNotUsed.html" target="_blank" class="related-link">ID_privateNotUsed</a>
-<a href="./ID_constLogicExpression.html" target="_blank" class="related-link">ID_constLogicExpression</a>
-<a href="./ID_invalidCondition.html" target="_blank" class="related-link">ID_invalidCondition</a>
-<a href="./ID_switch_caseOutOfRange.html" target="_blank" class="related-link">ID_switch_caseOutOfRange</a>
-<a href="./ID_if_identicalCondition.html" target="_blank" class="related-link">ID_if_identicalCondition</a>
-<a href="./ID_if_hiddenCondition.html" target="_blank" class="related-link">ID_if_hiddenCondition</a>
-<a href="./ID_try_disorderedEllipsis.html" target="_blank" class="related-link">ID_try_disorderedEllipsis</a>
-<a href="./ID_try_disorderedHandlers.html" target="_blank" class="related-link">ID_try_disorderedHandlers</a>
-<a href="./ID_uncondJump.html" target="_blank" class="related-link">ID_uncondJump</a>
-
-</p>
+<div class="ref-items"><a href="./ID_staticNotUsed.html" class="related-link">ID_staticNotUsed</a>
+<a href="./ID_privateNotUsed.html" class="related-link">ID_privateNotUsed</a>
+<a href="./ID_constLogicExpression.html" class="related-link">ID_constLogicExpression</a>
+<a href="./ID_invalidCondition.html" class="related-link">ID_invalidCondition</a>
+<a href="./ID_switch_caseOutOfRange.html" class="related-link">ID_switch_caseOutOfRange</a>
+<a href="./ID_if_identicalCondition.html" class="related-link">ID_if_identicalCondition</a>
+<a href="./ID_if_hiddenCondition.html" class="related-link">ID_if_hiddenCondition</a>
+<a href="./ID_try_disorderedEllipsis.html" class="related-link">ID_try_disorderedEllipsis</a>
+<a href="./ID_try_disorderedHandlers.html" class="related-link">ID_try_disorderedHandlers</a>
+<a href="./ID_uncondJump.html" class="related-link">ID_uncondJump</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-561
+<div class="ref-items">CWE-561
 MISRA C 2004 14.1
 MISRA C 2012 2.1
-MISRA C++ 2008 0-1-1
-
-</p>
+MISRA C++ 2008 0-1-1</div>
 </article>
 </html>

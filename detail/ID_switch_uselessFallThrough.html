@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：紧邻 default 标签的空 case 标签是没有意义的，应当去除。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在紧邻 default 标签的空 case 标签 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在紧邻 default 标签的空 case 标签</h1>
@@ -19,36 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-紧邻 default 标签的空 case 标签是没有意义的，应当去除。
+<main>
+<p>紧邻 default 标签的空 case 标签是没有意义的，应当去除。</p>
 
-示例：
-<div class="code">switch (v)
+<p>示例：</p>
+<code>switch (v)
 {
-case 0:     //<span class="comment"> Compliant</span>
+case 0:     //<i> Compliant</i>
     ....
     break;
 
-case 1:     //<span class="comment"> Non-compliant</span>
+case 1:     //<i> Non-compliant</i>
 default:
-case 2:     //<span class="comment"> Non-compliant</span>
+case 2:     //<i> Non-compliant</i>
     ....
     break;
 }
-</div>
-应改为：
-<div class="code">switch (v)
+</code>
+<p>应改为：</p>
+<code>switch (v)
 {
-case 0:     //<span class="comment"> Compliant</span>
+case 0:     //<i> Compliant</i>
     ....
     break;
 
-default:    //<span class="comment"> Compliant</span>
+default:    //<i> Compliant</i>
     ....
     break;
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 

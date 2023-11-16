@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：char 类型是否有符号由实现定义，为了提高可移植性并规避意料之外的错误，参与数值运算的 char 对象应显式声明符号属性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>参与数值运算的 char 对象应显式声明 signed 或 unsigned - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>参与数值运算的 char 对象应显式声明 signed 或 unsigned</h1>
@@ -19,41 +20,37 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-char 类型是否有符号由实现定义，为了提高可移植性并规避意料之外的错误，参与数值运算的 char 对象应显式声明符号属性。
+<main>
+<p>char 类型是否有符号由实现定义，为了提高可移植性并规避意料之外的错误，参与数值运算的 char 对象应显式声明符号属性。</p>
 
-示例：
-<div class="code">int foo(char c) {     //<span class="comment"> Compliant</span>
+<p>示例：</p>
+<code>int foo(char c) {     //<i> Compliant</i>
     return c == &#x27;a&#x27;;
 }
 
-int bar(char c) {     //<span class="comment"> Non-compliant</span>
-    return c &gt;= 0;    //<span class="comment"> May be always true</span>
-}</div>
-例中 foo 函数的 char 型参数只与字符有关，可不必声明符号属性；而 bar 函数的参数被当作整数参与了数值运算，应显式声明为 signed，否则在 char 为无符号整型的环境中会得到错误的结果。
+int bar(char c) {     //<i> Non-compliant</i>
+    return c &gt;= 0;    //<i> May be always true</i>
+}</code>
+<p>例中 foo 函数的 char 型参数只与字符有关，可不必声明符号属性；而 bar 函数的参数被当作整数参与了数值运算，应显式声明为 signed，否则在 char 为无符号整型的环境中会得到错误的结果。</p>
 
-应改为：
-<div class="code">int bar(signed char c) {   //<span class="comment"> Compliant</span>
+<p>应改为：</p>
+<code>int bar(signed char c) {   //<i> Compliant</i>
     return c &gt;= 0;
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.2.5(3 15)-implementation
+<div class="ref-items">ISO/IEC 9899:1999 6.2.5(3 15)-implementation
 ISO/IEC 9899:2011 6.2.5(3 15)-implementation
 ISO/IEC 14882:2003 3.9.1(1)-implementation
-ISO/IEC 14882:2011 3.9.1(1)-implementation
-
-</p>
+ISO/IEC 14882:2011 3.9.1(1)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 5-0-11
-SEI CERT INT07-C
-
-</p>
+<div class="ref-items">MISRA C++ 2008 5-0-11
+SEI CERT INT07-C</div>
 </article>
 </html>

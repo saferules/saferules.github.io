@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：与自身做减法，结果总为 0，往往是某种笔误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>减法运算符左右子表达式不应相同 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>减法运算符左右子表达式不应相同</h1>
@@ -19,23 +20,21 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-与自身做减法，结果总为 0，往往是某种笔误。
+<main>
+<p>与自身做减法，结果总为 0，往往是某种笔误。</p>
 
-示例：
-<div class="code">int *p0, *p1;
+<p>示例：</p>
+<code>int *p0, *p1;
 ....
-ptrdiff_t d = p0 - p0;  //<span class="comment"> Non-compliant</span></div>
-例中减法表达式是没有意义的，很可能是 p1 被误写成了 p0。
+ptrdiff_t d = p0 - p0;  //<i> Non-compliant</i></code>
+<p>例中减法表达式是没有意义的，很可能是 p1 被误写成了 p0。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-682
-
-</p>
+<div class="ref-items">CWE-682</div>
 </article>
 </html>

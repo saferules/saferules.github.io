@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：定义全局 inline 命名空间相当于没有命名空间，应在普通命名空间之内使用 inline 命令空间。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应定义全局 inline 命名空间 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应定义全局 inline 命名空间</h1>
@@ -19,31 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-定义全局 inline 命名空间相当于没有命名空间，应在普通命名空间之内使用 inline 命令空间。
+<main>
+<p>定义全局 inline 命名空间相当于没有命名空间，应在普通命名空间之内使用 inline 命令空间。</p>
 
-示例：
-<div class="code">namespace V0 {
+<p>示例：</p>
+<code>namespace V0 {
     int foo();
 }
 
-inline namespace V1 {  //<span class="comment"> Non-compliant</span>
+inline namespace V1 {  //<i> Non-compliant</i>
     int foo();
 }
-</div>
-应该用普通命名空间加以限定：
-<div class="code">namespace NS
+</code>
+<p>应该用普通命名空间加以限定：</p>
+<code>namespace NS
 {
     namespace V0 {
         int foo();
     }
 
-    inline namespace V1 {  //<span class="comment"> Compliant</span>
+    inline namespace V1 {  //<i> Compliant</i>
         int foo();
     }
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 

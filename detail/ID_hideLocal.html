@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：不应在嵌套的作用域中声明相同的名称，否则干扰阅读，极易引起误解。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>局部名称不应被覆盖 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>局部名称不应被覆盖</h1>
@@ -19,32 +20,30 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-不应在嵌套的作用域中声明相同的名称，否则干扰阅读，极易引起误解。
+<main>
+<p>不应在嵌套的作用域中声明相同的名称，否则干扰阅读，极易引起误解。</p>
 
-示例：
-<div class="code">int foo() {
-    int i = 0;       //<span class="comment"> Declares an object ‘i’</span>
+<p>示例：</p>
+<code>int foo() {
+    int i = 0;       //<i> Declares an object ‘i’</i>
     if (cond) {
-        int i = 1;   //<span class="comment"> Non-compliant, hides previous ‘i’</span>
+        int i = 1;   //<i> Non-compliant, hides previous ‘i’</i>
         ....
     }
     return i;
-}</div>
-在一个函数中出现了多个名为 i 的变量，当实际代码较为复杂时，很容易出现意图与实现不符的问题。
+}</code>
+<p>在一个函数中出现了多个名为 i 的变量，当实际代码较为复杂时，很容易出现意图与实现不符的问题。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-1109
+<div class="ref-items">CWE-1109
 C++ Core Guidelines ES.12
 MISRA C 2004 5.2
 MISRA C 2012 5.3
-MISRA C++ 2008 2-10-2
-
-</p>
+MISRA C++ 2008 2-10-2</div>
 </article>
 </html>

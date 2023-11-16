@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：联合体各成员共享存储地址，是一种对类型理念的破坏。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用联合体 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用联合体</h1>
@@ -19,50 +20,48 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-联合体的问题主要有：
- ● 无法只通过对象获取当前有效的成员
- ● 访问不同的成员相当于不安全的类型转换
- ● 对非基本类型的成员造成构造和析构的混乱
- ● 不能作为基类
+<main>
+<p>联合体的问题主要有：</p>
+<ul>
+<li>无法只通过对象获取当前有效的成员</li>
+<li>访问不同的成员相当于不安全的类型转换</li>
+<li>对非基本类型的成员造成构造和析构的混乱</li>
+<li>不能作为基类</li>
 
-这些问题在本质上是对类型理念的破坏，面向对象的程序设计应避免使用联合体。
+</ul>
+<p>这些问题在本质上是对类型理念的破坏，面向对象的程序设计应避免使用联合体。</p>
 
-示例：
-<div class="code">union U {    //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>union U {    //<i> Non-compliant</i>
     int i;
     char c;
 };
 
 U u;
 u.i = 1000;
-cout &lt;&lt; u.c &lt;&lt; &#x27;\n&#x27;;   //<span class="comment"> Equivalent to a cast without any restrictions</span></div>
-例中对 u.c 的访问也相当于一种没有任何限制的类型转换。
+cout &lt;&lt; u.c &lt;&lt; &#x27;\n&#x27;;   //<i> Equivalent to a cast without any restrictions</i></code>
+<p>例中对 u.c 的访问也相当于一种没有任何限制的类型转换。</p>
 
-在 C++ 代码中建议用 std::variant 或 std::any 取代联合体：
-<div class="code">std::variant&lt;int, char&gt; u;
+<p>在 C++ 代码中建议用 std::variant 或 std::any 取代联合体：</p>
+<code>std::variant&lt;int, char&gt; u;
 u = 1000;
-cout &lt;&lt; get&lt;int&gt;(u) &lt;&lt; &#x27;\n&#x27;;    //<span class="comment"> OK</span>
-cout &lt;&lt; get&lt;char&gt;(u) &lt;&lt; &#x27;\n&#x27;;   //<span class="comment"> Throw ‘std::bad_variant_access’</span></div>
-std::variant 可以有效记录对象当前持有的类型，如果以不正确的类型访问对象会及时抛出异常。
+cout &lt;&lt; get&lt;int&gt;(u) &lt;&lt; &#x27;\n&#x27;;    //<i> OK</i>
+cout &lt;&lt; get&lt;char&gt;(u) &lt;&lt; &#x27;\n&#x27;;   //<i> Throw ‘std::bad_variant_access’</i></code>
+<p>std::variant 可以有效记录对象当前持有的类型，如果以不正确的类型访问对象会及时抛出异常。</p>
 
-本规则比 <a href="./ID_forbidNakedUnion.html" target="_blank" class="dashed-link">ID_forbidNakedUnion</a> 更严格，针对所有联合体。
+<p>本规则比 <a href="./ID_forbidNakedUnion.html" class="dashed-link">ID_forbidNakedUnion</a> 更严格，针对所有联合体。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_forbidNakedUnion.html" target="_blank" class="related-link">ID_forbidNakedUnion</a>
-
-</p>
+<div class="ref-items"><a href="./ID_forbidNakedUnion.html" class="related-link">ID_forbidNakedUnion</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 18.4
+<div class="ref-items">MISRA C 2004 18.4
 MISRA C 2012 19.2
-MISRA C++ 2008 9-5-1
-
-</p>
+MISRA C++ 2008 9-5-1</div>
 </article>
 </html>

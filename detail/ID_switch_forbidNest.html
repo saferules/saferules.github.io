@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：嵌套的 switch 语句使代码显得复杂，不利于阅读和维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>switch 语句不应嵌套 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>switch 语句不应嵌套</h1>
@@ -19,29 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-嵌套的 switch 语句使代码显得复杂，不利于阅读和维护。
+<main>
+<p>嵌套的 switch 语句使代码显得复杂，不利于阅读和维护。</p>
 
-不同 switch 语句的分枝交织在一起，较难看出分枝的从属关系，尤其是相关代码行数较多时这种问题会更为明显，应将内嵌的 switch 语句抽取成一个函数，使代码具有更清晰的静态结构。
+<p>不同 switch 语句的分枝交织在一起，较难看出分枝的从属关系，尤其是相关代码行数较多时这种问题会更为明显，应将内嵌的 switch 语句抽取成一个函数，使代码具有更清晰的静态结构。</p>
 
-示例：
-<div class="code">switch (u)
+<p>示例：</p>
+<code>switch (u)
 {
 case 1:
     ....
 case 2:
-    switch (v)  //<span class="comment"> Non-compliant</span>
+    switch (v)  //<i> Non-compliant</i>
     {
-    case 3:     //<span class="comment"> Confusing</span>
+    case 3:     //<i> Confusing</i>
         ....
     case 4:
         ....
     }
 default:
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 

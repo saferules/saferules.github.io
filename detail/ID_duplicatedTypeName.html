@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果类型相关的名称有重复，极易引起误解，不利于阅读和维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>类型名称不应重复定义 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>类型名称不应重复定义</h1>
@@ -19,50 +20,50 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果类型相关的名称有重复，极易引起误解，不利于阅读和维护，对于：
- ● C++ 类、联合体、枚举类型的名称
- ● C 结构体、联合体、枚举类型的标签名称
- ● 用 typedef 或 using 定义的类型别名
+<main>
+<p>如果类型相关的名称有重复，极易引起误解，不利于阅读和维护，对于：</p>
+<ul>
+<li>C++ 类、联合体、枚举类型的名称</li>
+<li>C 结构体、联合体、枚举类型的标签名称</li>
+<li>用 typedef 或 using 定义的类型别名</li>
 
-均不应重复定义。
+</ul>
+<p>均不应重复定义。</p>
 
-示例：
-<div class="code">typedef double A;
+<p>示例：</p>
+<code>typedef double A;
 
 void foo() {
-    typedef float A;   //<span class="comment"> Non-compliant</span>
+    typedef float A;   //<i> Non-compliant</i>
     typedef short B;
     ....
 }
 
 void bar() {
-    typedef short B;   //<span class="comment"> Non-compliant, even if they are identical</span>
+    typedef short B;   //<i> Non-compliant, even if they are identical</i>
     ....
 }
-</div>
-例外：
-<div class="code">namespace N {
+</code>
+<p>例外：</p>
+<code>namespace N {
     typedef double A;
 }
 namespace M {
-    typedef float A;   //<span class="comment"> Compliant</span>
-}</div>
-如果类型定义处于不同的命名空间，可不受本规则约束。
+    typedef float A;   //<i> Compliant</i>
+}</code>
+<p>如果类型定义处于不同的命名空间，可不受本规则约束。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 5.3
+<div class="ref-items">MISRA C 2004 5.3
 MISRA C 2004 5.4
 MISRA C 2012 5.6
 MISRA C 2012 5.7
 MISRA C++ 2008 2-10-3
-MISRA C++ 2008 2-10-4
-
-</p>
+MISRA C++ 2008 2-10-4</div>
 </article>
 </html>

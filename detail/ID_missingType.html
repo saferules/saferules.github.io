@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：C90 允许省略对象或函数的类型声明，但实践表明这并不是一种良好的编程方式，可读性较差。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应省略声明对象或函数的类型 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应省略声明对象或函数的类型</h1>
@@ -19,31 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-C90 允许省略对象或函数的类型声明，但实践表明这并不是一种良好的编程方式，可读性较差。
+<main>
+<p>C90 允许省略对象或函数的类型声明，但实践表明这并不是一种良好的编程方式，可读性较差。</p>
 
-本规则仅针对 C 语言，C++ 语言不存在这种问题。
+<p>本规则仅针对 C 语言，C++ 语言不存在这种问题。</p>
 
-示例：
-<div class="code">extern a;     //<span class="comment"> Non-compliant</span>
-const b;      //<span class="comment"> Non-compliant</span>
-fun(void);    //<span class="comment"> Non-compliant</span>
-typedef tp;   //<span class="comment"> Non-compliant</span></div>
-例中 a、b、fun、tp 的类型被省略，默认为 int，应改为：
-<div class="code">extern int a;     //<span class="comment"> Compliant</span>
-const int b;      //<span class="comment"> Compliant</span>
-int fun(void);    //<span class="comment"> Compliant</span>
-typedef int tp;   //<span class="comment"> Compliant</span></div>
+<p>示例：</p>
+<code>extern a;     //<i> Non-compliant</i>
+const b;      //<i> Non-compliant</i>
+fun(void);    //<i> Non-compliant</i>
+typedef tp;   //<i> Non-compliant</i></code>
+<p>例中 a、b、fun、tp 的类型被省略，默认为 int，应改为：</p>
+<code>extern int a;     //<i> Compliant</i>
+const int b;      //<i> Compliant</i>
+int fun(void);    //<i> Compliant</i>
+typedef int tp;   //<i> Compliant</i></code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 8.2
-MISRA C 2012 8.1
-
-</p>
+<div class="ref-items">MISRA C 2004 8.2
+MISRA C 2012 8.1</div>
 </article>
 </html>

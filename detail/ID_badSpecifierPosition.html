@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：语言允许 inline、virtual、static、typedef 等关键字出现在类型名称的左侧，也可以出现在其右侧，甚至可以出现在基本类型名称的中间，应对其位置进行统一规范以提高可读性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>inline、virtual、static、typedef 等关键字的位置应统一 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>inline、virtual、static、typedef 等关键字的位置应统一</h1>
@@ -19,55 +20,51 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-语言允许 inline、virtual、static、typedef 等关键字出现在类型名称的左侧，也可以出现在其右侧，甚至可以出现在基本类型名称的中间，应对其位置进行统一规范以提高可读性。
+<main>
+<p>语言允许 inline、virtual、static、typedef 等关键字出现在类型名称的左侧，也可以出现在其右侧，甚至可以出现在基本类型名称的中间，应对其位置进行统一规范以提高可读性。</p>
 
-本规则对下列 C 或 C++ 关键字有同样的要求：
-<div class="code">inline、virtual、explicit、
+<p>本规则对下列 C 或 C++ 关键字有同样的要求：</p>
+<code>inline、virtual、explicit、
 register、static、thread_local、extern、mutable、
 friend、typedef、constexpr、
 _Alignas、_Atomic、_Noreturn、_Thread_local
-</div>
-这些关键字应统一出现在声明的起始，类型名称的左侧。
+</code>
+<p>这些关键字应统一出现在声明的起始，类型名称的左侧。</p>
 
-对于 const 和 volatile 也需面对类似的问题，参见 <a href="./ID_badQualifierPosition.html" target="_blank" class="dashed-link">ID_badQualifierPosition</a>。
+<p>对于 const 和 volatile 也需面对类似的问题，参见 <a href="./ID_badQualifierPosition.html" class="dashed-link">ID_badQualifierPosition</a>。</p>
 
-示例：
-<div class="code">struct A {
-    long long typedef LL;        //<span class="comment"> Non-compliant</span>
-    bool static foo();           //<span class="comment"> Non-compliant</span>
-    char friend bar();           //<span class="comment"> Non-compliant</span>
-    unsigned int virtual baz();  //<span class="comment"> Non-compliant</span>
-};</div>
-例中各种声明均有一定的特殊性，如果声明其特殊性的关键字在类型名称之后，不便于阅读甚至会引起误解。
+<p>示例：</p>
+<code>struct A {
+    long long typedef LL;        //<i> Non-compliant</i>
+    bool static foo();           //<i> Non-compliant</i>
+    char friend bar();           //<i> Non-compliant</i>
+    unsigned int virtual baz();  //<i> Non-compliant</i>
+};</code>
+<p>例中各种声明均有一定的特殊性，如果声明其特殊性的关键字在类型名称之后，不便于阅读甚至会引起误解。</p>
 
-应改为：
-<div class="code">struct A {
-    typedef long long LL;        //<span class="comment"> Compliant</span>
-    static bool foo();           //<span class="comment"> Compliant</span>
-    friend char bar();           //<span class="comment"> Compliant</span>
-    virtual unsigned int baz();  //<span class="comment"> Compliant</span>
-};</div>
+<p>应改为：</p>
+<code>struct A {
+    typedef long long LL;        //<i> Compliant</i>
+    static bool foo();           //<i> Compliant</i>
+    friend char bar();           //<i> Compliant</i>
+    virtual unsigned int baz();  //<i> Compliant</i>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_sandwichedModifier.html" target="_blank" class="related-link">ID_sandwichedModifier</a>
-<a href="./ID_badQualifierPosition.html" target="_blank" class="related-link">ID_badQualifierPosition</a>
-
-</p>
+<div class="ref-items"><a href="./ID_sandwichedModifier.html" class="related-link">ID_sandwichedModifier</a>
+<a href="./ID_badQualifierPosition.html" class="related-link">ID_badQualifierPosition</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7(1)
+<div class="ref-items">ISO/IEC 9899:1999 6.7(1)
 ISO/IEC 9899:1999 6.7.2(1)
 ISO/IEC 9899:2011 6.7(1)
 ISO/IEC 9899:2011 6.7.2(1)
 ISO/IEC 14882:2003 A.6
-ISO/IEC 14882:2011 A.6
-
-</p>
+ISO/IEC 14882:2011 A.6</div>
 
 
 </article>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：C/C++ 语言规定，数组下标可以在中括号的右侧也可以在左侧，然而这只是一种理论上的设计，在实际代码中应采用约定俗成的方式，即数组的名称在中括号的左侧，下标在中括号的右侧。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>数组下标应为整型表达式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>数组下标应为整型表达式</h1>
@@ -19,31 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-C/C++ 语言规定，数组下标可以在中括号的右侧也可以在左侧，然而这只是一种理论上的设计，在实际代码中应采用约定俗成的方式，即数组的名称在中括号的左侧，下标在中括号的右侧。
+<main>
+<p>C/C++ 语言规定，数组下标可以在中括号的右侧也可以在左侧，然而这只是一种理论上的设计，在实际代码中应采用约定俗成的方式，即数组的名称在中括号的左侧，下标在中括号的右侧。</p>
 
-示例：
-<div class="code">void fun() {
+<p>示例：</p>
+<code>void fun() {
     int a[5] = {1, 2, 3, 4};
-    4[a] = 5;                       //<span class="comment"> Non-compliant, use a[4] instead</span>
+    4[a] = 5;                       //<i> Non-compliant, use a[4] instead</i>
     for (int i = 0; i &lt; 4; i++) {
-        cout &lt;&lt; i + 1[a] &lt;&lt; &#x27;\n&#x27;;   //<span class="comment"> Non-compliant, may be a[i + 1]</span>
+        cout &lt;&lt; i + 1[a] &lt;&lt; &#x27;\n&#x27;;   //<i> Non-compliant, may be a[i + 1]</i>
     }
 }
-</div>
-由于 a[4] 相当于 *(a+4)，所以与其等价的 *(4+a) 也应该可以解释为 4[a]，但下标在左侧的写法容易造成运算符优先级相关的问题，将下标写在右侧才是符合惯例的方式。
+</code>
+<p>由于 a[4] 相当于 *(a+4)，所以与其等价的 *(4+a) 也应该可以解释为 4[a]，但下标在左侧的写法容易造成运算符优先级相关的问题，将下标写在右侧才是符合惯例的方式。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.2.1(2)
+<div class="ref-items">ISO/IEC 9899:1999 6.5.2.1(2)
 ISO/IEC 9899:2011 6.5.2.1(2)
 ISO/IEC 14882:2003 8.3.4(6)
-ISO/IEC 14882:2011 8.3.4(6)
-
-</p>
+ISO/IEC 14882:2011 8.3.4(6)</div>
 
 
 </article>

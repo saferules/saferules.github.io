@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：缺少必要副作用的逗号子表达式没有意义，往往意味着逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>逗号表达式的子表达式应具有必要的副作用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>逗号表达式的子表达式应具有必要的副作用</h1>
@@ -19,36 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-缺少必要副作用的逗号子表达式没有意义，往往意味着逻辑错误。
+<main>
+<p>缺少必要副作用的逗号子表达式没有意义，往往意味着逻辑错误。</p>
 
-设逗号表达式中逗号运算符的子表达式个数为 n（n &gt;= 2），如果最后一个子表达式的值可影响程序状态，前 n - 1 个子表达式应具备副作用，否则所有子表达式都应具备副作用。
+<p>设逗号表达式中逗号运算符的子表达式个数为 n（n &gt;= 2），如果最后一个子表达式的值可影响程序状态，前 n - 1 个子表达式应具备副作用，否则所有子表达式都应具备副作用。</p>
 
-示例：
-<div class="code">void foo(int&amp; a, int&amp; b) {
-    a, b = 0, 1;             //<span class="comment"> Non-compliant</span>
-}</div>
-例中逗号表达式有 3 个子表达式，只有第 2 个子表达式有效，第 1 和第 3 个没有意义。
+<p>示例：</p>
+<code>void foo(int&amp; a, int&amp; b) {
+    a, b = 0, 1;             //<i> Non-compliant</i>
+}</code>
+<p>例中逗号表达式有 3 个子表达式，只有第 2 个子表达式有效，第 1 和第 3 个没有意义。</p>
 
-应改为：
-<div class="code">void foo(int&amp; a, int&amp; b) {
-    a = 0, b = 1;            //<span class="comment"> Compliant, but bad</span>
+<p>应改为：</p>
+<code>void foo(int&amp; a, int&amp; b) {
+    a = 0, b = 1;            //<i> Compliant, but bad</i>
 }
-</div>
-本规则集合不建议使用逗号表达式，将逗号表达式拆分成合理的语句是更好的选择，如：
+</code>
+<p>本规则集合不建议使用逗号表达式，将逗号表达式拆分成合理的语句是更好的选择，如：</p>
 
-<div class="code">void foo(int&amp; a, int&amp; b) {
+<code>void foo(int&amp; a, int&amp; b) {
     a = 0;
-    b = 1;                   //<span class="comment"> Compliant, good</span>
-}</div>
+    b = 1;                   //<i> Compliant, good</i>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_forbidCommaExpression.html" target="_blank" class="related-link">ID_forbidCommaExpression</a>
-
-</p>
+<div class="ref-items"><a href="./ID_forbidCommaExpression.html" class="related-link">ID_forbidCommaExpression</a></div>
 
 
 

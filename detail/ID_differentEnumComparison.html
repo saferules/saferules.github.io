@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：比较非同类枚举值相当于比较不同类别的事物，没有逻辑意义，往往是设计缺陷或逻辑错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应比较非同类枚举值 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应比较非同类枚举值</h1>
@@ -19,31 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-比较非同类枚举值相当于比较不同类别的事物，没有逻辑意义，往往是设计缺陷或逻辑错误。
+<main>
+<p>比较非同类枚举值相当于比较不同类别的事物，没有逻辑意义，往往是设计缺陷或逻辑错误。</p>
 
-示例：
-<div class="code">enum Fruit { apple, orange, banana };
+<p>示例：</p>
+<code>enum Fruit { apple, orange, banana };
 enum Pet { hamster, chipmunk, chinchilla };
 
 void foo(Fruit f) {
-    if (f == hamster) {  //<span class="comment"> Non-compliant</span>
+    if (f == hamster) {  //<i> Non-compliant</i>
         ....
     }
 }
 
 void bar(Pet p) {
     switch (p) {
-    case apple:     //<span class="comment"> Non-compliant</span>
+    case apple:     //<i> Non-compliant</i>
         ....
         break;
-    case chipmunk:  //<span class="comment"> Compliant</span>
+    case chipmunk:  //<i> Compliant</i>
         ....
         break;
     }
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 

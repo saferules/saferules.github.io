@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：sizeof 作用于 &lt;、&gt;、&lt;=、&gt;=、==、!=、&amp;&amp;、|| 等逻辑表达式为常见笔误，逻辑运算符往往应该移出 sizeof 表达式。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>sizeof 不应作用于逻辑表达式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>sizeof 不应作用于逻辑表达式</h1>
@@ -19,18 +20,18 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-sizeof 作用于 &lt;、&gt;、&lt;=、&gt;=、==、!=、&amp;&amp;、|| 等逻辑表达式为常见笔误，逻辑运算符往往应该移出 sizeof 表达式。
+<main>
+<p>sizeof 作用于 &lt;、&gt;、&lt;=、&gt;=、==、!=、&amp;&amp;、|| 等逻辑表达式为常见笔误，逻辑运算符往往应该移出 sizeof 表达式。</p>
 
-示例：
-<div class="code">if (sizeof(a == x)) {  //<span class="comment"> Non-compliant, may be sizeof(a) == x</span>
+<p>示例：</p>
+<code>if (sizeof(a == x)) {  //<i> Non-compliant, may be sizeof(a) == x</i>
     ....
 }
-if (sizeof(a &gt;= x)) {  //<span class="comment"> Non-compliant, may be sizeof(a) &gt;= x</span>
+if (sizeof(a &gt;= x)) {  //<i> Non-compliant, may be sizeof(a) &gt;= x</i>
     ....
-}</div>
+}</code>
 
-</div>
+</main>
 
 
 

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：函数返回右值引用的实际价值有限，且易产生错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>函数返回值不应为右值引用 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>函数返回值不应为右值引用</h1>
@@ -19,63 +20,59 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-函数返回右值引用的实际价值有限，且易产生错误。
+<main>
+<p>函数返回右值引用的实际价值有限，且易产生错误。</p>
 
-示例：
-<div class="code">class A { .... };
+<p>示例：</p>
+<code>class A { .... };
 
-A&amp;&amp; foo() {         //<span class="comment"> Non-compliant</span>
+A&amp;&amp; foo() {         //<i> Non-compliant</i>
     return A();
 }
 
 void bar() {
     A&amp;&amp; a = foo();
-    access(a);      //<span class="comment"> Undefined behavior, ‘a’ refers to an invalid object</span>
-}</div>
-例中 foo 函数返回类型为右值引用，这种情况下返回临时对象一定是错误的，临时对象在返回前析构，返回的是无效引用。
+    access(a);      //<i> Undefined behavior, ‘a’ refers to an invalid object</i>
+}</code>
+<p>例中 foo 函数返回类型为右值引用，这种情况下返回临时对象一定是错误的，临时对象在返回前析构，返回的是无效引用。</p>
 
-也不应返回局部对象的右值引用，如：
-<div class="code">A&amp;&amp; baz() {         //<span class="comment"> Non-compliant</span>
+<p>也不应返回局部对象的右值引用，如：</p>
+<code>A&amp;&amp; baz() {         //<i> Non-compliant</i>
     A a;
     ....
     return std::move(a);
-}</div>
-和返回临时对象一样，对象 a 在函数返回前析构，返回的也是无效引用。
+}</code>
+<p>和返回临时对象一样，对象 a 在函数返回前析构，返回的也是无效引用。</p>
 
-应直接返回对象，而不是对象的右值引用：
-<div class="code">A foo() {           //<span class="comment"> Compliant</span>
+<p>应直接返回对象，而不是对象的右值引用：</p>
+<code>A foo() {           //<i> Compliant</i>
     return A();
 }
 
-A baz() {           //<span class="comment"> Compliant</span>
+A baz() {           //<i> Compliant</i>
     A a;
     ....
     return a;
 }
-</div>
-对于函数引用的参数，或函数作用域之外的对象，如果通过 move 返回右值引用，如：
-<div class="code">A&amp;&amp; baz(A&amp; a) {     //<span class="comment"> Non-compliant</span>
+</code>
+<p>对于函数引用的参数，或函数作用域之外的对象，如果通过 move 返回右值引用，如：</p>
+<code>A&amp;&amp; baz(A&amp; a) {     //<i> Non-compliant</i>
     access(a);
     return std::move(a);
-}</div>
-这种情况在运行机制上可能没有问题，但满足的实际需求较为有限，而且相当于将 access(a) 和 move(a) 两种事务合在一个函数中，在某种程度上违反了“<a href="https://en.wikipedia.org/wiki/Single-responsibility_principle" target="_blank" class="dashed-link">单一职责原则</a>”。
+}</code>
+<p>这种情况在运行机制上可能没有问题，但满足的实际需求较为有限，而且相当于将 access(a) 和 move(a) 两种事务合在一个函数中，在某种程度上违反了“<a href="https://en.wikipedia.org/wiki/Single-responsibility_principle" target="_blank" class="dashed-link">单一职责原则</a>”。</p>
 
-综上所述，应统一要求函数不应返回右值引用。
+<p>综上所述，应统一要求函数不应返回右值引用。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_localAddressFlowOut.html" target="_blank" class="related-link">ID_localAddressFlowOut</a>
-
-</p>
+<div class="ref-items"><a href="./ID_localAddressFlowOut.html" class="related-link">ID_localAddressFlowOut</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines F.45
-
-</p>
+<div class="ref-items">C++ Core Guidelines F.45</div>
 </article>
 </html>

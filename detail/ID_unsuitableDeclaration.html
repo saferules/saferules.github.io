@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：如果声明的位置不合理会降低代码的可维护性，甚至会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>在合理的位置声明 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>在合理的位置声明</h1>
@@ -19,46 +20,42 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-如果声明的位置不合理会降低代码的可维护性，甚至会导致标准未定义的行为。
+<main>
+<p>如果声明的位置不合理会降低代码的可维护性，甚至会导致标准未定义的行为。</p>
 
-应遵循如下原则：
- ● 外部链接的对象或函数应在头文件中声明，并避免重复声明
- ● 内部链接的对象或函数应在源文件中声明，不应在头文件中声明
- ● 避免在头文件外手工书写外部声明
- ● 避免在局部作用域内声明函数或全局对象
+<p>应遵循如下原则：</p>
+<ul>
+<li>外部链接的对象或函数应在头文件中声明，并避免重复声明</li>
+<li>内部链接的对象或函数应在源文件中声明，不应在头文件中声明</li>
+<li>避免在头文件外手工书写外部声明</li>
+<li>避免在局部作用域内声明函数或全局对象</li>
 
-示例：
-<div class="code">int fun()
+</ul>
+<p>示例：</p>
+<code>int fun()
 {
-    extern int g;       //<span class="comment"> Non-compliant, bad practice</span>
-    extern int foo();   //<span class="comment"> Non-compliant, bad practice</span>
-    static int bar();   //<span class="comment"> Non-compliant, undefined behavior</span>
+    extern int g;       //<i> Non-compliant, bad practice</i>
+    extern int foo();   //<i> Non-compliant, bad practice</i>
+    static int bar();   //<i> Non-compliant, undefined behavior</i>
     ....
-}</div>
-外部链接的对象或函数应通过头文件引入，如果分散在函数中声明是不便于统一管理和维护的。另外，在局部作用域中使用除 extern 之外的存储类说明符声明函数会导致标准未定义的行为。
+}</code>
+<p>外部链接的对象或函数应通过头文件引入，如果分散在函数中声明是不便于统一管理和维护的。另外，在局部作用域中使用除 extern 之外的存储类说明符声明函数会导致标准未定义的行为。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_staticInHeader.html" target="_blank" class="related-link">ID_staticInHeader</a>
-<a href="./ID_anonymousNamespaceInHeader.html" target="_blank" class="related-link">ID_anonymousNamespaceInHeader</a>
-
-</p>
+<div class="ref-items"><a href="./ID_staticInHeader.html" class="related-link">ID_staticInHeader</a>
+<a href="./ID_anonymousNamespaceInHeader.html" class="related-link">ID_anonymousNamespaceInHeader</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7.1(5)-undefined
-ISO/IEC 9899:2011 6.7.1(7)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.7.1(5)-undefined
+ISO/IEC 9899:2011 6.7.1(7)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 3-1-2
-MISRA C++ 2008 3-3-1
-
-</p>
+<div class="ref-items">MISRA C++ 2008 3-1-2
+MISRA C++ 2008 3-3-1</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：setjmp、longjmp 可以在函数间跳转，进一步破坏了结构化编程理念，非框架代码不应使用。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用 setjmp、longjmp - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用 setjmp、longjmp</h1>
@@ -19,64 +20,60 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-setjmp、longjmp 可以在函数间跳转，进一步破坏了结构化编程理念，非框架代码不应使用。
+<main>
+<p>setjmp、longjmp 可以在函数间跳转，进一步破坏了结构化编程理念，非框架代码不应使用。</p>
 
-setjmp 与 longjmp 由类型为 jmp_buf 的参数关联，只能在同一线程中使用，如果调用 longjmp 时没有对应的 setjmp，或 setjmp 所在函数已经结束执行，会导致标准未定义的行为，而且要注意 setjmp、longjmp 无法与 C++ 对象自动析构等机制兼容，极易造成意料之外的错误。
+<p>setjmp 与 longjmp 由类型为 jmp_buf 的参数关联，只能在同一线程中使用，如果调用 longjmp 时没有对应的 setjmp，或 setjmp 所在函数已经结束执行，会导致标准未定义的行为，而且要注意 setjmp、longjmp 无法与 C++ 对象自动析构等机制兼容，极易造成意料之外的错误。</p>
 
-示例：
-<div class="code">jmp_buf buf;
+<p>示例：</p>
+<code>jmp_buf buf;
 
 float div(int a, int b) {
     if (b == 0) {
-        longjmp(buf, 1);     //<span class="comment"> Non-compliant</span>
+        longjmp(buf, 1);     //<i> Non-compliant</i>
     }
     return (float)a / b;
 }
 
 int main() {
-    if (setjmp(buf) == 0) {          //<span class="comment"> Non-compliant</span>
+    if (setjmp(buf) == 0) {          //<i> Non-compliant</i>
         printf(&quot;%f\n&quot;, div(3, 0));
     } else {
         return 1;
     }
-}</div>
-setjmp 返回 0 表示设置跳转位置成功，之后如果调用 longjmp 会跳回 setjmp 的位置，这时 setjmp 返回非 0 值，这种机制在 C 语言中可以用作异常处理，也可以实现“协程”等概念，但会严重地降低代码可读性，在普通的业务逻辑或算法实现中不应使用。
+}</code>
+<p>setjmp 返回 0 表示设置跳转位置成功，之后如果调用 longjmp 会跳回 setjmp 的位置，这时 setjmp 返回非 0 值，这种机制在 C 语言中可以用作异常处理，也可以实现“协程”等概念，但会严重地降低代码可读性，在普通的业务逻辑或算法实现中不应使用。</p>
 
-另外，函数间跳转与编译器的优化机制有冲突，如：
-<div class="code">jmp_buf buf;
+<p>另外，函数间跳转与编译器的优化机制有冲突，如：</p>
+<code>jmp_buf buf;
 
 void foo() { longjmp(buf, 1); }
 
 void bar() {
-    int i = 1;            //<span class="comment"> Missing ‘volatile’</span>
+    int i = 1;            //<i> Missing ‘volatile’</i>
     if (!setjmp(buf)) {
         i++;
         foo();
     } else {
         printf(&quot;%d\n&quot;, i);
     }
-}</div>
-在启用优化时和关闭优化时可能会有不同的输出，启用优化时局部变量 i 可能直接存于寄存器，当通过 longjmp 跳转回 bar 函数时，i++ 的结果会丢失。将局部变量用 volatile 限定可解决这种问题，但很容易遗漏或产生无必要的限定。
+}</code>
+<p>在启用优化时和关闭优化时可能会有不同的输出，启用优化时局部变量 i 可能直接存于寄存器，当通过 longjmp 跳转回 bar 函数时，i++ 的结果会丢失。将局部变量用 volatile 限定可解决这种问题，但很容易遗漏或产生无必要的限定。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.13.2.1(2)-undefined
-ISO/IEC 14882:2011 18.10(4)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.13.2.1(2)-undefined
+ISO/IEC 14882:2011 18.10(4)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines SL.C.1
+<div class="ref-items">C++ Core Guidelines SL.C.1
 MISRA C 2004 20.7
 MISRA C 2012 21.4
 MISRA C++ 2008 17-0-5
-SEI CERT ERR52-CPP
-
-</p>
+SEI CERT ERR52-CPP</div>
 </article>
 </html>

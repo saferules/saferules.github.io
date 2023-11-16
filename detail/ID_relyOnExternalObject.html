@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：全局对象的初始化或构造过程不可依赖在其他源文件中定义的全局对象，也不可依赖在其后面定义的对象。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>全局对象的初始化不可依赖未初始化的对象 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>全局对象的初始化不可依赖未初始化的对象</h1>
@@ -19,42 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-全局对象的初始化或构造过程不可依赖在其他源文件中定义的全局对象，也不可依赖在其后面定义的对象。
+<main>
+<p>全局对象的初始化或构造过程不可依赖在其他源文件中定义的全局对象，也不可依赖在其后面定义的对象。</p>
 
-在不同源文件中定义的全局对象，以及类的静态成员对象，其初始化顺序是不确定的，在同一源文件中定义的对象，排在前面的会先于后面的初始化。为避免产生问题，建议只使用基本类型的常量作为全局对象，且尽量不要使用 extern 关键字。
+<p>在不同源文件中定义的全局对象，以及类的静态成员对象，其初始化顺序是不确定的，在同一源文件中定义的对象，排在前面的会先于后面的初始化。为避免产生问题，建议只使用基本类型的常量作为全局对象，且尽量不要使用 extern 关键字。</p>
 
-示例：
-<div class="code">extern int i;   //<span class="comment"> Defined in other translate unit</span>
-int j = i;      //<span class="comment"> Non-compliant</span></div>
-例中 i 是在其他源文件中定义的对象，j 初始化时无法保证 i 已被正确初始化。
+<p>示例：</p>
+<code>extern int i;   //<i> Defined in other translate unit</i>
+int j = i;      //<i> Non-compliant</i></code>
+<p>例中 i 是在其他源文件中定义的对象，j 初始化时无法保证 i 已被正确初始化。</p>
 
-又如：
-<div class="code">int foo() {
+<p>又如：</p>
+<code>int foo() {
     return 1;
 }
-extern int x;   //<span class="comment"> Defined after ‘y’</span>
-int y = x;      //<span class="comment"> Non-compliant, unspecified</span>
-int x = foo();</div>
-例中 x 在 y 的后面定义，y 会先于 x 初始化，y 的值是 0 还是 foo 函数的返回值在标准中是未声明的。
+extern int x;   //<i> Defined after ‘y’</i>
+int y = x;      //<i> Non-compliant, unspecified</i>
+int x = foo();</code>
+<p>例中 x 在 y 的后面定义，y 会先于 x 初始化，y 的值是 0 还是 foo 函数的返回值在标准中是未声明的。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:2011 5.1.2(1)-unspecified
+<div class="ref-items">ISO/IEC 9899:2011 5.1.2(1)-unspecified
 ISO/IEC 14882:2011 3.6.2(2)
 ISO/IEC 14882:2011 3.6.2(3)-unspecified
 ISO/IEC 14882:2017 6.6.2(3)-unspecified
-ISO/IEC 14882:2017 6.6.3(2)
-
-</p>
+ISO/IEC 14882:2017 6.6.3(2)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines I.22
-
-</p>
+<div class="ref-items">C++ Core Guidelines I.22</div>
 </article>
 </html>

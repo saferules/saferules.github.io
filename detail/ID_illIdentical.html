@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：逻辑与、逻辑或、按位与、按位或的子表达式以及三元表达式的两个分枝不应重复，否则相关运算会失去意义。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应存在无意义的重复子表达式 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应存在无意义的重复子表达式</h1>
@@ -19,43 +20,41 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-逻辑与、逻辑或、按位与、按位或的子表达式以及三元表达式的两个分枝不应重复，否则相关运算会失去意义。
+<main>
+<p>逻辑与、逻辑或、按位与、按位或的子表达式以及三元表达式的两个分枝不应重复，否则相关运算会失去意义。</p>
 
-示例：
-<div class="code">void foo(int* p, int* q) {
-    if (p != NULL &amp;&amp; p != NULL) {   //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>void foo(int* p, int* q) {
+    if (p != NULL &amp;&amp; p != NULL) {   //<i> Non-compliant</i>
         ....
     }
 }
 
 void bar() {
-    while (FLAG0 | FLAG1 | FLAG0) {   //<span class="comment"> Non-compliant</span>
+    while (FLAG0 | FLAG1 | FLAG0) {   //<i> Non-compliant</i>
         ....
     }
 }
 
 char baz(bool x) {
-    return x? &#x27;a&#x27;: &#x27;a&#x27;;   //<span class="comment"> Non-compliant</span>
-}</div>
-例中重复的子表达式都是有问题的，这是很常见的错误，多由复制粘贴引起。修正时不应只删去重复项，还要考虑是否漏掉了某些项。
+    return x? &#x27;a&#x27;: &#x27;a&#x27;;   //<i> Non-compliant</i>
+}</code>
+<p>例中重复的子表达式都是有问题的，这是很常见的错误，多由复制粘贴引起。修正时不应只删去重复项，还要考虑是否漏掉了某些项。</p>
 
-例外：
-<div class="code">void qux(ifstream&amp; f) {
-    if (f.get() == &#x27;a&#x27; &amp;&amp; f.get() == &#x27;a&#x27;) {   //<span class="comment"> Let it go</span>
+<p>例外：</p>
+<code>void qux(ifstream&amp; f) {
+    if (f.get() == &#x27;a&#x27; &amp;&amp; f.get() == &#x27;a&#x27;) {   //<i> Let it go</i>
         ....
     }
-}</div>
-具有副作用的逻辑子表达式可不受本规则约束。例中重复的子表达式可以改变文件流的状态，但第二个子表达式可能不会被执行，这种代码即使没有逻辑错误也是不便于维护的，参见 <a href="./ID_shortCircuitSideEffect.html" target="_blank" class="dashed-link">ID_shortCircuitSideEffect</a>。
+}</code>
+<p>具有副作用的逻辑子表达式可不受本规则约束。例中重复的子表达式可以改变文件流的状态，但第二个子表达式可能不会被执行，这种代码即使没有逻辑错误也是不便于维护的，参见 <a href="./ID_shortCircuitSideEffect.html" class="dashed-link">ID_shortCircuitSideEffect</a>。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-682
-
-</p>
+<div class="ref-items">CWE-682</div>
 </article>
 </html>

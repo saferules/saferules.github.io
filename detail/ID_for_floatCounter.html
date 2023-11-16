@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：用于控制循环次数的变量称为“循环变量”，这种变量不应采用浮点类型，否则循环的次数难以控制。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>for 循环变量不应为浮点型 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>for 循环变量不应为浮点型</h1>
@@ -19,42 +20,38 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-用于控制循环次数的变量称为“循环变量”，这种变量不应采用浮点类型，否则循环的次数难以控制。
+<main>
+<p>用于控制循环次数的变量称为“循环变量”，这种变量不应采用浮点类型，否则循环的次数难以控制。</p>
 
-由于浮点型变量的不精确性使浮点型变量不适用于控制循环次数，参见 <a href="./ID_illFloatComparison.html" target="_blank" class="dashed-link">ID_illFloatComparison</a>。
+<p>由于浮点型变量的不精确性使浮点型变量不适用于控制循环次数，参见 <a href="./ID_illFloatComparison.html" class="dashed-link">ID_illFloatComparison</a>。</p>
 
-示例：
-<div class="code">size_t n = 0;
-for (float f = 0.f; f &lt; 1.f; f += 0.001f) {  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>size_t n = 0;
+for (float f = 0.f; f &lt; 1.f; f += 0.001f) {  //<i> Non-compliant</i>
     ....
     n++;
 }
-cout &lt;&lt; n &lt;&lt; &#x27;\n&#x27;;  //<span class="comment"> Not 1000</span></div>
-本例按常识应循环 1000 次，然而由于 f 无法精确表示 0.001，导致实际循环次数与预期产生偏差。
+cout &lt;&lt; n &lt;&lt; &#x27;\n&#x27;;  //<i> Not 1000</i></code>
+<p>本例按常识应循环 1000 次，然而由于 f 无法精确表示 0.001，导致实际循环次数与预期产生偏差。</p>
 
-可变通地建立整型循环变量与浮点数的关系：
-<div class="code">for (size_t n = 0; n &lt; 1000; n++) {  //<span class="comment"> Compliant</span>
+<p>可变通地建立整型循环变量与浮点数的关系：</p>
+<code>for (size_t n = 0; n &lt; 1000; n++) {  //<i> Compliant</i>
     float f = n * 0.001f;
     ....
-}</div>
-这样循环的次数便与预期相符。
+}</code>
+<p>这样循环的次数便与预期相符。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_illFloatComparison.html" target="_blank" class="related-link">ID_illFloatComparison</a>
-
-</p>
+<div class="ref-items"><a href="./ID_illFloatComparison.html" class="related-link">ID_illFloatComparison</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 13.4
+<div class="ref-items">MISRA C 2004 13.4
 MISRA C 2012 14.1
-MISRA C++ 2008 6-5-1
-
-</p>
+MISRA C++ 2008 6-5-1</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：未初始化的指针具有不确定的值，对其解引用会导致标准未定义的行为，往往会造成严重错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不可解引用未初始化的指针 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不可解引用未初始化的指针</h1>
@@ -19,37 +20,31 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-未初始化的指针具有不确定的值，对其解引用会导致标准未定义的行为，往往会造成严重错误。
+<main>
+<p>未初始化的指针具有不确定的值，对其解引用会导致标准未定义的行为，往往会造成严重错误。</p>
 
-示例：
-<div class="code">int foo() {
-    int* p;      //<span class="comment"> Uninitialized</span>
-    return *p;   //<span class="comment"> Non-compliant</span>
-}</div>
-例中指针 p 定义后未被初始化，可能指向不可访问的空间，也可能指向已分配的空间，对其读写可能会导致崩溃，也可能会扰乱程序的行为，造成难以排查的错误。
+<p>示例：</p>
+<code>int foo() {
+    int* p;      //<i> Uninitialized</i>
+    return *p;   //<i> Non-compliant</i>
+}</code>
+<p>例中指针 p 定义后未被初始化，可能指向不可访问的空间，也可能指向已分配的空间，对其读写可能会导致崩溃，也可能会扰乱程序的行为，造成难以排查的错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_illAccess.html" target="_blank" class="related-link">ID_illAccess</a>
-<a href="./ID_localInitialization.html" target="_blank" class="related-link">ID_localInitialization</a>
-
-</p>
+<div class="ref-items"><a href="./ID_illAccess.html" class="related-link">ID_illAccess</a>
+<a href="./ID_localInitialization.html" class="related-link">ID_localInitialization</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.5.3.2(4)-undefined
-ISO/IEC 9899:2011 6.5.3.2(4)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 6.5.3.2(4)-undefined
+ISO/IEC 9899:2011 6.5.3.2(4)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-824
-C++ Core Guidelines ES.65
-
-</p>
+<div class="ref-items">CWE-824
+C++ Core Guidelines ES.65</div>
 </article>
 </html>

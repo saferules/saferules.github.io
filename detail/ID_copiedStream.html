@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：FILE 等流式对象不应被复制，如果存在多个副本会造成数据不一致的问题。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>流式资源对象不应被复制 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>流式资源对象不应被复制</h1>
@@ -19,30 +20,26 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-FILE 等流式对象不应被复制，如果存在多个副本会造成数据不一致的问题。
+<main>
+<p>FILE 等流式对象不应被复制，如果存在多个副本会造成数据不一致的问题。</p>
 
-示例：
-<div class="code">FILE f;
+<p>示例：</p>
+<code>FILE f;
 FILE* fp = fopen(path, &quot;r&quot;);
 
-f = *fp;                      //<span class="comment"> Non-compliant</span>
-memcpy(fp, &amp;f, sizeof(*fp));  //<span class="comment"> Non-compliant</span></div>
+f = *fp;                      //<i> Non-compliant</i>
+memcpy(fp, &amp;f, sizeof(*fp));  //<i> Non-compliant</i></code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.19.3(6)
-ISO/IEC 9899:2011 7.21.3(6)
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.19.3(6)
+ISO/IEC 9899:2011 7.21.3(6)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 22.5
-
-</p>
+<div class="ref-items">MISRA C 2012 22.5</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：语言允许 const、volatile 等关键字出现在类型名称的左侧，也可以出现在其右侧，甚至可以出现在基本类型名称的中间，应对其位置进行统一规范以提高可读性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>const、volatile 限定类型时的位置应统一 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>const、volatile 限定类型时的位置应统一</h1>
@@ -19,69 +20,64 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-语言允许 const、volatile 等关键字出现在类型名称的左侧，也可以出现在其右侧，甚至可以出现在基本类型名称的中间，应对其位置进行统一规范以提高可读性。
+<main>
+<p>语言允许 const、volatile 等关键字出现在类型名称的左侧，也可以出现在其右侧，甚至可以出现在基本类型名称的中间，应对其位置进行统一规范以提高可读性。</p>
 
-可从下列方案中选择一种作为规范，即统一要求 const、volatile：
- 1. 出现在类型名称的左侧
- 2. 出现在类型名称的右侧
- 3. 出现在指针类型名称的右侧，非指针类型名称的左侧
+<p>可从下列方案中选择一种作为规范，即统一要求 const、volatile：</p>
+<ol>
+<li>出现在类型名称的左侧</li>
+<li>出现在类型名称的右侧</li>
+<li>出现在指针类型名称的右侧，非指针类型名称的左侧</li>
 
-示例：
-<div class="code">//<span class="comment"> Non-compliant, inconsistent positions of cv-qualifiers</span>
+</ol>
+<p>示例：</p>
+<code>//<i> Non-compliant, inconsistent positions of cv-qualifiers</i>
 const long long i = 0;
 unsigned int const j = 0;
-const int volatile k = 0;</div>
-例中 const、volatile 的位置不统一是不符合要求的。
+const int volatile k = 0;</code>
+<p>例中 const、volatile 的位置不统一是不符合要求的。</p>
 
-const、volatile 出现在类型名称右侧时，和 * 号一起易被误用，如：
-<div class="code">char const const * p = &quot;....&quot;;   //<span class="comment"> Wrong, redundant const-qualifiers</span>
-char const * const q = &quot;....&quot;;   //<span class="comment"> Right</span>
-</div>
-const、volatile 出现在类型名称左侧时，如果类型为指针类型，则易引起误解，如：
-<div class="code">typedef int* ptr;
+<p>const、volatile 出现在类型名称右侧时，和 * 号一起易被误用，如：</p>
+<code>char const const * p = &quot;....&quot;;   //<i> Wrong, redundant const-qualifiers</i>
+char const * const q = &quot;....&quot;;   //<i> Right</i>
+</code>
+<p>const、volatile 出现在类型名称左侧时，如果类型为指针类型，则易引起误解，如：</p>
+<code>typedef int* ptr;
 const ptr cp = &amp;x;
-*cp = 1;             //<span class="comment"> Looks a bit strange</span></div>
-可参见 <a href="./ID_qualifierForPtrAlias.html" target="_blank" class="dashed-link">ID_qualifierForPtrAlias</a> 的进一步讨论。
+*cp = 1;             //<i> Looks a bit strange</i></code>
+<p>可参见 <a href="./ID_qualifierForPtrAlias.html" class="dashed-link">ID_qualifierForPtrAlias</a> 的进一步讨论。</p>
 
-如果约定 const、volatile 出现左侧表示类型为对象类型，右侧表示类型为指针类型，有助于提高可读性：
-<div class="code">typedef int obj;
+<p>如果约定 const、volatile 出现左侧表示类型为对象类型，右侧表示类型为指针类型，有助于提高可读性：</p>
+<code>typedef int obj;
 typedef int* ptr;
 
-const obj i = 0;    //<span class="comment"> Indicates that ‘obj’ is an object type</span>
-ptr const p = &amp;x;   //<span class="comment"> Indicates that ‘ptr’ is a pointer type</span>
-</div>
-审计工具不妨通过配置决定具体检查方案。
+const obj i = 0;    //<i> Indicates that ‘obj’ is an object type</i>
+ptr const p = &amp;x;   //<i> Indicates that ‘ptr’ is a pointer type</i>
+</code>
+<p>审计工具不妨通过配置决定具体检查方案。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">positionScheme: const、volatile 的位置方案，对应说明中的 1、2、3 号方案
-volatileInFront: volatile 是否应写在 const 的前面，如果值为 false 则应写在后面，不设此项则不考虑相关顺序
-</p>
+<div class="ref-items">positionScheme: const、volatile 的位置方案，对应说明中的 1、2、3 号方案
+volatileInFront: volatile 是否应写在 const 的前面，如果值为 false 则应写在后面，不设此项则不考虑相关顺序</div>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_sandwichedModifier.html" target="_blank" class="related-link">ID_sandwichedModifier</a>
-<a href="./ID_badSpecifierPosition.html" target="_blank" class="related-link">ID_badSpecifierPosition</a>
-
-</p>
+<div class="ref-items"><a href="./ID_sandwichedModifier.html" class="related-link">ID_sandwichedModifier</a>
+<a href="./ID_badSpecifierPosition.html" class="related-link">ID_badSpecifierPosition</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.7(1)
+<div class="ref-items">ISO/IEC 9899:1999 6.7(1)
 ISO/IEC 9899:1999 6.7.2(1)
 ISO/IEC 9899:2011 6.7(1)
 ISO/IEC 9899:2011 6.7.2(1)
 ISO/IEC 14882:2003 A.6
-ISO/IEC 14882:2011 A.6
-
-</p>
+ISO/IEC 14882:2011 A.6</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines NL.26
-
-</p>
+<div class="ref-items">C++ Core Guidelines NL.26</div>
 </article>
 </html>

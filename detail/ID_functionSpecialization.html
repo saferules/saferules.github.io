@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：特化的函数模板不参与重载函数的选取，易导致意类之外的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>函数模板不应被特化 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>函数模板不应被特化</h1>
@@ -19,48 +20,46 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-特化的函数模板不参与重载函数的选取，易导致意类之外的错误。
+<main>
+<p>特化的函数模板不参与重载函数的选取，易导致意类之外的错误。</p>
 
-如果某些特殊情况确实需要特化模板，不妨将函数委托给模板类实现，通过特化模板类实现特殊的需求，参见 <a href="./ID_narrowCast.html" target="_blank" class="dashed-link">ID_narrowCast</a>。
+<p>如果某些特殊情况确实需要特化模板，不妨将函数委托给模板类实现，通过特化模板类实现特殊的需求，参见 <a href="./ID_narrowCast.html" class="dashed-link">ID_narrowCast</a>。</p>
 
-示例：
-<div class="code">template &lt;class T&gt;
-int foo(T) {         //<span class="comment"> #1</span>
+<p>示例：</p>
+<code>template &lt;class T&gt;
+int foo(T) {         //<i> #1</i>
     return 0;
 }
 
 template &lt;class T&gt;
-int foo(T*) {        //<span class="comment"> #2</span>
+int foo(T*) {        //<i> #2</i>
     return 1;
 }
 
 template &lt;&gt;
-int foo&lt;int*&gt;(int*) {   //<span class="comment"> #3, non-compliant, specialization of #1</span>
+int foo&lt;int*&gt;(int*) {   //<i> #3, non-compliant, specialization of #1</i>
     return 2;
 }
 
 int main() {
     int* p = nullptr;
-    cout &lt;&lt; foo(p) &lt;&lt; &#x27;\n&#x27;;   //<span class="comment"> What is output?</span>
-}</div>
-输出 1，特化的函数模板不参与重载函数的选取，所以只会在 #1 和 #2 中选取，foo(p) 与 #2 更贴近，而 #3 是 #1 的特化，所以不会选取 #3，这种情况下 #3 是无效的。
+    cout &lt;&lt; foo(p) &lt;&lt; &#x27;\n&#x27;;   //<i> What is output?</i>
+}</code>
+<p>输出 1，特化的函数模板不参与重载函数的选取，所以只会在 #1 和 #2 中选取，foo(p) 与 #2 更贴近，而 #3 是 #1 的特化，所以不会选取 #3，这种情况下 #3 是无效的。</p>
 
-应去除对函数模板的特化，改为普通重载函数：
-<div class="code">int foo(int*) {   //<span class="comment"> #3, compliant, safe and brief</span>
+<p>应去除对函数模板的特化，改为普通重载函数：</p>
+<code>int foo(int*) {   //<i> #3, compliant, safe and brief</i>
     return 2;
-}</div>
-这样例中 main 函数会输出 2。
+}</code>
+<p>这样例中 main 函数会输出 2。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines T.144
-MISRA C++ 2008 14-8-1
-
-</p>
+<div class="ref-items">C++ Core Guidelines T.144
+MISRA C++ 2008 14-8-1</div>
 </article>
 </html>

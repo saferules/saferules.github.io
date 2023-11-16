@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：将类型定义和对象声明写在一个语句中可读性较差，应分开书写。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应将类型定义和对象声明写在一个语句中 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应将类型定义和对象声明写在一个语句中</h1>
@@ -19,31 +20,29 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-将类型定义和对象声明写在一个语句中可读性较差，应分开书写。
+<main>
+<p>将类型定义和对象声明写在一个语句中可读性较差，应分开书写。</p>
 
-示例：
-<div class="code">struct T {
+<p>示例：</p>
+<code>struct T {
     ....
-} obj, *ptr, fun();   //<span class="comment"> Non-compliant</span>
-</div>
-应改为：
-<div class="code">struct T {
+} obj, *ptr, fun();   //<i> Non-compliant</i>
+</code>
+<p>应改为：</p>
+<code>struct T {
     ....
 };
 
-T obj;   //<span class="comment"> Compliant</span>
-T* ptr;   //<span class="comment"> Compliant</span>
-T fun();   //<span class="comment"> Compliant</span></div>
+T obj;   //<i> Compliant</i>
+T* ptr;   //<i> Compliant</i>
+T fun();   //<i> Compliant</i></code>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.7
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.7</div>
 </article>
 </html>

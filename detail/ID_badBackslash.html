@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：反斜杠可用于标识转义字符，也可用于实现“伪换行”，即代码换行显示但在语法上并没有换行，一般用于宏定义，除此之外不应再使用反斜杠，否则没有实际意义，也会造成混乱。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>除转义字符、宏定义之外不应使用反斜杠 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>除转义字符、宏定义之外不应使用反斜杠</h1>
@@ -19,48 +20,44 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-反斜杠可用于标识转义字符，也可用于实现“伪换行”，即代码换行显示但在语法上并没有换行，一般用于宏定义，除此之外不应再使用反斜杠，否则没有实际意义，也会造成混乱。
+<main>
+<p>反斜杠可用于标识转义字符，也可用于实现“伪换行”，即代码换行显示但在语法上并没有换行，一般用于宏定义，除此之外不应再使用反斜杠，否则没有实际意义，也会造成混乱。</p>
 
-示例：
-<div class="code">#define M(x, y) if(x) {\    //<span class="comment"> Compliant</span>
-    foo(y);\                //<span class="comment"> Compliant</span>
+<p>示例：</p>
+<code>#define M(x, y) if(x) {\    //<i> Compliant</i>
+    foo(y);\                //<i> Compliant</i>
 }
 
 void foo() {
-    if (condition1 \        //<span class="comment"> Non-compliant, meaningless</span>
+    if (condition1 \        //<i> Non-compliant, meaningless</i>
      || condition2) {
     }
 }
 
-int a\                      //<span class="comment"> Non-compliant, odd usage</span>
+int a\                      //<i> Non-compliant, odd usage</i>
 b\
 c = 123;
 
 void bar() {
-    // comment  \           //<span class="comment"> Non-compliant, The next line is also commented out</span>
+    // comment  \           //<i> Non-compliant, The next line is also commented out</i>
     do_something();
-}</div>
-如果“universal character name”被反斜杠截断会导致标准未定义的行为，如：
-<div class="code">const char* s = &quot;\u4e\      // Non-compliant, undefined behavior
-2d&quot;;</div>
-应去掉反斜杠：
-<div class="code">const char* s = &quot;\u4e2d&quot;;   //<span class="comment"> Compliant</span></div>
+}</code>
+<p>如果“universal character name”被反斜杠截断会导致标准未定义的行为，如：</p>
+<code>const char* s = &quot;\u4e\      // Non-compliant, undefined behavior
+2d&quot;;</code>
+<p>应去掉反斜杠：</p>
+<code>const char* s = &quot;\u4e2d&quot;;   //<i> Compliant</i></code>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2003 2.1(1)-undefined
-ISO/IEC 14882:2011 2.2(1)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2003 2.1(1)-undefined
+ISO/IEC 14882:2011 2.2(1)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2012 3.2
-
-</p>
+<div class="ref-items">MISRA C 2012 3.2</div>
 </article>
 </html>

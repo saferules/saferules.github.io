@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：联合体各成员共享存储地址，易引发意料之外的错误。如果一定要使用联合体，需对其进行一定的封装，避免对成员的错误访问。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用在类之外定义的联合体 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用在类之外定义的联合体</h1>
@@ -19,51 +20,49 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-联合体各成员共享存储地址，易引发意料之外的错误。如果一定要使用联合体，需对其进行一定的封装，避免对成员的错误访问。
+<main>
+<p>联合体各成员共享存储地址，易引发意料之外的错误。如果一定要使用联合体，需对其进行一定的封装，避免对成员的错误访问。</p>
 
-不应出现：
- ● 在命名空间作用域内定义的联合体
- ● 在类中定义的具有 public 访问权限的联合体
+<p>不应出现：</p>
+<ul>
+<li>在命名空间作用域内定义的联合体</li>
+<li>在类中定义的具有 public 访问权限的联合体</li>
 
-示例：
-<div class="code">union U {      //<span class="comment"> Non-compliant, global union</span>
+</ul>
+<p>示例：</p>
+<code>union U {      //<i> Non-compliant, global union</i>
     ....
 };
 
 class A {
 public:
-    union {    //<span class="comment"> Non-compliant, public union</span>
+    union {    //<i> Non-compliant, public union</i>
         ....
     };
 };
 
 class B {
 public:
-    ....       //<span class="comment"> Interfaces about the union</span>
+    ....       //<i> Interfaces about the union</i>
 private:
-    union {    //<span class="comment"> Compliant, the union is under control</span>
+    union {    //<i> Compliant, the union is under control</i>
         ....
     };
-};</div>
-类的 public 数据成员本来就违反了封装原则，如果这种数据成员又处于联合体中，会进一步增加风险。
+};</code>
+<p>类的 public 数据成员本来就违反了封装原则，如果这种数据成员又处于联合体中，会进一步增加风险。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_forbidUnion.html" target="_blank" class="related-link">ID_forbidUnion</a>
-
-</p>
+<div class="ref-items"><a href="./ID_forbidUnion.html" class="related-link">ID_forbidUnion</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.181
+<div class="ref-items">C++ Core Guidelines C.181
 MISRA C 2004 18.4
 MISRA C 2012 19.2
-MISRA C++ 2008 9-5-1
-
-</p>
+MISRA C++ 2008 9-5-1</div>
 </article>
 </html>

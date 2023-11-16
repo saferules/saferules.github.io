@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：不处理共享数据也不会影响程序状态的函数，以及不会被信号中断的函数称为“异步信号安全”函数，处理信号时只应使用这种函数。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>处理信号时避免使用非异步信号安全函数 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>处理信号时避免使用非异步信号安全函数</h1>
@@ -19,42 +20,36 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-不处理共享数据也不会影响程序状态的函数，以及不会被信号中断的函数称为“<a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html" target="_blank" class="dashed-link">异步信号安全</a>”函数，处理信号时只应使用这种函数。
+<main>
+<p>不处理共享数据也不会影响程序状态的函数，以及不会被信号中断的函数称为“<a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html" target="_blank" class="dashed-link">异步信号安全</a>”函数，处理信号时只应使用这种函数。</p>
 
-示例：
-<div class="code">#include &lt;signal.h&gt;
+<p>示例：</p>
+<code>#include &lt;signal.h&gt;
 
 void handler(int signum) {
-    printf(&quot;....&quot;);          //<span class="comment"> Non-compliant</span>
+    printf(&quot;....&quot;);          //<i> Non-compliant</i>
 }
 
 int main() {
     signal(SIGINT, handler);
     printf(&quot;....&quot;);
-}</div>
-printf 不是异步信号安全函数，例中两个 printf 的输出结果可能会交织在一起，甚至会产生运行时错误。
+}</code>
+<p>printf 不是异步信号安全函数，例中两个 printf 的输出结果可能会交织在一起，甚至会产生运行时错误。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_sig_dataRaces.html" target="_blank" class="related-link">ID_sig_dataRaces</a>
-<a href="./ID_dataRaces.html" target="_blank" class="related-link">ID_dataRaces</a>
-
-</p>
+<div class="ref-items"><a href="./ID_sig_dataRaces.html" class="related-link">ID_sig_dataRaces</a>
+<a href="./ID_dataRaces.html" class="related-link">ID_dataRaces</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 7.14.1.1(5)-undefined
-ISO/IEC 9899:2011 7.14.1.1(5)-undefined
-
-</p>
+<div class="ref-items">ISO/IEC 9899:1999 7.14.1.1(5)-undefined
+ISO/IEC 9899:2011 7.14.1.1(5)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">SEI CERT SIG30-C
-
-</p>
+<div class="ref-items">SEI CERT SIG30-C</div>
 </article>
 </html>

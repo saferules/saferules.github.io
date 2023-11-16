@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：与接口相关的数据类型应保持精确，不应将参数类型或返回类型设为 void*。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>接口的参数类型和返回类型不应为 void* - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>接口的参数类型和返回类型不应为 void*</h1>
@@ -19,48 +20,44 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-与接口相关的数据类型应保持精确，不应将参数类型或返回类型设为 void*。
+<main>
+<p>与接口相关的数据类型应保持精确，不应将参数类型或返回类型设为 void*。</p>
 
-在 C++ 代码中，如果参数或返回值需要面对多种不同类型的数据，应合理使用重载或模板机制。
+<p>在 C++ 代码中，如果参数或返回值需要面对多种不同类型的数据，应合理使用重载或模板机制。</p>
 
-示例：
-<div class="code">class A {
+<p>示例：</p>
+<code>class A {
 public:
-    void* foo();      //<span class="comment"> Non-compliant</span>
-    void bar(void*);  //<span class="comment"> Non-compliant</span>
-};</div>
-例中 foo 和 bar 函数的返回值以及参数是不符合要求的。
+    void* foo();      //<i> Non-compliant</i>
+    void bar(void*);  //<i> Non-compliant</i>
+};</code>
+<p>例中 foo 和 bar 函数的返回值以及参数是不符合要求的。</p>
 
-C 语言中存在大量的库函数不符合本规则要求，在 C++ 代码中应避免使用，如：
-<div class="code">int buf[123];
-memset(buf, 0, 123);  //<span class="comment"> Logic error, should be ‘123 * sizeof(int)’</span></div>
-例中 memset 函数的第一个形式参数就是 void* 型，只能通过更底层的二进制方式访问对象序列，是一种对类型设计的破坏，应改用 STL 标准库提供的方法：
-<div class="code">int buf[123];
-std::fill_n(buf, 123, 0);  //<span class="comment"> Safe and brief</span></div>
-改用类型明确的方法可以使很多问题在编译期得到控制。
+<p>C 语言中存在大量的库函数不符合本规则要求，在 C++ 代码中应避免使用，如：</p>
+<code>int buf[123];
+memset(buf, 0, 123);  //<i> Logic error, should be ‘123 * sizeof(int)’</i></code>
+<p>例中 memset 函数的第一个形式参数就是 void* 型，只能通过更底层的二进制方式访问对象序列，是一种对类型设计的破坏，应改用 STL 标准库提供的方法：</p>
+<code>int buf[123];
+std::fill_n(buf, 123, 0);  //<i> Safe and brief</i></code>
+<p>改用类型明确的方法可以使很多问题在编译期得到控制。</p>
 
-例外：
-<div class="code">struct T {
-    void* operator new(size_t);   //<span class="comment"> Compliant</span>
-    void operator delete(void*);  //<span class="comment"> Compliant</span>
-};</div>
-C++ 语言规定 new 运算符的返回类型为 void*，delete 运算符的参数类型为 void*，这些情况可不受本规则约束。
+<p>例外：</p>
+<code>struct T {
+    void* operator new(size_t);   //<i> Compliant</i>
+    void operator delete(void*);  //<i> Compliant</i>
+};</code>
+<p>C++ 语言规定 new 运算符的返回类型为 void*，delete 运算符的参数类型为 void*，这些情况可不受本规则约束。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_voidCast.html" target="_blank" class="related-link">ID_voidCast</a>
-<a href="./ID_forbidMemberVoidPtr.html" target="_blank" class="related-link">ID_forbidMemberVoidPtr</a>
-
-</p>
+<div class="ref-items"><a href="./ID_voidCast.html" class="related-link">ID_voidCast</a>
+<a href="./ID_forbidMemberVoidPtr.html" class="related-link">ID_forbidMemberVoidPtr</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines I.4
-
-</p>
+<div class="ref-items">C++ Core Guidelines I.4</div>
 </article>
 </html>

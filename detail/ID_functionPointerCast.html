@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：函数指针和不兼容的类型转换会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免转换函数指针 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免转换函数指针</h1>
@@ -19,46 +20,42 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-函数指针和不兼容的类型转换会导致标准未定义的行为。
+<main>
+<p>函数指针和不兼容的类型转换会导致标准未定义的行为。</p>
 
-示例：
-<div class="code">void foo();
+<p>示例：</p>
+<code>void foo();
 typedef void (*fnp_t)(int);
 
-void* p0 = (void*)&amp;foo;    //<span class="comment"> Non-compliant</span>
-fnp_t p1 = (fnp_t)&amp;foo;    //<span class="comment"> Non-compliant</span>
+void* p0 = (void*)&amp;foo;    //<i> Non-compliant</i>
+fnp_t p1 = (fnp_t)&amp;foo;    //<i> Non-compliant</i>
 
-p1(123);                   //<span class="comment"> Undefined behavior</span>
-</div>
-例外：
-<div class="code">fnp_t p = NULL;            //<span class="comment"> Compliant</span>
+p1(123);                   //<i> Undefined behavior</i>
+</code>
+<p>例外：</p>
+<code>fnp_t p = NULL;            //<i> Compliant</i>
 
-(void)p;                   //<span class="comment"> Let it go</span>
-p = (fnp_t)dlsym(h, &quot;f&quot;);  //<span class="comment"> Let it go</span></div>
-对函数指针进行 void 转换，或 dlsym、GetProcAddress 等动态导入函数的系统接口可不受本规则约束。
+(void)p;                   //<i> Let it go</i>
+p = (fnp_t)dlsym(h, &quot;f&quot;);  //<i> Let it go</i></code>
+<p>对函数指针进行 void 转换，或 dlsym、GetProcAddress 等动态导入函数的系统接口可不受本规则约束。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.3.2.3(6 7 8)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.3.2.3(6 7 8)-undefined
 ISO/IEC 9899:1999 6.5.2.2(9)-undefined
 ISO/IEC 9899:2011 6.3.2.3(6 7 8)-undefined
 ISO/IEC 9899:2011 6.5.2.2(9)-undefined
 ISO/IEC 14882:2003 5.2.10(6)-undefined
 ISO/IEC 14882:2011 5.2.10(6)-undefined
-ISO/IEC 14882:2011 5.2.10(8)-implementation
-
-</p>
+ISO/IEC 14882:2011 5.2.10(8)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 11.1
+<div class="ref-items">MISRA C 2004 11.1
 MISRA C 2012 11.1
-MISRA C++ 2008 5-2-6
-
-</p>
+MISRA C++ 2008 5-2-6</div>
 </article>
 </html>

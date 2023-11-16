@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：auto 关键字隐藏了类型名称，在使用时需注意不应降低可读性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>合理使用 auto 关键字 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>合理使用 auto 关键字</h1>
@@ -19,13 +20,13 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-auto 关键字隐藏了类型名称，在使用时需注意不应降低可读性。
+<main>
+<p>auto 关键字隐藏了类型名称，在使用时需注意不应降低可读性。</p>
 
-非局部对象不宜用 auto 声明，如接口的返回类型、参数、全局对象等。如果局部对象的类型对程序的行为有显著影响，也不宜用 auto 声明。
+<p>非局部对象不宜用 auto 声明，如接口的返回类型、参数、全局对象等。如果局部对象的类型对程序的行为有显著影响，也不宜用 auto 声明。</p>
 
-示例：
-<div class="code">auto foo() {
+<p>示例：</p>
+<code>auto foo() {
     ....
 }
 
@@ -35,57 +36,53 @@ auto bar() {
     return x;
 }
 
-auto obj = bar();  //<span class="comment"> What the hell is ‘obj’??</span>
-</div>
-如果想确定 obj 对象的类型，必须通读所有与之相关的代码，可读性很差。
+auto obj = bar();  //<i> What the hell is ‘obj’??</i>
+</code>
+<p>如果想确定 obj 对象的类型，必须通读所有与之相关的代码，可读性很差。</p>
 
-将代码中所有可以替换成 auto 的标识符全部替换成 auto，其结果是不可想象的，与 Python 等语言不同，C++ 语言存在重载、模板等多种严格依赖于类型的特性，如果类型名称不明确，必然会造成阅读和维护等方面的障碍。
+<p>将代码中所有可以替换成 auto 的标识符全部替换成 auto，其结果是不可想象的，与 Python 等语言不同，C++ 语言存在重载、模板等多种严格依赖于类型的特性，如果类型名称不明确，必然会造成阅读和维护等方面的障碍。</p>
 
-下面给出 auto 关键字的合理用法：
-<div class="code">Type* a = static_cast&lt;Type*&gt;(ptr);               //<span class="comment"> Repeated type name</span>
-unique_ptr&lt;Type[]&gt; b = make_unique&lt;Type[]&gt;(10);  //<span class="comment"> Repeated type name</span>
-</div>
-重复的类型名称使代码变得繁琐，这种情况使用 auto 是更好的方法：
-<div class="code">auto* a = static_cast&lt;Type*&gt;(ptr);  //<span class="comment"> OK</span>
-auto b = make_unique&lt;Type[]&gt;(10);   //<span class="comment"> OK</span>
-</div>
-又如：
-<div class="code">vector&lt;Type&gt; v{ .... };
-vector&lt;Type&gt;::iterator i = v.begin();  //<span class="comment"> Verbose</span>
-</div>
-begin 函数返回迭代器是一种常识，且迭代器类型名称往往较长，这种情况应使用 auto：
-<div class="code">auto i = v.begin();  //<span class="comment"> OK</span>
-</div>
-又如：
-<div class="code">struct SomeClass {
+<p>下面给出 auto 关键字的合理用法：</p>
+<code>Type* a = static_cast&lt;Type*&gt;(ptr);               //<i> Repeated type name</i>
+unique_ptr&lt;Type[]&gt; b = make_unique&lt;Type[]&gt;(10);  //<i> Repeated type name</i>
+</code>
+<p>重复的类型名称使代码变得繁琐，这种情况使用 auto 是更好的方法：</p>
+<code>auto* a = static_cast&lt;Type*&gt;(ptr);  //<i> OK</i>
+auto b = make_unique&lt;Type[]&gt;(10);   //<i> OK</i>
+</code>
+<p>又如：</p>
+<code>vector&lt;Type&gt; v{ .... };
+vector&lt;Type&gt;::iterator i = v.begin();  //<i> Verbose</i>
+</code>
+<p>begin 函数返回迭代器是一种常识，且迭代器类型名称往往较长，这种情况应使用 auto：</p>
+<code>auto i = v.begin();  //<i> OK</i>
+</code>
+<p>又如：</p>
+<code>struct SomeClass {
     struct Sub {
         ....
     };
     Sub foo();
 };
 
-SomeClass::Sub SomeClass::foo() {  //<span class="comment"> Repeated ‘SomeClass’</span>
+SomeClass::Sub SomeClass::foo() {  //<i> Repeated ‘SomeClass’</i>
     ....
-}</div>
-重复的类作用域声明十分繁琐，可用 auto 关键字配合后置返回类型改善：
-<div class="code">auto SomeClass::foo() -&gt; Sub {  //<span class="comment"> OK</span>
+}</code>
+<p>重复的类作用域声明十分繁琐，可用 auto 关键字配合后置返回类型改善：</p>
+<code>auto SomeClass::foo() -&gt; Sub {  //<i> OK</i>
     ....
-}</div>
-总之，使用 auto 关键字的目的应是提高可读性，而不是单纯地简化代码。
+}</code>
+<p>总之，使用 auto 关键字的目的应是提高可读性，而不是单纯地简化代码。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_roughAuto.html" target="_blank" class="related-link">ID_roughAuto</a>
-
-</p>
+<div class="ref-items"><a href="./ID_roughAuto.html" class="related-link">ID_roughAuto</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines ES.11
-
-</p>
+<div class="ref-items">C++ Core Guidelines ES.11</div>
 </article>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：为了避免意料之外的类型转换，可接受一个参数的构造函数应该用 explicit 关键字限定。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>可接受一个参数的构造函数需用 explicit 关键字限定 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>可接受一个参数的构造函数需用 explicit 关键字限定</h1>
@@ -19,54 +20,50 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-为了避免意料之外的类型转换，可接受一个参数的构造函数应该用 explicit 关键字限定。
+<main>
+<p>为了避免意料之外的类型转换，可接受一个参数的构造函数应该用 explicit 关键字限定。</p>
 
-示例：
-<div class="code">class String {
+<p>示例：</p>
+<code>class String {
 public:
-    String(int capacity);   //<span class="comment"> Non-compliant, missing ‘explicit’</span>
+    String(int capacity);   //<i> Non-compliant, missing ‘explicit’</i>
     ....
 };
 
 void foo(const String&amp;);
 
 int bar() {
-    foo(100);   //<span class="comment"> Can be compiled, but very odd</span>
-}</div>
-由于 String 类的构造函数接受一个 int 型参数，foo(100) 相当于将 100 隐式转为 String 类的对象，这种隐式转换是怪异的，也往往意味着意料之外的错误。
+    foo(100);   //<i> Can be compiled, but very odd</i>
+}</code>
+<p>由于 String 类的构造函数接受一个 int 型参数，foo(100) 相当于将 100 隐式转为 String 类的对象，这种隐式转换是怪异的，也往往意味着意料之外的错误。</p>
 
-应改为：
-<div class="code">class String {
+<p>应改为：</p>
+<code>class String {
 public:
-    explicit String(int capacity);   //<span class="comment"> Compliant</span>
+    explicit String(int capacity);   //<i> Compliant</i>
     ....
-};</div>
-这样 foo(100) 这种写法便不会通过编译。
+};</code>
+<p>这样 foo(100) 这种写法便不会通过编译。</p>
 
-例外：
-<div class="code">class String {
+<p>例外：</p>
+<code>class String {
 public:
-    String(const String&amp;);   //<span class="comment"> Explicit or not depends on your design intent</span>
-    String(String&amp;&amp;);        //<span class="comment"> ditto</span>
+    String(const String&amp;);   //<i> Explicit or not depends on your design intent</i>
+    String(String&amp;&amp;);        //<i> ditto</i>
     ....
-};</div>
-拷贝、移动构造函数可不受本规则约束，如果将拷贝、移动构造函数声明为 explicit 则无法再按值传递参数或按值返回对象。在类的接口设计中，应尽量减少隐式转换以避免不易察觉的问题。
+};</code>
+<p>拷贝、移动构造函数可不受本规则约束，如果将拷贝、移动构造函数声明为 explicit 则无法再按值传递参数或按值返回对象。在类的接口设计中，应尽量减少隐式转换以避免不易察觉的问题。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_missingExplicitConvertor.html" target="_blank" class="related-link">ID_missingExplicitConvertor</a>
-
-</p>
+<div class="ref-items"><a href="./ID_missingExplicitConvertor.html" class="related-link">ID_missingExplicitConvertor</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.46
-MISRA C++ 2008 12-1-3
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.46
+MISRA C++ 2008 12-1-3</div>
 </article>
 </html>

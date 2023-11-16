@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：字节等二进制概念不应受对齐方式或符号位的干扰，字节的类型应为 std::byte 或 unsigned char。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>字节的类型应为 std::byte 或 unsigned char - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>字节的类型应为 std::byte 或 unsigned char</h1>
@@ -19,45 +20,41 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-字节等二进制概念不应受对齐方式或符号位的干扰，字节的类型应为 std::byte 或 unsigned char。
+<main>
+<p>字节等二进制概念不应受对齐方式或符号位的干扰，字节的类型应为 std::byte 或 unsigned char。</p>
 
-std::byte  是 C++17 的标准字节类型，对字节相关的运算和操作提供了更安全的限定。在 C 代码或不便于遵循新标准的 C++ 代码中，应将字节类型声明为 unsigned char。
+<p>std::byte  是 C++17 的标准字节类型，对字节相关的运算和操作提供了更安全的限定。在 C 代码或不便于遵循新标准的 C++ 代码中，应将字节类型声明为 unsigned char。</p>
 
-示例：
-<div class="code">typedef char byte;       //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>typedef char byte;       //<i> Non-compliant</i>
 byte buf[100];
 FILE* fp = fopen(&quot;foo&quot;, &quot;rb&quot;);
 fread(buf, 1, 100, fp);
-if (buf[0] == 0xff) {    //<span class="comment"> May be always false</span>
+if (buf[0] == 0xff) {    //<i> May be always false</i>
     ....
 }
-if (buf[1] &lt;&lt; 1) {       //<span class="comment"> May cause undefined behavior</span>
+if (buf[1] &lt;&lt; 1) {       //<i> May cause undefined behavior</i>
     ....
-}</div>
-char 类型的符号由实现定义，有符号的 char 变量在数值计算、位运算等方面很容易产生意料之外的结果。
+}</code>
+<p>char 类型的符号由实现定义，有符号的 char 变量在数值计算、位运算等方面很容易产生意料之外的结果。</p>
 
-应改为：
-<div class="code">typedef unsigned char byte;   //<span class="comment"> Compliant</span></div>
-这样做也可有效区分二进制数据与字符串，提高可读性。
+<p>应改为：</p>
+<code>typedef unsigned char byte;   //<i> Compliant</i></code>
+<p>这样做也可有效区分二进制数据与字符串，提高可读性。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_plainNumericChar.html" target="_blank" class="related-link">ID_plainNumericChar</a>
-<a href="./ID_bitwiseOperOnSigned.html" target="_blank" class="related-link">ID_bitwiseOperOnSigned</a>
-
-</p>
+<div class="ref-items"><a href="./ID_plainNumericChar.html" class="related-link">ID_plainNumericChar</a>
+<a href="./ID_bitwiseOperOnSigned.html" class="related-link">ID_bitwiseOperOnSigned</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.2.5(3 15)-implementation
+<div class="ref-items">ISO/IEC 9899:1999 6.2.5(3 15)-implementation
 ISO/IEC 9899:2011 6.2.5(3 15)-implementation
 ISO/IEC 14882:2003 3.9.1(1)-implementation
-ISO/IEC 14882:2011 3.9.1(1)-implementation
-
-</p>
+ISO/IEC 14882:2011 3.9.1(1)-implementation</div>
 
 
 </article>

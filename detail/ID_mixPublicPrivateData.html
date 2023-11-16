@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：类不应既有 public 数据成员又有 private 数据成员。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>类不应既有 public 数据成员又有 private 数据成员 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>类不应既有 public 数据成员又有 private 数据成员</h1>
@@ -19,50 +20,48 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-类的设计应遵循：
- ● 成员之间没有依赖关系，且都可以随意被读写时，则都应声明为 public
- ● 成员之间有依赖关系，或成员的状态会影响到整个对象的状态时，则都应声明为 private
+<main>
+<p>类的设计应遵循：</p>
+<ul>
+<li>成员之间没有依赖关系，且都可以随意被读写时，则都应声明为 public</li>
+<li>成员之间有依赖关系，或成员的状态会影响到整个对象的状态时，则都应声明为 private</li>
 
-否则应对类进行改造或拆分。
+</ul>
+<p>否则应对类进行改造或拆分。</p>
 
-面向对象的封装理念更倾向于将所有数据成员都设为 private，由成员函数按指定逻辑控制每个成员的读写方法，以供外部访问，对代码的职责进行有效地划分，从而提高可维护性并降低风险，关于封装的进一步讨论可参见 <a href="./ID_nonPrivateData.html" target="_blank" class="dashed-link">ID_nonPrivateData</a>。
+<p>面向对象的封装理念更倾向于将所有数据成员都设为 private，由成员函数按指定逻辑控制每个成员的读写方法，以供外部访问，对代码的职责进行有效地划分，从而提高可维护性并降低风险，关于封装的进一步讨论可参见 <a href="./ID_nonPrivateData.html" class="dashed-link">ID_nonPrivateData</a>。</p>
 
-常量数据成员不可被改变，所以可不受本规则约束。
+<p>常量数据成员不可被改变，所以可不受本规则约束。</p>
 
-示例：
-<div class="code">class A {  //<span class="comment"> Non-compliant</span>
+<p>示例：</p>
+<code>class A {  //<i> Non-compliant</i>
 public:
     int n;
     ....
 private:
     int d;
 };
-</div>
-应改为：
-<div class="code">class A {  //<span class="comment"> Compliant</span>
+</code>
+<p>应改为：</p>
+<code>class A {  //<i> Compliant</i>
 public:
     int method_for_n();
     ....
 private:
     int n, d;
-};</div>
+};</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_nonPrivateData.html" target="_blank" class="related-link">ID_nonPrivateData</a>
-<a href="./ID_protectedData.html" target="_blank" class="related-link">ID_protectedData</a>
-
-</p>
+<div class="ref-items"><a href="./ID_nonPrivateData.html" class="related-link">ID_nonPrivateData</a>
+<a href="./ID_protectedData.html" class="related-link">ID_protectedData</a></div>
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines C.9
-C++ Core Guidelines C.134
-
-</p>
+<div class="ref-items">C++ Core Guidelines C.9
+C++ Core Guidelines C.134</div>
 </article>
 </html>

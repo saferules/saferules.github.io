@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：连接不同前缀的字符串常量会导致标准未定义或由实现定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>不应连接不同前缀的字符串常量 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>不应连接不同前缀的字符串常量</h1>
@@ -19,50 +20,45 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-连接不同前缀的字符串常量会导致标准未定义或由实现定义的行为。
+<main>
+<p>连接不同前缀的字符串常量会导致标准未定义或由实现定义的行为。</p>
 
-示例：
-<div class="code">typedef wchar_t S[];
+<p>示例：</p>
+<code>typedef wchar_t S[];
 
-S a = L&quot;123&quot; U&quot;456&quot;;   //<span class="comment"> Non-compliant</span>
-S b = L&quot;123&quot; u&quot;456&quot;;   //<span class="comment"> Non-compliant</span>
-</div>
-C++03 规定宽字符串与窄字符串连接会导致未定义的行为；C++11 规定如果一个字符串有前缀另一个没有，结果以有前缀的为准，其他情况由实现定义或无法通过编译，如：
-<div class="code">S x = L&quot;123&quot; &quot;456&quot;;    //<span class="comment"> Undefined in C++03, a wide string in C++11</span>
-S y = L&quot;123&quot; U&quot;456&quot;;   //<span class="comment"> Implementation defined in C++11</span>
-S z = L&quot;123&quot; u8&quot;456&quot;;  //<span class="comment"> Ill-formed in C++11</span>
-</div>
-C99 规定宽字符串与窄字符串连接的结果为宽字符串，C11 规定不同前缀的宽字符串连接结果由实现定义，如：
-<div class="code">S u = L&quot;123&quot; &quot;456&quot;;    //<span class="comment"> A wide string in C99</span>
-S v = L&quot;123&quot; U&quot;456&quot;;   //<span class="comment"> Implementation defined in C11</span>
-</div>
-为了提高可读性和可移植性，字符串前缀应保持一致：
-<div class="code">S r = &quot;123&quot; L&quot;456&quot;;    //<span class="comment"> Bad</span>
-S s = L&quot;123&quot; L&quot;456&quot;;   //<span class="comment"> Good</span>
-S t = L&quot;123&quot; &quot;456&quot;;    //<span class="comment"> Let it go?</span></div>
-对于有前缀和无前缀的字符串连接，在新的语言标准中均已有定义，审计工具不妨通过配置决定是否放过这种连接。
+S a = L&quot;123&quot; U&quot;456&quot;;   //<i> Non-compliant</i>
+S b = L&quot;123&quot; u&quot;456&quot;;   //<i> Non-compliant</i>
+</code>
+<p>C++03 规定宽字符串与窄字符串连接会导致未定义的行为；C++11 规定如果一个字符串有前缀另一个没有，结果以有前缀的为准，其他情况由实现定义或无法通过编译，如：</p>
+<code>S x = L&quot;123&quot; &quot;456&quot;;    //<i> Undefined in C++03, a wide string in C++11</i>
+S y = L&quot;123&quot; U&quot;456&quot;;   //<i> Implementation defined in C++11</i>
+S z = L&quot;123&quot; u8&quot;456&quot;;  //<i> Ill-formed in C++11</i>
+</code>
+<p>C99 规定宽字符串与窄字符串连接的结果为宽字符串，C11 规定不同前缀的宽字符串连接结果由实现定义，如：</p>
+<code>S u = L&quot;123&quot; &quot;456&quot;;    //<i> A wide string in C99</i>
+S v = L&quot;123&quot; U&quot;456&quot;;   //<i> Implementation defined in C11</i>
+</code>
+<p>为了提高可读性和可移植性，字符串前缀应保持一致：</p>
+<code>S r = &quot;123&quot; L&quot;456&quot;;    //<i> Bad</i>
+S s = L&quot;123&quot; L&quot;456&quot;;   //<i> Good</i>
+S t = L&quot;123&quot; &quot;456&quot;;    //<i> Let it go?</i></code>
+<p>对于有前缀和无前缀的字符串连接，在新的语言标准中均已有定义，审计工具不妨通过配置决定是否放过这种连接。</p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">allowPrefixedConcatUnprefixed: 是否允许有前缀和无前缀的字符串连接
-</p>
+<div class="ref-items">allowPrefixedConcatUnprefixed: 是否允许有前缀和无前缀的字符串连接</div>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 6.4.5(4)
+<div class="ref-items">ISO/IEC 9899:1999 6.4.5(4)
 ISO/IEC 9899:2011 6.4.5(5)-implementation
 ISO/IEC 14882:2003 2.13.4(3)-undefined
-ISO/IEC 14882:2011 2.14.5(13)-implementation
-
-</p>
+ISO/IEC 14882:2011 2.14.5(13)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C++ 2008 2-13-5
-
-</p>
+<div class="ref-items">MISRA C++ 2008 2-13-5</div>
 </article>
 </html>

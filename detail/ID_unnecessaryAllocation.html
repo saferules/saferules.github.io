@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对单独的基本变量或只包含少量基本变量的对象不应使用动态内存分配。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>避免不必要的内存分配 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>避免不必要的内存分配</h1>
@@ -19,35 +20,33 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对单独的基本变量或只包含少量基本变量的对象不应使用动态内存分配。
+<main>
+<p>对单独的基本变量或只包含少量基本变量的对象不应使用动态内存分配。</p>
 
-示例：
-<div class="code">bool* pb = new bool;   //<span class="comment"> Non-compliant</span>
-char* pc = new char;   //<span class="comment"> Non-compliant</span></div>
-内存分配的开销远大于变量的直接使用，而且还涉及到回收问题，是得不偿失的。
+<p>示例：</p>
+<code>bool* pb = new bool;   //<i> Non-compliant</i>
+char* pc = new char;   //<i> Non-compliant</i></code>
+<p>内存分配的开销远大于变量的直接使用，而且还涉及到回收问题，是得不偿失的。</p>
 
-应改为：
-<div class="code">bool b = false;   //<span class="comment"> Compliant</span>
-char c = 0;       //<span class="comment"> Compliant</span>
-</div>
-用 new 分配数组时方括号被误写成小括号，或使用 unique_ptr 等智能指针时遗漏了数组括号也是常见笔误，如：
-<div class="code">int* pi = new int(32);            //<span class="comment"> Non-compliant</span>
-auto ui = make_unique&lt;int&gt;(32);   //<span class="comment"> Non-compliant</span>
-</div>
-应改为：
-<div class="code">int* pi = new int[32];              //<span class="comment"> Compliant</span>
-auto ui = make_unique&lt;int[]&gt;(32);   //<span class="comment"> Compliant</span>
-</div>
-有时可能需要区分变量是否存在，用空指针表示不存在，并通过资源分配创建变量的方式属于低效实现，不妨改用变量的特殊值表示变量的状态，在 C++ 代码中也可使用 std::optional 实现相关功能。
+<p>应改为：</p>
+<code>bool b = false;   //<i> Compliant</i>
+char c = 0;       //<i> Compliant</i>
+</code>
+<p>用 new 分配数组时方括号被误写成小括号，或使用 unique_ptr 等智能指针时遗漏了数组括号也是常见笔误，如：</p>
+<code>int* pi = new int(32);            //<i> Non-compliant</i>
+auto ui = make_unique&lt;int&gt;(32);   //<i> Non-compliant</i>
+</code>
+<p>应改为：</p>
+<code>int* pi = new int[32];              //<i> Compliant</i>
+auto ui = make_unique&lt;int[]&gt;(32);   //<i> Compliant</i>
+</code>
+<p>有时可能需要区分变量是否存在，用空指针表示不存在，并通过资源分配创建变量的方式属于低效实现，不妨改用变量的特殊值表示变量的状态，在 C++ 代码中也可使用 std::optional 实现相关功能。</p>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_dynamicAllocation.html" target="_blank" class="related-link">ID_dynamicAllocation</a>
-
-</p>
+<div class="ref-items"><a href="./ID_dynamicAllocation.html" class="related-link">ID_dynamicAllocation</a></div>
 
 
 

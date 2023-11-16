@@ -10,7 +10,10 @@ h1 {
 article {
     max-width: 800px;
     margin: 0 auto;
-    padding: 18px 15px 15px 18px;
+    padding-left: 1em;
+    padding-top: 1.2em;
+    padding-right: 1em;
+    padding-bottom: 2.5em;
 }
 .dashed-hr {
     height: 1px;
@@ -26,8 +29,8 @@ article {
 }
 #subtitle {
     width: 100%;
-    height: 25px;
-    line-height: 25px;
+    height: 1.6em;
+    line-height: 1.6em;
     color: #555;
 }
 #subtitle-id {
@@ -76,29 +79,37 @@ article {
     color: #218bff;
     text-decoration: none;
 }
-.main-logo {
-    margin: 0;
-    padding: 0;
-    height: 100px;
-    vertical-align: bottom;
-}
-.main-p {
-    color: #1A1A1A;
+main {
     width: 100%;
-    height: 100%;
-    white-space: pre-wrap;
+    padding-left: 0;
+    padding-top: 1em;
+    padding-right: 0;
+    padding-bottom: 1em;
     overflow-x: hidden;
 }
-.code {
+main li {
+    line-height: 1.8em;
+}
+.ref-items {
+    width: 100%;
+    white-space: pre-wrap;
+    padding-bottom: 2em;
+    line-height: 1.5em;
+    overflow-x: hidden;
+}
+code {
     width: 100%;
     display: block;
-    float: left;
-    padding: 18px 15px 15px 20px;
+    padding: 0;
+    margin-left: 1.38em;
+    margin-top: 1.2em;
+    margin-right: 0;
+    margin-bottom: 1.2em;
     overflow: auto;
     white-space: pre;
     font-family: "Courier New", Courier, ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
-.comment {
+code i {
     font-style: italic;
     font-family: "Times New Roman", Serif;
 }

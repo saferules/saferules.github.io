@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：赋值运算符左右子表达式相同是没有逻辑意义的，往往是笔误或残留代码。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>赋值运算符左右子表达式不应相同 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>赋值运算符左右子表达式不应相同</h1>
@@ -19,36 +20,34 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-赋值运算符左右子表达式相同是没有逻辑意义的，往往是笔误或残留代码。
+<main>
+<p>赋值运算符左右子表达式相同是没有逻辑意义的，往往是笔误或残留代码。</p>
 
-示例：
-<div class="code">a = a;       //<span class="comment"> Non-compliant</span>
-a = b = a;   //<span class="comment"> Non-compliant</span>
-</div>
-也可能是对语言特性不了解所致，如：
-<div class="code">class A {
+<p>示例：</p>
+<code>a = a;       //<i> Non-compliant</i>
+a = b = a;   //<i> Non-compliant</i>
+</code>
+<p>也可能是对语言特性不了解所致，如：</p>
+<code>class A {
     int a;
 
 public:
     A(int a) {
-        a = a;   //<span class="comment"> Non-compliant, ‘a’ is not the member</span>
+        a = a;   //<i> Non-compliant, ‘a’ is not the member</i>
     }
-};</div>
-例中构造函数对成员 a 的赋值是无效的，应改为 this-&gt;a = a;
+};</code>
+<p>例中构造函数对成员 a 的赋值是无效的，应改为 this-&gt;a = a;</p>
 
-有时这种代码被用来消除编译警告，编译器可能会报出没有被用到的参数，将参数赋值给自身可去除警告，但这并不是一种好方法，引入了没有实际意义的代码，改进方法可参见 <a href="./ID_paramNotUsed.html" target="_blank" class="dashed-link">ID_paramNotUsed</a>。
+<p>有时这种代码被用来消除编译警告，编译器可能会报出没有被用到的参数，将参数赋值给自身可去除警告，但这并不是一种好方法，引入了没有实际意义的代码，改进方法可参见 <a href="./ID_paramNotUsed.html" class="dashed-link">ID_paramNotUsed</a>。</p>
 
-有时为了设置调试断点，但又找不到合适的位置，可以增加这种代码作为断点，但这种非正式的代码是不应被保留的。
+<p>有时为了设置调试断点，但又找不到合适的位置，可以增加这种代码作为断点，但这种非正式的代码是不应被保留的。</p>
 
-</div>
+</main>
 
 
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-682
-
-</p>
+<div class="ref-items">CWE-682</div>
 </article>
 </html>

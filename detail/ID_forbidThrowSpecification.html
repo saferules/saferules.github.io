@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：用 throw 关键字声明的“动态异常说明（dynamic exception specification）”已过时，应使用 noexcept 关键字完成异常说明。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>禁用动态异常说明 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>禁用动态异常说明</h1>
@@ -19,40 +20,35 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-用 throw 关键字声明的“<a href="https://en.cppreference.com/w/cpp/language/except_spec" target="_blank" class="dashed-link">动态异常说明（dynamic exception specification）</a>”已过时，应使用 noexcept 关键字完成异常说明。
+<main>
+<p>用 throw 关键字声明的“<a href="https://en.cppreference.com/w/cpp/language/except_spec" target="_blank" class="dashed-link">动态异常说明（dynamic exception specification）</a>”已过时，应使用 noexcept 关键字完成异常说明。</p>
 
-动态异常说明将所有可能抛出的异常详细列出，尤其是牵扯到外部不可控代码时，会大幅增加异常管理成本，而且各编译器相关实现并未统一，现已从 C++17 标准中移出。
+<p>动态异常说明将所有可能抛出的异常详细列出，尤其是牵扯到外部不可控代码时，会大幅增加异常管理成本，而且各编译器相关实现并未统一，现已从 C++17 标准中移出。</p>
 
-示例：
-<div class="code">int foo() throw(Exception);   //<span class="comment"> Non-compliant</span>
-</div>
-应改为：
-<div class="code">int foo() noexcept(false);   //<span class="comment"> Compliant</span>
-</div>
-例外：
-<div class="code">int bar() throw();   //<span class="comment"> Let it go?</span></div>
-throw() 与 noexcept 等价，C++17 保留了 throw()，但不建议继续使用，审计工具不妨通过配置决定是否放过这种方式。 
+<p>示例：</p>
+<code>int foo() throw(Exception);   //<i> Non-compliant</i>
+</code>
+<p>应改为：</p>
+<code>int foo() noexcept(false);   //<i> Compliant</i>
+</code>
+<p>例外：</p>
+<code>int bar() throw();   //<i> Let it go?</i></code>
+<p>throw() 与 noexcept 等价，C++17 保留了 throw()，但不建议继续使用，审计工具不妨通过配置决定是否放过这种方式。 </p>
 
-</div>
+</main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">forbidEmptyThrowSpecification: 是否放过空 throw 异常说明
-</p>
+<div class="ref-items">forbidEmptyThrowSpecification: 是否放过空 throw 异常说明</div>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 14882:2011 D.4-deprecated
-ISO/IEC 14882:2017 D.3-deprecated
-
-</p>
+<div class="ref-items">ISO/IEC 14882:2011 D.4-deprecated
+ISO/IEC 14882:2017 D.3-deprecated</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">C++ Core Guidelines E.12
-C++ Core Guidelines E.30
-
-</p>
+<div class="ref-items">C++ Core Guidelines E.12
+C++ Core Guidelines E.30</div>
 </article>
 </html>

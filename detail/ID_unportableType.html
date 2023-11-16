@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：short、int、long 等类型的取值范围由执行环境的架构决定，可移植性较差。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>用 stdint.h 中的类型代替 short、int、long 等类型 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>用 stdint.h 中的类型代替 short、int、long 等类型</h1>
@@ -19,44 +20,40 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-short、int、long 等类型的取值范围由执行环境的架构决定，可移植性较差。
+<main>
+<p>short、int、long 等类型的取值范围由执行环境的架构决定，可移植性较差。</p>
 
-示例：
-<div class="code">struct T {
-    long int x;    //<span class="comment"> Non-compliant</span>
-    long long y;   //<span class="comment"> Non-compliant</span>
-    short z;       //<span class="comment"> Non-compliant</span>
-};</div>
-例中成员变量在不同的平台会有不同的取值范围，C99 引入 stdint.h 解决了这一问题。
+<p>示例：</p>
+<code>struct T {
+    long int x;    //<i> Non-compliant</i>
+    long long y;   //<i> Non-compliant</i>
+    short z;       //<i> Non-compliant</i>
+};</code>
+<p>例中成员变量在不同的平台会有不同的取值范围，C99 引入 stdint.h 解决了这一问题。</p>
 
-应改为：
-<div class="code">#include &lt;stdint.h&gt;   //<span class="comment"> Or &lt;cstdint&gt; in C++</span>
+<p>应改为：</p>
+<code>#include &lt;stdint.h&gt;   //<i> Or &lt;cstdint&gt; in C++</i>
 
 struct T {
-    int32_t x;   //<span class="comment"> Compliant</span>
-    int64_t y;   //<span class="comment"> Compliant</span>
-    int16_t z;   //<span class="comment"> Compliant</span>
+    int32_t x;   //<i> Compliant</i>
+    int64_t y;   //<i> Compliant</i>
+    int16_t z;   //<i> Compliant</i>
 };
-</div>
-另外，char、wchar_t 等基本类型均有此问题，在有高可移植性要求的代码中应避免直接使用基本类型。
+</code>
+<p>另外，char、wchar_t 等基本类型均有此问题，在有高可移植性要求的代码中应避免直接使用基本类型。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:2011 6.2.5(5)
+<div class="ref-items">ISO/IEC 9899:2011 6.2.5(5)
 ISO/IEC 9899:2011 7.20
-ISO/IEC 14882:2011 3.9.1(2)
-
-</p>
+ISO/IEC 14882:2011 3.9.1(2)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">MISRA C 2004 6.3
-MISRA C 2012 Dir 4.6
-
-</p>
+<div class="ref-items">MISRA C 2004 6.3
+MISRA C 2012 Dir 4.6</div>
 </article>
 </html>

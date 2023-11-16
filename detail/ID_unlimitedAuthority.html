@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：对资源设定合理的访问权限，避免为攻击者提供不应拥有的权限或能力。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>对资源设定合理的访问权限 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>对资源设定合理的访问权限</h1>
@@ -19,59 +20,57 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-对资源设定合理的访问权限，避免为攻击者提供不应拥有的权限或能力。
+<main>
+<p>对资源设定合理的访问权限，避免为攻击者提供不应拥有的权限或能力。</p>
 
-权限的分类包括但不限于：
- ● 文件、数据库等资源的读写权限
- ● 计算、IO 过程的执行权限
- ● 软硬件资源的占用权限
+<p>权限的分类包括但不限于：</p>
+<ul>
+<li>文件、数据库等资源的读写权限</li>
+<li>计算、IO 过程的执行权限</li>
+<li>软硬件资源的占用权限</li>
 
-权限设定是产品设计与实现的重要环节，需落实相关的评审与测试。
+</ul>
+<p>权限设定是产品设计与实现的重要环节，需落实相关的评审与测试。</p>
 
-示例：
-<div class="code">#include &lt;stdio.h&gt;
+<p>示例：</p>
+<code>#include &lt;stdio.h&gt;
 
 int main() {
-    umask(000);                     //<span class="comment"> Non-compliant</span>
-    FILE* fp = fopen(&quot;bar&quot;, &quot;w&quot;);   //<span class="comment"> Old method</span>
+    umask(000);                     //<i> Non-compliant</i>
+    FILE* fp = fopen(&quot;bar&quot;, &quot;w&quot;);   //<i> Old method</i>
     ....
     fclose(fp);
-}</div>
-例中 umask 函数开放了所有用户对文件的读写权限，这是很不安全的，进程之间不应直接通过文件通信，应实现安全的接口和交互机制。
+}</code>
+<p>例中 umask 函数开放了所有用户对文件的读写权限，这是很不安全的，进程之间不应直接通过文件通信，应实现安全的接口和交互机制。</p>
 
-由于历史原因，C 语言的 fopen 和 C++ 语言的 fstream 都不能确保文件只能被当前用户访问，C11 提供了 fopen_s，C++17 提供了 std::filesystem::permissions 以填补这方面的需求。
+<p>由于历史原因，C 语言的 fopen 和 C++ 语言的 fstream 都不能确保文件只能被当前用户访问，C11 提供了 fopen_s，C++17 提供了 std::filesystem::permissions 以填补这方面的需求。</p>
 
-C11 fopen_s 简例：
-<div class="code">#define __STDC_WANT_LIB_EXT1__ 1
+<p>C11 fopen_s 简例：</p>
+<code>#define __STDC_WANT_LIB_EXT1__ 1
 #include &lt;stdio.h&gt;
 
 int main() {
     FILE* fp = NULL;
-    errno_t e = fopen_s(&amp;fp, &quot;bar&quot;, &quot;w&quot;);   //<span class="comment"> Good</span>
+    errno_t e = fopen_s(&amp;fp, &quot;bar&quot;, &quot;w&quot;);   //<i> Good</i>
     ....
     fclose(fp);
-}</div>
-与 fopen 不同，fopen_s 可以不受 umask 等函数的影响，直接将文件的权限设为当前用户私有，其他用户不可访问，降低了文件被窃取或篡改的风险，是一种更安全的方法。
+}</code>
+<p>与 fopen 不同，fopen_s 可以不受 umask 等函数的影响，直接将文件的权限设为当前用户私有，其他用户不可访问，降低了文件被窃取或篡改的风险，是一种更安全的方法。</p>
 
-除此之外，如果需要对资源进行更精细的权限管理，可参见“<a href="https://en.wikipedia.org/wiki/Access-control_list" target="_blank" class="dashed-link">access control list（ACL）</a>”。
+<p>除此之外，如果需要对资源进行更精细的权限管理，可参见“<a href="https://en.wikipedia.org/wiki/Access-control_list" target="_blank" class="dashed-link">access control list（ACL）</a>”。</p>
 
-</div>
+</main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:2011 K.3.5.2.1(7)
-ISO/IEC 14882:2017 30.10.15.26
-
-</p>
+<div class="ref-items">ISO/IEC 9899:2011 K.3.5.2.1(7)
+ISO/IEC 14882:2017 30.10.15.26</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-266
+<div class="ref-items">CWE-266
 CWE-732
-SEI CERT FIO06-C
-
-</p>
+SEI CERT FIO06-C</div>
 </article>
 </html>

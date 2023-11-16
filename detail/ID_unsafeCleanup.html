@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link type="text/css" rel="stylesheet" href="../css/detail.css"/>
-  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png"/>
+  <meta name="description" content="C/C++ 安全编程要点：及时清理不再使用的敏感数据是重要的安全措施，且应保证清理过程不会因为编译器的优化而失效。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
   <title>敏感数据在使用后应被有效清理 - C/C++ 安全规则</title>
 </head>
-<script src="../js/iconfont.js"></script>
 <article>
 <header>
   <h1>敏感数据在使用后应被有效清理</h1>
@@ -19,53 +20,47 @@
   </div>
   <hr class="dashed-hr"/>
 </header>
-<div class="main-p">
-及时清理不再使用的敏感数据是重要的安全措施，且应保证清理过程不会因为编译器的优化而失效。
+<main>
+<p>及时清理不再使用的敏感数据是重要的安全措施，且应保证清理过程不会因为编译器的优化而失效。</p>
 
-程序会反复利用内存，敏感数据可能会残留在未初始化的对象或对象之间的填充数据中，如果被存储到磁盘或传输到网络就会造成敏感信息的泄露，可参见 <a href="./ID_secretLeak.html" target="_blank" class="dashed-link">ID_secretLeak</a> 和 <a href="./ID_ignorePaddingData.html" target="_blank" class="dashed-link">ID_ignorePaddingData</a> 的进一步讨论。
+<p>程序会反复利用内存，敏感数据可能会残留在未初始化的对象或对象之间的填充数据中，如果被存储到磁盘或传输到网络就会造成敏感信息的泄露，可参见 <a href="./ID_secretLeak.html" class="dashed-link">ID_secretLeak</a> 和 <a href="./ID_ignorePaddingData.html" class="dashed-link">ID_ignorePaddingData</a> 的进一步讨论。</p>
 
-示例：
-<div class="code">void foo() {
+<p>示例：</p>
+<code>void foo() {
     char password[8] = {};
     ....
-    memset(password, 0, sizeof(password));  //<span class="comment"> Non-compliant</span>
-}</div>
-示例代码调用 memset 覆盖敏感数据以达到清理目的，然而保存敏感信息的 password 为局部数组且 memset 之后没有再被引用，根据相关标准，编译器可将 memset 过程去掉，使敏感数据没有得到有效清理。C11 提供了 memset_s 函数以避免这种问题，某些平台和库也提供了相关支持，如 SecureZeroMemory、explicit_bzero、OPENSSL_cleanse 等不会被优化掉的函数。
+    memset(password, 0, sizeof(password));  //<i> Non-compliant</i>
+}</code>
+<p>示例代码调用 memset 覆盖敏感数据以达到清理目的，然而保存敏感信息的 password 为局部数组且 memset 之后没有再被引用，根据相关标准，编译器可将 memset 过程去掉，使敏感数据没有得到有效清理。C11 提供了 memset_s 函数以避免这种问题，某些平台和库也提供了相关支持，如 SecureZeroMemory、explicit_bzero、OPENSSL_cleanse 等不会被优化掉的函数。</p>
 
-在 C++ 代码中，可用 volatile 限定相关数据以避免编译器的优化，再用 std::fill_n 等方法清理，如：
-<div class="code">void foo() {
+<p>在 C++ 代码中，可用 volatile 限定相关数据以避免编译器的优化，再用 std::fill_n 等方法清理，如：</p>
+<code>void foo() {
     char password[8] = {};
     ....
     volatile char  v_padding = 0;
     volatile char* v_address = password;
-    std::fill_n(v_address, sizeof(password), v_padding);  //<span class="comment"> Compliant</span>
-}</div>
+    std::fill_n(v_address, sizeof(password), v_padding);  //<i> Compliant</i>
+}</code>
 
-</div>
+</main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<p class="main-p"><a href="./ID_secretLeak.html" target="_blank" class="related-link">ID_secretLeak</a>
-<a href="./ID_ignorePaddingData.html" target="_blank" class="related-link">ID_ignorePaddingData</a>
-
-</p>
+<div class="ref-items"><a href="./ID_secretLeak.html" class="related-link">ID_secretLeak</a>
+<a href="./ID_ignorePaddingData.html" class="related-link">ID_ignorePaddingData</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">ISO/IEC 9899:1999 5.1.2.3(3)
+<div class="ref-items">ISO/IEC 9899:1999 5.1.2.3(3)
 ISO/IEC 9899:2011 5.1.2.3(4)
-ISO/IEC 9899:2011 K.3.7.4.1
-
-</p>
+ISO/IEC 9899:2011 K.3.7.4.1</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<p class="main-p">CWE-14
+<div class="ref-items">CWE-14
 CWE-226
 CWE-244
 CWE-733
-SEI CERT MSC06-C
-
-</p>
+SEI CERT MSC06-C</div>
 </article>
 </html>
