@@ -161,3 +161,15 @@ footer a:hover {
     text-align: right;
     margin-right: 10px;
 }
+#appendix-list {
+    color: #218bff;
+}
+#appendix-list li {
+    line-height: 1.8em;
+}
+#ub-list {
+    color: #218bff;
+}
+#ub-list li {
+    line-height: 1.8em;
+}

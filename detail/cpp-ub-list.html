@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="keywords" content="C++,未定义行为,undefined behavior" />
+  <meta name="description" content="" />
+  <link type="text/css" rel="stylesheet" href="../css/index.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <title>C++ 未定义的行为 - 360 安全规则集合</title>
+</head>
+<article>
+  <div id="article-wrapper">
+    <header>
+      <div id="header-wrapper">
+        <a href="https://github.com/Qihoo360/safe-rules/">
+          <img alt="logo" id="main-logo" src="../img/main_logo.png"/>
+        </a>
+        <div id="titles">
+          <h1 id="main-title">C++未定义的行为 <img alt="version-1.3.2" src="https://img.shields.io/badge/version-1.3.2-brightgreen"></h1>
+          <div id="sub-title">360 安全规则集合</div>
+        </div>
+      </div>
+    </header>
+    <nav>
+      <a href="../index.html">首页</a>
+      •
+      <a href="./introduction.html">项目介绍</a>
+    </nav>
+    <div class="content-wrapper content-first-section">
+      <p>未定义的行为（Undefined Behavior），指程序不可预测的执行效果，一般由错误的代码实现引起。出于效率、兼容性等多方面原因，语言标准不便于定义错误程序的明确行为，而是将其统称为“未定义”的行为，可以是崩溃，也可以是非预期的任意表现，有些问题在编译器和执行环境的特殊处理下也可能不会造成实质性的危害，但不具备可移植性。代码质量管理的一个重要目标就是消除会导致未定义行为的代码。</p>
+      <p>C++ 标准声明了导致未定义行为的情况，本文梳理了 ISO/IEC 14882:2003 和 ISO/IEC 14882:2011 前 18 章的相关内容，后 12 章的主题为标准库实现，相关内容的主旨在前 18 章中已有体现。</p>
+      <p>下列问题会导致未定义的行为：</p>
+      <ol id="ub-list"><li><a href="./UB/cpp-ub-1.html">代码行以反斜杠结尾，且与下一行连接后生成通用字符名称</a></li>
+<li><a href="./UB/cpp-ub-2.html">非空源文件未以换行符结尾，或以换行符结尾但换行符之前是反斜杠</a></li>
+<li><a href="./UB/cpp-ub-3.html">连接预处理符号时产生了通用字符名称</a></li>
+<li><a href="./UB/cpp-ub-4.html">存在不符合词法的单引号或双引号</a></li>
+<li><a href="./UB/cpp-ub-5.html">在 #include 指令中，&#x27;、&quot;、\、//、/* 出现在定界符 &lt;  &gt; 之间，或 &#x27;、\、//、/* 出现在定界符 &quot; 之间</a></li>
+<li><a href="./UB/cpp-ub-6.html">无后缀 10 进制整数字面常量超过 long int 取值范围</a></li>
+<li><a href="./UB/cpp-ub-7.html">使用非标准转义字符</a></li>
+<li><a href="./UB/cpp-ub-8.html">修改字符串字面常量</a></li>
+<li><a href="./UB/cpp-ub-9.html">窄字符串与宽字符串连接</a></li>
+<li><a href="./UB/cpp-ub-10.html">违反 One Definition Rule</a></li>
+<li><a href="./UB/cpp-ub-11.html">具有静态或线程存储期的对象在析构函数中调用 std::exit 函数</a></li>
+<li><a href="./UB/cpp-ub-12.html">函数内具有静态或线程存储期的对象已析构，之后该函数又被调用并引用到已析构的对象</a></li>
+<li><a href="./UB/cpp-ub-13.html">在对象析构之后使用对象</a></li>
+<li><a href="./UB/cpp-ub-14.html">指针指向长度为 0 的内存空间并被解引用</a></li>
+<li><a href="./UB/cpp-ub-15.html">内存回收函数抛出异常</a></li>
+<li><a href="./UB/cpp-ub-16.html">使用不匹配的方法分配回收资源</a></li>
+<li><a href="./UB/cpp-ub-17.html">使用已被释放的指针</a></li>
+<li><a href="./UB/cpp-ub-18.html">对象生命周期已结束，但未调用其有副作用的析构函数</a></li>
+<li><a href="./UB/cpp-ub-19.html">在分配空间后，生命周期开始前，或在生命周期结束后，回收空间前，通过指针访问对象</a></li>
+<li><a href="./UB/cpp-ub-20.html">在分配空间后，生命周期开始前，或在生命周期结束后，回收空间前，通过 glvalue 访问对象</a></li>
+<li><a href="./UB/cpp-ub-21.html">具有静态、线程或自动存储期和 non-trivial 析构函数的对象，其空间被非兼容类型的对象占据</a></li>
+<li><a href="./UB/cpp-ub-22.html">常量对象的空间或曾属于常量对象的空间被其他对象占据</a></li>
+<li><a href="./UB/cpp-ub-23.html">通过 glvalue 访问对象，但 glvalue 的类型不符合要求</a></li>
+<li><a href="./UB/cpp-ub-24.html">通过 glvalue 引用不相关类型的对象或未初始化的对象</a></li>
+<li><a href="./UB/cpp-ub-25.html">浮点类型转换产生的结果无法在相应的空间中表示</a></li>
+<li><a href="./UB/cpp-ub-26.html">浮点类型转为整数类型时，整数类型无法存储浮点类型的整数部分</a></li>
+<li><a href="./UB/cpp-ub-27.html">整数类型转为浮点类型时，浮点类型无法存储整数的值</a></li>
+<li><a href="./UB/cpp-ub-28.html">表达式求值依赖无确定顺序的副作用</a></li>
+<li><a href="./UB/cpp-ub-29.html">表达式的结果在数学上没有定义</a></li>
+<li><a href="./UB/cpp-ub-30.html">被调用函数的语言链接性与该函数定义的语言链接性不符</a></li>
+<li><a href="./UB/cpp-ub-31.html">将非 POD 对象传入可变参数列表</a></li>
+<li><a href="./UB/cpp-ub-32.html">用 static_cast 将基类引用转为派生类引用，基类为虚基类，或引用的实际对象并非派生类对象</a></li>
+<li><a href="./UB/cpp-ub-33.html">用 static_cast 将基类指针转为派生类指针，基类为虚基类，或指向的实际对象并非派生类对象</a></li>
+<li><a href="./UB/cpp-ub-34.html">用 static_cast 将成员指针转为基类成员指针时，基类中没有相关成员</a></li>
+<li><a href="./UB/cpp-ub-35.html">函数指针被转为不兼容的类型并执行</a></li>
+<li><a href="./UB/cpp-ub-36.html">类型转换时去掉对象 const 属性并修改对象</a></li>
+<li><a href="./UB/cpp-ub-37.html">对不完整类型的对象取地址，但该对象的完整类型重载了 operator &amp;</a></li>
+<li><a href="./UB/cpp-ub-38.html">new 运算符第一个数组维度的参数为负数</a></li>
+<li><a href="./UB/cpp-ub-39.html">用 delete 释放数组漏写中括号，用 delete 释放对象多写中括号，用 delete 释放非 new 表达式的结果</a></li>
+<li><a href="./UB/cpp-ub-40.html">被 delete 释放的对象或数组类型不符合要求</a></li>
+<li><a href="./UB/cpp-ub-41.html">用 delete 释放不完整类型的对象，但在对象完整类型声明中有 non-trivial 析构函数</a></li>
+<li><a href="./UB/cpp-ub-42.html">对象解引用成员指针时，对象的动态类型不包含成员指针引用的成员</a></li>
+<li><a href="./UB/cpp-ub-43.html">对象解引用成员指针时，成员指针为空指针</a></li>
+<li><a href="./UB/cpp-ub-44.html">/ 或 % 运算符第二个操作数的值为 0</a></li>
+<li><a href="./UB/cpp-ub-45.html">指针加减整数，结果超出了指针指向数组的地址范围，使指针的值溢出</a></li>
+<li><a href="./UB/cpp-ub-46.html">未指向同一数组的指针相减</a></li>
+<li><a href="./UB/cpp-ub-47.html">移位运算符右操作数为负数或超过相关类型比特位的数量</a></li>
+<li><a href="./UB/cpp-ub-48.html">对有符号整数进行超出取值范围的左移运算</a></li>
+<li><a href="./UB/cpp-ub-49.html">将对象的值赋给具有部分重叠区域的对象</a></li>
+<li><a href="./UB/cpp-ub-50.html">有返回值的函数没有通过 return 语句返回</a></li>
+<li><a href="./UB/cpp-ub-51.html">递归地定义和初始化静态对象</a></li>
+<li><a href="./UB/cpp-ub-52.html">修改非 mutable 常量对象</a></li>
+<li><a href="./UB/cpp-ub-53.html">使用没有 volatile 限定的 glvalue 访问有 volatile 限定的对象</a></li>
+<li><a href="./UB/cpp-ub-54.html">具有 noreturn 属性的函数返回至调用方</a></li>
+<li><a href="./UB/cpp-ub-55.html">空指针解引用</a></li>
+<li><a href="./UB/cpp-ub-56.html">对象的实际类型与当前静态类型不相关，并调用其非静态成员函数</a></li>
+<li><a href="./UB/cpp-ub-57.html">在构造函数或析构函数中调用纯虚函数</a></li>
+<li><a href="./UB/cpp-ub-58.html">对象的实际类型与当前静态类型不相关，并调用其析构函数</a></li>
+<li><a href="./UB/cpp-ub-59.html">在对象生命周期结束后调用其析构函数</a></li>
+<li><a href="./UB/cpp-ub-60.html">基类对象构造完毕之前调用成员函数</a></li>
+<li><a href="./UB/cpp-ub-61.html">对成员或基类对象的不合理引用</a></li>
+<li><a href="./UB/cpp-ub-62.html">将对象指针转为其基类对象的指针时，基类对象尚未开始构造或已结束析构</a></li>
+<li><a href="./UB/cpp-ub-63.html">正在构造或析构的对象通过 . 或 -&gt; 调用虚函数，而且该对象与当前构造或析构函数不属于同一个类或基类</a></li>
+<li><a href="./UB/cpp-ub-64.html">typeid 作用于正在构造或析构的对象，而且该对象与当前构造或析构函数不属于同一个类或基类</a></li>
+<li><a href="./UB/cpp-ub-65.html">dynamic_cast 作用于正在构造或析构的对象，而且该对象与当前构造或析构函数不属于同一个类或基类</a></li>
+<li><a href="./UB/cpp-ub-66.html">对模板函数进行非良构调用，或在模板定义和实例化上下文之外有更好的候选函数匹配</a></li>
+<li><a href="./UB/cpp-ub-67.html">需要无限递归的模版实例化</a></li>
+<li><a href="./UB/cpp-ub-68.html">构造或析构函数在 function-try-block 的 handler 中访问非静态成员</a></li>
+<li><a href="./UB/cpp-ub-69.html">有返回值的函数在 function-try-block 的 handler 中没有正确返回</a></li>
+<li><a href="./UB/cpp-ub-70.html">在 #if、 #elif 的条件中，由宏展开产生了 defined 表达式，或 defined 表达式格式不正确</a></li>
+<li><a href="./UB/cpp-ub-71.html">#include 指令经宏展开后不满足标准格式</a></li>
+<li><a href="./UB/cpp-ub-72.html">宏的实参列表中出现预处理指令</a></li>
+<li><a href="./UB/cpp-ub-73.html">预处理运算符 # 的结果不是有效的字符串</a></li>
+<li><a href="./UB/cpp-ub-74.html">预处理运算符 ## 的结果不是有效的符号</a></li>
+<li><a href="./UB/cpp-ub-75.html">#line 指定的行号为 0 或大于规定值</a></li>
+<li><a href="./UB/cpp-ub-76.html">#line 指令不符合标准格式</a></li>
+<li><a href="./UB/cpp-ub-77.html">用 #define 定义或用 #undef 取消定义具有保留意义的名称</a></li>
+<li><a href="./UB/cpp-ub-78.html">供语言机制调用的函数不符合要求</a></li>
+<li><a href="./UB/cpp-ub-79.html">程序实现了应由标准库提供的功能</a></li>
+<li><a href="./UB/cpp-ub-80.html">未经许可，向 std 命名空间添加声明或定义</a></li>
+<li><a href="./UB/cpp-ub-81.html">对标准库，特化模板类成员函数，特化模板类成员模板函数，特化、偏特化成员类模版</a></li>
+<li><a href="./UB/cpp-ub-82.html">未经许可，向 posix 命名空间添加声明或定义</a></li>
+<li><a href="./UB/cpp-ub-83.html">声明或定义标准库保留名称</a></li>
+<li><a href="./UB/cpp-ub-84.html">编译器未提供标准头文件，但编译时引入了非标准同名头文件</a></li>
+<li><a href="./UB/cpp-ub-85.html">为标准库函数提供不符合要求的参数</a></li>
+<li><a href="./UB/cpp-ub-86.html">多线程调用标准库函数造成数据竞争</a></li>
+<li><a href="./UB/cpp-ub-87.html">违反标准库函数要求的前置条件，除非标准库函数声明了这种情况会抛出异常</a></li>
+<li><a href="./UB/cpp-ub-88.html">offsetof 用于非 standard layout 类型，或用于计算静态成员以及成员函数的偏移量</a></li>
+<li><a href="./UB/cpp-ub-89.html">可变参数列表中省略号的前一个形式参数为引用、数组、函数，或具有与默认参数提升后不兼容的类型</a></li>
+<li><a href="./UB/cpp-ub-90.html">longjmp 跳转使应被执行的析构函数未被执行</a></li><ol>
+    </div>
+    <div class="content-wrapper content-last-section"></div>
+  </div>
+</article>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2023 360 质量工程部, Licensed under the Apache-2.0 license.</a>
+</footer>
+</html>
