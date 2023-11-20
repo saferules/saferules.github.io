@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 使用已被释放的指针" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>使用已被释放的指针 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>使用已被释放的指针</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-17</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-18.html">next</a> › <a class="nav-link" href="./cpp-ub-16.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>int* p = new int(1);
+
+delete p;      //<i> Well-defined</i>
+delete p;      //<i> Undefined behavior</i>
+cout &lt;&lt; *p;    //<i> Undefined behavior</i>
+</code>
+<p>指针指向的对象被回收后，指针的值和指针曾指向的对象均失效，继续访问会导致未定义的行为。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 3.7.3.2(4)-undefined
+ISO/IEC 14882:2011 3.7.4.2(4)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_illAccess.html" class="related-link">ID_illAccess</a>
+<a href="../ID_doubleFree.html" class="related-link">ID_doubleFree</a>
+<a href="../ID_danglingDeref.html" class="related-link">ID_danglingDeref</a></div>
+
+</article>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: new 运算符第一个数组维度的参数为负数" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>new 运算符第一个数组维度的参数为负数 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>new 运算符第一个数组维度的参数为负数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-38</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-39.html">next</a> › <a class="nav-link" href="./cpp-ub-37.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>int* foo(int n) {
+    return new int[n];   //<i> Undefined in C++03 if ‘n’ is negative</i>
+}</code>
+<p>如果 n 为负数，程序的行为在 C++03 中是未定义的，C++11 去掉了这项未定义行为的声明。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 5.3.4(6)-undefined</div>
+
+
+</article>
+</html>

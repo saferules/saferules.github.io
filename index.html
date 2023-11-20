@@ -58,10 +58,10 @@
     </ol>
     <h2>规则组成</h2>
     <ul class="simple-list">
-      <li>标识：规则的唯一标识，以“ID_”开头，描述违反规则的状况</li>
+      <li>标识：规则的唯一标识，以“ID_”开头</li>
       <li>标题：规则的定义和简要说明</li>
       <li>说明：规则设立的原因、违反规则的后果</li>
-      <li>示例：规则相关的示例代码，指明符合规则（Compliant）的和违反规则（Non-compliant）的情况</li>
+      <li>示例：例举符合规则（Compliant）的和违反规则（Non-compliant）的代码</li>
       <li>相关：与当前规则有相关性的规则，可作为扩展阅读的线索</li>
       <li>依据：规则依照的 ISO/IEC 标准条目</li>
       <li>配置：某些规则的细节可灵活设置，审计工具可以此为参照实现定制化功能</li>
@@ -69,9 +69,9 @@
     </ul>
     <p>其中“依据”以“标准名称:版本 章节编号(段落编号)-性质”的格式引用标准，“性质”一项分为：</p>
     <ul class="simple-list">
-      <li>undefined：可使程序产生未定义的行为，这种行为造成的后果是不可预期的</li>
-      <li>unspecified：可使程序产生未声明的行为，这种行为由编译器或环境定义，具有随意性</li>
-      <li>implementation：可使程序产生由实现定义的行为，这种行为由编译器或环境定义，有明确的文档支持</li>
+      <li>undefined：可使程序产生未定义的行为，其后果是不可预期的</li>
+      <li>unspecified：可使程序产生未声明的行为，具体行为由编译器或环境定义，没有明确的文档</li>
+      <li>implementation：可使程序产生由实现定义的行为，具体行为由编译器或环境定义，具有明确的文档，但不具备可移植性</li>
       <li>deprecated：已被废弃的或不建议继续使用的编程方式</li>
     </ul>
     <p>没有特殊说明的规则同时适用于 C 语言和 C++ 语言，只适用于某一种语言的规则会有相关说明。</p>
@@ -676,7 +676,7 @@
   <div class="content-wrapper content-last-section">
     <h2 id="appendix-title">附录</h2>
     <ul id="appendix-list">
-      <li><a href="https://github.com/Qihoo360/safe-rules/blob/main/c-ub-list.md" target="_blank">C 未定义行为成因列表</a></li>
+      <li><a href="./detail/c-ub-list.html">C 未定义行为成因列表</a></li>
       <li><a href="./detail/cpp-ub-list.html">C++ 未定义行为成因列表</a></li>
     </ul>
   </div>

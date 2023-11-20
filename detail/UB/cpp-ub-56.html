@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 对象的实际类型与当前静态类型不相关，并调用其非静态成员函数" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>对象的实际类型与当前静态类型不相关，并调用其非静态成员函数 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>对象的实际类型与当前静态类型不相关，并调用其非静态成员函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-56</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-57.html">next</a> › <a class="nav-link" href="./cpp-ub-55.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>struct A { int foo(); };
+struct B { .... };
+
+int bar(void* p) {
+    return ((A*)p)-&gt;foo();
+}
+
+int main() {
+    B b;
+    return bar(&amp;b);  //<i> Undefined behavior</i>
+}</code>
+<p>例中 A 与 B 是不同且没有继承关系的类，通过不合理的类型转换调用非静态成员函数会导致未定义的行为。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 9.3.1(1)-undefined
+ISO/IEC 14882:2011 9.3.1(2)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_castNoInheritance.html" class="related-link">ID_castNoInheritance</a>
+<a href="../ID_forbidMemberVoidPtr.html" class="related-link">ID_forbidMemberVoidPtr</a>
+<a href="../ID_forbidFunctionVoidPtr.html" class="related-link">ID_forbidFunctionVoidPtr</a></div>
+
+</article>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 声明或定义标准库保留名称" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>声明或定义标准库保留名称 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>声明或定义标准库保留名称</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-83</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-84.html">next</a> › <a class="nav-link" href="./cpp-ub-82.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>#define override             //<i> Undefined behavior</i>
+#define new new(nothrow)     //<i> Undefined behavior</i>
+#define string vector&lt;char&gt;  //<i> Undefined behavior</i></code>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 17.4.3.1(1)-undefined
+ISO/IEC 14882:2011 17.6.4.3(2)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_reservedName.html" class="related-link">ID_reservedName</a>
+<a href="../ID_macro_defineReserved.html" class="related-link">ID_macro_defineReserved</a></div>
+
+</article>
+</html>

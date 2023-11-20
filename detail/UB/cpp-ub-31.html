@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 将非 POD 对象传入可变参数列表" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>将非 POD 对象传入可变参数列表 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>将非 POD 对象传入可变参数列表</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-31</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-32.html">next</a> › <a class="nav-link" href="./cpp-ub-30.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>可变参数列表是 C 语言的概念，C++ 中具有拷贝构造或析构函数的对象难以与其兼容，如果将非 POD 对象传入可变参数列表，程序的行为在 C++03 中是未定义的，在 C++11 中是部分由实现定义的。</p>
+
+<p>示例：</p>
+<code>string str;
+void foo(int, ...);
+
+foo(1, str);   //<i> Undefined behavior</i></code>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 5.2.2(7)-undefined
+ISO/IEC 14882:2011 5.2.2(7)-implementation</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_nonPODVariadicArgument.html" class="related-link">ID_nonPODVariadicArgument</a>
+<a href="../ID_badVaArgType.html" class="related-link">ID_badVaArgType</a>
+<a href="../ID_forbidVariadicFunction.html" class="related-link">ID_forbidVariadicFunction</a></div>
+
+</article>
+</html>

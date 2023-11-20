@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 使用没有 volatile 限定的 glvalue 访问有 volatile 限定的对象" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>使用没有 volatile 限定的 glvalue 访问有 volatile 限定的对象 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>使用没有 volatile 限定的 glvalue 访问有 volatile 限定的对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-53</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-54.html">next</a> › <a class="nav-link" href="./cpp-ub-52.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>volatile int v;   //<i> Changed by other devices</i>
+
+void wait(int&amp; r) {
+    r = 0;
+    while (r != 100);
+}
+
+int main() {
+    wait((int&amp;)v);   //<i> Undefined behavior</i>
+}</code>
+<p>例中变量 v 在定义处由 volatile 限定，但通过无 volatile 限定的引用访问，导致未定义的行为。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 7.1.5.1(7)-undefined
+ISO/IEC 14882:2011 7.1.6.1(6)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_qualifierCastedAway.html" class="related-link">ID_qualifierCastedAway</a></div>
+
+</article>
+</html>

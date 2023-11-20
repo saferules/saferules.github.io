@@ -165,11 +165,22 @@ footer a:hover {
     color: #218bff;
 }
 #appendix-list li {
-    line-height: 1.8em;
+    line-height: 1.6em;
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
 }
-#ub-list {
+#cpp-ub-list {
     color: #218bff;
 }
-#ub-list li {
-    line-height: 1.8em;
+#cpp-ub-list li {
+    line-height: 1.6em;
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
+}
+#c-ub-list {
+}
+#c-ub-list li {
+    line-height: 1.6em;
+    margin-block-start: 0.4em;
+    margin-block-end: 0.4em;
 }

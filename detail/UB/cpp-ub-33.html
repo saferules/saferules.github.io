@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 用 static_cast 将基类指针转为派生类指针，基类为虚基类，或指向的实际对象并非派生类对象" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>用 static_cast 将基类指针转为派生类指针，基类为虚基类，或指向的实际对象并非派生类对象 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>用 static_cast 将基类指针转为派生类指针，基类为虚基类，或指向的实际对象并非派生类对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-33</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-34.html">next</a> › <a class="nav-link" href="./cpp-ub-32.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>struct A {};
+struct B: A {};
+struct C: virtual B {};
+
+A a;
+C c;
+A* pa = &amp;a;
+A* pc = &amp;c;
+
+static_cast&lt;B*&gt;(pa);    //<i> Undefined behavior</i>
+static_cast&lt;C*&gt;(pc);    //<i> Undefined behavior</i>
+</code>
+<p>例中 pa 指向基类对象，将其转为派生类指针会导致未定义的行为，A 和 B 是 C 的虚基类，需要运行时数据体现虚基类对象和派生类对象的空间关系，static_cast 不考虑与运行时相关的转换逻辑，无法正确转换。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 5.2.9(8)-undefined
+ISO/IEC 14882:2011 5.2.9(11)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_downCast.html" class="related-link">ID_downCast</a></div>
+
+</article>
+</html>

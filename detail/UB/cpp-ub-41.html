@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 用 delete 释放不完整类型的对象，但在对象完整类型声明中有 non-trivial 析构函数" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>用 delete 释放不完整类型的对象，但在对象完整类型声明中有 non-trivial 析构函数 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>用 delete 释放不完整类型的对象，但在对象完整类型声明中有 non-trivial 析构函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-41</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-42.html">next</a> › <a class="nav-link" href="./cpp-ub-40.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>struct T;
+
+void foo(T* p) {
+    delete p;       //<i> Undefined behavior</i>
+}
+
+struct T {
+   ~T();            //<i> Non-trivial destructor</i>
+};</code>
+<p>例中 delete 作用于不完整类型的指针 p，会导致未定义的行为。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 5.3.5(5)-undefined
+ISO/IEC 14882:2011 5.3.5(5)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_deleteIncompleteType.html" class="related-link">ID_deleteIncompleteType</a></div>
+
+</article>
+</html>

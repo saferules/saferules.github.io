@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 表达式求值依赖无确定顺序的副作用" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>表达式求值依赖无确定顺序的副作用 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>表达式求值依赖无确定顺序的副作用</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-28</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-29.html">next</a> › <a class="nav-link" href="./cpp-ub-27.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>int a = 0;
+int b = a + a++;    //<i> Undefined behavior</i></code>
+<p>例中加法运算符左右子表达式无明确的求值顺序，如果左子表达式先求值，b 的值是 0，如果右子表达式先求值，b 的值可能是 1 也可能是 0，因为 a++ 的值是 0，但 a++ 的副作用在表达式求值过程中何时生效也是不确定的。</p>
+
+<p>又如：</p>
+<code>volatile int* p = foo();
+int n = *p + *p;          //<i> Undefined behavior</i></code>
+<p>例中 n 的值在数学上应是 *p 的二倍，但由于 p 指向 volatile 数据，结果可能不符合预期的数学关系。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 5(4)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_evaluationOrderReliance.html" class="related-link">ID_evaluationOrderReliance</a>
+<a href="../ID_confusingAssignment.html" class="related-link">ID_confusingAssignment</a></div>
+
+</article>
+</html>

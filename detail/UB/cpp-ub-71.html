@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: #include 指令经宏展开后不满足标准格式" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>#include 指令经宏展开后不满足标准格式 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>#include 指令经宏展开后不满足标准格式</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-71</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-72.html">next</a> › <a class="nav-link" href="./cpp-ub-70.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>#define STDIO_H &lt;stdio.h&gt;
+#define STDLIB_H stdlib.h
+
+#include STDIO_H        //<i> OK</i>
+#include STDLIB_H       //<i> Undefined behavior</i></code>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 16.2(4)-undefined
+ISO/IEC 14882:2011 16.2(4)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_illFormedDirective.html" class="related-link">ID_illFormedDirective</a></div>
+
+</article>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 通过 glvalue 访问对象，但 glvalue 的类型不符合要求" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>通过 glvalue 访问对象，但 glvalue 的类型不符合要求 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>通过 glvalue 访问对象，但 glvalue 的类型不符合要求</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-23</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-24.html">next</a> › <a class="nav-link" href="./cpp-ub-22.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>只应通过以下类型的 glvalue 访问对象，否则导致未定义的行为：</p>
+<ul>
+<li>对象的动态类型</li>
+<li>用 const 或 volatile 限定的对象动态类型</li>
+<li>与对象动态类型相似的类型（参见 ISO/IEC 14882:2011 4.4）</li>
+<li>与对象动态类型对应的有符号或无符号类型</li>
+<li>用 const 或 volatile 限定的与对象动态类型对应的有符号或无符号类型</li>
+<li>包含上述类型的聚合或联合类型（不包括静态成员类型）</li>
+<li>对象动态类型的基类类型（也包括被 const 或 volatile 限定的基类类型）</li>
+<li>char 或 unsigned char</li>
+
+</ul>
+<p>示例：</p>
+<code>int i = 0;
+
+cout &lt;&lt; i;                 //<i> Well-defined</i>
+cout &lt;&lt; (const int&amp;)i;     //<i> Well-defined</i>
+cout &lt;&lt; (unsigned int&amp;)i;  //<i> Well-defined</i>
+cout &lt;&lt; (char&amp;)i;          //<i> Well-defined</i>
+
+cout &lt;&lt; (long&amp;)i;          //<i> Undefined behavior</i>
+cout &lt;&lt; (float&amp;&amp;)i;        //<i> Undefined behavior</i></code>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 3.10(15)-undefined
+ISO/IEC 14882:2011 3.10(10)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_castNoInheritance.html" class="related-link">ID_castNoInheritance</a></div>
+
+</article>
+</html>

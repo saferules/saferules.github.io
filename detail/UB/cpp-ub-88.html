@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: offsetof 用于非 standard layout 类型，或用于计算静态成员以及成员函数的偏移量" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>offsetof 用于非 standard layout 类型，或用于计算静态成员以及成员函数的偏移量 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>offsetof 用于非 standard layout 类型，或用于计算静态成员以及成员函数的偏移量</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-88</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-89.html">next</a> › <a class="nav-link" href="./cpp-ub-87.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>struct T {
+    int* m;
+
+    T();
+    virtual ~T();
+};
+
+size_t s = offsetof(T, m);  //<i> Undefined behavior</i></code>
+<p>例中 T 不是 standard layout 类型，用 offsetof 求成员 m 的偏移量会导致未定义的行为。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 18.1(5)-undefined
+ISO/IEC 14882:2011 18.2(4)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_deprecatedOffsetof.html" class="related-link">ID_deprecatedOffsetof</a></div>
+
+</article>
+</html>

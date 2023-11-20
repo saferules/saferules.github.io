@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 构造或析构函数在 function-try-block 的 handler 中访问非静态成员" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>构造或析构函数在 function-try-block 的 handler 中访问非静态成员 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>构造或析构函数在 function-try-block 的 handler 中访问非静态成员</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-68</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-69.html">next</a> › <a class="nav-link" href="./cpp-ub-67.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>class T {
+    int err;
+
+public:
+    T() try { .... } catch (...) { log(err); }  //<i> Undefined behavior</i>
+   ~T() try { .... } catch (...) { log(err); }  //<i> Undefined behavior</i>
+};</code>
+<p>流程进入 function-try-block 的 handler 时，非静态成员的生命周期已结束，不可再被访问。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 15.3(10)-undefined
+ISO/IEC 14882:2011 15.2(10)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_illMemberAccess.html" class="related-link">ID_illMemberAccess</a></div>
+
+</article>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 递归地定义和初始化静态对象" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>递归地定义和初始化静态对象 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>递归地定义和初始化静态对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-51</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-52.html">next</a> › <a class="nav-link" href="./cpp-ub-50.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>int foo(int i) {
+    if (i &lt; 100) {
+        static int s = foo(2 * i);   //<i> Undefined behavior</i>
+        return s;
+    }
+    return i;
+}</code>
+<p>例中静态局部变量 s 的初始化需要递归调用所属函数，是否会产生多个 s 的实例以及是否能正常结束递归，均是未定义的。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 6.7(4)-undefined
+ISO/IEC 14882:2011 6.7(4)-undefined</div>
+
+
+</article>
+</html>

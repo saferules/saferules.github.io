@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 将对象指针转为其基类对象的指针时，基类对象尚未开始构造或已结束析构" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>将对象指针转为其基类对象的指针时，基类对象尚未开始构造或已结束析构 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>将对象指针转为其基类对象的指针时，基类对象尚未开始构造或已结束析构</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-62</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-63.html">next</a> › <a class="nav-link" href="./cpp-ub-61.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>struct A {
+    ....
+};
+
+struct B: A {
+    B();
+    B(A*);
+};
+
+struct C: B {
+    C(): B(this) {     //<i> Undefined behavior</i>
+    }
+};</code>
+<p>例中将 C 的 this 指针作为基类 B 构造函数的参数，相当于将 C* 转为 A*，而这时基类 B 和 A 均未开始构造，会导致未定义的行为。</p>
+
+<p>又如（各项声明接上例）：</p>
+<code>struct X {
+    X(A*);
+};
+
+struct D: B, X {
+    D(): B(), X(this) {  //<i> OK</i>
+    }
+};</code>
+<p>将 D 的 this 指针作为基类 X 构造函数的参数，相当于将 D* 转为 A*，这时 B 的构造函数已经执行完毕，所以这种情况没有问题。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 12.7(2)-undefined
+ISO/IEC 14882:2011 12.7(3)-undefined</div>
+
+
+</article>
+</html>

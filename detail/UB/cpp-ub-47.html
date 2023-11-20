@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 移位运算符右操作数为负数或超过相关类型比特位的数量" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>移位运算符右操作数为负数或超过相关类型比特位的数量 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>移位运算符右操作数为负数或超过相关类型比特位的数量</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-47</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-48.html">next</a> › <a class="nav-link" href="./cpp-ub-46.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>示例：</p>
+<code>int a = 1 &lt;&lt; -1;    //<i> Undefined behavior</i>
+int b = 1 &lt;&lt; 100;   //<i> Undefined behavior</i></code>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 5.8(1)-undefined
+ISO/IEC 14882:2011 5.8(1)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_illShiftCount.html" class="related-link">ID_illShiftCount</a></div>
+
+</article>
+</html>

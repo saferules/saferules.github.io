@@ -88,7 +88,9 @@ main {
     overflow-x: hidden;
 }
 main li {
-    line-height: 1.8em;
+    line-height: 1.6em;
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;    
 }
 .ref-items {
     width: 100%;

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C++ undefined behavior: 具有静态或线程存储期的对象在析构函数中调用 std::exit 函数" />
+  <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/iconfont.js"></script>
+  <title>具有静态或线程存储期的对象在析构函数中调用 std::exit 函数 - C++ undefined behavior</title>
+</head>
+<article>
+<header>
+  <h1>具有静态或线程存储期的对象在析构函数中调用 std::exit 函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">C++-Undefined-Behavior-11</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-12.html">next</a> › <a class="nav-link" href="./cpp-ub-10.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>程序调用 exit 函数后，全局、静态或 thread_local 对象开始析构，而这种对象的析构函数再调用 exit 会导致未定义的行为。</p>
+
+<p>示例：</p>
+<code>class T {
+    ....
+public:
+   ~T() {
+        std::exit(1);  //<i> Dangerous</i>
+    }
+};
+
+static T obj;  //<i> Undefined behavior during destruct</i></code>
+<p>例中 obj 对象在析构时会导致未定义的行为。</p>
+
+</main>
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 3.6.1(4)-undefined
+ISO/IEC 14882:2011 3.6.1(4)-undefined</div>
+
+<h3>规则</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="../ID_exitCallInDestructor.html" class="related-link">ID_exitCallInDestructor</a></div>
+
+</article>
+</html>
