@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：C 语言规定数组作为形式参数时，可用 static 关键字限定大小，要求传入数组的大小不能小于由 static 关键字限定的值，有助于编译器优化，但不符合这种限制时会导致标准未定义的行为，相当于增加了误用风险，也增加了测试成本。" />
+  <meta name="description" content="C/C++ 安全编程要点：C 语言规定数组作为形式参数时，可用 static 关键字限定大小，要求对应的实际参数必须是数组第一个元素的地址，且数组的大小不能小于 static 关键字限定的值，否则会导致标准未定义的行为，这种特性有助于编译器优化代码，但也增加了误用风险。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,7 +21,9 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>C 语言规定数组作为形式参数时，可用 static 关键字限定大小，要求传入数组的大小不能小于由 static 关键字限定的值，有助于编译器优化，但不符合这种限制时会导致标准未定义的行为，相当于增加了误用风险，也增加了测试成本。</p>
+<p>C 语言规定数组作为形式参数时，可用 static 关键字限定大小，要求对应的实际参数必须是数组第一个元素的地址，且数组的大小不能小于 static 关键字限定的值，否则会导致标准未定义的行为，这种特性有助于编译器优化代码，但也增加了误用风险。</p>
+
+<p>并非所有处理器都可以利用这种特性提高效率，而且应在效率和风险之间合理取舍，不建议在有高可靠性要求的代码中使用这种特性。</p>
 
 <p>示例：</p>
 <code>int foo(int a[static 5], int n) {   //<i> Non-compliant</i>
@@ -33,19 +35,18 @@
     return s;
 }
 
-int bar() {
+int main() {
     int a[3] = {1, 2, 3};
     return foo(a, 3);       //<i> Undefined behavior</i>
-}
-</code>
-<p>这种机制虽然有助于编译器优化，但应在效率的提高和存在的风险之间进行取舍，非系统库中的代码、改动频繁的代码不建议使用这种机制，而且这种优化大部分情况下也难以真正解决效率的瓶颈问题。</p>
+}</code>
+<p>例中 foo 函数要求传入的数组至少有 5 个元素，但实际传入的数组只有 3 个元素，导致未定义的行为。</p>
 
 </main>
 
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">ISO/IEC 9899:1999 6.7.6.3(7)
+<div class="ref-items">ISO/IEC 9899:1999 6.7.5.3(7)
 ISO/IEC 9899:2011 6.7.6.3(7)</div>
 
 <h3>参考</h3>

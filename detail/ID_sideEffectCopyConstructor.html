@@ -44,7 +44,7 @@ int main() {
     A a = foo();   //<i> Copy elision</i>
     ....
 }</code>
-<p>用 foo 函数返回的临时对象构造对象 a，理论上应执行拷贝构造函数，但标准允许编译器将临时对象直接作为对象 a，省略拷贝构造函数的执行以提高效率，这种优化称为“<a href="https://en.wikipedia.org/wiki/Copy_elision" target="_blank" class="dashed-link">copy elision</a>”，复制之外的功能会因此无法生效。在 C++17 之前，是否执行这种优化由实现定义，从 C++17 开始，在某些情况下必须执行这种优化，具体可参见“<a href="https://en.cppreference.com/w/cpp/language/copy_elision#Mandatory_elision_of_copy.2Fmove_operations" target="_blank" class="dashed-link">mandatory copy elision</a>”。</p>
+<p>用临时对象构造对象 a，标准允许编译器将临时对象直接当作对象 a，省略拷贝构造函数的执行从而提高效率，这种优化称为“<a href="https://en.wikipedia.org/wiki/Copy_elision" target="_blank" class="dashed-link">copy elision</a>”，复制之外的功能会因此无法生效。在 C++17 之前，是否执行这种优化由实现定义，C++17 规定在某些情况下必须执行这种优化，具体可参见“<a href="https://en.cppreference.com/w/cpp/language/copy_elision" target="_blank" class="dashed-link">guaranteed copy elision</a>”。</p>
 
 </main>
 

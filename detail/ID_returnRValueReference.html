@@ -34,7 +34,7 @@ void bar() {
     A&amp;&amp; a = foo();
     access(a);      //<i> Undefined behavior, ‘a’ refers to an invalid object</i>
 }</code>
-<p>例中 foo 函数返回类型为右值引用，这种情况下返回临时对象一定是错误的，临时对象在返回前析构，返回的是无效引用。</p>
+<p>例中 foo 函数返回临时对象的右值引用，临时对象在返回前析构，返回的是无效引用。</p>
 
 <p>也不应返回局部对象的右值引用，如：</p>
 <code>A&amp;&amp; baz() {         //<i> Non-compliant</i>

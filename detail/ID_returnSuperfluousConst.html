@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：基本类型的函数返回值本来就是不可被修改的右值，不应再受 const 关键字限制。" />
+  <meta name="description" content="C/C++ 安全编程要点：基本类型的函数返回值本来就是不可被修改的临时对象，不应再受 const 关键字限制。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,20 +21,19 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>基本类型的函数返回值本来就是不可被修改的右值，不应再受 const 关键字限制。</p>
+<p>基本类型的函数返回值本来就是不可被修改的临时对象，不应再受 const 关键字限制。</p>
 
 <p>本规则是 <a href="./ID_returnConstObject.html" class="dashed-link">ID_returnConstObject</a> 的特化。</p>
 
 <p>示例：</p>
-<code>const int* foo();  //<i> Compliant</i>
-const int bar();   //<i> Non-compliant, ‘const’ is superfluous</i>
+<code>const int foo();    //<i> Non-compliant, ‘const’ is superfluous</i>
+const int* bar();   //<i> Compliant</i>
 
 class A {
     ....
-
 public:
     int&amp; fun();
-    const int fun() const;  //<i> Non-compliant, missing ‘&amp;’</i>
+    const int fun() const;   //<i> Non-compliant, missing ‘&amp;’</i>
 };</code>
 <p>出现这种问题说明设计与使用存在一定的偏差，也可能本意是返回引用或指针，而书写时漏掉了相关符号。</p>
 

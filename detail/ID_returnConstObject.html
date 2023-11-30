@@ -24,20 +24,21 @@
 <p>函数返回常量对象不利于移动构造或移动赋值等机制，也可能本意是返回引用，但遗漏了引用符号。</p>
 
 <p>示例：</p>
-<code>const vector&lt;int&gt; fun() {  //<i> Non-compliant</i>
+<code>const vector&lt;int&gt; foo() {   //<i> Non-compliant</i>
     return { 1, 2, 3 };
 }
 
-vector&lt;int&gt; obj(fun());    //<i> Call ‘vector(const vector&amp;)’</i></code>
-<p>fun 返回 const 对象，构造 obj 对象时只能进行深拷贝，无法利用移动构造等特性。</p>
+int main() {
+    vector&lt;int&gt; v;
+    v = foo();      //<i> Call the copy assignment operator</i>
+}</code>
+<p>例中 foo 返回常量对象，对 v 对象赋值时只能进行深拷贝，无法利用移动赋值等机制。</p>
 
 <p>应改为：</p>
-<code>vector&lt;int&gt; fun() {        //<i> Compliant</i>
+<code>vector&lt;int&gt; foo() {     //<i> Compliant</i>
     return { 1, 2, 3 };
-}
-
-vector&lt;int&gt; obj(fun());    //<i> Call ‘vector(vector&amp;&amp;)’, more efficient</i></code>
-<p>这样可以利用移动构造函数提高效率。</p>
+}</code>
+<p>这样便可以利用移动赋值等机制提高效率。</p>
 
 <p>对于遵循 C++11 之前标准的代码，也不应返回常量对象，函数返回的对象本来就需要通过常量引用或传值的方式被后续代码使用，将返回值设为常量的意义不大。</p>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：C 语言中的 restrict 指针要求其他指针不能再指向相同区域，有助于编译器优化，但不符合这种限制时会导致标准未定义的行为，相当于增加了误用风险，也增加了测试成本。" />
+  <meta name="description" content="C/C++ 安全编程要点：C 语言的 restrict 指针要求其他指针不能指向与之相同的区域，否则会导致标准未定义的行为，这种特性有助于编译器优化代码，但也增加了误用风险。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,14 +21,16 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>C 语言中的 restrict 指针要求其他指针不能再指向相同区域，有助于编译器优化，但不符合这种限制时会导致标准未定义的行为，相当于增加了误用风险，也增加了测试成本。</p>
+<p>C 语言的 restrict 指针要求其他指针不能指向与之相同的区域，否则会导致标准未定义的行为，这种特性有助于编译器优化代码，但也增加了误用风险。</p>
+
+<p>应在效率和风险之间合理取舍，不建议在有高可靠性要求的代码中使用这种特性。</p>
 
 <p>示例：</p>
-<code>void foo(int c[]) {
-    int *restrict a = &amp;c[0];   //<i> Non-compliant</i>
-    int *restrict b = &amp;c[1];   //<i> Non-compliant</i>
+<code>void foo(int a[]) {
+    int *restrict p = &amp;a[0];   //<i> Non-compliant</i>
+    int *restrict q = &amp;a[1];   //<i> Non-compliant</i>
     ....
-    a = b;                     //<i> Undefined behavior</i>
+    p = q;   //<i> Undefined behavior</i>
     ....
 }
 
@@ -38,9 +40,7 @@ int bar(int *restrict x, int *restrict y) {   //<i> Non-compliant</i>
 
 int baz(int* p) {
     return bar(p, p);   //<i> Undefined behavior</i>
-}
-</code>
-<p>restrict 指针虽然有助于编译器优化，但应在效率的提高和存在的风险之间进行取舍，非系统库中的代码、改动频繁的代码不建议使用 restrict 指针，而且这种优化大部分情况下也难以真正解决效率的瓶颈问题。</p>
+}</code>
 
 </main>
 
