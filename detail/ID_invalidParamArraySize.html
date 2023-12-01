@@ -30,16 +30,18 @@ int bar(int a[5][10]);   //<i> Non-compliant, same as ‘bar(int (*a)[10])’</i
 int main() {
     int a[3] = {};
     return foo(a);   //<i> It can be compiled</i>
-}
-</code>
+}</code>
+<p>例中 foo 函数声明的数组参数有 5 个元素，传入的实际参数只有 3 个元素，往往意味着错误，但可以通过编译。</p>
+
 <p>建议在 C++ 代码中采用数组引用或模板的方式：</p>
 <code>void foo(int (&amp;a)[5]);    //<i> Compliant</i>
 
 template &lt;size_t n&gt;
 void foo(int (&amp;a)[n]) {   //<i> Compliant</i>
     ....
-}
-</code>
+}</code>
+<p>这样数组大小不一致便无法通过编译。</p>
+
 <p>例外：</p>
 <code>int foo(int a[], int n);   //<i> Let it go</i></code>
 <p>用空的方括号声明数组，并用另一个参数表示数组大小的情况可不受本规则限制。</p>

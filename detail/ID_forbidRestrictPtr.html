@@ -26,21 +26,21 @@
 <p>应在效率和风险之间合理取舍，不建议在有高可靠性要求的代码中使用这种特性。</p>
 
 <p>示例：</p>
-<code>void foo(int a[]) {
-    int *restrict p = &amp;a[0];   //<i> Non-compliant</i>
-    int *restrict q = &amp;a[1];   //<i> Non-compliant</i>
-    ....
-    p = q;   //<i> Undefined behavior</i>
-    ....
-}
-
-int bar(int *restrict x, int *restrict y) {   //<i> Non-compliant</i>
-    return *x + *y;
-}
-
-int baz(int* p) {
-    return bar(p, p);   //<i> Undefined behavior</i>
+<code>void foo(int* restrict a, int* restrict b)   //<i> Non-compliant</i>
+{
+    *a += *b;
+    *a *= *b;
 }</code>
+<p>例中指针 a 和 b 由 restrict 关键字限定，表示指向不同的对象，由于未通过 b 写入数据，在优化时可以认为 b 指向的对象不变，可将相关对象存入寄存器等高速存储器，不必每次都从内存中读取。</p>
+
+<p>但如果 a 和 b 指向同一对象会导致未定义的行为，如：</p>
+<code>int main(void)
+{
+    int i = 8;
+    foo(&amp;i, &amp;i);     //<i> Undefined behavior</i>
+    printf(&quot;%d&quot;, i);
+}</code>
+<p>这段代码在启用优化时和关闭优化时可能会有不同的输出。</p>
 
 </main>
 

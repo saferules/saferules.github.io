@@ -46,7 +46,7 @@ int main() {
     A a{foo()};   //<i> Copy/move elision</i>
     ....
 }</code>
-<p>用临时对象构造对象 a，标准允许编译器将临时对象直接当作对象 a，移动和拷贝构造函数均可省略以提高效率，这种优化称为“<a href="https://en.wikipedia.org/wiki/Copy_elision" target="_blank" class="dashed-link">copy/move elision</a>”，移动或复制之外的功能会因此无法生效。在 C++17 之前，是否执行这种优化由实现定义，C++17 规定在某些情况下必须执行这种优化，具体可参见“<a href="https://en.cppreference.com/w/cpp/language/copy_elision" target="_blank" class="dashed-link">guaranteed copy elision</a>”。</p>
+<p>用相同类型的临时对象构造对象 a，标准允许编译器将临时对象直接当作对象 a，移动和拷贝构造函数均可省略以提高效率，这种优化称为“<a href="https://en.wikipedia.org/wiki/Copy_elision" target="_blank" class="dashed-link">copy/move elision</a>”，移动或复制之外的功能会因此无法生效。在 C++17 之前，是否执行这种优化由实现定义，C++17 规定在某些情况下必须执行这种优化，具体可参见“<a href="https://en.cppreference.com/w/cpp/language/copy_elision" target="_blank" class="dashed-link">guaranteed copy elision</a>”。</p>
 
 </main>
 

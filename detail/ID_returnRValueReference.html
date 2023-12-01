@@ -62,8 +62,6 @@ A baz() {           //<i> Compliant</i>
 }</code>
 <p>这种情况在运行机制上可能没有问题，但满足的实际需求较为有限，而且相当于将 access(a) 和 move(a) 两种事务合在一个函数中，在某种程度上违反了“<a href="https://en.wikipedia.org/wiki/Single-responsibility_principle" target="_blank" class="dashed-link">单一职责原则</a>”。</p>
 
-<p>综上所述，应统一要求函数不应返回右值引用。</p>
-
 </main>
 
 <h3>相关</h3>

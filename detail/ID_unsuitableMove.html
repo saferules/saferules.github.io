@@ -23,23 +23,23 @@
 <main>
 <p>std::move 的参数应为左值，返回值应直接作为接口的参数，除此之外的使用方式价值有限，且易产生错误。</p>
 
-<p>“<a href="https://en.cppreference.com/w/cpp/language/value_category#lvalue" target="_blank" class="dashed-link">左值（lvalue）</a>” 可由 std::move 转为“<a href="https://en.cppreference.com/w/cpp/language/value_category#xvalue" target="_blank" class="dashed-link">将亡值（xvalue）</a>”，宣告对象的数据即将转移到其他对象，将亡值和“<a href="https://en.cppreference.com/w/cpp/language/value_category#prvalue" target="_blank" class="dashed-link">纯右值（prvalue）</a>”均应被转移接口的右值引用型参数接收，进而完成数据转移，将亡值和纯右值统称为右值。</p>
+<p>左值可由 std::move 转为将亡值，宣告对象的数据即将被转移到其他对象中，将亡值和纯右值统称右值，对应转移接口的右值引用型参数。左值和将亡值也统称泛左值，具体分类依据可参见“<a href="https://en.cppreference.com/w/cpp/language/value_category" target="_blank" class="dashed-link">值类别（value categories）</a>”。</p>
 
 <p>示例：</p>
 <code>string foo();
 string s = move(foo());   //<i> Non-compliant</i></code>
-<p>例中 foo 函数返回临时对象，为纯右值，使用 std::move 是多余的。</p>
+<p>例中 foo 函数返回临时对象，为纯右值，move 在此处是多余的。</p>
 
 <p>又如：</p>
 <code>string a(&quot;....&quot;);
 string&amp;&amp; b = move(a);   //<i> Non-compliant</i>
 string c(b);            //<i> Not move construction</i></code>
-<p>例中 b 是具有名称的右值引用，其实是左值，c 仍是拷贝构造。</p>
+<p>例中 b 是具有名称的右值引用，为左值，c 仍会复制 a 的数据，move 在此处没有意义。</p>
 
 <p>应改为：</p>
 <code>string a(&quot;....&quot;);
 string c(move(a));   //<i> Compliant</i></code>
-<p>这样构造 c 时会自动选取移动构造函数，避免了复制。</p>
+<p>这样便可将 a 的数据转移到 c 中。</p>
 
 <p>又如：</p>
 <code>string foo() {
