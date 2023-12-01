@@ -639,7 +639,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidLongjmp.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:47+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:15+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -681,7 +681,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidRestrictPtr.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:46+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:14+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -693,7 +693,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidStaticArrSize.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:46+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:14+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -1215,7 +1215,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidParamArraySize.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:46+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:14+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -2037,7 +2037,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_returnConstObject.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:47+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:15+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -2055,7 +2055,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_returnRValueReference.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:47+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:15+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -2067,7 +2067,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_returnSuperfluousConst.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:47+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:15+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -2163,13 +2163,13 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_sideEffectCopyConstructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:47+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:15+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sideEffectMoveConstructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:47+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:15+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -2223,7 +2223,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_arrayParameter.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:47+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:15+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -2673,7 +2673,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_unevaluatedSideEffect.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:47+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:15+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -2751,7 +2751,7 @@
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableMove.html</loc>
     <priority>0.8</priority>
-    <lastmod>2023-11-20T15:57:47+08:00</lastmod>
+    <lastmod>2023-12-01T15:56:15+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
