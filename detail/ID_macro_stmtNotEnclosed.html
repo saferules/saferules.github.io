@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：可以作为一条语句使用的宏，且宏包含多个并列子句时，应该用“do {”和“} while(0)”括起来，否则易造成作用域的混乱。" />
+  <meta name="description" content="C/C++ 安全编程要点：由多个语句组成的宏定义应该用“do {”和“} while(0)”括起来，从而避免意料之外的错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,13 +21,13 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>可以作为一条语句使用的宏，且宏包含多个并列子句时，应该用“do {”和“} while(0)”括起来，否则易造成作用域的混乱。</p>
+<p>由多个语句组成的宏定义应该用“do {”和“} while(0)”括起来，从而避免意料之外的错误。</p>
 
 <p>示例：</p>
 <code>#define SWAP(a, b)\
     a ^= b; b ^= a; a ^= b   //<i> Non-compliant</i>
 </code>
-<p>如果按如下使用方式：</p>
+<p>如果按如下方式使用宏：</p>
 <code>if (x &gt; y)
     SWAP(x, y);
 </code>
@@ -40,7 +40,7 @@
 <code>#define SWAP(a, b) do {\       //<i> Good</i>
     a ^= b; b ^= a; a ^= b;\
 } while(0)</code>
-<p>这样在使用宏时必须以分号结尾，否则无法通过编译，使宏在使用风格上与函数相同，易于阅读。</p>
+<p>这样在使用宏时必须以分号结尾，否则无法通过编译，使宏在使用风格上与函数相同，便于阅读。</p>
 
 </main>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：由于宏只做文本处理，不考虑运算符优先级等问题，故应将宏参数用括号括起来，否则易产生意料之外的错误。" />
+  <meta name="description" content="C/C++ 安全编程要点：预处理器对宏参数只做文本替换，不考虑运算符优先级等问题，所以应将宏参数用括号括起来，从而避免意料之外的错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,11 +21,19 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>由于宏只做文本处理，不考虑运算符优先级等问题，故应将宏参数用括号括起来，否则易产生意料之外的错误。</p>
+<p>编译器对宏参数只做文本替换，不考虑运算符优先级等问题，所以应将宏参数用括号括起来，从而避免意料之外的错误。</p>
 
 <p>示例：</p>
 <code>#define SUM(a, b) (a + b)  //<i> Non-compliant</i>
 </code>
+<p>设 x 为变量，如果按如下方式使用宏：</p>
+<code>x = SUM(x, x &lt;&lt; 1);
+</code>
+<p>则相当于：</p>
+<code>x = x + x &lt;&lt; 1;
+</code>
+<p>注意，+ 的优选级高于 &lt;&lt;，结果为 (2 * x) &lt;&lt; 1，这往往是不符合预期的。</p>
+
 <p>应改为：</p>
 <code>#define SUM(a, b) ((a) + (b))  //<i> Compliant</i></code>
 
@@ -40,6 +48,8 @@ ISO/IEC 9899:2011 6.10.3.5(4)</div>
 <h3>参考</h3>
 <hr class="dashed-hr"/>
 <div class="ref-items">CWE-783
+MISRA C 2004 19.10
+MISRA C 2012 20.7
 MISRA C++ 2008 16-0-6</div>
 </article>
 </html>

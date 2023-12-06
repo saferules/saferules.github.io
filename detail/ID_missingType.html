@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：C90 允许省略对象或函数的类型声明，但实践表明这并不是一种良好的编程方式，可读性较差。" />
+  <meta name="description" content="C/C++ 安全编程要点：C 语言在早期阶段曾允许省略声明对象或函数的类型，然而实践表明这种编程方式并不理想，已从 C99 标准中移出。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,16 +21,18 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>C90 允许省略对象或函数的类型声明，但实践表明这并不是一种良好的编程方式，可读性较差。</p>
+<p>C 语言在早期阶段曾允许省略声明对象或函数的类型，然而实践表明这种编程方式并不理想，已从 C99 标准中移出。</p>
 
-<p>本规则仅针对 C 语言，C++ 语言不存在这种问题。</p>
+<p>本规则针对 C 语言，C++ 语言没有这种特性，不受本规则限制。</p>
 
 <p>示例：</p>
 <code>extern a;     //<i> Non-compliant</i>
 const b;      //<i> Non-compliant</i>
 fun(void);    //<i> Non-compliant</i>
 typedef tp;   //<i> Non-compliant</i></code>
-<p>例中 a、b、fun、tp 的类型被省略，默认为 int，应改为：</p>
+<p>例中 a、b、fun、tp 的类型为 int，可被省略声明，但可读性较差。</p>
+
+<p>应改为：</p>
 <code>extern int a;     //<i> Compliant</i>
 const int b;      //<i> Compliant</i>
 int fun(void);    //<i> Compliant</i>
@@ -39,10 +41,15 @@ typedef int tp;   //<i> Compliant</i></code>
 </main>
 
 
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 9899:1999 6.7.2(2)
+ISO/IEC 9899:2011 6.7.2(2)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 8.2
-MISRA C 2012 8.1</div>
+MISRA C 2012 8.1
+SEI CERT DCL31-C</div>
 </article>
 </html>

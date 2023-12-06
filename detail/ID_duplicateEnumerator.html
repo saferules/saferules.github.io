@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：枚举项用于标记不同的事物，名称不同但值相同的枚举项往往意味着错误。" />
+  <meta name="description" content="C/C++ 安全编程要点：枚举项用于标记不同的事物，在同一枚举类型中，名称不同但值相同的枚举项往往意味着错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,13 +21,13 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>枚举项用于标记不同的事物，名称不同但值相同的枚举项往往意味着错误。</p>
+<p>枚举项用于标记不同的事物，在同一枚举类型中，名称不同但值相同的枚举项往往意味着错误。</p>
 
 <p>示例：</p>
 <code>enum Color {
     red = 1,
     yellow = 2,
-    blue = 2,    //<i> Non-compliant, see ‘yellow’</i>
+    blue = 2,    //<i> Non-compliant, same value as ‘yellow’</i>
 };</code>
 <p>例中三个枚举项应分别表示三种颜色，但 blue 与 yellow 的值相同会造成逻辑错误。</p>
 
@@ -45,7 +45,7 @@
     apple, pear, grape
 };
 
-Fruit favorite () {
+Fruit favorite() {
     return grape;
 }</code>
 

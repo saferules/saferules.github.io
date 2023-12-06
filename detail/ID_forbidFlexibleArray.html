@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：柔性数组（flexible array）一般是指结构体最后不完整定义的数组成员，表示不占用空间的指针，这种数组在 C99 中有所定义，但不在 C++ 标准之中，在 C++ 代码中不应使用。" />
+  <meta name="description" content="C/C++ 安全编程要点：柔性数组（flexible array）指结构体最后不完整定义的数组成员，表示不占用空间的指针，这种数组由 C99 标准提出，不在 C++ 标准之内，在 C++ 代码中不应使用。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,19 +21,19 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>柔性数组（flexible array）一般是指结构体最后不完整定义的数组成员，表示不占用空间的指针，这种数组在 C99 中有所定义，但不在 C++ 标准之中，在 C++ 代码中不应使用。</p>
+<p>柔性数组（flexible array）指结构体最后不完整定义的数组成员，表示不占用空间的指针，这种数组由 C99 标准提出，不在 C++ 标准之内，在 C++ 代码中不应使用。</p>
 
 <p>示例：</p>
 <code>struct A {
     int len;
-    int dat[];  //<i> Non-compliant</i>
+    int dat[];  //<i> Non-compliant, flexible array</i>
 };
 
 A* cpy(const A* p) {
     A* a = (A*)malloc(
         sizeof(A) + p-&gt;len * sizeof(int)
     );
-    *a = *p;    //<i> Error, only p-&gt;len is copied</i>
+    *a = *p;    //<i> Data loss, only p-&gt;len is copied</i>
     return a;
 }</code>
 <p>例中 *a = *p 这种拷贝赋值运算会漏掉数组的内容，而且数组不会计入 sizeof 的结果，易引起意料之外的错误，所以在 C 代码中也不建议使用柔性数组。</p>

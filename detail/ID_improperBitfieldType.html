@@ -28,7 +28,7 @@
 <li>各种实现中取值范围均一致的整数类型</li>
 
 </ul>
-<p>C90 标准只允许 signed int 或 unsigned int 作为位域类型，在之后的 C 标准以及 C++14 之前的 C++ 标准中，用于位域的 char、short、int、long 或 long long 等整数类型是否有符号由实现定义。</p>
+<p>C90 标准只允许 int、signed int 或 unsigned int 作为位域类型，在之后的 C 标准以及 C++14 之前的 C++ 标准中，用于位域的 char、short、int、long 或 long long 等整数类型是否有符号由实现定义。</p>
 
 <p>为了避免意料之外的符号扩展、溢出等问题，建议统一使用无符号整型作为位域类型。</p>
 
@@ -67,7 +67,8 @@ bitfieldMustBeStdInt: 位域类型是否必须为 stdint.h 或 cstdint 中定义
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">ISO/IEC 9899:1999 J.3.9(1)-implementation
+<div class="ref-items">ISO/IEC 9899:1990 6.5.2.1
+ISO/IEC 9899:1999 J.3.9(1)-implementation
 ISO/IEC 9899:2011 J.3.9(1)-implementation
 ISO/IEC 14882:2003 9.6(3)-implementation
 ISO/IEC 14882:2011 9.6(3)-implementation</div>
