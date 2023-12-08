@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：逗号表达式意在从左至右依次执行各子表达式，但重载逗号运算符会打破这一规则，易造成意料之外的结果。" />
+  <meta name="description" content="C/C++ 安全编程要点：对于重载的逗号运算符，C++17 之前的标准未声明其子表达式的求值顺序，应避免重载逗号运算符以确保代码的兼容性和正确性。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,20 +21,19 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>逗号表达式意在从左至右依次执行各子表达式，但重载逗号运算符会打破这一规则，易造成意料之外的结果。</p>
+<p>对于重载的逗号运算符，C++17 之前的标准未声明其子表达式的求值顺序，应避免重载逗号运算符以确保代码的兼容性和正确性。</p>
 
 <p>示例：</p>
 <code>class A { .... };
 
+A&amp; operator , (int, A&amp;);   //<i> Non-compliant</i>
+
 A&amp; foo(int);
-A&amp; operator , (int, A&amp;);  //<i> Non-compliant</i>
 
-int bar(int i) {
-    ++i, foo(i);   //<i> Disordered</i>
+A&amp; bar(int i) {
+    return ++i, foo(i);   //<i> May be disordered</i>
 }</code>
-<p>例中逗号运算符被重载后变成了一个函数，++i 和 foo(i) 变成了函数参数，函数参数的求值顺序在标准中是未声明的，foo(i) 很有可能会先被求值，++i 则失去了意义。</p>
-
-<p>另外，也不应重载逻辑运算符，参见 <a href="./ID_overloadLogicOperator.html" class="dashed-link">ID_overloadLogicOperator</a>。</p>
+<p>例中逗号表达式意在将变量 i 增 1 后作为 foo 的参数，但逗号运算符被重载后变成了一个函数，++i 和 foo(i) 是函数的参数。在 C++17 之前，所有参数的求值顺序均是未声明的，foo(i) 可能会先被求值，++i 便失去了意义。C++17 明确了重载运算符参数的求值顺序与内置运算符一致，但遵循之前标准的编译器仍在广泛使用中，故应考虑兼容性，从而保证正确性。</p>
 
 </main>
 
@@ -45,7 +44,8 @@ int bar(int i) {
 <h3>依据</h3>
 <hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 5.2.2(8)-unspecified
-ISO/IEC 14882:2011 5.2.2(8)</div>
+ISO/IEC 14882:2011 5.2.2(8)
+ISO/IEC 14882:2017 16.3.1.2(2)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>

@@ -142,7 +142,7 @@
   <li><a href="./detail/ID_macro_badName.html">宏应遵循合理的命名方式</a></li>
   <li><a href="./detail/ID_macro_defineReserved.html">不可定义具有保留意义的宏名称</a></li>
   <li><a href="./detail/ID_macro_undefReserved.html">不可取消定义具有保留意义的宏名称</a></li>
-  <li><a href="./detail/ID_macro_expNotEnclosed.html">可作为子表达式的宏定义应该用括号括起来</a></li>
+  <li><a href="./detail/ID_macro_expNotEnclosed.html">宏定义为表达式时应该用括号括起来</a></li>
   <li><a href="./detail/ID_macro_paramNotEnclosed.html">表达式中的宏参数应该用括号括起来</a></li>
   <li><a href="./detail/ID_macro_stmtNotEnclosed.html">由多个语句组成的宏定义应该用 do-while(0) 括起来</a></li>
   <li><a href="./detail/ID_macro_complexConcat.html">宏定义中的 # 和 ## 运算符不应嵌套使用</a></li>
@@ -504,7 +504,7 @@
 </ol></li>
 <li class="rules-toc-section">Evaluation<ol>
   <li><a href="./detail/ID_unevaluatedSideEffect.html">不可依赖不会生效的副作用</a></li>
-  <li><a href="./detail/ID_evaluationOrderReliance.html">避免依赖特定的子表达式求值顺序</a></li>
+  <li><a href="./detail/ID_evaluationOrderReliance.html">不可依赖未声明的求值顺序</a></li>
   <li><a href="./detail/ID_confusingAssignment.html">在表达式中不应多次读写同一对象</a></li>
   <li><a href="./detail/ID_unexpectedPrecedence.html">注意运算符优先级，避免非预期的结果</a></li>
   <li><a href="./detail/ID_illPtrDiff.html">不在同一数组或对象中的地址不可相减或比较大小</a></li>

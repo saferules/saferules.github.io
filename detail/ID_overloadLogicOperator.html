@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：对“逻辑与”、“逻辑或”等运算符的重载会影响效率，甚至造成不符合预期的结果。" />
+  <meta name="description" content="C/C++ 安全编程要点：重载“逻辑与”、“逻辑或”等运算符会影响效率，甚至会导致不符合预期的结果。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,47 +21,34 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>对“逻辑与”、“逻辑或”等运算符的重载会影响效率，甚至造成不符合预期的结果。</p>
+<p>重载“逻辑与”、“逻辑或”等运算符会影响效率，甚至会导致不符合预期的结果。</p>
 
-<p>C/C++ 标准明确规定了内置逗号、逻辑与、逻辑或等运算符的子表达式求值顺序。对于逻辑表达式，从左到右计算子表达式的值，当可以确定整个表达式的值时立即结束计算，如果还有其他子表达式未求值也不再计算了，这种规则称为“短路规则”，意在提高效率，然而运算符的重载却打破了这一规则。</p>
+<p>对于非重载的内置“逻辑与”、“逻辑或”运算符，标准要求从左到右依次对子表达式求值，一旦可以确定整个表达式的值，计算就会立即停止，如果还有其他子表达式未被求值，也不会再进行计算，这就是“短路规则”，其目的是为了提高效率。然而，运算符的重载会导致短路规则失效，甚至会导致逻辑错误。</p>
 
 <p>示例：</p>
-<code>class A {
-    int i;
-
-public:
-    A(int x = 0): i(x) {
-    }
-
-    bool valid() const {
-        return i != 0;
-    }
-
-    A&amp; assign(const A&amp; a) {
-        i = a.i;
-        return *this;
-    }
+<code>struct A {
+    A();
+    bool valid() const;
+    A&amp; assign(const A&amp;);
 };
 
-bool operator &amp;&amp; (const A&amp; a, const A&amp; b) {  //<i> Non-compliant</i>
-    return a.valid() &amp;&amp; b.valid();
+bool operator &amp;&amp; (const A&amp; x, const A&amp; y) {  //<i> Non-compliant</i>
+    return x.valid() &amp;&amp; y.valid();
 }
 </code>
-<p>注意表达式（设 a 和 b 为 A 类对象）：</p>
-<code>b &amp;&amp; a.assign(b)
+<p>设 a 和 b 为 A 类对象：</p>
+<code>b &amp;&amp; a.assign(b)  //<i> Logic error</i>
 </code>
-<p>按常理，此表达式的意思应该是如果 b 在某种意义上“有效”，就将 b 赋给 a，所以 b 的值应先被求出，但由于 &amp;&amp; 被重载成了一个函数，其左右子表达式成了函数的参数，“短路规则”不再有效，而且参数的求值顺序在标准中是未声明的，所以常规逻辑子表达式的求值顺序无法得到保证。目前 MSVC、g++ 等主流编译器默认都是从右到左计算参数的值，例中 a.assign(b) 会先被执行，造成完全不符合预期的结果。</p>
+<p>按常理，此表达式的意思是如果 b 在某种意义上为真，就用 b 对 a 赋值，否则不进行赋值，但由于 &amp;&amp; 被重载成了函数，左右子表达式成了函数的参数，短路规则不再有效。在 C++17 之前，所有参数的求值顺序均是未声明的，a.assign(b) 可能会先被执行，造成完全不符合预期的结果，C++17 明确了重载运算符参数的求值顺序与内置运算符一致，但仍然无法遵守短路规则，a.assign(b) 总会被执行。</p>
 
 <p>解决方法：</p>
-<code>class A {
-    ....
-
-public:
+<code>struct A {
     explicit operator bool() const {
         return valid();
     }
+    ....
 };</code>
-<p>去掉对 &amp;&amp; 的重载，在 A 中定义 bool 类型转换运算符，既可保证“短路规则”，又可保证求值顺序。</p>
+<p>去掉对 &amp;&amp; 的重载，在类中定义 bool 类型转换运算符，既可保证求值顺序，又可遵守短路规则。</p>
 
 </main>
 
@@ -72,7 +59,8 @@ public:
 <h3>依据</h3>
 <hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 5.2.2(8)-unspecified
-ISO/IEC 14882:2011 5.2.2(8)</div>
+ISO/IEC 14882:2011 5.2.2(8)
+ISO/IEC 14882:2017 16.3.1.2(2)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>

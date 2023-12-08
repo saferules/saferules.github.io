@@ -21,16 +21,14 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>对于 stdarg.h 中的宏 va_arg(ap, type)，其类型参数 type 在</p>
-
-<p>对于宏 va_arg(ap, type) 的类型参数 type，下列情况会导致标准未定义的行为：</p>
+<p>对于 stdarg.h 中的宏 va_arg(ap, type)，其类型参数 type 在下列情况会导致标准未定义的行为：</p>
 <ul>
 <li>type 后加 * 号不能表示指针类型</li>
 <li>与“默认参数提升”后的类型不兼容</li>
 <li>与可变参数列表中对应的实参类型不兼容，或没有对应的实参</li>
 
 </ul>
-<p>以下类型不可作为 av_arg 的参数：</p>
+<p>以下类型不可作为 va_arg 的参数：</p>
 <code>bool、_Bool、
 char、signed char、unsigned char、char16_t、
 float、

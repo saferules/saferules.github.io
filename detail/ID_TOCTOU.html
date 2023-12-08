@@ -23,7 +23,7 @@
 <main>
 <p>攻击者可以在两次通过路径访问文件的中途对文件做手脚，从而造成不良后果。</p>
 
-<p>这种问题称为“TOCTOU（Time-of-check to time-of-use）”。有时需要先检查文件的某种状态，如果状态满足条件的话，再使用该文件，如果“检查”和“使用”都是通过路径完成的，攻击者可以在中途将文件替换成不满足条件的文件，如将文件替换成指向另一个文件的链接，从而对系统造成破坏，这是一种典型的“<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" class="dashed-link">竞态条件</a>”。</p>
+<p>这种问题称为“<a href="https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use" target="_blank" class="dashed-link">TOCTOU（Time-of-check to time-of-use）</a>”。有时需要先检查文件的某种状态，如果状态满足条件的话，再使用该文件，如果“检查”和“使用”都是通过路径完成的，攻击者可以在中途将文件替换成不满足条件的文件，如将文件替换成指向另一个文件的链接，从而对系统造成破坏，这是一种典型的“<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" class="dashed-link">竞态条件</a>”。</p>
 
 <p>示例：</p>
 <code>void create(const char* path) {

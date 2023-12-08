@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：取地址运算符（一元 &amp; 运算符），重载之后可以返回任意地址，极易误用。" />
+  <meta name="description" content="C/C++ 安全编程要点：重载的取地址运算符可以返回任意类型的数据，易被误用，非智能指针相关的基础类不应重载取地址运算符。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,7 +21,7 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>取地址运算符（一元 &amp; 运算符），重载之后可以返回任意地址，极易误用。</p>
+<p>重载的取地址运算符可以返回任意类型的数据，易被误用，非智能指针相关的基础类不应重载取地址运算符。</p>
 
 <p>获取不完整类型的对象地址时，如果其完整类型重载了取地址运算符，会导致标准未定义的行为。</p>
 
@@ -33,9 +33,7 @@ X* foo(X&amp; x) {
 }
 
 struct X {
-    X* operator &amp;() {   //<i> Non-compliant</i>
-        return nullptr;
-    }
+    X* operator &amp;();   //<i> Non-compliant</i>
 };
 
 X* bar(X&amp; x) {
