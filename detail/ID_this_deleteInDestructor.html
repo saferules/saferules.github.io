@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：析构函数中不可使用 delete this，否则造成无限递归。" />
+  <meta name="description" content="C/C++ 安全编程要点：析构函数开始执行时，对象整体已不存在，再次调用析构函数会导致标准未定义的行为。 " />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>析构函数中不可使用 delete this - C/C++ 安全规则</title>
+  <title>不可递归调用析构函数 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>析构函数中不可使用 delete this</h1>
+  <h1>不可递归调用析构函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">ID_this_deleteInDestructor</div>
     <div id="subtitle-tags">
@@ -21,18 +21,28 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>析构函数中不可使用 delete this，否则造成无限递归。</p>
+<p>析构函数开始执行时，对象整体已不存在，再次调用析构函数会导致标准未定义的行为。 </p>
 
 <p>示例：</p>
 <code>struct A {
     ~A() {
-        delete this;  //<i> Non-compliant</i>
+        delete this;  //<i> Non-compliant, undefined behavior</i>
     }
 };</code>
+<p>在析构函数中调用 delete this 会再次调用析构函数，导致未定义的行为。</p>
 
 </main>
 
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_recursion.html" class="related-link">ID_recursion</a></div>
 
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 3.8(1)
+ISO/IEC 14882:2003 12.4(14)-undefined
+ISO/IEC 14882:2011 3.8(1)
+ISO/IEC 14882:2011 12.4(15)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>

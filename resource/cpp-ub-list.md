@@ -1812,6 +1812,7 @@ ISO/IEC 14882:2011 12.4(15)-undefined
 
 #### 规则
 [ID_explicitDtorCall](./c-cpp-rules.md#explicitdtorcall)  
+[ID_this_deleteInDestructor](./c-cpp-rules.md#this_deleteindestructor)  
 <br/>
 
 <br/>

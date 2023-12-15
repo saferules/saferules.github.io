@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：头文件中的函数或对象会被引入不同的翻译单元（translate-unit）造成编译冲突。" />
+  <meta name="description" content="C/C++ 安全编程要点：在头文件中定义的函数或对象会被引入不同的翻译单元（translate-unit）造成编译冲突。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>在头文件中不应实现函数或定义对象 - C/C++ 安全规则</title>
+  <title>不应在头文件中实现函数或定义对象 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>在头文件中不应实现函数或定义对象</h1>
+  <h1>不应在头文件中实现函数或定义对象</h1>
   <div id="subtitle">
     <div id="subtitle-id">ID_definedInHeader</div>
     <div id="subtitle-tags">
@@ -21,11 +21,13 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>头文件中的函数或对象会被引入不同的翻译单元（translate-unit）造成编译冲突。</p>
+<p>在头文件中定义的函数或对象会被引入不同的翻译单元（translate-unit）造成编译冲突。</p>
 
-<p>常量对象和内联、模板函数可不受本规则约束，静态对象和静态函数也不受本规则约束，但受规则 <a href="./ID_staticInHeader.html" class="dashed-link">ID_staticInHeader</a> 限制。</p>
+<p>定义为常量、内联、模板的函数或对象可不受本规则约束，静态函数或对象也不受本规则约束，但受规则 <a href="./ID_staticInHeader.html" class="dashed-link">ID_staticInHeader</a> 限制。</p>
 
-<p>头文件是项目文档的重要组成部分，有必要保持头文件简洁清晰，头文件的主要内容应是类型或接口的声明。除非函数很简短，否则不建议在头文件中内联实现，大段的函数实现会影响头文件的可读性。</p>
+<p>头文件是项目文档的重要组成部分，有必要保持头文件简洁清晰，头文件的主要内容应是类型或接口的声明。除非函数很简短，否则也不建议在头文件中内联实现，大段的函数实现会影响头文件的可读性。</p>
+
+<p>注意，当头文件中的函数定义，尤其是动态链接库头文件中的函数定义发生变化时，所有相关模块均需重新编译，否则会导致严重错误。在头文件中定义的函数是模块二进制接口的一部分，应合理规划以降低维护成本。</p>
 
 <p>示例：</p>
 <code>//<i> In a header</i>
@@ -48,10 +50,13 @@ template &lt;class T&gt;
 T A&lt;T&gt;::foo(T&amp; p) {   //<i> Implementation</i>
     ....
 }</code>
-<p>将模板函数的实现移入 A.imp 文件中，再由主头文件包含即可，A.imp 文件称为模板实现文件。</p>
+<p>将模板函数的实现移入 .imp 文件中，再由主头文件包含即可，.imp 文件称为模板实现文件。</p>
 
 </main>
 
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_complexInlineFunction.html" class="related-link">ID_complexInlineFunction</a></div>
 
 
 <h3>参考</h3>

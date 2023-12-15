@@ -23,7 +23,7 @@
 <main>
 <p>new 表达式只应作为“=”的直接右子表达式，或直接作为参数，其他形式均有问题。</p>
 
-<p>本规则对 replacement new 不作要求。</p>
+<p>本规则对“<a href="https://en.cppreference.com/w/cpp/language/new#Placement_new" target="_blank" class="dashed-link">placement new</a>”表达式不作要求。</p>
 
 <p>示例：</p>
 <code>int i = *new int(10);         //<i> Non-compliant, memory leak</i>
@@ -36,9 +36,8 @@ delete[] p - 5;               //<i> Very odd</i>
 
 if (new int[10]) {            //<i> Non-compliant, memory leak</i>
     ....
-}
-</code>
-<p>这种问题多数是由笔误或错误的宏展开造成的。</p>
+}</code>
+<p>这些问题多数是由笔误或错误的宏展开造成的。</p>
 
 </main>
 

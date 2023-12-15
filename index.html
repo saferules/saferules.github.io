@@ -113,7 +113,7 @@
   <li><a href="./detail/ID_memberDeallocation.html">对象申请的资源应在析构函数中释放</a></li>
   <li><a href="./detail/ID_useAfterMove.html">对象被移动后应重置状态再使用</a></li>
   <li><a href="./detail/ID_throwInConstructor.html">构造函数抛出异常需避免相关资源泄漏</a></li>
-  <li><a href="./detail/ID_doubleFree.html">资源不可被重复释放</a></li>
+  <li><a href="./detail/ID_doubleFree.html">不可重复释放资源</a></li>
   <li><a href="./detail/ID_deleteIncompleteType.html">用 delete 释放对象需保证其类型完整</a></li>
   <li><a href="./detail/ID_excessiveDelete.html">用 delete 释放对象不可多写中括号</a></li>
   <li><a href="./detail/ID_insufficientDelete.html">用 delete 释放数组不可漏写中括号</a></li>
@@ -370,7 +370,7 @@
 <li id="function" class="rules-toc-chapter">Function<ol>
   <li><a href="./detail/ID_mainReturnsNonInt.html">main 函数的返回类型只应为 int</a></li>
   <li><a href="./detail/ID_illFormedMain.html">main 函数不应被调用、重载或被 inline、static 等关键字限定</a></li>
-  <li><a href="./detail/ID_definedInHeader.html">在头文件中不应实现函数或定义对象</a></li>
+  <li><a href="./detail/ID_definedInHeader.html">不应在头文件中实现函数或定义对象</a></li>
   <li><a href="./detail/ID_inconsistentParamName.html">函数的参数名称在声明处和实现处应保持一致</a></li>
   <li><a href="./detail/ID_paramMayBeSlicing.html">多态类的对象作为参数时不应采用值传递的方式</a></li>
   <li><a href="./detail/ID_paramNotUsed.html">不应存在未被使用的具名形式参数</a></li>
@@ -408,7 +408,7 @@
   <li><a href="./detail/ID_tooManyLines.html">函数的行数应在规定范围之内</a></li>
   <li><a href="./detail/ID_tooManyLambdaLines.html">lambda 表达式的行数应在规定范围之内</a></li>
   <li><a href="./detail/ID_tooManyParams.html">函数参数的数量应在规定范围之内</a></li>
-  <li><a href="./detail/ID_complexInlineFunction.html">不应定义过于复杂的内联函数</a></li>
+  <li><a href="./detail/ID_complexInlineFunction.html">不应定义复杂的内联函数</a></li>
   <li><a href="./detail/ID_recursion.html">避免函数调用自身</a></li>
   <li><a href="./detail/ID_nestedTooDeep.html">作用域及类型嵌套不应过深</a></li>
   <li><a href="./detail/ID_mixedAsm.html">汇编代码不应与普通代码混合</a></li>
@@ -606,7 +606,7 @@
   <li><a href="./detail/ID_arrayPointerCast.html">避免转换指向数组的指针</a></li>
   <li><a href="./detail/ID_functionPointerCast.html">避免转换函数指针</a></li>
   <li><a href="./detail/ID_nonDynamicDownCast.html">向下动态类型转换应使用 dynamic_cast</a></li>
-  <li><a href="./detail/ID_oddNewCast.html">对 new 表达式不应进行类型转换</a></li>
+  <li><a href="./detail/ID_oddNewCast.html">不应转换 new 表达式的类型</a></li>
   <li><a href="./detail/ID_redundantCast.html">不应存在多余的类型转换</a></li>
   <li><a href="./detail/ID_unsuitableReinterpretCast.html">可用其他方式完成的转换不应使用 reinterpret_cast</a></li>
   <li><a href="./detail/ID_forbidReinterpretCast.html">合理使用 reinterpret_cast</a></li>
@@ -635,10 +635,10 @@
   <li><a href="./detail/ID_oddPtrCharComparison.html">指针不应与 &#x27;\0&#x27; 等字符常量比较大小</a></li>
   <li><a href="./detail/ID_oddPtrZeroComparison.html">指针与空指针不应比较大小</a></li>
   <li><a href="./detail/ID_this_zeroComparison.html">不应判断 this 指针是否为空</a></li>
-  <li><a href="./detail/ID_this_deleteInDestructor.html">析构函数中不可使用 delete this</a></li>
+  <li><a href="./detail/ID_this_deleteInDestructor.html">不可递归调用析构函数</a></li>
   <li><a href="./detail/ID_this_forbidDeleteThis.html">禁用 delete this</a></li>
   <li><a href="./detail/ID_nullDerefDynamicCast.html">判断 dynamic_cast 转换是否成功</a></li>
-  <li><a href="./detail/ID_missingResetNull.html">指针在释放后应置空</a></li>
+  <li><a href="./detail/ID_missingResetNull.html">释放指针后应将指针赋值为空指针</a></li>
 </ol></li>
 <li id="interruption" class="rules-toc-chapter">Interruption<ol>
   <li><a href="./detail/ID_sig_dataRaces.html">避免由信号处理产生的数据竞争</a></li>

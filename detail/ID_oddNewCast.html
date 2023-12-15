@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：new 表达式本身是类型明确的，转换 new 表达式的类型也容易造成分配、访问或回收相关的错误。" />
+  <meta name="description" content="C/C++ 安全编程要点：new 表达式的类型是明确的，转换 new 表达式的类型易造成分配、访问或回收相关的错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>对 new 表达式不应进行类型转换 - C/C++ 安全规则</title>
+  <title>不应转换 new 表达式的类型 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>对 new 表达式不应进行类型转换</h1>
+  <h1>不应转换 new 表达式的类型</h1>
   <div id="subtitle">
     <div id="subtitle-id">ID_oddNewCast</div>
     <div id="subtitle-tags">
@@ -21,7 +21,7 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>new 表达式本身是类型明确的，转换 new 表达式的类型也容易造成分配、访问或回收相关的错误。</p>
+<p>new 表达式的类型是明确的，转换 new 表达式的类型易造成分配、访问或回收相关的错误。</p>
 
 <p>示例：</p>
 <code>int* p = (int*)new char[123];  //<i> Non-compliant</i>

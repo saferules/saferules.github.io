@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：是否对函数进行内联优化由实现定义，当函数执行的开销远大于调用的开销时，将函数定义为内联函数是没有意义的。" />
+  <meta name="description" content="C/C++ 安全编程要点：是否对函数进行内联优化由实现定义，当函数执行的开销远大于调用的开销时，不会进行内联优化。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>不应定义过于复杂的内联函数 - C/C++ 安全规则</title>
+  <title>不应定义复杂的内联函数 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>不应定义过于复杂的内联函数</h1>
+  <h1>不应定义复杂的内联函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">ID_complexInlineFunction</div>
     <div id="subtitle-tags">
@@ -21,30 +21,39 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>是否对函数进行内联优化由实现定义，当函数执行的开销远大于调用的开销时，将函数定义为内联函数是没有意义的。</p>
+<p>是否对函数进行内联优化由实现定义，当函数执行的开销远大于调用的开销时，不会进行内联优化。</p>
 
 <p>不适合将函数定义为内联函数的情况：</p>
 <ul>
-<li>语句数量超过指定限制</li>
+<li>语句数量过多</li>
 <li>存在循环或异常处理语句</li>
 <li>存在 switch 分枝语句</li>
-<li>函数存在递归实现</li>
+<li>存在递归调用</li>
 
 </ul>
-<p>建议内联函数的实现不要超过 3 个语句。</p>
+<p>建议内联函数的实现不超过 3 个语句。</p>
+
+<p>内联函数应在头文件中定义，但也应保持头文件简洁，可参见 <a href="./ID_definedInHeader.html" class="dashed-link">ID_definedInHeader</a> 的进一步讨论。</p>
+
+<p>内联函数可以在多个翻译单元中重复定义同一实例，有时需要利用这种特性将函数在头文件中实现，以便将库以头文件的形式发布，在这种情况下应在 .imp 等特殊头文件中实现内联函数，.imp 等文件中的内联函数可不受本规则限制。</p>
 
 </main>
 <h3>配置</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">maxInlineStatementsCount: 内联函数语句数量上限，超过则报出</div>
+<div class="ref-items">maxStatementsCount: 内联函数语句数量上限，超过则报出
+excludedFileExts: 不受限制的文件扩展名</div>
 
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_definedInHeader.html" class="related-link">ID_definedInHeader</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.7.4(5)-implementation
 ISO/IEC 9899:2011 6.7.4(6)-implementation
-ISO/IEC 14882:2003 7.1.2(2)-implementation
-ISO/IEC 14882:2011 7.1.2(2)-implementation</div>
+ISO/IEC 14882:2003 7.1.2(2 4)-implementation
+ISO/IEC 14882:2011 7.1.2(2 4)-implementation
+ISO/IEC 14882:2017 10.1.6(2 3)-implementation</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>

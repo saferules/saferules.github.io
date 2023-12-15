@@ -69,14 +69,6 @@ class B {
 class C {
     void* operator new(size_t);   //<i> Compliant</i>
     void operator delete(void*);   //<i> Compliant</i>
-};
-</code>
-<p>placement-new 与 placement-delete 也应成对提供：</p>
-<code>class D {
-    void* operator new(size_t, bool);   //<i> Non-compliant</i>
-
-    void* operator new(size_t, int, int);   //<i> Compliant</i>
-    void operator delete(void*, int, int);   //<i> Compliant</i>
 };</code>
 
 </main>

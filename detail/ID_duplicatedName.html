@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：不同的代码元素使用相同的名称不利于阅读和维护。" />
+  <meta name="description" content="C/C++ 安全编程要点：不同种类或用途的代码元素具有相同的名称不利于阅读和维护。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,7 +21,9 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>不同的代码元素使用相同的名称不利于阅读和维护。</p>
+<p>不同种类或用途的代码元素具有相同的名称不利于阅读和维护。</p>
+
+<p>即使在同一作用域中，语言也允许类型和对象或函数重名，但在实际代码中应有所区分。</p>
 
 <p>示例：</p>
 <code>struct A {
@@ -38,6 +40,9 @@ size_t x = sizeof(A);   //<i> Which ‘A’?</i>
 
 </main>
 
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_duplicatedTypeName.html" class="related-link">ID_duplicatedTypeName</a></div>
 
 
 <h3>参考</h3>

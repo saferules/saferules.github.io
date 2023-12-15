@@ -23,8 +23,8 @@
 <main>
 <p>使用 delete this 须保证：</p>
 <ul>
-<li>对象是用 new 创建的，但不能用 new[] 或 replacement new</li>
-<li>使用 delete this 之后不能再访问相关非静态成员</li>
+<li>对象是用 new 创建的，但不能用 new[]</li>
+<li>使用 delete this 后，除非重新构造对象，否则不能再访问相关非静态成员</li>
 <li>不能在析构函数中使用 delete this</li>
 
 </ul>
@@ -51,6 +51,8 @@ p-&gt;foo();              //<i> Memory is still leaking</i>
 
 
 
-
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">CWE-1082</div>
 </article>
 </html>

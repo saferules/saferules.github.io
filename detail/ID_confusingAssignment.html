@@ -30,7 +30,7 @@
 <li>如果对象由 volatile 限定，被读取的次数不应超过 1 次</li>
 
 </ol>
-<p>对于逻辑与、逻辑或、三元以及逗号表达式，标准明确规定了子表达式从左至右求值，左子表达式的副作用也会在右子表达式求值前生效，故子表达式之间可不受本规则限制，但子表达式本身仍受本规则限制，进一步可参见“<a href="https://en.wikipedia.org/wiki/Sequence_point" target="_blank" class="dashed-link">序列点（sequence point）</a>”以及“<a href="https://en.cppreference.com/w/cpp/language/eval_order" target="_blank" class="dashed-link">求值顺序</a>”等概念。</p>
+<p>对于逻辑与、逻辑或、三元以及逗号表达式，标准明确规定了子表达式从左至右求值，左子表达式的副作用也会在右子表达式求值前生效，所以相关子表达式之间可不受本规则限制，但子表达式本身仍受本规则限制，进一步可参见“<a href="https://en.wikipedia.org/wiki/Sequence_point" target="_blank" class="dashed-link">序列点（sequence point）</a>”以及“<a href="https://en.cppreference.com/w/cpp/language/eval_order" target="_blank" class="dashed-link">求值顺序</a>”等概念。</p>
 
 <p>本规则是 <a href="./ID_evaluationOrderReliance.html" class="dashed-link">ID_evaluationOrderReliance</a> 的特化。</p>
 
@@ -58,13 +58,13 @@ a += 1;      //<i> Compliant, or</i>
 a = a + 1;   //<i> Compliant</i>
 </code>
 <p>又如：</p>
-<code>volatile int v;
-fun(v, v);        //<i> Non-compliant</i></code>
-<p>例中 volatile 对象 v 在一个表达式中被读取两次是不符合要求的。volatile 对象的值可在程序之外被改变，对 volatile 对象的读取相当于更新对象的值，也是一种副作用。</p>
+<code>volatile int* v = DEV;
+fun(*v, *v);            //<i> Non-compliant</i></code>
+<p>例中 volatile 对象 *v 在一个表达式中被读取两次是不符合要求的。volatile 对象的值可在程序之外被改变，对 volatile 对象的读取相当于更新对象的值，也是一种副作用。</p>
 
 <p>应在简单的赋值语句中访问 volatile 对象：</p>
-<code>volatile int v;
-int tmp = v;
+<code>volatile int* v = DEV;
+int tmp = *v;
 fun(tmp, tmp);    //<i> Compliant</i></code>
 
 </main>

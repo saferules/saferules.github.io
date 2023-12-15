@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：内存空间被回收后相关指针不再有效，这时应将指针设为空指针，可避免重复释放等问题，如果后续对指针有错误访问，也可使问题立即显现出来，便于修正。" />
+  <meta name="description" content="C/C++ 安全编程要点：回收资源后，应立即将指向该资源的指针赋值为空指针，以明确其状态。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>指针在释放后应置空 - C/C++ 安全规则</title>
+  <title>释放指针后应将指针赋值为空指针 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>指针在释放后应置空</h1>
+  <h1>释放指针后应将指针赋值为空指针</h1>
   <div id="subtitle">
     <div id="subtitle-id">ID_missingResetNull</div>
     <div id="subtitle-tags">
@@ -21,31 +21,28 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>内存空间被回收后相关指针不再有效，这时应将指针设为空指针，可避免重复释放等问题，如果后续对指针有错误访问，也可使问题立即显现出来，便于修正。</p>
+<p>回收资源后，应立即将指向该资源的指针赋值为空指针，以明确其状态。</p>
+
+<p>本规则是避免“重复释放”和“指针悬挂”等问题的有效措施，参见 <a href="./ID_doubleFree.html" class="dashed-link">ID_doubleFree</a>、<a href="./ID_danglingDeref.html" class="dashed-link">ID_danglingDeref</a>。</p>
 
 <p>示例：</p>
-<code>class T {
-    int* p = new int[123];
-    ....
-
+<code>class A {
+    int* p = new int[10];
 public:
-   ~T() {
-        dealloc();
-    }
-
     void dealloc() {
         delete[] p;
-        p = nullptr;    //<i> Good</i>
+        p = nullptr;   //<i> Good</i>
     }
+   ~A() { dealloc(); }
 };</code>
-<p>例中 dealloc 函数释放指针 p 后将其置为空指针，如果 dealloc 函数被外界反复调用也没有问题。本规则是对“指针悬挂”等问题的有效措施，参见 <a href="./ID_danglingDeref.html" class="dashed-link">ID_danglingDeref</a>。</p>
+<p>例中 dealloc 函数释放指针后将其赋值为空指针，delete、free 等接口可以接受空指针，dealloc 函数被反复调用也没有问题，即使相关接口不接受空指针，也可以使问题立即显现出来，便于修正。</p>
 
 </main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items"><a href="./ID_danglingDeref.html" class="related-link">ID_danglingDeref</a>
-<a href="./ID_explicitDtorCall.html" class="related-link">ID_explicitDtorCall</a></div>
+<div class="ref-items"><a href="./ID_doubleFree.html" class="related-link">ID_doubleFree</a>
+<a href="./ID_danglingDeref.html" class="related-link">ID_danglingDeref</a></div>
 
 
 <h3>参考</h3>

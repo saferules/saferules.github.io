@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：由 constexpr 关键字限定的函数已经相当于被声明为 inline，不应再重复声明。" />
+  <meta name="description" content="C/C++ 安全编程要点：在类定义中实现的函数、由 constexpr 关键字限定的函数已是内联函数，不需要显式声明 inline 关键字。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,31 +21,19 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>由 constexpr 关键字限定的函数已经相当于被声明为 inline，不应再重复声明。</p>
+<p>在类定义中实现的函数、由 constexpr 关键字限定的函数已是内联函数，不需要显式声明 inline 关键字。</p>
 
 <p>示例：</p>
-<code>inline constexpr int foo(int n) {  //<i> Non-compliant, ‘inline’ is redundant</i>
-    return n + 1;
-}
-</code>
-<p>应改为：</p>
-<code>constexpr int foo(int n) {  //<i> Compliant</i>
-    return n + 1;
-}
-</code>
-<p>另外，在类声明中实现的函数也相当于被声明为 inline，不应重复声明：</p>
-<code>class A {
-    ....
-
-public:
+<code>struct T {
     inline int foo() {  //<i> Non-compliant, ‘inline’ is redundant</i>
-        return 123;
+        return 1;
     }
+};
 
-    int bar() {         //<i> Compliant</i>
-        return 456;
-    }
-};</code>
+inline constexpr int bar() {  //<i> Non-compliant, ‘inline’ is redundant</i>
+    return 0;
+}</code>
+<p>例中 inline 关键字均是多余的，应保持代码简洁，去掉多余的关键字。</p>
 
 </main>
 

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：重复释放资源属于逻辑错误，导致标准未定义的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：重复释放资源会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>资源不可被重复释放 - C/C++ 安全规则</title>
+  <title>不可重复释放资源 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>资源不可被重复释放</h1>
+  <h1>不可重复释放资源</h1>
   <div id="subtitle">
     <div id="subtitle-id">ID_doubleFree</div>
     <div id="subtitle-tags">
@@ -21,7 +21,9 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>重复释放资源属于逻辑错误，导致标准未定义的行为。</p>
+<p>重复释放资源会导致标准未定义的行为。</p>
+
+<p>由于多种原因，资源管理系统难以甚至无法预先判断资源是否已被回收，一旦重复释放资源，可能会直接破坏资源管理系统的数据结构，导致不可预期的错误。</p>
 
 <p>示例：</p>
 <code>void foo(const char* path) {
@@ -30,11 +32,14 @@
         ....
         fclose(p);
     }
-    fclose(p);  //<i> Non-compliant</i>
+    fclose(p);  //<i> Non-compliant, closed twice, undefined behavior</i>
 }</code>
 
 </main>
 
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_missingResetNull.html" class="related-link">ID_missingResetNull</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
@@ -45,6 +50,7 @@ ISO/IEC 14882:2011 3.7.4.2(4)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">CWE-415</div>
+<div class="ref-items">CWE-415
+SEI CERT MEM00-C</div>
 </article>
 </html>
