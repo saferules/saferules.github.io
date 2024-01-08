@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：函数名称标识符可以隐式转换为函数指针或函数地址，但为了提高可读性，应对其有所区分。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>函数取地址时应显式使用 &amp; 运算符 - C/C++ 安全规则</title>
+</head>
+<article>
+<header>
+  <h1>函数取地址时应显式使用 &amp; 运算符</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">14.18 ID_missingAddressOperator</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#pointer">Home</a> › <a class="nav-link" href="./ID_missingArrayIndexing.html">next</a> › <a class="nav-link" href="./ID_missingResetNull.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>函数名称标识符可以隐式转换为函数指针或函数地址，但为了提高可读性，应对其有所区分。</p>
+
+<p>示例：</p>
+<code>int fun(void);
+int(*pf)(void) = fun;   //<i> Non-compliant, use ‘&amp;fun’ instead</i></code>
+
+</main>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">MISRA C++ 2008 8-4-4</div>
+</article>
+</html>

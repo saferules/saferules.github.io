@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：在 C 语言的早期阶段，函数类型、参数类型以及参数列表的声明均可以被省略，这种特性使编译器难以检查相关错误，也会使代码难以阅读和维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>弃用老式声明与定义 - C/C++ 安全规则</title>
+</head>
+<article>
+<header>
+  <h1>弃用老式声明与定义</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">6.11.12 ID_oldStyleParamList</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.other">Home</a> › <a class="nav-link" href="./ID_exceptionUnsafe.html">next</a> › <a class="nav-link" href="./ID_implicitDeclaration.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>在 C 语言的早期阶段，函数类型、参数类型以及参数列表的声明均可以被省略，这种特性使编译器难以检查相关错误，也会使代码难以阅读和维护。</p>
+
+<p>示例：</p>
+<code>int foo();     //<i> Non-compliant</i>
+int bar(x);    //<i> Non-compliant</i>
+
+int i = 0;
+foo();
+foo(i);   //<i> Which is right?</i>
+bar(i);
+bar(&amp;i);   //<i> Unable to check error</i></code>
+<p>例中 foo 函数并不是没有参数，而是未声明参数，bar 函数只声明了参数名称，如果传入的参数与实际定义不符会导致未定义的行为。</p>
+
+<p>应采用“原型声明”，明确声明函数的参数列表和返回类型：</p>
+<code>int foo(void);     //<i> Compliant</i>
+int bar(int* x);   //<i> Compliant</i>
+</code>
+<p>相应的老式定义也不应再继续使用，如：</p>
+<code>int bar(x) int* x; {  //<i> Non-compliant</i>
+    ....
+}</code>
+
+</main>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_missingVoid.html" class="related-link">ID_missingVoid</a>
+<a href="./ID_missingType.html" class="related-link">ID_missingType</a></div>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 9899:1999 6.11.6(1)-deprecated
+ISO/IEC 9899:1999 6.11.7(1)-deprecated
+ISO/IEC 9899:2011 6.11.6(1)-deprecated
+ISO/IEC 9899:2011 6.11.7(1)-deprecated</div>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">MISRA C 2004 16.6
+MISRA C 2012 8.2
+<a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP37-C.+Call+functions+with+the+correct+number+and+type+of+arguments" target="_blank" class="related-link">SEI CERT EXP37-C</a></div>
+</article>
+</html>

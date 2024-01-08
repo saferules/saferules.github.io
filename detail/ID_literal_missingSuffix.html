@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：为了便于查看常量的类型，避免意料之外的错误，无符号整数常量应具有后缀 U。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>无符号整数常量应具有后缀 U - C/C++ 安全规则</title>
+</head>
+<article>
+<header>
+  <h1>无符号整数常量应具有后缀 U</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">11.9 ID_literal_missingSuffix</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#literal">Home</a> › <a class="nav-link" href="./ID_literal_nonStandardSuffix.html">next</a> › <a class="nav-link" href="./ID_literal_confusingSuffix.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>为了便于查看常量的类型，避免意料之外的错误，无符号整数常量应具有后缀 U。</p>
+
+<p>示例（32 位环境）：</p>
+<code>0x7fffffff    //<i> Compliant, signed int</i>
+0x80000000    //<i> Non-compliant, unsigned int, missing ‘U’</i>
+0x80000000U   //<i> Compliant</i></code>
+
+</main>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">MISRA C 2012 7.2
+MISRA C++ 2008 2-13-3</div>
+</article>
+</html>

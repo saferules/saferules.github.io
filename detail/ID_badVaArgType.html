@@ -13,9 +13,9 @@
 <header>
   <h1>va_arg 的类型参数应符合要求</h1>
   <div id="subtitle">
-    <div id="subtitle-id">ID_badVaArgType</div>
+    <div id="subtitle-id">3.3.5 ID_badVaArgType</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_deprecatedOffsetof.html">next</a> › <a class="nav-link" href="./ID_incompleteVaMacros.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.macro-usage">Home</a> › <a class="nav-link" href="./ID_deprecatedOffsetof.html">next</a> › <a class="nav-link" href="./ID_incompleteVaMacros.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
@@ -37,7 +37,7 @@ short int、signed short int、unsigned short int
 </code>
 <p>这些类型的参数在传入可变参数列表时，会被提升为 int、unsigned int、double 等类型，va_arg 如果再按提升前的类型解析参数的值就会产生错误，参见“<a href="https://en.cppreference.com/w/cpp/language/variadic_arguments#Default_conversions" target="_blank" class="dashed-link">默认参数提升（default argument promotion）</a>”机制。</p>
 
-<p>另外，C++ 代码中非 POD 类型也不可作为 va_arg 的参数，参见 <a href="./ID_nonPODVariadicArgument.html" class="dashed-link">ID_nonPODVariadicArgument</a>。</p>
+<p>另外，在 C++ 代码中，非“<a href="https://en.cppreference.com/w/cpp/named_req/PODType" target="_blank" class="dashed-link">POD 类型</a>”也不可作为 va_arg 的参数，参见 <a href="./ID_nonPODVariadicArgument.html" class="dashed-link">ID_nonPODVariadicArgument</a>。</p>
 
 <p>示例：</p>
 <code>void foo(int n, ...) {
@@ -72,6 +72,6 @@ ISO/IEC 9899:2011 7.16.1.1(2)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">SEI CERT EXP47-C</div>
+<div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP47-C.+Do+not+call+va_arg+with+an+argument+of+the+incorrect+type" target="_blank" class="related-link">SEI CERT EXP47-C</a></div>
 </article>
 </html>

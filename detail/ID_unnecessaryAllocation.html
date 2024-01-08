@@ -13,9 +13,9 @@
 <header>
   <h1>避免不必要的内存分配</h1>
   <div id="subtitle">
-    <div id="subtitle-id">ID_unnecessaryAllocation</div>
+    <div id="subtitle-id">2.22 ID_unnecessaryAllocation</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_dynamicAllocation.html">next</a> › <a class="nav-link" href="./ID_unsuitableArraySize.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#resource">Home</a> › <a class="nav-link" href="./ID_dynamicAllocation.html">next</a> › <a class="nav-link" href="./ID_unsuitableArraySize.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
@@ -32,7 +32,7 @@ char* pc = new char;   //<i> Non-compliant</i></code>
 <code>bool b = false;   //<i> Compliant</i>
 char c = 0;       //<i> Compliant</i>
 </code>
-<p>用 new 分配数组时方括号被误写成小括号，或使用 unique_ptr 等智能指针时遗漏了数组括号也是常见笔误，如：</p>
+<p>用 new[] 分配数组时方括号被误写成小括号，或使用 unique_ptr 等智能指针时遗漏了数组括号也是常见笔误，如：</p>
 <code>int* pi = new int(32);            //<i> Non-compliant</i>
 auto ui = make_unique&lt;int&gt;(32);   //<i> Non-compliant</i>
 </code>

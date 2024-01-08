@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：bool 值只能为真或假，不具有“大小”等数值意义，bool 值参与位运算、大小比较、数值增减是不合理的。" />
+  <meta name="description" content="C/C++ 安全编程要点：bool 对象的值只能为真或假，不具有“大小”等数值意义，bool 对象参与位运算、大小比较、数值增减是不合理的。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>bool 值不应参与位运算、大小比较、数值增减 - C/C++ 安全规则</title>
+  <title>bool 对象不应参与位运算、大小比较、数值增减 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>bool 值不应参与位运算、大小比较、数值增减</h1>
+  <h1>bool 对象不应参与位运算、大小比较、数值增减</h1>
   <div id="subtitle">
-    <div id="subtitle-id">ID_illBoolOperation</div>
+    <div id="subtitle-id">10.2.6 ID_illBoolOperation</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illFormedCompoundAssignment.html">next</a> › <a class="nav-link" href="./ID_illPtrDiff.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.evaluation">Home</a> › <a class="nav-link" href="./ID_illEnumOperation.html">next</a> › <a class="nav-link" href="./ID_illPtrDiff.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>bool 值只能为真或假，不具有“大小”等数值意义，bool 值参与位运算、大小比较、数值增减是不合理的。</p>
+<p>bool 对象的值只能为真或假，不具有“大小”等数值意义，bool 对象参与位运算、大小比较、数值增减是不合理的。</p>
 
 <p>示例：</p>
 <code>bool foo(unsigned flags, unsigned flag) {
@@ -49,10 +49,10 @@ ISO/IEC 14882:2011 D.1-deprecated</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">CWE-682
-CWE-783
-CWE-1024
-CWE-1025
+<div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/682.html" target="_blank" class="related-link">CWE-682</a>
+<a href="https://cwe.mitre.org/data/definitions/783.html" target="_blank" class="related-link">CWE-783</a>
+<a href="https://cwe.mitre.org/data/definitions/1024.html" target="_blank" class="related-link">CWE-1024</a>
+<a href="https://cwe.mitre.org/data/definitions/1025.html" target="_blank" class="related-link">CWE-1025</a>
 MISRA C 2004 12.7
 MISRA C 2012 10.1
 MISRA C++ 2008 5-0-21</div>

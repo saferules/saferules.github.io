@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：由于少数键盘无法输出所有 C/C++ 标准字符，C/C++ 语言允许使用 digraphs 代替无法输出的字符，但可读性较差，不利于维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>禁用 digraphs - C/C++ 安全规则</title>
+</head>
+<article>
+<header>
+  <h1>禁用 digraphs</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">3.7.2 ID_forbidDigraphs</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.other">Home</a> › <a class="nav-link" href="./ID_badBackslash.html">next</a> › <a class="nav-link" href="./ID_literal_trigraphs.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>由于少数键盘无法输出所有 C/C++ 标准字符，C/C++ 语言允许使用 digraphs 代替无法输出的字符，但可读性较差，不利于维护。</p>
+
+<p>digraph 由特定字符组成：</p>
+<code>&lt;:  :&gt;  &lt;%  %&gt;  %:  %:%:
+</code>
+<p>分别对应：</p>
+<code>[  ]  {  }  #  ##
+</code>
+<p>示例：</p>
+<code>%:include &lt;math.h&gt;   //<i> Non-compliant</i>
+
+int g = 3;
+
+int foo(int i) &lt;%    //<i> Non-compliant</i>
+    return i%::g;    //<i> Non-compliant, ‘%:’ is a digraph</i>
+%&gt;                   //<i> Non-compliant</i></code>
+
+</main>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_literal_trigraphs.html" class="related-link">ID_literal_trigraphs</a></div>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 9899:1999 6.4.6(3)
+ISO/IEC 9899:2011 6.4.6(3)
+ISO/IEC 14882:2003 2.5
+ISO/IEC 14882:2011 2.6
+ISO/IEC 14882:2017 5.5</div>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">MISRA C++ 2008 2-5-1</div>
+</article>
+</html>

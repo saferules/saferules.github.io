@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：如果 #if 和 #elif 指令的控制表达式均为 bool 型表达式，可使逻辑结构更清晰，有利于阅读和维护。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>条件编译指令控制表达式的值应为 0 或 1 - C/C++ 安全规则</title>
+</head>
+<article>
+<header>
+  <h1>条件编译指令控制表达式的值应为 0 或 1</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">3.4.8 ID_nonBoolPPCondition</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.directive">Home</a> › <a class="nav-link" href="./ID_warningDisabled.html">next</a> › <a class="nav-link" href="./ID_incompleteDirective.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>如果 #if 和 #elif 指令的控制表达式均为 bool 型表达式，可使逻辑结构更清晰，有利于阅读和维护。</p>
+
+<p>示例：</p>
+<code>#define M 123
+
+#if M   //<i> Non-compliant</i>
+....
+#endif
+
+#if M != 0   //<i> Compliant</i>
+....
+#endif
+
+#if defined(M)   //<i> Compliant</i>
+....
+#endif</code>
+
+</main>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">MISRA C 2012 20.8</div>
+</article>
+</html>

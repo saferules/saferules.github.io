@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：通过指针的值访问相应地址中的数据称为“解引用（dereference）”，空指针是没有指向任何数据的指针，空指针解引用是一种逻辑错误，会导致标准未定义的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：空指针解引用会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -13,15 +13,17 @@
 <header>
   <h1>避免空指针解引用</h1>
   <div id="subtitle">
-    <div id="subtitle-id">ID_nullDerefInScp</div>
+    <div id="subtitle-id">14.1 ID_nullDerefInScp</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_nullDerefInExp.html">next</a> › <a class="nav-link" href="./ID_valueOverflow.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#pointer">Home</a> › <a class="nav-link" href="./ID_nullDerefInExp.html">next</a> › <a class="nav-link" href="./ID_valueOverflow.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>通过指针的值访问相应地址中的数据称为“解引用（dereference）”，空指针是没有指向任何数据的指针，空指针解引用是一种逻辑错误，会导致标准未定义的行为。</p>
+<p>空指针解引用会导致标准未定义的行为。</p>
+
+<p>使用 *、-&gt;、.*、-&gt;*、[]、() 等运算符，通过指针的值访问指针指向的数据称为“解引用（dereference）”。使用 nullptr、NULL、0 等常量初始化的指针是空指针，未指向任何对象或函数，解引用空指针属于逻辑错误，也是一种严重的运行时错误。</p>
 
 <p>示例：</p>
 <code>int foo(int i) {
@@ -31,7 +33,7 @@
     }
     return *p;    //<i> Non-compliant</i>
 }</code>
-<p>例中指针 p 为空的状态可以到达解引用处，往往会引发“<a href="https://en.wikipedia.org/wiki/Segmentation_fault" target="_blank" class="dashed-link">段错误</a>”而导致崩溃。</p>
+<p>例中指针 p 为空的状态可以到达解引用处，往往会引发“<a href="https://en.wikipedia.org/wiki/Segmentation_fault" target="_blank" class="dashed-link">段错误</a>”等严重后果。</p>
 
 <p>例外：</p>
 <code>struct T {
@@ -48,6 +50,9 @@ int c = p-&gt;foo();   //<i> Non-compliant, even if it may not crash</i></code>
 
 </main>
 
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_nullDerefInExp.html" class="related-link">ID_nullDerefInExp</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
@@ -60,7 +65,8 @@ ISO/IEC 14882:2011 8.3.2(5)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">CWE-476
-C++ Core Guidelines ES.65</div>
+<div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/476.html" target="_blank" class="related-link">CWE-476</a>
+<a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es65-dont-dereference-an-invalid-pointer" target="_blank" class="related-link">C++ Core Guidelines ES.65</a>
+<a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP34-C.+Do+not+dereference+null+pointers" target="_blank" class="related-link">SEI CERT EXP34-C</a></div>
 </article>
 </html>

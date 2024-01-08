@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：在 C90 标准中，如果函数在没有事先声明或定义的情况下被调用，编译器会为其生成一个隐式声明，指定函数的返回类型为 int，但不指定参数类型和数量，如果与函数的实际定义不符会导致未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>避免隐式声明 - C/C++ 安全规则</title>
+</head>
+<article>
+<header>
+  <h1>避免隐式声明</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">6.11.11 ID_implicitDeclaration</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.other">Home</a> › <a class="nav-link" href="./ID_oldStyleParamList.html">next</a> › <a class="nav-link" href="./ID_missingType.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>在 C90 标准中，如果函数在没有事先声明或定义的情况下被调用，编译器会为其生成一个隐式声明，指定函数的返回类型为 int，但不指定参数类型和数量，如果与函数的实际定义不符会导致未定义的行为。</p>
+
+<p>实践表明，隐式声明会隐藏错误，不是可靠的语言特性，已从后续标准中移除。</p>
+
+<p>示例：</p>
+<code>//<i> In main.c</i>
+#include &lt;stdio.h&gt;
+
+int main(void) {
+    double r = foo();   //<i> Non-compliant</i>
+    printf(&quot;%f\n&quot;, r);
+}</code>
+<p>调用 foo 函数前未对其进行声明，但仍可通过编译，如果 foo 函数的实际定义如下：</p>
+<code>//<i> In foo.c</i>
+double foo() {
+    return 1.23;
+}</code>
+<p>返回值将被解释成整型，使程序输出错误的结果。</p>
+
+</main>
+
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 9899:1990 6.3.2.2-undefined</div>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">MISRA C 2004 8.1
+MISRA C 2012 17.3
+<a href="https://wiki.sei.cmu.edu/confluence/display/c/DCL31-C.+Declare+identifiers+before+using+them" target="_blank" class="related-link">SEI CERT DCL31-C</a></div>
+</article>
+</html>

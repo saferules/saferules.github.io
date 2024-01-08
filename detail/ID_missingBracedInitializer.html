@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：结构体、联合体、类对象、数组等聚合体在初始化列表中也应使用由大括号初始化，否则可读性较差。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>在初始化列表中对聚合体也应使用初始化列表 - C/C++ 安全规则</title>
+</head>
+<article>
+<header>
+  <h1>在初始化列表中对聚合体也应使用初始化列表</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">6.6.2 ID_missingBracedInitializer</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.initializer">Home</a> › <a class="nav-link" href="./ID_repeatedDesignator.html">next</a> › <a class="nav-link" href="./ID_missingBracedSyntax.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>结构体、联合体、类对象、数组等聚合体在初始化列表中也应使用由大括号初始化，否则可读性较差。</p>
+
+<p>示例：</p>
+<code>int a[2][3] = {1, 2, 3, 4, 5, 6};       //<i> Non-compliant</i>
+int b[2][3] = {{1, 2, 3}, {4, 5, 6}};   //<i> Compliant</i>
+
+struct T {int x, y;};
+struct T u[3] = {1, 2, 3, 4, 5, 6};         //<i> Non-compliant</i>
+struct T v[3] = {{1, 2}, {3, 4}, {5, 6}};   //<i> Compliant</i></code>
+
+</main>
+
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">MISRA C 2012 9.2</div>
+</article>
+</html>

@@ -13,9 +13,9 @@
 <header>
   <h1>不可解引用已被释放的指针</h1>
   <div id="subtitle">
-    <div id="subtitle-id">ID_danglingDeref</div>
+    <div id="subtitle-id">14.4 ID_danglingDeref</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_invalidNullCheck.html">next</a> › <a class="nav-link" href="./ID_wildPtrDeref.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#pointer">Home</a> › <a class="nav-link" href="./ID_invalidNullCheck.html">next</a> › <a class="nav-link" href="./ID_wildPtrDeref.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
@@ -32,7 +32,7 @@
     }
     return p[0];  //<i> Non-compliant, ‘p’ may be deallocated</i>
 }</code>
-<p>本来指针 p 指向有效的内存空间，但由于某种原因相关内存被释放，p 的值不变但已无效，这种情况被形象地称为“指针悬挂”，未经初始化的指针和这种被悬挂的指针统称“野指针”，均指向无效地址不可被解引用。</p>
+<p>本来指针 p 指向有效的内存空间，但由于某种原因相关内存被释放，p 的值不变但已无效，这种情况被形象地称为“指针悬挂”，未初始化的指针和被悬挂的指针统称“野指针”，均指向无效地址不可被解引用。</p>
 
 <p>应关注对象的生命周期，避免内层作用域中的地址向外层传递，如：</p>
 <code>int foo(int i) {
@@ -79,9 +79,9 @@ ISO/IEC 9899:2011 6.5.3.2(4)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">CWE-416
-CWE-825
-C++ Core Guidelines ES.65
-SEI CERT EXP54-CPP</div>
+<div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/416.html" target="_blank" class="related-link">CWE-416</a>
+<a href="https://cwe.mitre.org/data/definitions/825.html" target="_blank" class="related-link">CWE-825</a>
+<a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es65-dont-dereference-an-invalid-pointer" target="_blank" class="related-link">C++ Core Guidelines ES.65</a>
+<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/EXP54-CPP.+Do+not+access+an+object+outside+of+its+lifetime" target="_blank" class="related-link">SEI CERT EXP54-CPP</a></div>
 </article>
 </html>

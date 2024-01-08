@@ -13,9 +13,9 @@
 <header>
   <h1>不应在头文件中实现函数或定义对象</h1>
   <div id="subtitle">
-    <div id="subtitle-id">ID_definedInHeader</div>
+    <div id="subtitle-id">4.7 ID_definedInHeader</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_inconsistentParamName.html">next</a> › <a class="nav-link" href="./ID_illFormedMain.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#global">Home</a> › <a class="nav-link" href="./ID_staticInAnonymousNamespace.html">next</a> › <a class="nav-link" href="./ID_anonymousNamespaceInHeader.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
@@ -27,7 +27,7 @@
 
 <p>头文件是项目文档的重要组成部分，有必要保持头文件简洁清晰，头文件的主要内容应是类型或接口的声明。除非函数很简短，否则也不建议在头文件中内联实现，大段的函数实现会影响头文件的可读性。</p>
 
-<p>注意，当头文件中的函数定义，尤其是动态链接库头文件中的函数定义发生变化时，所有相关模块均需重新编译，否则会导致严重错误。在头文件中定义的函数是模块二进制接口的一部分，应合理规划以降低维护成本。</p>
+<p>注意，定义在头文件中的函数发生变化时，所有相关模块均需重新编译，会增加构建和维护成本，在使用动态链接库时这个问题尤为突出，如果库的导入者没有及时编译，可能会造成严重后果。在头文件中定义的函数是模块二进制接口的一部分，应合理规划以降低维护成本。 </p>
 
 <p>示例：</p>
 <code>//<i> In a header</i>
@@ -61,6 +61,6 @@ T A&lt;T&gt;::foo(T&amp; p) {   //<i> Implementation</i>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">C++ Core Guidelines SF.2</div>
+<div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#sf2-a-header-file-must-not-contain-object-definitions-or-non-inline-function-definitions" target="_blank" class="related-link">C++ Core Guidelines SF.2</a></div>
 </article>
 </html>

@@ -21,7 +21,7 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>空指针表示没有指向任何对象的指针，通过空指针访问对象属于逻辑错误。</p>
+<p>空指针未指向任何对象或函数，解引用空指针会导致未定义的行为。</p>
 
 <p>示例：</p>
 <code>struct T {
@@ -38,7 +38,6 @@ T* p = nullptr;
 p-&gt;foo();   //<i> Undefined behavior</i>
 p-&gt;bar();   //<i> Undefined behavior</i>
 p-&gt;baz();   //<i> Well-defined, ‘baz’ is a static member</i></code>
-<p>通过空指针调用对象的非静态成员函数会导致未定义的行为，即使成员函数没有引用成员数据。通过空指针调用静态成员函数不属于访问对象，所以这种情况不属于逻辑错误。</p>
 
 </main>
 <h3>依据</h3>

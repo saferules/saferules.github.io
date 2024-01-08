@@ -65,7 +65,8 @@
             "ID_forbidAbsPathInHeaderName",
             "ID_badIncludePosition",
             "ID_forbiddenHeader",
-            "ID_forbidCHeaderInCpp"
+            "ID_forbidCHeaderInCpp",
+            "ID_includedSourceFile"
           ]
         },
         {
@@ -107,6 +108,7 @@
             "ID_explicitLineDirective",
             "ID_directiveInMacroArgument",
             "ID_incompleteDirective",
+            "ID_nonBoolPPCondition",
             "ID_warningDisabled",
             "ID_warningDefault"
           ]
@@ -120,9 +122,19 @@
           ]
         },
         {
+          "name": "file",
+          "sections": [
+            "ID_sourceFileExt",
+            "ID_includedFileExt",
+            "ID_missingNewLineFileEnd",
+            "ID_fileTooLarg"
+          ]
+        },
+        {
           "name": "other",
           "sections": [
-            "ID_missingNewLineFileEnd",
+            "ID_literal_trigraphs",
+            "ID_forbidDigraphs",
             "ID_badBackslash"
           ]
         }
@@ -137,6 +149,7 @@
         "ID_usingNamespaceInHeader",
         "ID_staticInHeader",
         "ID_anonymousNamespaceInHeader",
+        "ID_definedInHeader",
         "ID_staticInAnonymousNamespace",
         "ID_relyOnExternalObject",
         "ID_nonConstNonStaticGlobalObject",
@@ -174,7 +187,8 @@
             "ID_ignorePaddingData",
             "ID_returnNonConstData",
             "ID_accessSpecifierDisorder",
-            "ID_unsuitableStructTag"
+            "ID_unsuitableStructTag",
+            "ID_inheritTooDeep"
           ]
         },
         {
@@ -246,7 +260,7 @@
         },
         {
           "name": "declarator",
-          "sections": [          
+          "sections": [
             "ID_roughAuto",
             "ID_forbidVariadicFunction",
             "ID_forbidFlexibleArray",
@@ -255,16 +269,6 @@
             "ID_missingArraySize",
             "ID_mixedTypeObjDefinition",
             "ID_mixedDeclarations"
-          ]
-        },
-        {
-          "name": "object",
-          "sections": [
-            "ID_inaccessibleTmpObject",
-            "ID_invalidLocalDeclaration",
-            "ID_selfDependentInitialization",
-            "ID_plainNumericChar",
-            "ID_plainBinaryChar"
           ]
         },
         {
@@ -278,6 +282,24 @@
             "ID_missingVoid",
             "ID_superfluousVoid",
             "ID_forbidStaticArrSize"
+          ]
+        },
+        {
+          "name": "initializer",
+          "sections": [
+            "ID_missingBracedSyntax",
+            "ID_missingBracedInitializer",
+            "ID_repeatedDesignator"
+          ]
+        },
+        {
+          "name": "object",
+          "sections": [
+            "ID_inaccessibleTmpObject",
+            "ID_selfDependentInitialization",
+            "ID_plainNumericChar",
+            "ID_excessiveCharSign",
+            "ID_plainBinaryChar"
           ]
         },
         {
@@ -325,9 +347,12 @@
             "ID_labelNotUsed",
             "ID_staticNotUsed",
             "ID_privateNotUsed",
-            "ID_missingType",
+            "ID_invalidLocalDeclaration",
             "ID_unportableType",
-            "ID_obsoleteStdFunction"
+            "ID_obsoleteStdFunction",
+            "ID_missingType",
+            "ID_implicitDeclaration",
+            "ID_oldStyleParamList"
           ]
         }
       ]
@@ -369,10 +394,10 @@
       "sections": [
         "ID_mainReturnsNonInt",
         "ID_illFormedMain",
-        "ID_definedInHeader",
         "ID_inconsistentParamName",
         "ID_paramMayBeSlicing",
         "ID_paramNotUsed",
+        "ID_paramModified",
         "ID_paramPassedByValue",
         "ID_illForwardingReference",
         "ID_localInitialization",
@@ -409,6 +434,7 @@
         "ID_tooManyParams",
         "ID_complexInlineFunction",
         "ID_recursion",
+        "ID_this_deleteInDestructor",
         "ID_nestedTooDeep",
         "ID_mixedAsm",
         "ID_functionRepetition"
@@ -540,9 +566,9 @@
             "ID_unexpectedPrecedence",
             "ID_illPtrDiff",
             "ID_illBoolOperation",
+            "ID_illEnumOperation",
             "ID_illFormedCompoundAssignment",
             "ID_suspiciousCompoundAssignment",
-            "ID_illSelfCompoundAssignment",
             "ID_oddNullAssignment",
             "ID_stickyAssignmentOperator",
             "ID_overlappingAssignment",
@@ -550,6 +576,7 @@
             "ID_selfDivision",
             "ID_selfSubtraction",
             "ID_selfExclusiveOr",
+            "ID_illSelfCompoundAssignment",
             "ID_minusOnUnsigned",
             "ID_repeatedUnaryOperators",
             "ID_evalOverflow",
@@ -563,11 +590,13 @@
           "name": "comparison",
           "sections": [
             "ID_illComparison",
+            "ID_illPtrComparison",
             "ID_illFloatComparison",
             "ID_illPtrStrComparison",
+            "ID_inconsistentSignComparison",
             "ID_differentEnumComparison",
-            "ID_selfComparison",
-            "ID_successiveComparison"
+            "ID_successiveComparison",
+            "ID_selfComparison"
           ]
         },
         {
@@ -580,6 +609,7 @@
             "ID_nonPODVariadicArgument",
             "ID_inconsistentFormatArgNum",
             "ID_inconsistentFormatArgType",
+            "ID_inconsistentArraySize",
             "ID_forbidCStringFormat",
             "ID_forbidAtox",
             "ID_implementationDefinedFunction",
@@ -632,16 +662,19 @@
         "ID_literal_suspiciousChar",
         "ID_literal_hardCodeChar",
         "ID_literal_hardCodeString",
+        "ID_literal_mixedEscSequence",
         "ID_literal_nonStandardEsc",
         "ID_literal_hybridConcat",
         "ID_literal_misspelling",
         "ID_literal_confusingSuffix",
-        "ID_literal_forbidOct",
+        "ID_literal_missingSuffix",
         "ID_literal_nonStandardSuffix",
+        "ID_literal_forbidOct",
         "ID_literal_oddConcat",
         "ID_literal_magicNumber",
         "ID_literal_magicString",
-        "ID_literal_multicharacter"
+        "ID_literal_multicharacter",
+        "ID_literal_casualSeparators"
       ]
     },
     {
@@ -650,6 +683,7 @@
         "ID_narrowCast",
         "ID_invalidPromotion",
         "ID_signChangeCast",
+        "ID_negativeUnsignedCast",
         "ID_voidCast",
         "ID_downCast",
         "ID_ptrIntCast",
@@ -697,10 +731,11 @@
         "ID_oddPtrCharComparison",
         "ID_oddPtrZeroComparison",
         "ID_this_zeroComparison",
-        "ID_this_deleteInDestructor",
         "ID_this_forbidDeleteThis",
         "ID_nullDerefDynamicCast",
-        "ID_missingResetNull"
+        "ID_missingResetNull",
+        "ID_missingAddressOperator",
+        "ID_missingArrayIndexing"
       ]
     },
     {

@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：不在同一数组或对象中的地址之间没有逻辑关系，这种地址相减或比较大小属于逻辑错误，也会导致标准未定义或未声明的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：不在同一数组或对象中的地址之间没有逻辑关系，这种地址相减属于逻辑错误，也会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>不在同一数组或对象中的地址不可相减或比较大小 - C/C++ 安全规则</title>
+  <title>不在同一数组或对象中的地址不可相减 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>不在同一数组或对象中的地址不可相减或比较大小</h1>
+  <h1>不在同一数组或对象中的地址不可相减</h1>
   <div id="subtitle">
-    <div id="subtitle-id">ID_illPtrDiff</div>
+    <div id="subtitle-id">10.2.5 ID_illPtrDiff</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html">Home</a> › <a class="nav-link" href="./ID_illBoolOperation.html">next</a> › <a class="nav-link" href="./ID_unexpectedPrecedence.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.evaluation">Home</a> › <a class="nav-link" href="./ID_illBoolOperation.html">next</a> › <a class="nav-link" href="./ID_unexpectedPrecedence.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>不在同一数组或对象中的地址之间没有逻辑关系，这种地址相减或比较大小属于逻辑错误，也会导致标准未定义或未声明的行为。</p>
+<p>不在同一数组或对象中的地址之间没有逻辑关系，这种地址相减属于逻辑错误，也会导致标准未定义的行为。</p>
 
 <p>对于 C++ 语言，即使在同一对象中：</p>
 <ul>
@@ -33,46 +33,30 @@
 <p>也不应对地址求差值或比较大小。</p>
 
 <p>示例：</p>
-<code>bool b;
-ptrdiff_t d;
+<code>ptrdiff_t d;
 
 int i, j;
-b = &amp;j &gt; &amp;i;   //<i> Non-compliant, undefined in C, unspecified in C++</i>
 d = &amp;j - &amp;i;   //<i> Non-compliant, undefined in C and C++ if overflow</i>
 
 struct A {
     int i, j;
 } a;
-b = &amp;a.j &gt; &amp;a.i;   //<i> Compliant, ‘b’ is true</i>
 d = &amp;a.j - &amp;a.i;   //<i> Compliant, ‘d’ is 1</i>
 
 int x[8];
 int y[8];
 d = &amp;y[1] - &amp;x[0];   //<i> Non-compliant, undefined behavior if overflow</i>
 d = &amp;x[1] - &amp;x[0];   //<i> Compliant, ‘d’ is 1</i>
-
-class B {
-    static int i;
-    int j;
-public:                   //<i> access-specifier</i>
-    int k;
-    int foo() {
-        return &amp;i &lt; &amp;j    //<i> Non-compliant, unspecified</i>
-            || &amp;j &lt; &amp;k;   //<i> Non-compliant, unspecified</i>
-    }
-};
 </code>
-<p>另外，指针与空指针之间也不应相减或比较大小：</p>
+<p>另外，指针与空指针之间也不应相减：</p>
 <code>int* p = &amp;foo;
-bool b = p &lt; NULL;              //<i> Non-compliant</i>
 ptrdiff_t d = p - (int*)NULL;   //<i> Non-compliant</i></code>
-<p>指针与空指针比较大小是一种常见笔误，对此本规则特化为 <a href="./ID_oddPtrZeroComparison.html" class="dashed-link">ID_oddPtrZeroComparison</a>。</p>
 
 </main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items"><a href="./ID_oddPtrZeroComparison.html" class="related-link">ID_oddPtrZeroComparison</a></div>
+<div class="ref-items"><a href="./ID_illPtrComparison.html" class="related-link">ID_illPtrComparison</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
@@ -81,13 +65,11 @@ ISO/IEC 9899:1999 6.5.8(5)-undefined
 ISO/IEC 9899:2011 6.5.6(9)-undefined
 ISO/IEC 9899:2011 6.5.8(5)-undefined
 ISO/IEC 14882:2003 5.7(6)-undefined
-ISO/IEC 14882:2003 5.9(2)-unspecified
-ISO/IEC 14882:2011 5.7(6)-undefined
-ISO/IEC 14882:2011 5.9(2)-unspecified</div>
+ISO/IEC 14882:2011 5.7(6)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">C++ Core Guidelines ES.62
+<div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es62-dont-compare-pointers-into-different-arrays" target="_blank" class="related-link">C++ Core Guidelines ES.62</a>
 MISRA C 2004 17.3
 MISRA C 2012 18.3
 MISRA C++ 2008 5-0-16
