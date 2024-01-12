@@ -49,7 +49,7 @@ public:
 void fun() {
     LockGuard();   //<i> Non-compliant, meaningless</i>
     ....
-} </code>
+}</code>
 <p>设 LockGuard 是某种 RAII 锁，LockGuard(); 只生成了一个临时对象，该对象会立即析构，起不到作用，这也是一种常见的错误。</p>
 
 <p>应改为：</p>

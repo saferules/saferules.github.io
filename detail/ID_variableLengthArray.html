@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：使用变长数组（variable length array）可以在栈上动态分配内存，但分配失败时的行为不受程序控制。" />
+  <meta name="description" content="C/C++ 安全编程要点：使用变长数组（variable length array）可以在栈上动态分配内存，但分配失败时难以通过标准方法控制程序的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,7 +21,7 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>使用变长数组（variable length array）可以在栈上动态分配内存，但分配失败时的行为不受程序控制。</p>
+<p>使用变长数组（variable length array）可以在栈上动态分配内存，但分配失败时难以通过标准方法控制程序的行为。</p>
 
 <p>变长数组由 C99 标准提出，不在 C++ 标准之内，在 C++ 代码中不应使用。</p>
 
@@ -32,7 +32,7 @@
                 //<i> Undefined behavior if n &lt;= 0</i>
     ....
 }</code>
-<p>例中数组 a 的长度为变量，其内存空间在运行时动态分配，如果长度参数 n 不是合理的正整数会导致未定义的行为。</p>
+<p>例中数组 a 的长度为变量，其内存空间在运行时动态分配，如果 n 不是合理的正整数会导致未定义的行为。</p>
 
 <p>另外，对于本应兼容的数组类型，如果长度不同也会导致未定义的行为，如：</p>
 <code>void bar(int n)

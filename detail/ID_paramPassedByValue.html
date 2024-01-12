@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：常量参数不可被改变，按值传递产生的复制开销是没有意义的，应使用常量引用传递参数。" />
+  <meta name="description" content="C/C++ 安全编程要点：如果参数为基本类型，或只包含少量非静态数据成员，且通过简单赋值即可完成复制，可以通过值传递参数，否则应使用引用或指针的方式以避免额外的复制开销。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>非基本类型的常量参数不应按值传递 - C/C++ 安全规则</title>
+  <title>复制成本高的参数不应按值传递 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>非基本类型的常量参数不应按值传递</h1>
+  <h1>复制成本高的参数不应按值传递</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.7 ID_paramPassedByValue</div>
     <div id="subtitle-tags">
@@ -21,21 +21,40 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>常量参数不可被改变，按值传递产生的复制开销是没有意义的，应使用常量引用传递参数。</p>
+<p>如果参数为基本类型，或只包含少量非静态数据成员，且通过简单赋值即可完成复制，可以通过值传递参数，否则应使用引用或指针的方式以避免额外的复制开销。</p>
 
-<p>基本类型的参数复制开销可被忽略，故不受本规则限制。</p>
+<p>一般而言，如果参数的大小超过了两个指针，不应使用值传递的方式。</p>
 
 <p>示例：</p>
-<code>void fun(const string s) {    //<i> Non-compliant</i>
+<code>using S = std::string;
+
+void foo(S s) {   //<i> Non-compliant</i>
     ....
 }</code>
-<p>例中 s 为按值传递的常量参数，每当函数被调用时，传入的参数会被复制成一个新的对象，但其值又不能被改变，所以这种复制是没有意义的，利用常量引用可解决这个问题：</p>
-<code>void fun(const string&amp; s) {   //<i> Compliant</i>
+<p>例中 s 是按值传递的参数，由传入的实际参数复制而成，涉及内存分配和非常量时间复杂度的数据复制，成本较高。</p>
+
+<p>应改为常量引用的方式：</p>
+<code>void foo(const S&amp; s) {   //<i> Compliant</i>
     ....
+}
+</code>
+<p>当参数为复制成本较高的常量对象时，往往是漏写了引用符号，为常见笔误，如：</p>
+<code>void bar(const S s);   //<i> Non-compliant, missing ‘&amp;’</i>
+</code>
+<p>当参数在函数体内被修改，也可能是有意让形式参数作为实际参数的副本，这种情况可不受本规则约束，但也可能是漏写了引用符号，审计工具不妨根据配置给出提醒，如：</p>
+<code>S lower(S s) {  //<i> Let it go?</i>
+    transform(
+        s.begin(), s.end(), s.begin(),
+        [](unsigned char c) { return static_cast&lt;char&gt;(tolower(c)); }
+    );
+    return s;
 }</code>
-<p>改为常量引用后不会产生额外的复制开销。</p>
 
 </main>
+<h3>配置</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">allowModifiedParam: 是否放过被修改的参数
+maxParamSize: 允许按值传递的参数对象大小上限</div>
 
 
 

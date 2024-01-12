@@ -33,7 +33,7 @@ printf(&quot;%lu&quot;, n);   //<i> Non-compliant</i>
 printf(&quot;%lld&quot;, d);  //<i> Non-compliant</i></code>
 <p>size_t、ptrdiff_t 等类型是由实现定义的，标准没有规定其是否一定对应 unsigned、long 或 long long 等类型，而 %u、%d、%lu、%lld 只对应 unsigned、int、unsigned long、long long 等类型，所以示例代码都是不合理的。</p>
 
-<p>应使 n 对应 %zu，d 对应 %td： </p>
+<p>应使 n 对应 %zu，d 对应 %td：</p>
 <code>printf(&quot;%zu&quot;, n);   //<i> Compliant</i>
 printf(&quot;%td&quot;, d);   //<i> Compliant</i>
 </code>

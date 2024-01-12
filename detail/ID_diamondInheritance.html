@@ -39,7 +39,7 @@ void foo(D&amp; d) {
 }</code>
 <p>在 D 类对象 d 中，基类 A 的成员 i 有两个不同的实例，d 不能直接访问 i，只能通过 d.B::i 或 d.C::i 这种怪异的方式访问。</p>
 
-<p>将共同的基类设为虚基类可以解决这种问题： </p>
+<p>将共同的基类设为虚基类可以解决这种问题：</p>
 <code>class B: virtual public A {};
 class C: virtual public A {};
 class D: public B, public C {};   //<i> Compliant</i>

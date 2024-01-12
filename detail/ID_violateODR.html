@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：One Definition Rule 即任何翻译单元不得包含对象、函数、类型或模板的多个定义，否则会导致标准未定义的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：任何翻译单元不得包含同一对象、函数、类型或模板的不同定义，这一准则称为“One Definition Rule（ODR）”，违反该准则会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,26 +21,22 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>One Definition Rule 即任何翻译单元不得包含对象、函数、类型或模板的多个定义，否则会导致标准未定义的行为。</p>
+<p>任何翻译单元不得包含同一对象、函数、类型或模板的不同定义，这一准则称为“<a href="https://en.cppreference.com/w/cpp/language/definition" target="_blank" class="dashed-link">One Definition Rule（ODR）</a>”，违反该准则会导致标准未定义的行为。</p>
 
 <p>示例：</p>
 <code>//<i> In a.cpp</i>
-struct T {    //<i> One Definition</i>
-    int i;
+struct T {    //<i> One definition</i>
+    short i;
 };
 
-T* foo() {
-    ....
-}
+T* foo() { .... }
 
 //<i> In b.cpp</i>
-struct T {    //<i> Non-compliant, another definition</i>
+struct T {    //<i> Non-compliant, a different definition</i>
     long i;
 };
 
-void bar(T*) {
-    ....
-}
+void bar(T*) { .... }
 
 //<i> In c.cpp</i>
 struct T;
@@ -50,7 +46,7 @@ void bar(T*);
 void baz() {
     bar(foo());   //<i> Problems</i>
 }</code>
-<p>例中 T 类型在两个翻译单元中有不同的定义，违反了 One Definition Rule，易造成难以排查的错误，应在头文件中统一定义类型。</p>
+<p>例中类 T 在两个翻译单元中有不同的定义，违反了 One Definition Rule，会导致未定义的行为，应在头文件中统一定义。</p>
 
 </main>
 

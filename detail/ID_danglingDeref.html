@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：已被释放的指针指向失效的内存空间，对其解引用会导致标准未定义的行为，往往会造成严重错误。" />
+  <meta name="description" content="C/C++ 安全编程要点：对象的生命周期结束后，指向该对象的指针即失效，解引用已失效的指针会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>不可解引用已被释放的指针 - C/C++ 安全规则</title>
+  <title>不可解引用已失效的指针 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>不可解引用已被释放的指针</h1>
+  <h1>不可解引用已失效的指针</h1>
   <div id="subtitle">
     <div id="subtitle-id">14.4 ID_danglingDeref</div>
     <div id="subtitle-tags">
@@ -21,20 +21,20 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>已被释放的指针指向失效的内存空间，对其解引用会导致标准未定义的行为，往往会造成严重错误。</p>
+<p>对象的生命周期结束后，指向该对象的指针即失效，解引用已失效的指针会导致标准未定义的行为。</p>
 
 <p>示例：</p>
 <code>int foo() {
-    int* p = new int[100];
+    int* p = (int*)malloc(8 * sizeof(int));
     if (cond) {
         ....
-        delete[] p;
+        free(p);
     }
-    return p[0];  //<i> Non-compliant, ‘p’ may be deallocated</i>
+    return p[0];   //<i> Non-compliant, ‘p’ may be deallocated</i>
 }</code>
-<p>本来指针 p 指向有效的内存空间，但由于某种原因相关内存被释放，p 的值不变但已无效，这种情况被形象地称为“指针悬挂”，未初始化的指针和被悬挂的指针统称“野指针”，均指向无效地址不可被解引用。</p>
+<p>例中指针 p 指向一个数组，数组被释放后生命周期结束，p 的值不变但已无效，这种情况被形象地称为“指针悬挂”，被悬挂的指针和未初始化的指针统称“野指针”，均不可被解引用。</p>
 
-<p>应关注对象的生命周期，避免内层作用域中的地址向外层传递，如：</p>
+<p>又如：</p>
 <code>int foo(int i) {
     int* p = &amp;i;
     if (cond) {
@@ -42,17 +42,17 @@
         ....
         p = &amp;j;   //<i> Bad practice</i>
     }
-    return *p;    //<i> Non-compliant, ‘p’ may be deallocated</i>
+    return *p;    //<i> Non-compliant, ‘p’ may be a dangling pointer</i>
 }</code>
-<p>例中局部变量 j 的地址被传给了外层作域中的指针 p，j 的生命周期结束后，p 会成为野指针。</p>
+<p>例中局部变量 j 的地址被传给了外层作域中的指针 p，j 的生命周期结束后，p 的值会失效。应避免内层作用域中的地址向外层传递，可参见 <a href="./ID_localAddressFlowOut.html" class="dashed-link">ID_localAddressFlowOut</a> 的进一步讨论。</p>
 
-<p>另外，在 C++ 代码中，应避免持有可被自动销毁的对象地址，如容器中对象的地址、智能指针所指对象的地址等：</p>
+<p>另外，在 C++ 代码中，还应避免持有可被自动销毁的对象的地址，如：</p>
 <code>int bar(vector&lt;int&gt;&amp; v) {
     int* p = &amp;v.front();    //<i> Bad practice</i>
     v.push_back(1);
     return *p;              //<i> ‘p’ may be invalid</i>
 }</code>
-<p>例中指针 p 记录了 vector 容器中对象的地址，根据 vector 容器持有对象的策略，随着元素的增加原有对象的地址可能不再有效。</p>
+<p>例中指针 p 持有 vector 容器中对象的地址，随着容器容量的增加原对象的地址可能不再有效。</p>
 
 <p>又如：</p>
 <code>int baz() {
@@ -61,7 +61,7 @@
     u = make_unique&lt;int&gt;();
     return *p;                   //<i> ‘p’ is invalid</i>
 }</code>
-<p>例中指针 p 记录了 unique_ptr 所指对象的地址，当 unique_ptr 指向新的对象时，原对象的地址不再有效。</p>
+<p>例中指针 p 持有智能指针指向对象的地址，当智能指针指向新对象时，原对象的地址不再有效。</p>
 
 </main>
 

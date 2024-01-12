@@ -30,7 +30,7 @@
     uint32_t x: 64;    //<i> Non-compliant</i>
 } a;
 
-a.x = UINT64_MAX;      //<i> Truncated </i></code>
+a.x = UINT64_MAX;      //<i> Truncated</i></code>
 <p>例中 x 的位域长度超过了类型长度，但有效位域长度仍为 32，有效位域和声明位域不一致易误导维护者，造成截断或溢出等错误。</p>
 
 <p>如果是为了特殊的对齐，可改用成员占位的方式：</p>

@@ -31,13 +31,13 @@ public:
     A() try {   //<i> Function-try-block</i>
         ....
     } catch (...) {
-        access(i);    //<i> Non-compliant, ‘i’ may no longer exist </i>
+        access(i);    //<i> Non-compliant, ‘i’ may no longer exist</i>
     }
 
    ~A() try {
         ....
     } catch (...) {
-        access(i);    //<i> Non-compliant, ‘i’ may no longer exist </i>
+        access(i);    //<i> Non-compliant, ‘i’ may no longer exist</i>
     }
 };</code>
 <p>例中 catch 子句均面向函数体，从属于“<a href="https://en.cppreference.com/w/cpp/language/function-try-block" target="_blank" class="dashed-link">函数 try 块（function-try-block）</a>”，当流程进入 catch 子句时成员 i 的生命周期已结束，不应被访问。</p>

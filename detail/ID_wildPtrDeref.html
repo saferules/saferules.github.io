@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：未初始化的指针具有不确定的值，对其解引用会导致标准未定义的行为，往往会造成严重错误。" />
+  <meta name="description" content="C/C++ 安全编程要点：未初始化的指针具有不确定的值，解引用未初始化的指针会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,14 +21,14 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>未初始化的指针具有不确定的值，对其解引用会导致标准未定义的行为，往往会造成严重错误。</p>
+<p>未初始化的指针具有不确定的值，解引用未初始化的指针会导致标准未定义的行为。</p>
 
 <p>示例：</p>
 <code>int foo() {
     int* p;      //<i> Uninitialized</i>
     return *p;   //<i> Non-compliant</i>
 }</code>
-<p>例中指针 p 定义后未被初始化，可能指向不可访问的空间，也可能指向已分配的空间，对其读写可能会导致崩溃，也可能会扰乱程序的行为，造成难以排查的错误。</p>
+<p>例中未初始化的指针 p 指向不可预期的地址，通过这种指针读写数据可能会导致崩溃，也可能会扰乱程序的行为，造成难以排查的错误。</p>
 
 </main>
 

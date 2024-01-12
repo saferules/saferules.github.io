@@ -24,8 +24,7 @@
 <p>标识符 NULL 由实现定义，在 C++ 语言中往往等同于常量 0，sizeof(NULL) 的结果很可能与预期不符。</p>
 
 <p>示例：</p>
-<code>size_t n = sizeof(NULL);   //<i> Non-compliant</i>
-</code>
+<code>size_t n = sizeof(NULL);   //<i> Non-compliant</i></code>
 <p>不同的编译器对示例代码有不同的处理，有些会把 NULL 当作指针，有些会当作常量 0。</p>
 
 <p>应改为：</p>

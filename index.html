@@ -117,16 +117,16 @@
   <li><a href="./detail/ID_deleteIncompleteType.html">用 delete 释放对象需保证其类型完整</a></li>
   <li><a href="./detail/ID_excessiveDelete.html">用 delete 释放对象不可多写中括号</a></li>
   <li><a href="./detail/ID_insufficientDelete.html">用 delete 释放数组不可漏写中括号</a></li>
-  <li><a href="./detail/ID_illDealloc.html">非动态申请的资源不可被释放</a></li>
+  <li><a href="./detail/ID_illDealloc.html">不可释放非动态分配的内存</a></li>
   <li><a href="./detail/ID_multiAllocation.html">在一个表达式语句中最多使用一次 new</a></li>
   <li><a href="./detail/ID_copiedStream.html">流式资源对象不应被复制</a></li>
   <li><a href="./detail/ID_variableLengthArray.html">避免使用变长数组</a></li>
-  <li><a href="./detail/ID_stackAllocation.html">避免使用在栈上分配内存的函数</a></li>
+  <li><a href="./detail/ID_stackAllocation.html">避免使用在栈上动态分配内存的函数</a></li>
   <li><a href="./detail/ID_unsuitableArraySize.html">局部数组不应过大</a></li>
   <li><a href="./detail/ID_unnecessaryAllocation.html">避免不必要的内存分配</a></li>
   <li><a href="./detail/ID_dynamicAllocation.html">避免动态内存分配</a></li>
   <li><a href="./detail/ID_nullDerefAllocRet.html">判断资源分配函数的返回值是否有效</a></li>
-  <li><a href="./detail/ID_forbidMallocAndFree.html">C++ 代码中禁用 C 内存管理函数</a></li>
+  <li><a href="./detail/ID_forbidMallocAndFree.html">在 C++ 代码中禁用 C 资源管理函数</a></li>
 </ol></li>
 <li id="precompile" class="rules-toc-chapter">Precompile<ol>
 <li id="precompile.include" class="rules-toc-section">Include<ol>
@@ -231,7 +231,7 @@
   <li><a href="./detail/ID_ignorePaddingData.html">数据成员之间的填充数据不应被忽视</a></li>
   <li><a href="./detail/ID_returnNonConstData.html">常量成员函数不应返回数据成员的非常量指针或引用</a></li>
   <li><a href="./detail/ID_accessSpecifierDisorder.html">类成员应按 public、protected、private 的顺序声明</a></li>
-  <li><a href="./detail/ID_unsuitableStructTag.html">定义 POD 类和非 POD 类应分别使用 struct 和 class 关键字</a></li>
+  <li><a href="./detail/ID_unsuitableStructTag.html">POD 类和非 POD 类应分别使用 struct 和 class 关键字定义</a></li>
   <li><a href="./detail/ID_inheritTooDeep.html">继承层次不应过深</a></li>
 </ol></li>
 <li id="type.enum" class="rules-toc-section">Enum<ol>
@@ -393,7 +393,7 @@
   <li><a href="./detail/ID_paramMayBeSlicing.html">多态类的对象作为参数时不应采用值传递的方式</a></li>
   <li><a href="./detail/ID_paramNotUsed.html">不应存在未被使用的具名形式参数</a></li>
   <li><a href="./detail/ID_paramModified.html">形式参数不应被修改</a></li>
-  <li><a href="./detail/ID_paramPassedByValue.html">非基本类型的常量参数不应按值传递</a></li>
+  <li><a href="./detail/ID_paramPassedByValue.html">复制成本高的参数不应按值传递</a></li>
   <li><a href="./detail/ID_illForwardingReference.html">转发引用只应作为 std::forward 的参数</a></li>
   <li><a href="./detail/ID_localInitialization.html">局部对象在使用前应被初始化</a></li>
   <li><a href="./detail/ID_memberInitialization.html">成员须在声明处或构造时初始化</a></li>
@@ -575,7 +575,7 @@
 </ol></li>
 <li id="expression.sizeof" class="rules-toc-section">Sizeof<ol>
   <li><a href="./detail/ID_sizeof_arrayParameter.html">sizeof 不应作用于数组参数</a></li>
-  <li><a href="./detail/ID_sizeof_oddExpression.html">sizeof 不应作用于逻辑表达式</a></li>
+  <li><a href="./detail/ID_sizeof_oddExpression.html">sizeof 不应作用于比较或逻辑表达式</a></li>
   <li><a href="./detail/ID_sizeof_pointer.html">sizeof 作用于指针是可疑的</a></li>
   <li><a href="./detail/ID_sizeof_pointerDivision.html">被除数不应是作用于指针的 sizeof 表达式</a></li>
   <li><a href="./detail/ID_sizeof_suspiciousAdd.html">指针加减偏移量时计入 sizeof 是可疑的</a></li>
@@ -652,7 +652,7 @@
   <li><a href="./detail/ID_nullDerefInScp.html">避免空指针解引用</a></li>
   <li><a href="./detail/ID_nullDerefInExp.html">注意逻辑表达式内的空指针解引用</a></li>
   <li><a href="./detail/ID_wildPtrDeref.html">不可解引用未初始化的指针</a></li>
-  <li><a href="./detail/ID_danglingDeref.html">不可解引用已被释放的指针</a></li>
+  <li><a href="./detail/ID_danglingDeref.html">不可解引用已失效的指针</a></li>
   <li><a href="./detail/ID_invalidNullCheck.html">避免无效的空指针检查</a></li>
   <li><a href="./detail/ID_repeatedNullCheck.html">不应重复检查指针是否为空</a></li>
   <li><a href="./detail/ID_fixedAddrToPointer.html">不应将非零常量值赋值给指针</a></li>
@@ -665,7 +665,7 @@
   <li><a href="./detail/ID_this_zeroComparison.html">不应判断 this 指针是否为空</a></li>
   <li><a href="./detail/ID_this_forbidDeleteThis.html">禁用 delete this</a></li>
   <li><a href="./detail/ID_nullDerefDynamicCast.html">判断 dynamic_cast 转换是否成功</a></li>
-  <li><a href="./detail/ID_missingResetNull.html">释放指针后应将指针赋值为空指针</a></li>
+  <li><a href="./detail/ID_missingResetNull.html">释放指针后应将指针赋值为空或其他有效值</a></li>
   <li><a href="./detail/ID_missingAddressOperator.html">函数取地址时应显式使用 &amp; 运算符</a></li>
   <li><a href="./detail/ID_missingArrayIndexing.html">指针运算应使用数组下标的方式</a></li>
 </ol></li>
@@ -712,6 +712,6 @@
 </div>
 </article>
 <footer>
-  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 质量工程部, Licensed under the Apache-2.0 license.</a>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
 </footer>
 </html>

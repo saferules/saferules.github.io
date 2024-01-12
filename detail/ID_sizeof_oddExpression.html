@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：sizeof 作用于 &lt;、&gt;、&lt;=、&gt;=、==、!=、&amp;&amp;、|| 等逻辑表达式为常见笔误，逻辑运算符往往应该移出 sizeof 表达式。" />
+  <meta name="description" content="C/C++ 安全编程要点：sizeof 作用于 &lt;、&gt;、&lt;=、&gt;=、==、!=、&amp;&amp;、|| 等表达式为常见笔误，相关运算符往往应该移出 sizeof 表达式。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>sizeof 不应作用于逻辑表达式 - C/C++ 安全规则</title>
+  <title>sizeof 不应作用于比较或逻辑表达式 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>sizeof 不应作用于逻辑表达式</h1>
+  <h1>sizeof 不应作用于比较或逻辑表达式</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.5.2 ID_sizeof_oddExpression</div>
     <div id="subtitle-tags">
@@ -21,7 +21,7 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>sizeof 作用于 &lt;、&gt;、&lt;=、&gt;=、==、!=、&amp;&amp;、|| 等逻辑表达式为常见笔误，逻辑运算符往往应该移出 sizeof 表达式。</p>
+<p>sizeof 作用于 &lt;、&gt;、&lt;=、&gt;=、==、!=、&amp;&amp;、|| 等表达式为常见笔误，相关运算符往往应该移出 sizeof 表达式。</p>
 
 <p>示例：</p>
 <code>if (sizeof(a == x)) {  //<i> Non-compliant, may be sizeof(a) == x</i>

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：回收资源后，应立即将指向该资源的指针赋值为空指针，以明确其状态。" />
+  <meta name="description" content="C/C++ 安全编程要点：释放指针后，指针处于失效状态，应立即使用空指针常量或有效地址对其赋值，以避免意料之外的错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>释放指针后应将指针赋值为空指针 - C/C++ 安全规则</title>
+  <title>释放指针后应将指针赋值为空或其他有效值 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>释放指针后应将指针赋值为空指针</h1>
+  <h1>释放指针后应将指针赋值为空或其他有效值</h1>
   <div id="subtitle">
     <div id="subtitle-id">14.17 ID_missingResetNull</div>
     <div id="subtitle-tags">
@@ -21,21 +21,37 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>回收资源后，应立即将指向该资源的指针赋值为空指针，以明确其状态。</p>
+<p>释放指针后，指针处于失效状态，应立即使用空指针常量或有效地址对其赋值，以避免意料之外的错误。</p>
 
-<p>本规则是避免“重复释放”和“指针悬挂”等问题的有效措施，参见 <a href="./ID_doubleFree.html" class="dashed-link">ID_doubleFree</a>、<a href="./ID_danglingDeref.html" class="dashed-link">ID_danglingDeref</a>。</p>
+<p>非空指针的有效性难以仅通过值来判断，指针失效后易被误用，尤其是全局或成员指针，因此应时刻保持指针处于有效状态，以增强程序的健壮性。本规则是避免“重复释放”和“指针悬挂”等问题的有效措施，参见 <a href="./ID_doubleFree.html" class="dashed-link">ID_doubleFree</a>、<a href="./ID_danglingDeref.html" class="dashed-link">ID_danglingDeref</a>。</p>
 
 <p>示例：</p>
-<code>class A {
-    int* p = new int[10];
-public:
-    void dealloc() {
-        delete[] p;
-        p = nullptr;   //<i> Good</i>
+<code>int* p;
+
+void foo() {
+    ....
+    free(p);
+}                 //<i> Non-compliant</i>
+
+void bar() {
+    if (p) {      //<i> May be invalid</i>
+        *p = 1;
     }
-   ~A() { dealloc(); }
-};</code>
-<p>例中 dealloc 函数释放指针后将其赋值为空指针，delete、free 等接口可以接受空指针，dealloc 函数被反复调用也没有问题，即使相关接口不接受空指针，也可以使问题立即显现出来，便于修正。</p>
+}</code>
+<p>例中 foo 函数释放指针后未将其赋值为空指针，后续对指针有效性的判断可能会是错误的，应改为：</p>
+<code>void foo() {
+    ....
+    free(p);
+    p = NULL;   //<i> Compliant</i>
+}
+</code>
+<p>例外：</p>
+<code>void baz() {
+    int* p = (int*)malloc(8 * sizeof(int));
+    ....
+    free(p);
+}               //<i> Let it go</i></code>
+<p>如果非静态局部指针的生命周期在释放后立即结束，可不受本规则限制。</p>
 
 </main>
 

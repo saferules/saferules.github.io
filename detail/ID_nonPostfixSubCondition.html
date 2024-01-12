@@ -37,11 +37,11 @@
 <p>本规则意在强调子表达式应适当地用括号括起来，以便提高可读性，并确保程序的行为符合开发者的意图。</p>
 
 <p>示例（设 a、b、c 为 bool 型变量，n 为整型变量）：</p>
-<code>if (n == 0 &amp;&amp; b) {   //<i> Non-compliant </i>
+<code>if (n == 0 &amp;&amp; b) {   //<i> Non-compliant</i>
     ....
 }</code>
 <p>例中 n == 0 不是后缀表达式，应使用括号括起来：</p>
-<code>if ((n == 0) &amp;&amp; b) {   //<i> Compliant </i>
+<code>if ((n == 0) &amp;&amp; b) {   //<i> Compliant</i>
     ....
 }
 </code>

@@ -25,7 +25,7 @@
 
 <p>示例：</p>
 <code>uint8_t a = 0xCD;
-uint8_t b = (~a) &gt;&gt; 4;   //<i> Rather suspicious, ‘b’ is 0xF3 </i></code>
+uint8_t b = (~a) &gt;&gt; 4;   //<i> Rather suspicious, ‘b’ is 0xF3</i></code>
 <p>经“<a href="https://en.cppreference.com/w/c/language/conversion#Integer_promotions" target="_blank" class="dashed-link">类型提升</a>”，例中 ~a 在 16 位环境中为 0xFF32，在 32 位环境中为 0xFFFFFF32，高位的数据很可能是多余的。</p>
 
 <p>应在取反后立即转为目标类型：</p>

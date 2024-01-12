@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：释放非动态申请的资源会导致标准未定义的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：释放非动态分配的内存会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>非动态申请的资源不可被释放 - C/C++ 安全规则</title>
+  <title>不可释放非动态分配的内存 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>非动态申请的资源不可被释放</h1>
+  <h1>不可释放非动态分配的内存</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.16 ID_illDealloc</div>
     <div id="subtitle-tags">
@@ -21,24 +21,23 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>释放非动态申请的资源会导致标准未定义的行为。</p>
+<p>释放非动态分配的内存会导致标准未定义的行为。</p>
+
+<p>本规则是 <a href="./ID_incompatibleDealloc.html" class="dashed-link">ID_incompatibleDealloc</a> 的特化。</p>
 
 <p>示例：</p>
-<code>void foo(size_t n) {
-    int* p = (int*)alloca(n);
-    ....
-    free(p);    //<i> Non-compliant, ‘p’ should not be freed</i>
-}
-
-void bar() {
+<code>void bar() {
     int i;
     ....
-    free(&amp;i);   //<i> Non-compliant, naughty behavior</i>
+    free(&amp;i);   //<i> Non-compliant, undefined behavior</i>
 }</code>
-<p>释放在栈上分配的空间或者局部对象的地址会造成严重的运行时错误。</p>
+<p>在栈上分配的内存空间不需要显式回收，否则会导致严重的运行时错误。</p>
 
 </main>
 
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_incompatibleDealloc.html" class="related-link">ID_incompatibleDealloc</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>

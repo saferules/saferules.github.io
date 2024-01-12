@@ -32,7 +32,7 @@
     va_list ap;
     stringstream res;
     va_start(ap, fmt);
-    for (auto* c = fmt; *c; c++) {   
+    for (auto* c = fmt; *c; c++) {
         switch (*c) {
             case &#x27;@&#x27;: res &lt;&lt; va_arg(ap, char*); break;
             case &#x27;$&#x27;: res &lt;&lt; va_arg(ap, int); break;
