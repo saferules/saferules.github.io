@@ -350,7 +350,7 @@
   <li><a href="./detail/ID_staticNotUsed.html">不应存在没有被用到的静态声明</a></li>
   <li><a href="./detail/ID_privateNotUsed.html">不应存在没有被用到的 private 成员</a></li>
   <li><a href="./detail/ID_invalidLocalDeclaration.html">不应存在没有被用到的局部声明</a></li>
-  <li><a href="./detail/ID_unportableType.html">用 stdint.h 中的类型代替 short、int、long 等类型</a></li>
+  <li><a href="./detail/ID_unportableType.html">使用便于移植的类型</a></li>
   <li><a href="./detail/ID_obsoleteStdFunction.html">避免使用已过时的标准库组件</a></li>
   <li><a href="./detail/ID_missingType.html">不应省略声明对象或函数的类型</a></li>
   <li><a href="./detail/ID_implicitDeclaration.html">避免隐式声明</a></li>
@@ -515,7 +515,7 @@
 <li id="expression.logic" class="rules-toc-section">Logic<ol>
   <li><a href="./detail/ID_illIdentical.html">不应存在无意义的重复子表达式</a></li>
   <li><a href="./detail/ID_conflictCondition.html">逻辑子表达式之间不应存在矛盾</a></li>
-  <li><a href="./detail/ID_invalidCondition.html">作为条件的逻辑表达式不应恒为真或恒为假</a></li>
+  <li><a href="./detail/ID_invalidCondition.html">作为控制条件的逻辑表达式不应恒为真或恒为假</a></li>
   <li><a href="./detail/ID_redundantCondition.html">不应存在多余的逻辑子表达式</a></li>
   <li><a href="./detail/ID_constLogicExpression.html">逻辑表达式及逻辑子表达式不应为常量</a></li>
   <li><a href="./detail/ID_shortCircuitSideEffect.html">逻辑表达式的右子表达式不应有副作用</a></li>
@@ -655,7 +655,7 @@
   <li><a href="./detail/ID_danglingDeref.html">不可解引用已失效的指针</a></li>
   <li><a href="./detail/ID_invalidNullCheck.html">避免无效的空指针检查</a></li>
   <li><a href="./detail/ID_repeatedNullCheck.html">不应重复检查指针是否为空</a></li>
-  <li><a href="./detail/ID_fixedAddrToPointer.html">不应将非零常量值赋值给指针</a></li>
+  <li><a href="./detail/ID_fixedAddrToPointer.html">不应使用非零常量对指针赋值</a></li>
   <li><a href="./detail/ID_zeroAsPtrValue.html">不应使用常量 0 表示空指针</a></li>
   <li><a href="./detail/ID_oddPtrBoolAssignment.html">不应使用 false 对指针赋值</a></li>
   <li><a href="./detail/ID_oddPtrCharAssignment.html">不应使用 &#x27;\0&#x27; 等字符常量对指针赋值</a></li>

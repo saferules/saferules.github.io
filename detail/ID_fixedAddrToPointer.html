@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：固定地址是不可移植的，且存在安全隐患。" />
+  <meta name="description" content="C/C++ 安全编程要点：将非零常量作为固定地址是不可移植的，且存在安全隐患。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>不应将非零常量值赋值给指针 - C/C++ 安全规则</title>
+  <title>不应使用非零常量对指针赋值 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>不应将非零常量值赋值给指针</h1>
+  <h1>不应使用非零常量对指针赋值</h1>
   <div id="subtitle">
     <div id="subtitle-id">14.7 ID_fixedAddrToPointer</div>
     <div id="subtitle-tags">
@@ -21,7 +21,7 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>固定地址是不可移植的，且存在安全隐患。</p>
+<p>将非零常量作为固定地址是不可移植的，且存在安全隐患。</p>
 
 <p>示例：</p>
 <code>const void* badAddr = (void*)0xffffffff;  //<i> Non-compliant</i></code>

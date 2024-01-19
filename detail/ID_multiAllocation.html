@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：如果表达式语句多次使用 new，一旦某个构造函数抛出异常就会造成内存泄漏。" />
+  <meta name="description" content="C/C++ 安全编程要点：由于子表达式的求值顺序存在很多未声明的情况，在表达式中多次显式分配资源易造成资源泄露。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,27 +21,28 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>如果表达式语句多次使用 new，一旦某个构造函数抛出异常就会造成内存泄漏。</p>
+<p>由于子表达式的求值顺序存在很多未声明的情况，在表达式中多次显式分配资源易造成资源泄露。</p>
 
 <p>示例：</p>
 <code>fun(
     shared_ptr&lt;T&gt;(new T),
     shared_ptr&lt;T&gt;(new T)   //<i> Non-compliant, potential memory leak</i>
 );</code>
-<p>例中 fun 的两个参数均为 new 表达式，实际执行时可以先为两个对象分配内存，再分别执行对象的构造函数，如果某个构造函数抛出异常，已分配的内存就得不到回收了。</p>
+<p>例中 fun 函数的两个参数均包含 new 表达式，而参数的求值顺序在标准中是未声明的，出于优化等目的，可能会先为两个 T 类对象分配内存，之后再分别执行对象的构造函数，如果某个构造函数抛出异常，已分配的内存就无法回收了。</p>
 
-<p>保证一次内存分配对应一个构造函数可解决这种问题：</p>
-<code>auto a(shared_ptr&lt;T&gt;(new T));   //<i> Compliant</i>
-auto b(shared_ptr&lt;T&gt;(new T));   //<i> Compliant</i>
+<p>从 C++17 开始，参数的求值过程不再有所重叠，示例代码的问题在 C++17 后会有所缓解，但为了更广泛的适用性和兼容性，应避免在表达式中多次显式分配资源。</p>
+
+<p>应改为：</p>
+<code>shared_ptr&lt;T&gt; a{new T};   //<i> Compliant</i>
+shared_ptr&lt;T&gt; b{new T};   //<i> Compliant</i>
 fun(a, b);</code>
 <p>这样即使构造函数抛出异常也会自动回收已分配的内存。</p>
 
-<p>更好的方法是避免显式资源分配：</p>
+<p>更好的方法是避免显式资源分配，用 make_shared、make_unique 等函数代替 new 运算符：</p>
 <code>fun(
     make_shared&lt;T&gt;(),
     make_shared&lt;T&gt;()    //<i> Compliant, safe and brief</i>
 );</code>
-<p>用 make_shared、make_unique 等函数代替 new 运算符可有效规避这种问题。</p>
 
 </main>
 
@@ -49,6 +50,11 @@ fun(a, b);</code>
 <hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_memoryLeak.html" class="related-link">ID_memoryLeak</a></div>
 
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 5.2.2(8)-unspecified
+ISO/IEC 14882:2011 5.2.2(8)
+ISO/IEC 14882:2017 8.2.2(5)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>

@@ -24,12 +24,12 @@
 <p>任何翻译单元不得包含变量、函数、类型、枚举或模板的多个定义，即 One Definition Rule，违反此规则会导致未定义的行为。</p>
 
 <p>示例：</p>
-<code>//<i> In a.cpp </i>
+<code>//<i> In a.cpp</i>
 struct T {
     int i;
 };
 
-//<i> In b.cpp </i>
+//<i> In b.cpp</i>
 struct T {
     long i;    //<i> Undefined behavior, violates One Definition Rule</i>
 };</code>

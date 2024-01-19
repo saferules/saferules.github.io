@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：char 类型是否有符号由实现定义，为了提高可移植性并规避意料之外的错误，参与数值运算的 char 对象应显式声明符号属性。" />
+  <meta name="description" content="C/C++ 安全编程要点：char 类型是否有符号由实现定义，未显式声明 signed、unsigned 的 char 对象不应被当作整数使用。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,7 +21,11 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>char 类型是否有符号由实现定义，为了提高可移植性并规避意料之外的错误，参与数值运算的 char 对象应显式声明符号属性。</p>
+<p>char 类型是否有符号由实现定义，未显式声明 signed、unsigned 的 char 对象不应被当作整数使用。</p>
+
+<p>注意，char 和 signed char、unsigned char 是三种不同的类型，signed char、unsigned char 应被当作整数类型，而 char 应被当作字符类型，不应使用整数对 char 对象赋值，也不应使 char 对象参与和字符无关的算术、比较或位运算等数值运算。</p>
+
+<p>虽然字符类型由整数类型实现，但应分清各自的职责，混用不利于阅读和维护，char、wchar_t、char16_t、char32_t 均不应被当作整数使用。</p>
 
 <p>示例：</p>
 <code>int foo(char c) {     //<i> Compliant</i>
@@ -31,7 +35,7 @@
 int bar(char c) {     //<i> Non-compliant</i>
     return c &gt;= 0;    //<i> May be always true</i>
 }</code>
-<p>例中 foo 函数的 char 型参数只与字符有关，可不必声明符号属性；而 bar 函数的参数被当作整数参与了数值运算，应显式声明为 signed，否则在 char 为无符号整型的环境中会得到错误的结果。</p>
+<p>例中 foo 函数的 char 型参数只与字符有关，可不必声明符号属性，而 bar 函数的参数被当作整数参与了比较运算，应显式声明 signed，否则在 char 为无符号整型的环境中会得到错误的结果。</p>
 
 <p>应改为：</p>
 <code>int bar(signed char c) {   //<i> Compliant</i>

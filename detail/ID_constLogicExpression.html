@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：不改变程序流程的常量逻辑表达式是没有意义的，而常量逻辑子表达式则是多余的。" />
+  <meta name="description" content="C/C++ 安全编程要点：对不改变程序流程的常量表达式进行逻辑判断是没有意义的。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,22 +21,25 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>不改变程序流程的常量逻辑表达式是没有意义的，而常量逻辑子表达式则是多余的。</p>
+<p>对不改变程序流程的常量表达式进行逻辑判断是没有意义的。</p>
 
 <p>示例：</p>
 <code>if (false) {  //<i> Non-compliant</i>
     ....
 }
 
-while (false) {  //<i> Non-compliant</i>
-    ....
-}
-
-const bool False = false;
-if (False &amp;&amp; other_condition) {  //<i> Non-compliant</i>
+while (true || condition) {  //<i> Non-compliant</i>
     ....
 }</code>
-<p>这种代码往往是调试或维护过程中产生的残留代码，应及时去除。</p>
+<p>这种代码会使相应的控制语句或控制条件失效，往往是调试或维护过程中产生的残留代码，应及时去除。</p>
+
+<p>又如：</p>
+<code>int* fun();
+
+if (fun == NULL) {  //<i> Non-compliant</i>
+    ....
+}</code>
+<p>函数地址、非动态创建的对象地址不会为空，这种地址与空指针比较往往意味着笔误。</p>
 
 <p>例外：</p>
 <code>while (true) {  //<i> Compliant</i>
@@ -46,26 +49,19 @@ if (False &amp;&amp; other_condition) {  //<i> Non-compliant</i>
 do {
     ....
 } while (0);  //<i> Compliant</i></code>
-<p>true 或 1 等常量可作为 while 或 do-while 循环的条件，false 或 0 等常量可作为 do-while 循环的条件。</p>
+<p>true 或 1 可作为 while 或 do-while 循环的条件，false 或 0 可作为 do-while 循环的条件。</p>
 
-<p>由宏定义的常量也不应作为控制语句的条件，如：</p>
-<code>#define M 1
-
-if (M) {  //<i> Non-compliant</i>
+<p>constexpr if 语句的常量条件表达式用于编译期分枝控制，也不受本规则约束：</p>
+<code>if constexpr (E) {  //<i> Compliant</i>
     ....
 }</code>
-<p>应采用条件编译的方式，避免占用运行时资源：</p>
-<code>#if M  //<i> Compliant</i>
-    ....
-#endif
-</code>
-<p>或：</p>
-<code>if constexpr (M) {  //<i> Compliant, since C++17</i>
-    ....
-}</code>
+<p>其中 E 为常量表达式。</p>
 
 </main>
 
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_invalidCondition.html" class="related-link">ID_invalidCondition</a></div>
 
 
 <h3>参考</h3>
@@ -74,6 +70,7 @@ if (M) {  //<i> Non-compliant</i>
 <a href="https://cwe.mitre.org/data/definitions/571.html" target="_blank" class="related-link">CWE-571</a>
 MISRA C 2004 13.7
 MISRA C 2012 14.3
-MISRA C++ 2008 0-1-2</div>
+MISRA C++ 2008 0-1-2
+<a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP16-C.+Do+not+compare+function+pointers+to+constant+values" target="_blank" class="related-link">SEI CERT EXP16-C</a></div>
 </article>
 </html>

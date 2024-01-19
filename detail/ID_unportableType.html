@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：short、int、long 等类型的取值范围由执行环境的架构决定，可移植性较差。" />
+  <meta name="description" content="C/C++ 安全编程要点：为了确保数据在各种执行环境中都能被正确处理，避免出现偏差，应使用便于移植的类型。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>用 stdint.h 中的类型代替 short、int、long 等类型 - C/C++ 安全规则</title>
+  <title>使用便于移植的类型 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>用 stdint.h 中的类型代替 short、int、long 等类型</h1>
+  <h1>使用便于移植的类型</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.11.8 ID_unportableType</div>
     <div id="subtitle-tags">
@@ -21,26 +21,24 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>short、int、long 等类型的取值范围由执行环境的架构决定，可移植性较差。</p>
+<p>为了确保数据在各种执行环境中都能被正确处理，避免出现偏差，应使用便于移植的类型，如：</p>
+<ul>
+<li>用定宽类型代替 short、int、long、long long 等原始类型</li>
+<li>用 char16_t、char32_t 代替 wchar_t</li>
+<li>避免使用 long double</li>
 
+</ul>
 <p>示例：</p>
-<code>struct T {
-    long int x;    //<i> Non-compliant</i>
-    long long y;   //<i> Non-compliant</i>
-    short z;       //<i> Non-compliant</i>
-};</code>
-<p>例中成员变量在不同的平台会有不同的取值范围，C99 引入 stdint.h 解决了这一问题。</p>
-
-<p>应改为：</p>
-<code>#include &lt;stdint.h&gt;   //<i> Or &lt;cstdint&gt; in C++</i>
-
-struct T {
-    int32_t x;   //<i> Compliant</i>
-    int64_t y;   //<i> Compliant</i>
-    int16_t z;   //<i> Compliant</i>
-};
+<code>short b;        //<i> Non-compliant</i>
+long a;         //<i> Non-compliant</i>
+wchar_t c;      //<i> Non-compliant</i>
+long double d;  //<i> Non-compliant</i>
 </code>
-<p>另外，char、wchar_t 等基本类型均有此问题，在有高可移植性要求的代码中应避免直接使用基本类型。</p>
+<p>例中变量的取值范围在不同的平台上可能会有较大差异，应改为：</p>
+<code>int16_t a;   //<i> Compliant</i>
+int32_t b;   //<i> Compliant, or int64_t</i>
+char16_t c;  //<i> Compliant, or char32_t</i>
+double d;    //<i> Compliant</i></code>
 
 </main>
 
@@ -54,6 +52,7 @@ ISO/IEC 14882:2011 3.9.1(2)</div>
 <h3>参考</h3>
 <hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 6.3
-MISRA C 2012 Dir 4.6</div>
+MISRA C 2012 Dir 4.6
+MISRA C++ 2008 3-9-2</div>
 </article>
 </html>

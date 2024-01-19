@@ -25,7 +25,7 @@
 
 <p>示例：</p>
 <code>string format(const char* fmt, ...);  //<i> Non-compliant</i></code>
-<p>假设 format 函数与 sprintf 函数功能相似，由参数 fmt 设定格式，将其他参数转为字符串后依次替换 fmt 中的占位符并返回结果。设 &#x27;@&#x27; 和 &#x27;$&#x27; 为占位符，分别对应字符串和整数，如调用 format(&quot;@: $&quot;, &quot;value&quot;, 123) 则返回字符串 &quot;value: 123&quot;。</p>
+<p>假设 format 函数与 sprintf 函数功能相似，由参数 fmt 设定格式，将其他参数转为字符串后依次替换 fmt 中的占位符并返回结果。设 @ 和 $ 为占位符，分别对应字符串和整数，如调用 format(&quot;@: $&quot;, &quot;value&quot;, 123) 则返回字符串 &quot;value: 123&quot;。</p>
 
 <p>如果用可变参数列表实现：</p>
 <code>string format(const char* fmt, ...) {
@@ -44,37 +44,48 @@
 }</code>
 <p>例中 va_start、va_arg、va_end 是可变参数列表的标准支持，这种方法只能在运行时以 fmt 为依据获取后续参数，当实际参数与 fmt 不符时会造成严重问题，单纯地要求开发者小心谨慎是不可靠的，改用更安全的方法才是明智的选择。</p>
 
-<p>在 C++ 代码中可采用“<a href="https://en.cppreference.com/w/cpp/language/parameter_pack" target="_blank" class="dashed-link">模板参数包</a>”来实现这种功能：</p>
-<code>template &lt;class T, class ...Args&gt;
-void get_argstrs(vector&lt;string&gt;&amp; vs, const T&amp; arg, const Args&amp; ...rest) {
+<p>在 C++ 代码中应使用“<a href="https://en.cppreference.com/w/cpp/language/parameter_pack" target="_blank" class="dashed-link">模板参数包</a>”代替可变参数列表，如：</p>
+<code>template &lt;class T&gt;
+void get_argstrs(vector&lt;string&gt;&amp; vs, const T&amp; arg) {
     ostringstream oss;
     oss &lt;&lt; arg;
     vs.emplace_back(oss.str());
-    if constexpr(sizeof...(rest) &gt; 0) {
-        get_argstrs(vs, rest...);
-    }
+}
+
+template &lt;class T, class ...Args&gt;
+void get_argstrs(vector&lt;string&gt;&amp; vs, const T&amp; arg, const Args&amp; ...rest) {
+    get_argstrs(vs, arg);
+    get_argstrs(vs, rest...);  //<i> Parameter pack expansion</i>
 }
 
 template &lt;class ...Args&gt;
 string format(const char* fmt, const Args&amp; ...args) {  //<i> Compliant</i>
     string res;
-    if constexpr(sizeof...(args) &gt; 0) {
-        vector&lt;string&gt; vs;
-        const size_t n = strlen(fmt);
-        get_argstrs(vs, args...);
-        for (size_t i = 0, j = 0; i &lt; n; i++) {
-            if ((fmt[i] == &#x27;@&#x27; || fmt[j] == &#x27;$&#x27;) &amp;&amp; j &lt; vs.size()) {
-                res.append(vs[j++]);
-            } else {
-                res.push_back(fmt[i]);
-            }
-        }
+    vector&lt;string&gt; vs;
+    get_argstrs(vs, args...);
+    auto it = vs.begin();
+    for (auto* c = fmt; *c; c++) {
+        if ((*c == &#x27;@&#x27; || *c == &#x27;$&#x27;) &amp;&amp; it != vs.end())
+            res.append(*it++);
+        else
+            res.push_back(*c);
     }
     return res;
 }</code>
-<p>示例代码用 get_argstrs 函数递归地将参数都转为 string 对象存入容器，再将 fmt 中的 &#x27;@&#x27; 和 &#x27;$&#x27; 依次替换成容器中的字符串，实际上这种实现是可以不区分 &#x27;@&#x27; 和 &#x27;$&#x27; 的，这个过程中参数的个数和类型是可以由代码主动判断的，如果参数不能转为字符串则不会通过编译，如果参数个数与占位符不符也容易作出处理。</p>
+<p>例中 ...args 是参数包，可以代替可变参数列表，get_argstrs 函数利用重载和递归将参数都转为 string 对象存入容器，再将 fmt 中的占位符依次替换成容器中的字符串。这种实现可以不区分 @ 和 $，参数的个数和类型可以由代码主动判断，如果参数不能转为字符串则不会通过编译，如果参数个数与占位符不符也容易作出处理。</p>
 
-<p>“<a href="https://en.cppreference.com/w/cpp/language/parameter_pack" target="_blank" class="dashed-link">模板参数包</a>”、“<a href="https://en.cppreference.com/w/cpp/language/constexpr" target="_blank" class="dashed-link">constexpr</a>”等特性是 C++ 语言在编译理论上的重大突破，合理运用这些特性可以有效提升代码的安全性和可维护性。</p>
+<p>从 C++17 开始，可利用“<a href="https://en.cppreference.com/w/cpp/language/fold" target="_blank" class="dashed-link">折叠表达式</a>”简化 get_argstrs 函数的实现：</p>
+<code>template &lt;class ...Args&gt;
+void get_argstrs(vector&lt;string&gt;&amp; vs, const Args&amp; ...args) {
+    (
+        [&amp;vs, &amp;args]() {
+            ostringstream oss;
+            oss &lt;&lt; args;
+            vs.emplace_back(oss.str());
+        }(), ...
+    );  //<i> Fold expression</i>
+}</code>
+<p>例中 lambda 表达式和 ... 组成折叠表达式，可以免去重载和递归，化简参数包的展开。</p>
 
 </main>
 
@@ -86,7 +97,9 @@ string format(const char* fmt, const Args&amp; ...args) {  //<i> Compliant</i>
 <h3>依据</h3>
 <hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 5.2.2(7)-undefined
-ISO/IEC 14882:2011 5.2.2(7)-implementation</div>
+ISO/IEC 14882:2011 5.2.2(7)-implementation
+ISO/IEC 14882:2011 14.5.3
+ISO/IEC 14882:2017 8.1.6</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
@@ -94,6 +107,7 @@ ISO/IEC 14882:2011 5.2.2(7)-implementation</div>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f55-dont-use-va_arg-arguments" target="_blank" class="related-link">C++ Core Guidelines F.55</a>
 MISRA C 2004 16.1
 MISRA C 2012 17.1
-MISRA C++ 2008 8-4-1</div>
+MISRA C++ 2008 8-4-1
+<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL50-CPP.+Do+not+define+a+C-style+variadic+function" target="_blank" class="related-link">SEI CERT DCL50-CPP</a></div>
 </article>
 </html>
