@@ -26,7 +26,7 @@
 <p>在栈上动态分配内存的函数可能效率更高，分配的内存也不用显式回收，但无法满足分配需求时会直接导致运行时错误，对其返回值的检查是无效的。应避免使用这种后果难以控制的函数，尤其在循环和递归调用过程中更不应使用这种函数，而且这种函数不是标准函数，依赖平台和编译器的具体实现。</p>
 
 <p>示例：</p>
-<code>#include &lt;alloca.h&gt;  //<i> or &lt;malloc.h&gt;</i>
+<code>#include &lt;alloca.h&gt;  //<i> Or use malloc.h in MSVC</i>
 
 void fun(size_t n) {
     int* p = (int*)alloca(n * sizeof(int));  //<i> Non-compliant</i>

@@ -3,54 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：不在同一数组或对象中的地址之间没有逻辑关系，这种地址相减属于逻辑错误，也会导致标准未定义的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：不在同一数组中的地址之间没有连续性，未指向同一数组的指针相减往往意味着逻辑错误，也会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>不在同一数组或对象中的地址不可相减 - C/C++ 安全规则</title>
+  <title>未指向同一数组的指针不可相减 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>不在同一数组或对象中的地址不可相减</h1>
+  <h1>未指向同一数组的指针不可相减</h1>
   <div id="subtitle">
-    <div id="subtitle-id">10.2.5 ID_illPtrDiff</div>
+    <div id="subtitle-id">14.6 ID_illPtrDiff</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.evaluation">Home</a> › <a class="nav-link" href="./ID_illBoolOperation.html">next</a> › <a class="nav-link" href="./ID_unexpectedPrecedence.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#pointer">Home</a> › <a class="nav-link" href="./ID_illPtrComparison.html">next</a> › <a class="nav-link" href="./ID_arrayIndexOverflow.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>不在同一数组或对象中的地址之间没有逻辑关系，这种地址相减属于逻辑错误，也会导致标准未定义的行为。</p>
+<p>不在同一数组中的地址之间没有连续性，未指向同一数组的指针相减往往意味着逻辑错误，也会导致标准未定义的行为。</p>
 
-<p>对于 C++ 语言，即使在同一对象中：</p>
-<ul>
-<li>静态成员之间</li>
-<li>静态成员与非静态成员之间</li>
-<li>由 access-specifier 分隔的成员之间</li>
-
-</ul>
-<p>也不应对地址求差值或比较大小。</p>
+<p>如果两个指针的值均为同一数组中的元素地址，或该数组末尾元素的下一个地址，则称两个指针指向同一个数组，其差值为相应地址之间的距离，否则其差值不具备正确意义。</p>
 
 <p>示例：</p>
 <code>ptrdiff_t d;
 
 int i, j;
-d = &amp;j - &amp;i;   //<i> Non-compliant, undefined in C and C++ if overflow</i>
+d = &amp;j - &amp;i;   //<i> Non-compliant, undefined if overflow</i>
 
-struct A {
-    int i, j;
-} a;
-d = &amp;a.j - &amp;a.i;   //<i> Compliant, ‘d’ is 1</i>
-
-int x[8];
-int y[8];
-d = &amp;y[1] - &amp;x[0];   //<i> Non-compliant, undefined behavior if overflow</i>
+int x[8], y[8];
 d = &amp;x[1] - &amp;x[0];   //<i> Compliant, ‘d’ is 1</i>
-</code>
-<p>另外，指针与空指针之间也不应相减：</p>
-<code>int* p = &amp;foo;
-ptrdiff_t d = p - (int*)NULL;   //<i> Non-compliant</i></code>
+d = &amp;y[1] - &amp;x[0];   //<i> Non-compliant, undefined if overflow</i>
+
+int* p = &amp;i;
+int* q = NULL;
+d = p - q;      //<i> Non-compliant</i></code>
 
 </main>
 
@@ -61,19 +48,15 @@ ptrdiff_t d = p - (int*)NULL;   //<i> Non-compliant</i></code>
 <h3>依据</h3>
 <hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.5.6(9)-undefined
-ISO/IEC 9899:1999 6.5.8(5)-undefined
 ISO/IEC 9899:2011 6.5.6(9)-undefined
-ISO/IEC 9899:2011 6.5.8(5)-undefined
 ISO/IEC 14882:2003 5.7(6)-undefined
 ISO/IEC 14882:2011 5.7(6)-undefined</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es62-dont-compare-pointers-into-different-arrays" target="_blank" class="related-link">C++ Core Guidelines ES.62</a>
-MISRA C 2004 17.3
-MISRA C 2012 18.3
-MISRA C++ 2008 5-0-16
+<div class="ref-items">MISRA C 2004 17.2
+MISRA C 2012 18.2
 MISRA C++ 2008 5-0-17
-MISRA C++ 2008 5-0-18</div>
+<a href="https://wiki.sei.cmu.edu/confluence/display/c/ARR36-C.+Do+not+subtract+or+compare+two+pointers+that+do+not+refer+to+the+same+array" target="_blank" class="related-link">SEI CERT ARR36-C</a></div>
 </article>
 </html>

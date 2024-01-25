@@ -3,27 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：与运算符、标点符、关键字相关的空格应遵循统一风格，过于随意的空格会干扰阅读，甚至形成笔误。" />
+  <meta name="description" content="C/C++ 安全编程要点：与运算符、标点符、关键字相关的空格应遵循统一风格，过于随意的空格会干扰阅读，甚至会造成笔误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>空格应遵循统一风格 - C/C++ 安全规则</title>
+  <title>遵循统一的空格风格 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>空格应遵循统一风格</h1>
+  <h1>遵循统一的空格风格</h1>
   <div id="subtitle">
-    <div id="subtitle-id">17.1 ID_spaceStyle</div>
+    <div id="subtitle-id">17.3 ID_spaceStyle</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#style">Home</a> › <a class="nav-link" href="./ID_braceStyle.html">next</a> › <a class="nav-link" href="./ID_signalInMultiThreading.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#style">Home</a> › <a class="nav-link" href="./ID_braceStyle.html">next</a> › <a class="nav-link" href="./ID_inconsistentNaming.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>与运算符、标点符、关键字相关的空格应遵循统一风格，过于随意的空格会干扰阅读，甚至形成笔误。</p>
+<p>与运算符、标点符、关键字相关的空格应遵循统一风格，过于随意的空格会干扰阅读，甚至会造成笔误。</p>
 
-<p>本规则暂不限定具体风格，但强调一致性，同类运算符、标点符、关键字的空格方式应保持一致，tab 等变长空白符不应用作空格。</p>
+<p>本规则强调一致性，暂不限定具体风格，同类运算符、标点符、关键字的空格方式应保持一致，tab 等变长空白符不应用作空格。</p>
+
+<p>本规则是 <a href="./ID_stickyAssignmentOperator.html" class="dashed-link">ID_stickyAssignmentOperator</a> 的泛化，该规则描述了一种由空格造成的错误。</p>
 
 <p>示例：</p>
 <code>a= 0;                   //<i> Bad</i>
@@ -38,13 +40,12 @@ if (cond)
 if(cond)                //<i> Missing a unified style</i></code>
 <p>例中运算符和关键字相关的空格风格不一致，代码显得很混乱。</p>
 
-<p>本规则是 <a href="./ID_stickyAssignmentOperator.html" class="dashed-link">ID_stickyAssignmentOperator</a> 的泛化，该规则描述了一种由空格造成的错误。</p>
-
 </main>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items"><a href="./ID_stickyAssignmentOperator.html" class="related-link">ID_stickyAssignmentOperator</a></div>
+<div class="ref-items"><a href="./ID_inconsistentStyle.html" class="related-link">ID_inconsistentStyle</a>
+<a href="./ID_stickyAssignmentOperator.html" class="related-link">ID_stickyAssignmentOperator</a></div>
 
 
 

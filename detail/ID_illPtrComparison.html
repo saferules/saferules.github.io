@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：不在同一数组或对象中的地址之间没有逻辑关系，这种地址比较大小属于逻辑错误，也会导致标准未定义或未声明的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：不在同一数组或同一对象中的地址之间没有前后关系，比较这种地址的大小往往意味着逻辑错误，也会导致标准未定义或未声明的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>不在同一数组或对象中的地址不可比较大小 - C/C++ 安全规则</title>
+  <title>未指向同一数组或同一对象的指针不可比较大小 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>不在同一数组或对象中的地址不可比较大小</h1>
+  <h1>未指向同一数组或同一对象的指针不可比较大小</h1>
   <div id="subtitle">
-    <div id="subtitle-id">10.3.2 ID_illPtrComparison</div>
+    <div id="subtitle-id">14.7 ID_illPtrComparison</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.comparison">Home</a> › <a class="nav-link" href="./ID_illFloatComparison.html">next</a> › <a class="nav-link" href="./ID_illComparison.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#pointer">Home</a> › <a class="nav-link" href="./ID_illPtrArithmetic.html">next</a> › <a class="nav-link" href="./ID_illPtrDiff.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>不在同一数组或对象中的地址之间没有逻辑关系，这种地址比较大小属于逻辑错误，也会导致标准未定义或未声明的行为。</p>
+<p>不在同一数组或同一对象中的地址之间没有前后关系，比较这种地址的大小往往意味着逻辑错误，也会导致标准未定义或未声明的行为。</p>
 
 <p>对于 C++ 语言，即使在同一对象中：</p>
 <ul>
@@ -30,7 +30,7 @@
 <li>由 access-specifier 分隔的成员之间</li>
 
 </ul>
-<p>也不应对地址比较大小或求差值。</p>
+<p>也不应比较地址的大小。</p>
 
 <p>示例：</p>
 <code>bool b;
@@ -68,13 +68,9 @@ bool b = p &lt; NULL;              //<i> Non-compliant</i></code>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">ISO/IEC 9899:1999 6.5.6(9)-undefined
-ISO/IEC 9899:1999 6.5.8(5)-undefined
-ISO/IEC 9899:2011 6.5.6(9)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.5.8(5)-undefined
 ISO/IEC 9899:2011 6.5.8(5)-undefined
-ISO/IEC 14882:2003 5.7(6)-undefined
 ISO/IEC 14882:2003 5.9(2)-unspecified
-ISO/IEC 14882:2011 5.7(6)-undefined
 ISO/IEC 14882:2011 5.9(2)-unspecified</div>
 
 <h3>参考</h3>
@@ -82,8 +78,7 @@ ISO/IEC 14882:2011 5.9(2)-unspecified</div>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es62-dont-compare-pointers-into-different-arrays" target="_blank" class="related-link">C++ Core Guidelines ES.62</a>
 MISRA C 2004 17.3
 MISRA C 2012 18.3
-MISRA C++ 2008 5-0-16
-MISRA C++ 2008 5-0-17
-MISRA C++ 2008 5-0-18</div>
+MISRA C++ 2008 5-0-18
+<a href="https://wiki.sei.cmu.edu/confluence/display/c/ARR36-C.+Do+not+subtract+or+compare+two+pointers+that+do+not+refer+to+the+same+array" target="_blank" class="related-link">SEI CERT ARR36-C</a></div>
 </article>
 </html>
