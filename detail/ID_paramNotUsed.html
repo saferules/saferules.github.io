@@ -23,7 +23,7 @@
 <main>
 <p>如果函数的某个参数在函数内没有被用到，意味着函数的功能与设计之间存在差距。</p>
 
-<p>如果某个参数确实不需要被用到，应尽量从参数列表中将其删除，如果需要遵循某种约定而必须保留参数（如虚函数或回调函数），在 C++ 代码中不妨将参数的名称删掉，在 C 代码中可用 void 转换指明未使用的参数在预期之内，并用注释说明参数未被使用的原因。</p>
+<p>如果某个参数确实不需要被用到，应尽量从参数列表中将其删除，如果需要遵循某种约定而必须保留参数（如虚函数或回调函数等），在 C++ 代码中不妨将参数的名称删掉，或使用 C++17 属性 [[maybe_unused]] 标注，在 C 代码中可用显式 void 转换指明未使用的参数在预期之内，并用注释说明参数未被使用的原因。</p>
 
 <p>示例：</p>
 <code>int foo(int x) {   //<i> Non-compliant, ‘x’ is not used</i>
@@ -36,13 +36,16 @@
     return 0;
 }
 
-int foo(int) {     //<i> Compliant in C++</i>
+int foo(int) {     //<i> Compliant in C++, or use ‘[[maybe_unused]] int x’ in C++17</i>
     return 0;
 }</code>
 
 </main>
 
 
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2017 10.6.6</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>

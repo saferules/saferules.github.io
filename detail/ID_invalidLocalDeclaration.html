@@ -43,7 +43,7 @@
 }
 </code>
 <p>具有特定构造或析构函数的 C++ 对象可以做到“声明即使用”，但要注意如下情况：</p>
-<code>class LockGuard {
+<code>struct LockGuard {
     LockGuard();
    ~LockGuard();
 };
@@ -52,17 +52,28 @@ void bar() {
     LockGuard guard();   //<i> Non-compliant, this is a function</i>
     do_something();
 }</code>
-<p>例中 guard 意在实现某种 RAII 锁，但 LockGuard guard(); 声明的是函数而不是对象，构造和析构函数不会按预期执行，这也是一种常见笔误。</p>
+<p>例中 guard 意在实现某种 RAII 锁，但 LockGuard guard(); 是函数而不是对象，构造和析构函数不会按预期执行，这也是一种常见笔误。</p>
 
 <p>应改为：</p>
 <code>void bar() {
     LockGuard guard;   //<i> Compliant</i>
     do_something();
+}
+</code>
+<p>在某些特殊情况下，如断言中的变量在发布版本中没有被用到：</p>
+<code>void test(int a, int b) {
+    [[maybe_unused]] bool x = a &gt; b;  //<i> C++17 attribute,</i>
+                                      //<i> or use __attribute__((unused)) in GCC,</i>
+    assert(x);                        //<i> assert is compiled out in release mode</i>
 }</code>
+<p>例中变量 x 在定义了 NDEBUG 的版本中没有被用到，并使用 [[maybe_unused]] 属性声明，这种情况可不受本规则限制。</p>
 
 </main>
 
 
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2017 10.6.6</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：&amp;=、|= 左右子表达式如果相同则没有任何效果，-=、/=、%= 左右子表达式相同则结果总为 1 或 0，这种表达式往往意味着笔误或逻辑错误。" />
+  <meta name="description" content="C/C++ 安全编程要点：当左右子表达式相同时，&amp;=、|= 表达式不改变对象的值，^=、-=、/=、%= 表达式的结果总为 0 或 1。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>&amp;=、|=、-=、/=、%= 左右子表达式不应相同 - C/C++ 安全规则</title>
+  <title>&amp;=、|=、^=、-=、/=、%= 左右子表达式不应相同 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>&amp;=、|=、-=、/=、%= 左右子表达式不应相同</h1>
+  <h1>&amp;=、|=、^=、-=、/=、%= 左右子表达式不应相同</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.3.8 ID_illSelfCompoundAssignment</div>
     <div id="subtitle-tags">
@@ -21,18 +21,18 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>&amp;=、|= 左右子表达式如果相同则没有任何效果，-=、/=、%= 左右子表达式相同则结果总为 1 或 0，这种表达式往往意味着笔误或逻辑错误。</p>
+<p>当左右子表达式相同时，&amp;=、|= 表达式不改变对象的值，^=、-=、/=、%= 表达式的结果总为 0 或 1。</p>
 
 <p>示例（设 a 为变量或表达式）：</p>
 <code>a &amp;= a;  //<i> Non-compliant, no effect</i>
 a |= a;  //<i> Non-compliant, no effect</i>
 </code>
-<p>如果目的是清零或置 1，也不建议使用下列表达式：</p>
+<p>如果目的是清零或置 1，也不应使用下列表达式：</p>
 <code>a -= a;  //<i> Non-compliant, tedious</i>
 a /= a;  //<i> Non-compliant, low efficiency</i>
 a %= a;  //<i> Non-compliant, low efficiency</i>
 </code>
-<p>对于高级语言来说，应该直接将变量赋值为 0 或 1，而不是采用更繁琐甚至低效的方式。</p>
+<p>对于高级语言来说，应直接将变量赋值为 0 或 1，而不是采用更繁琐甚至低效的方式。</p>
 
 </main>
 

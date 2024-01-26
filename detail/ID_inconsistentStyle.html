@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：遵循统一的命名、空格、缩进、换行等风格有利于提高代码可读性。" />
+  <meta name="description" content="C/C++ 安全编程要点：统一的代码编写风格有利于相关人员按统一的方式理解和维护代码，避免各种偏差，也有利于排查问题，并增强协作开发效率。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,15 +21,21 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>遵循统一的命名、空格、缩进、换行等风格有利于提高代码可读性。</p>
+<p>统一的代码编写风格有利于相关人员按统一的方式理解和维护代码，避免各种偏差，也有利于排查问题，并增强协作开发效率。</p>
+
+<p>软件项目应至少对命名、注释、换行、缩进、空格的风格制定明确规范，可参见相关规则的进一步讨论。</p>
 
 <p>示例：</p>
-<code>int a = 0XAB;
-int b = 0xcd;   //<i> Inconsistent</i>
+<code>enum E {
+    e0 = 0XAB, e1 = 0xcd   //<i> Inconsistent</i>
+};
 
-if (p != NULL &amp;&amp; nullptr != q) {   //<i> Inconsistent</i>
-    ....
+void foo(E x, E y) {
+    if (x == e0 &amp;&amp; e1 == y) {   //<i> Inconsistent</i>
+        ....
+    }
 }</code>
+<p>例中 16 进制常量大小写应统一，常量与变量比较时，常量也最好出现在运算符的同一侧。</p>
 
 </main>
 
@@ -38,7 +44,8 @@ if (p != NULL &amp;&amp; nullptr != q) {   //<i> Inconsistent</i>
 <div class="ref-items"><a href="./ID_inconsistentNaming.html" class="related-link">ID_inconsistentNaming</a>
 <a href="./ID_inconsistentIndent.html" class="related-link">ID_inconsistentIndent</a>
 <a href="./ID_spaceStyle.html" class="related-link">ID_spaceStyle</a>
-<a href="./ID_braceStyle.html" class="related-link">ID_braceStyle</a></div>
+<a href="./ID_braceStyle.html" class="related-link">ID_braceStyle</a>
+<a href="./ID_badCommentPosition.html" class="related-link">ID_badCommentPosition</a></div>
 
 
 <h3>参考</h3>

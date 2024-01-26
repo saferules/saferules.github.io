@@ -23,7 +23,7 @@
 <main>
 <p>没有被用到的静态声明往往是没有意义的，应删除或修正引用关系。</p>
 
-<p>类的静态成员可不受本规则限制。</p>
+<p>类的静态成员不受本规则限制；当静态对象的构造或析构函数有特殊副作用时可不受规则限制；具有 [[maybe_unused]] 或同等属性的对象和函数也不受本规则限制，但应给出合理的解释。</p>
 
 <p>示例：</p>
 <code>static int foo();   //<i> Compliant, used</i>
@@ -32,6 +32,7 @@ static int bar();   //<i> Non-compliant, unused</i>
 int main() {
     return foo();
 }</code>
+<p>例中静态函数 bar 没有被用到，可能是冗余代码，也可能是调用关系有误。</p>
 
 </main>
 

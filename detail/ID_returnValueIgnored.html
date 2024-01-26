@@ -36,9 +36,9 @@ int main() {
     fun();           //<i> Non-compliant</i>
     int r = fun();   //<i> Compliant, ‘r’ should be used in subsequent code</i>
     ....
-    (void)fun();     //<i> Let it go?</i>
+    static_cast&lt;void&gt;(fun());   //<i> Let it go?</i>
 }</code>
-<p>经 void 转换的函数调用可以认为是有意放弃返回值，审计工具不妨通过配置决定是否放过这种情况。</p>
+<p>如果确实不需要使用返回值，可对函数调用表达式进行显式 void 转换，但应给出合理的解释，审计工具不妨通过配置决定是否放过这种情况。</p>
 
 </main>
 <h3>配置</h3>
@@ -48,7 +48,9 @@ int main() {
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items">ISO/IEC 14882:2017 10.6.7</div>
+<div class="ref-items">ISO/IEC 14882:2003 5.2.9(4)
+ISO/IEC 14882:2011 5.2.9(6)
+ISO/IEC 14882:2017 10.6.7</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>

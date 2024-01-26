@@ -26,7 +26,7 @@
 <p>不应出现下列情况：</p>
 <ul>
 <li>原类型与转换后的类型完全相同</li>
-<li>非 void 转换的结果没有被读取</li>
+<li>非 void 转换的结果没有被使用</li>
 
 </ul>
 <p>示例：</p>
@@ -48,7 +48,7 @@ float bar(int y) {
     return (float)y;   //<i> Compliant</i>
 }
 </code>
-<p>可用 void 转换表示有意放弃读取，但对无返回值的函数不应再使用 void 转换，如：</p>
+<p>可用显式 void 转换表示有意放弃表达式的值，但对无返回值的函数调用不应再使用 void 转换，如：</p>
 <code>char foo();
 void bar();
 

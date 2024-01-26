@@ -23,9 +23,10 @@
 <main>
 <p>虽然语言允许在 while 语句的条件中赋值，但 = 和 == 极易混淆，建议所有产生 bool 型结果的表达式，都不要包含赋值运算符。</p>
 
+<p>本规则是 <a href="./ID_assignmentAsSubExpression.html" class="dashed-link">ID_assignmentAsSubExpression</a> 的特化。</p>
+
 <p>示例：</p>
-<code>while (x = 123)  //<i> Non-compliant</i>
-{
+<code>while (x = 123) { //<i> Non-compliant</i>
     ....
 }</code>
 
@@ -33,7 +34,7 @@
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items"><a href="./ID_if_assignment.html" class="related-link">ID_if_assignment</a></div>
+<div class="ref-items"><a href="./ID_assignmentAsSubExpression.html" class="related-link">ID_assignmentAsSubExpression</a></div>
 
 
 <h3>参考</h3>

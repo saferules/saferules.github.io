@@ -40,6 +40,8 @@ if (n &gt;= 0) {
 realloc(p, 0);   //<i> Non-compliant, use free(p) instead</i></code>
 <p>C90 规定当 realloc 函数的长度参数为 0 时会释放内存，与 free(p) 相同，但在后续标准中废弃了这一特性，不应继续使用。</p>
 
+<p>这种情况下 C++ 语言的 new 运算符会分配元素个数为 0 的数组，但这种数组往往没有实际价值，而且要注意，在 C 和 C++ 语言中元素个数为 0 的数组也需要被释放。</p>
+
 </main>
 
 
@@ -47,7 +49,9 @@ realloc(p, 0);   //<i> Non-compliant, use free(p) instead</i></code>
 <hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1990 7.10.3.4
 ISO/IEC 9899:1999 7.20.3(1)-implementation
-ISO/IEC 9899:2011 7.22.3(1)-implementation</div>
+ISO/IEC 9899:2011 7.22.3(1)-implementation
+ISO/IEC 14882:2003 5.3.4(7)
+ISO/IEC 14882:2011 5.3.4(7)</div>
 
 <h3>参考</h3>
 <hr class="dashed-hr"/>

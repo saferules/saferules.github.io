@@ -27,15 +27,26 @@
 <code>a = b;    //<i> Compliant</i>
 a += b;   //<i> Compliant</i>
 
+a += b += c;     //<i> Non-compliant</i>
+fun(a = b, c);   //<i> Non-compliant</i>
+
+if (a = b) {   //<i> Non-compliant</i>
+    ....
+}
+switch (a = b) {   //<i> Non-compliant</i>
+    ....
+}
 while (a = b) {   //<i> Non-compliant</i>
     ....
 }
-if (a = b != 0) {   //<i> Non-compliant</i>
+for (; a = b; ) {   //<i> Non-compliant</i>
     ....
 }
-a += b += c;     //<i> Non-compliant</i>
-fun(a = b, c);   //<i> Non-compliant</i>
-</code>
+do {
+    ....
+} while (a = b);   //<i> Non-compliant</i></code>
+<p>赋值表达式的值被使用，或作为控制语句的条件是不符合要求的。</p>
+
 <p>连续赋值是一种惯用方式，但不值得提倡，如：</p>
 <code>a = b = c;   //<i> Let it go?</i></code>
 <p>审计工具不妨通过配置决定是否放过这种方式。</p>
@@ -47,7 +58,8 @@ fun(a = b, c);   //<i> Non-compliant</i>
 
 <h3>相关</h3>
 <hr class="dashed-hr"/>
-<div class="ref-items"><a href="./ID_if_assignment.html" class="related-link">ID_if_assignment</a></div>
+<div class="ref-items"><a href="./ID_if_assignment.html" class="related-link">ID_if_assignment</a>
+<a href="./ID_while_assignment.html" class="related-link">ID_while_assignment</a></div>
 
 
 <h3>参考</h3>
