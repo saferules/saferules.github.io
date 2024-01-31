@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：POF（plain old function）是不依赖 C++ 特性且与 C 兼容的函数，信号处理函数应为 POF。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>信号处理函数应为 POF - C/C++ 安全规则</title>
+</head>
+<article>
+<header>
+  <h1>信号处理函数应为 POF</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">15.5 ID_nonPOFHandler</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#interruption">Home</a> › <a class="nav-link" href="./ID_dataRaces.html">next</a> › <a class="nav-link" href="./ID_forbidSignalFunction.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>POF（plain old function）是不依赖 C++ 特性且与 C 兼容的函数，信号处理函数应为 POF。</p>
+
+<p>异常处理、资源的分配与回收、动态类型转换以及相当一部分的标准库功能是非信号安全的，会导致未定义的行为，详见“<a href="https://en.cppreference.com/w/cpp/utility/program/signal#Signal_handler" target="_blank" class="dashed-link">C++ 信号处理函数</a>”，即使某些特性可以用于信号处理，也是由实现定义的。</p>
+
+<p>示例：</p>
+<code>void handler(int signum) noexcept;   //<i> Non-compliant</i>
+</code>
+<p>应改为：</p>
+<code>extern &quot;C&quot; void handler(int signum);   //<i> Compliant</i></code>
+
+</main>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_sig_dataRaces.html" class="related-link">ID_sig_dataRaces</a>
+<a href="./ID_sig_nonAsyncSafeCall.html" class="related-link">ID_sig_nonAsyncSafeCall</a></div>
+
+<h3>依据</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items">ISO/IEC 14882:2003 18.7(5)-implementation
+ISO/IEC 14882:2011 18.10(9)-implementation
+ISO/IEC 14882:2017 21.10.4(3)-undefined</div>
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MSC54-CPP.%2BA%2Bsignal%2Bhandler%2Bmust%2Bbe%2Ba%2Bplain%2Bold%2Bfunction" target="_blank" class="related-link">SEI CERT MSC54-CPP</a></div>
+</article>
+</html>

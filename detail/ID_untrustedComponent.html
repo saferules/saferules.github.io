@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：导入库、配置、数据等组件时应判断其可靠性，对不受信任的组件予以拒绝。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/iconfont.js"></script>
+  <title>保证组件的可靠性 - C/C++ 安全规则</title>
+</head>
+<article>
+<header>
+  <h1>保证组件的可靠性</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">1.18 ID_untrustedComponent</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#security">Home</a> › <a class="nav-link" href="./ID_untrustedThirdParty.html">next</a> › <a class="nav-link" href="./ID_implementationDefinedFunction.html">previous</a>
+    </div>
+  </div>
+  <hr class="dashed-hr"/>
+</header>
+<main>
+<p>导入库、配置、数据等组件时应判断其可靠性，对不受信任的组件予以拒绝。</p>
+
+<p>示例：</p>
+<p>利用数字签名判断 DLL 等动态库的可靠性，代码可参考“<a href="https://learn.microsoft.com/en-us/windows/win32/seccrypto/example-c-program--verifying-the-signature-of-a-pe-file?redirectedfrom=MSDN" target="_blank" class="dashed-link">WinVerifyTrust</a>”等 API 的使用。</p>
+
+</main>
+
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_untrustedThirdParty.html" class="related-link">ID_untrustedThirdParty</a></div>
+
+
+<h3>参考</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/1357.html" target="_blank" class="related-link">CWE-1357</a></div>
+</article>
+</html>

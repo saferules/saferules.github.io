@@ -33,7 +33,7 @@
 
 <p>特殊情况：</p>
 <ul>
-<li>在 C 语言中，如果 sizeof 作用于变长数组类型，数组长度表达式会被求值</li>
+<li>在 C 语言中，如果 sizeof 作用于变长数组类型，数组长度表达式是否会被求值是标准未声明的</li>
 <li>在 C++ 语言中，如果 typeid 作用于多态类型的“<a href="https://en.cppreference.com/w/cpp/language/value_category#glvalue" target="_blank" class="dashed-link">泛左值（glvalue）</a>”，该泛左值会被求值</li>
 
 </ul>
@@ -47,7 +47,7 @@ printf(&quot;%d &quot;, a);
 
 int c = sizeof(int[a++]);   //<i> Non-compliant, variable length array</i>
 printf(&quot;%d\n&quot;, a);</code>
-<p>输出 0 1，sizeof(a++) 的副作用不生效，而 sizeof(int[a++]) 的副作用会生效，这往往会使人困惑。</p>
+<p>sizeof(a++) 的副作用不生效，而 sizeof(int[a++]) 的副作用可能会生效，这往往会使人困惑。</p>
 
 </main>
 
@@ -58,7 +58,9 @@ printf(&quot;%d\n&quot;, a);</code>
 <h3>依据</h3>
 <hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.5.3.4(2)
+ISO/IEC 9899:1999 6.7.5.2(5)-unspecified
 ISO/IEC 9899:2011 6.5.3.4(2)
+ISO/IEC 9899:2011 6.7.6.2(5)-unspecified
 ISO/IEC 14882:2003 5.3.3(1)
 ISO/IEC 14882:2011 5.3.3(1)
 ISO/IEC 14882:2017 8.3.3(1)</div>

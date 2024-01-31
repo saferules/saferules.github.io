@@ -32,7 +32,7 @@
     <a href="#appendix-title">附录</a>
   </nav>
   <div class="content-wrapper content-first-section">
-    <p>针对 C 和 C++ 语言，本文收录了 519 种需要重点关注的问题，
+    <p>针对 C 和 C++ 语言，本文收录了 525 种需要重点关注的问题，
     每个问题对应一条规则，可作为代码审计依据或编程规范条款，也可为相关培训提供指导意见。</p>
     <p>本文是适用于不同应用场景的规则集合，读者可从中选取某个子集以适应自身需求。</p>
     <h2 id="rules-class-title">规则分类</h2>
@@ -86,20 +86,24 @@
   <li><a href="./detail/ID_secretLeak.html">敏感数据不可被系统外界感知</a></li>
   <li><a href="./detail/ID_unsafeCleanup.html">敏感数据在使用后应被有效清理</a></li>
   <li><a href="./detail/ID_sensitiveName.html">公共成员或全局对象不应记录敏感数据</a></li>
+  <li><a href="./detail/ID_addressExposure.html">与内存空间布局相关的信息不可被外界感知</a></li>
+  <li><a href="./detail/ID_hardcodedIP.html">与网络地址相关的信息不应写入代码</a></li>
   <li><a href="./detail/ID_hijack.html">预判用户输入造成的不良后果</a></li>
   <li><a href="./detail/ID_unlimitedAuthority.html">对资源设定合理的访问权限</a></li>
   <li><a href="./detail/ID_improperAuthorization.html">对用户落实有效的权限管理</a></li>
   <li><a href="./detail/ID_dangerousName.html">避免引用危险符号名称</a></li>
   <li><a href="./detail/ID_dangerousFunction.html">避免使用危险接口</a></li>
   <li><a href="./detail/ID_obsoleteFunction.html">避免使用已过时的接口</a></li>
-  <li><a href="./detail/ID_unsafeStringFunction.html">禁用不安全的字符串函数</a></li>
-  <li><a href="./detail/ID_improperNullTermination.html">确保字符串以空字符结尾</a></li>
   <li><a href="./detail/ID_divideByZero.html">避免除 0 等计算异常</a></li>
-  <li><a href="./detail/ID_variableFormatString.html">格式化字符串应为常量</a></li>
-  <li><a href="./detail/ID_addressExposure.html">与内存空间布局相关的信息不可被外界感知</a></li>
-  <li><a href="./detail/ID_hardcodedIP.html">与网络地址相关的信息不应写入代码</a></li>
   <li><a href="./detail/ID_deprecatedErrno.html">选择安全的异常处理方式</a></li>
+  <li><a href="./detail/ID_undefinedBehavior.html">不应产生或依赖未定义的行为</a></li>
+  <li><a href="./detail/ID_unspecifiedBehavior.html">不应依赖未声明的行为</a></li>
+  <li><a href="./detail/ID_implementationDefinedFunction.html">避免依赖由实现定义的行为</a></li>
+  <li><a href="./detail/ID_untrustedComponent.html">保证组件的可靠性</a></li>
+  <li><a href="./detail/ID_untrustedThirdParty.html">保证第三方软件的可靠性</a></li>
+  <li><a href="./detail/ID_backDoor.html">隔离非正式功能的代码</a></li>
   <li><a href="./detail/ID_missingHardening.html">启用平台和编译器提供的防御机制</a></li>
+  <li><a href="./detail/ID_unsafeCompileOption.html">禁用不安全的编译选项</a></li>
 </ol></li>
 <li id="resource" class="rules-toc-chapter">Resource<ol>
   <li><a href="./detail/ID_resourceLeak.html">不可失去对已分配资源的控制</a></li>
@@ -176,9 +180,9 @@
   <li><a href="./detail/ID_warningDefault.html">在高级别的警告设置下编译</a></li>
 </ol></li>
 <li id="precompile.comment" class="rules-toc-section">Comment<ol>
-  <li><a href="./detail/ID_specialComment.html">关注 TODO、FIXME、XXX、BUG 等特殊注释</a></li>
   <li><a href="./detail/ID_nestedComment.html">注释不可嵌套</a></li>
   <li><a href="./detail/ID_badCommentPosition.html">注释应出现在合理的位置</a></li>
+  <li><a href="./detail/ID_specialComment.html">关注 TODO、FIXME、XXX、BUG 等特殊注释</a></li>
 </ol></li>
 <li id="precompile.file" class="rules-toc-section">File<ol>
   <li><a href="./detail/ID_sourceFileExt.html">源文件扩展名应一致</a></li>
@@ -190,7 +194,6 @@
   <li><a href="./detail/ID_literal_trigraphs.html">避免出现 trigraph sequences</a></li>
   <li><a href="./detail/ID_forbidDigraphs.html">禁用 digraphs</a></li>
   <li><a href="./detail/ID_badBackslash.html">除转义字符、宏定义之外不应使用反斜杠</a></li>
-  <li><a href="./detail/ID_unsafeCompileOption.html">禁用不安全的编译选项</a></li>
 </ol></li>
 </ol></li>
 <li id="global" class="rules-toc-chapter">Global<ol>
@@ -578,10 +581,11 @@
   <li><a href="./detail/ID_nonPODVariadicArgument.html">不应将非 POD 对象传入可变参数列表</a></li>
   <li><a href="./detail/ID_inconsistentFormatArgNum.html">C 格式化字符串需要的参数个数与实际传入的参数个数应一致</a></li>
   <li><a href="./detail/ID_inconsistentFormatArgType.html">C 格式化占位符与其对应参数的类型应一致</a></li>
-  <li><a href="./detail/ID_inconsistentArraySize.html">形参与实参均为数组时，数组大小应一致</a></li>
+  <li><a href="./detail/ID_variableFormatString.html">C 格式化字符串应为常量</a></li>
   <li><a href="./detail/ID_forbidCStringFormat.html">在 C++ 代码中禁用 C 字符串格式化方法</a></li>
+  <li><a href="./detail/ID_inconsistentArraySize.html">形参与实参均为数组时，数组大小应一致</a></li>
+  <li><a href="./detail/ID_unsafeStringFunction.html">禁用不安全的字符串函数</a></li>
   <li><a href="./detail/ID_forbidAtox.html">禁用 atof、atoi、atol 以及 atoll 等函数</a></li>
-  <li><a href="./detail/ID_implementationDefinedFunction.html">避免使用由实现定义的库函数</a></li>
   <li><a href="./detail/ID_unsuitableMove.html">合理使用 std::move</a></li>
   <li><a href="./detail/ID_unsuitableForward.html">合理使用 std::forward</a></li>
 </ol></li>
@@ -656,6 +660,7 @@
 <li id="buffer" class="rules-toc-chapter">Buffer<ol>
   <li><a href="./detail/ID_bufferOverflow.html">避免缓冲区溢出</a></li>
   <li><a href="./detail/ID_insufficientBuffer.html">为缓冲区分配足够的空间</a></li>
+  <li><a href="./detail/ID_improperNullTermination.html">确保字符串以空字符结尾</a></li>
   <li><a href="./detail/ID_nonPODFilling.html">memset 等函数不应作用于非 POD 对象</a></li>
   <li><a href="./detail/ID_badLength.html">memset 等函数长度相关的参数不应有误</a></li>
   <li><a href="./detail/ID_valueOverflow.html">memset 等函数填充值相关的参数不应有误</a></li>
@@ -691,6 +696,7 @@
   <li><a href="./detail/ID_sig_nonAsyncSafeCall.html">处理信号时避免使用非异步信号安全函数</a></li>
   <li><a href="./detail/ID_sig_illReturn.html">SIGFPE、SIGILL、SIGSEGV 等信号的处理函数不可返回</a></li>
   <li><a href="./detail/ID_forbidSignalFunction.html">禁用 signal 函数</a></li>
+  <li><a href="./detail/ID_nonPOFHandler.html">信号处理函数应为 POF</a></li>
 </ol></li>
 <li id="concurrency" class="rules-toc-chapter">Concurrency<ol>
   <li><a href="./detail/ID_dataRaces.html">访问共享数据应遵循合理的同步机制</a></li>

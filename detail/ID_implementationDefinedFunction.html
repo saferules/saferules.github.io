@@ -3,27 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：由实现定义的（implementation-defined）库函数会增加移植或兼容等方面的成本。" />
+  <meta name="description" content="C/C++ 安全编程要点：语言标准允许程序的某些行为可由编译器自行定义，这种行为称为由实现定义的行为（implementation-defined behavior），虽然有文档支持，但也会增加移植或兼容等方面的成本。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>避免使用由实现定义的库函数 - C/C++ 安全规则</title>
+  <title>避免依赖由实现定义的行为 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>避免使用由实现定义的库函数</h1>
+  <h1>避免依赖由实现定义的行为</h1>
   <div id="subtitle">
-    <div id="subtitle-id">10.6.11 ID_implementationDefinedFunction</div>
+    <div id="subtitle-id">1.17 ID_implementationDefinedFunction</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.call">Home</a> › <a class="nav-link" href="./ID_unsuitableMove.html">next</a> › <a class="nav-link" href="./ID_forbidAtox.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#security">Home</a> › <a class="nav-link" href="./ID_untrustedComponent.html">next</a> › <a class="nav-link" href="./ID_unspecifiedBehavior.html">previous</a>
     </div>
   </div>
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>由实现定义的（implementation-defined）库函数会增加移植或兼容等方面的成本。</p>
+<p>语言标准允许程序的某些行为可由编译器自行定义，这种行为称为由实现定义的行为（implementation-defined behavior），虽然有文档支持，但也会增加移植或兼容等方面的成本。</p>
 
-<p>如：</p>
+<p>示例：</p>
 <ul>
 <li>cstdlib、stdlib.h 中的 abort、exit、_Exit、quick_exit、getenv、system 等函数</li>
 <li>ctime、time.h 中的 clock 等函数</li>
@@ -32,7 +32,6 @@
 </ul>
 <p>这些函数的行为取决于编译器、库或环境的生产厂家，同一个函数不同的厂家会有不同的实现，故称这种函数的行为是“由实现定义”的。有高可靠性要求的软件系统应避免使用这种函数，否则需明确各种实现上的具体差异，增加了移植、发布以及兼容性等多方面的成本。</p>
 
-<p>示例：</p>
 <code>#include &lt;cstdlib&gt;
 
 void foo() {
@@ -42,6 +41,10 @@ void foo() {
 
 </main>
 
+<h3>相关</h3>
+<hr class="dashed-hr"/>
+<div class="ref-items"><a href="./ID_undefinedBehavior.html" class="related-link">ID_undefinedBehavior</a>
+<a href="./ID_unspecifiedBehavior.html" class="related-link">ID_unspecifiedBehavior</a></div>
 
 <h3>依据</h3>
 <hr class="dashed-hr"/>
