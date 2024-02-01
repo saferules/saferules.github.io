@@ -44,6 +44,11 @@
 }</code>
 <p>用 memcpy 等函数将低对齐要求的数据复制到高对齐要求的对象中，是避免相关问题的通用模式。</p>
 
+<p>例外：</p>
+<code>alignas(long) short a[32];
+long* p = (long*)a;          //<i> Compliant</i></code>
+<p>如果源类型的对齐声明与目标类型相符可不受本规则限制。另外，malloc、calloc 等函数的返回值已具备通用对齐要求，也不受本规则限制。</p>
+
 </main>
 
 <h3>相关</h3>

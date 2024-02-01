@@ -24,7 +24,8 @@
 <p>不处理共享数据也不会影响程序状态的函数，以及不会被信号中断的函数称为“<a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html" target="_blank" class="dashed-link">异步信号安全</a>”函数，处理信号时只应使用这种函数。</p>
 
 <p>示例：</p>
-<code>#include &lt;signal.h&gt;
+<code>#include &lt;stdio.h&gt;
+#include &lt;signal.h&gt;
 
 void handler(int signum) {
     printf(&quot;....&quot;);          //<i> Non-compliant</i>

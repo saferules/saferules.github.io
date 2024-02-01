@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：signal 函数具有一定的局限性，且各平台实现差异较大，可用 sigaction 函数代替。" />
+  <meta name="description" content="C/C++ 安全编程要点：signal 函数具有一定的局限性，且各平台实现差异较大。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,7 +21,7 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>signal 函数具有一定的局限性，且各平台实现差异较大，可用 sigaction 函数代替。</p>
+<p>signal 函数具有一定的局限性，且各平台实现差异较大。</p>
 
 <p>示例：</p>
 <code>#include &lt;signal.h&gt;
@@ -32,7 +32,20 @@ void handler(int signum) {     //<i> #1</i>
 }</code>
 <p>设例中 handler 是某种信号的处理函数。在某些平台上，signal 指定的函数只能被执行一次，所以需要在 handler 中再次调用 signal 指定处理函数，但如果程序在运行到 #1 和 #2 之间时收到同样的信号，会执行不符合预期的默认处理函数，这是一种竞态条件；而在另一些平台上，signal 指定的函数会一直有效，handler 再次调用 signal 是多余的。</p>
 
-<p>sigaction 函数不存在这些问题，也可提供更多的功能，但要注意该函数尚未在语言标准中定义。</p>
+<p>与 signal 函数相似的 sigaction 函数不存在这些问题，也可提供更多的功能，但要注意该函数尚未在语言标准中定义。</p>
+
+<p>如果条件允许，也可以使用 sigwait、sigwaitinfo 等函数同步地处理信号，如：</p>
+<code>sigset_t ss;
+sigemptyset(&amp;ss);
+sigaddset(&amp;ss, SIGINT);
+sigprocmask(SIG_BLOCK, &amp;ss, NULL);
+while (1) {
+    int signum = sigwaitinfo(&amp;ss, NULL);   //<i> Wait for signals</i>
+    if (signum == SIGINT) {
+        ....                  //<i> Handle the signal</i>
+    }
+}</code>
+<p>例中 sigwaitinfo 函数在没有信号到达时会阻塞，否则返回相应的信号值，这样可以同步地处理信号，避免了异步信号处理需要面对的数据竞争等问题，也使代码具有更清晰的静态结构。</p>
 
 </main>
 

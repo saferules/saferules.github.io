@@ -42,11 +42,11 @@
 <code>void bar(size_t n) {
     void* p = malloc(n);
     if (n &lt; 100) {
-        p = realloc(p, 100);  //<i> Non-compliant, the original value of ‘p’ is lost</i>
+        p = realloc(p, 100);  //<i> Non-compliant, ‘p’ may be lost</i>
     }
     ....
 }</code>
-<p>例中 realloc 函数分配失败会返回 NULL，p 未经释放而被重新赋值，导致内存泄露。</p>
+<p>当 realloc 函数分配失败时会返回空指针，p 指向的原内存空间不会被释放，但 p 被赋值为空，导致内存泄露，这是一种常见错误。</p>
 
 </main>
 

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：避免由信号处理产生的数据竞争。" />
+  <meta name="description" content="C/C++ 安全编程要点：异步信号处理函数的调用会随时打断主程序的流程，当处理函数返回后，主程序在被打断的位置继续执行，这种方式称为“中断（interrupt）”，与执行非并发的线程相似，但没有锁等同步机制，而且信号处理函数本身也可能被中断，所以在信号处理函数中访问共享数据应格外小心。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>避免由信号处理产生的数据竞争 - C/C++ 安全规则</title>
+  <title>避免异步信号处理产生的数据竞争 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>避免由信号处理产生的数据竞争</h1>
+  <h1>避免异步信号处理产生的数据竞争</h1>
   <div id="subtitle">
     <div id="subtitle-id">15.1 ID_sig_dataRaces</div>
     <div id="subtitle-tags">
