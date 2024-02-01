@@ -35,10 +35,12 @@ recv(sockfd, &amp;obj, sizeof obj, flags);   //<i> Non-compliant</i></code>
 <p>例中成员 a 和 b 之间存在填充数据，但没有声明对齐方式，直接在网络上传输这种类型的对象是不符合要求的，如果发送端的对齐方式与接收端不一致就会造成混乱。</p>
 
 <p>应在发送端和接收端统一声明对齐方式：</p>
-<code>struct alignas(4) T {   //<i> Or use _Alignas in C</i>
+<code>#pragma pack(push, 1)
+struct T {
     int8_t  a;
     int32_t b;
 };
+#pragma pack(pop)
 </code>
 <p>注意，敏感数据可能会残留在填充数据中，所以当存储或传输对象前有必要清理填充数据的值，如：</p>
 <code>T obj;
