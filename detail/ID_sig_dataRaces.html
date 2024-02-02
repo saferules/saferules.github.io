@@ -37,7 +37,7 @@
 <code>char msg[32];
 
 void handler(int signum) {
-    strcpy(msg, &quot;SIGINT received&quot;);      //<i> Non-compliant</i>
+    strcpy(msg, &quot;SIGINT received&quot;);   //<i> Non-compliant</i>
 }
 
 int main() {
@@ -60,7 +60,7 @@ int main() {
     ....
     printf(&quot;%s received\n&quot;, flag? &quot;SIGINT&quot;: &quot;No signal&quot;);
 }</code>
-<p>用 SIG_ATOMIC_MIN 和 SIG_ATOMIC_MAX 之间的值对 sig_atomic_t 类型的对象赋值可以保证原子性，超出范围的赋值，或赋值之外的操作不能保证原子性，需要避免。</p>
+<p>注意，sig_atomic_t 由实现定义，其最小值和最大值分别为 SIG_ATOMIC_MIN 和 SIG_ATOMIC_MAX。标准规定，当 sig_atomic_t 是有符号整型时，最小值不会大于 -127，最大值不会小于 127，当 sig_atomic_t 是无符号整型时，最小值为 0，最大值不会小于 255。应避免使用超出范围的数值对 sig_atomic_t 型变量赋值。</p>
 
 </main>
 

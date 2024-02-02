@@ -36,11 +36,11 @@
     每个问题对应一条规则，可作为代码审计依据或编程规范条款，也可为相关培训提供指导意见。</p>
     <p>本文是适用于不同应用场景的规则集合，读者可从中选取某个子集以适应自身需求。</p>
     <h2 id="rules-class-title">规则分类</h2>
-    <p>本文以 ISO/IEC 9899:2011、ISO/IEC 14882:2011 为依据，兼顾 C18、C++17 及历史标准，将规则分为：</p>
+    <p>本文以 ISO/IEC 9899:2011、ISO/IEC 14882:2011 为依据，兼顾 C++17 及历史标准，将规则分为：</p>
     <ol class="simple-list">
-      <li><a href="#security">Security</a>：敏感信息防护</li>
+      <li><a href="#security">Security</a>：敏感信息防护与安全策略</li>
       <li><a href="#resource">Resource</a>：资源管理</li>
-      <li><a href="#precompile">Precompile</a>：预处理、宏、注释</li>
+      <li><a href="#precompile">Precompile</a>：预处理、宏、注释、文件</li>
       <li><a href="#global">Global</a>：全局及命名空间作用域</li>
       <li><a href="#type">Type</a>：类型设计与实现</li>
       <li><a href="#declaration">Declaration</a>：声明</li>
@@ -48,7 +48,7 @@
       <li><a href="#function">Function</a>：函数实现</li>
       <li><a href="#control">Control</a>：流程控制</li>
       <li><a href="#expression">Expression</a>：表达式</li>
-      <li><a href="#literal">Literal</a>：常量</li>
+      <li><a href="#literal">Literal</a>：字面常量</li>
       <li><a href="#cast">Cast</a>：类型转换</li>
       <li><a href="#buffer">Buffer</a>：缓冲区</li>
       <li><a href="#pointer">Pointer</a>：指针</li>
@@ -673,7 +673,7 @@
   <li><a href="./detail/ID_arrayIndexOverflow.html">避免指针运算的结果溢出</a></li>
   <li><a href="./detail/ID_illPtrDiff.html">未指向同一数组的指针不可相减</a></li>
   <li><a href="./detail/ID_illPtrComparison.html">未指向同一数组或同一对象的指针不可比较大小</a></li>
-  <li><a href="./detail/ID_illPtrArithmetic.html">未指向数组元素的指针不可与整数加减</a></li>
+  <li><a href="./detail/ID_illPtrArithmetic.html">未指向数组元素的指针不应与整数加减</a></li>
   <li><a href="./detail/ID_invalidNullCheck.html">避免无效的空指针检查</a></li>
   <li><a href="./detail/ID_repeatedNullCheck.html">不应重复检查指针是否为空</a></li>
   <li><a href="./detail/ID_fixedAddrToPointer.html">不应使用非零常量对指针赋值</a></li>
@@ -689,7 +689,7 @@
   <li><a href="./detail/ID_this_forbidDeleteThis.html">禁用 delete this</a></li>
   <li><a href="./detail/ID_missingResetNull.html">释放指针后应将指针赋值为空或其他有效值</a></li>
   <li><a href="./detail/ID_missingAddressOperator.html">函数取地址时应显式使用 &amp; 运算符</a></li>
-  <li><a href="./detail/ID_missingArrayIndexing.html">指针运算应使用数组下标的方式</a></li>
+  <li><a href="./detail/ID_missingArrayIndexing.html">指针与整数的加减运算应使用数组下标的方式</a></li>
 </ol></li>
 <li id="interruption" class="rules-toc-chapter">Interruption<ol>
   <li><a href="./detail/ID_sig_dataRaces.html">避免异步信号处理产生的数据竞争</a></li>

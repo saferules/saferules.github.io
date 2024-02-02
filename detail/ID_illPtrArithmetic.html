@@ -7,11 +7,11 @@
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>未指向数组元素的指针不可与整数加减 - C/C++ 安全规则</title>
+  <title>未指向数组元素的指针不应与整数加减 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>未指向数组元素的指针不可与整数加减</h1>
+  <h1>未指向数组元素的指针不应与整数加减</h1>
   <div id="subtitle">
     <div id="subtitle-id">14.8 ID_illPtrArithmetic</div>
     <div id="subtitle-tags">
@@ -34,14 +34,21 @@ p--;       //<i> Non-compliant</i>
 
 p = &amp;i;
 p += 1;    //<i> Non-compliant</i>
-p += 2;    //<i> Non-compliant, undefined</i>
-p -= 1;    //<i> Non-compliant, undefined</i>
-</code>
+p += 2;    //<i> Non-compliant, undefined behavior if overflow</i>
+p -= 1;    //<i> Non-compliant, undefined behavior if overflow</i></code>
+<p>虽然指向单个对象的指针也相当于指向只有一个元素的数组，但对其值进行增减的实际应用价值不高，而且易导致错误，如增值超过 1，或与非 0 值相减都可能造成指针的值溢出，从而导致未定义的行为。</p>
+
+<p>对指向单个对象的指针也不应使用数组下标 [0]，如：</p>
+<code>p = &amp;i;
+p[0] = 1;   //<i> Non-compliant</i></code>
+<p>例中 p 指向变量 i，但 p[0] 会使人误以为 p 指向数组元素。</p>
+
 <p>又如：</p>
 <code>struct {
     int x, y;
     int a[2];
 } obj;
+
 assert(&amp;obj.x + 1 == &amp;obj.y);         //<i> Non-compliant, no guarantee</i>
 assert(&amp;obj.a[0] + 1 == &amp;obj.a[1]);   //<i> Compliant, well defined</i></code>
 <p>注意，标准保证排在后面的成员地址大于排在前面的成员地址，但不保证其间是否有填充数据，所以非数组元素的成员之间不应进行指针运算。</p>
