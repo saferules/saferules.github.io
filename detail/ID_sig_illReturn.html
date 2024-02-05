@@ -35,7 +35,7 @@ int main() {
     signal(SIGFPE, handler);
     ....
 }</code>
-<p>当发生除 0 等计算异常时，程序会收到 SIGFPE 信号，这种信号对应的处理函数应使用 abort、_Exit 等函数终止程序的执行，不可正常返回，否则可能会造成更严重的损失。</p>
+<p>当发生除 0 等计算异常时，程序会收到 SIGFPE 信号，在这种信号的处理函数中应使用 abort、_Exit 等函数终止程序的执行，不可正常返回，否则可能会造成更严重的错误。</p>
 
 <p>应改为：</p>
 <code>void handler(int signum) {

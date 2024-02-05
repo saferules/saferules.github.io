@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：不处理共享数据也不会影响程序状态的函数，以及不会被信号中断的函数称为“异步信号安全”函数，处理信号时只应使用这种函数。" />
+  <meta name="description" content="C/C++ 安全编程要点：不处理共享数据也不会影响程序状态的函数，以及不会被信号中断的函数称为“异步信号安全”函数，在异步信号处理函数中只应使用这种函数。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
-  <title>处理信号时避免使用非异步信号安全函数 - C/C++ 安全规则</title>
+  <title>在异步信号处理函数中避免使用非异步信号安全函数 - C/C++ 安全规则</title>
 </head>
 <article>
 <header>
-  <h1>处理信号时避免使用非异步信号安全函数</h1>
+  <h1>在异步信号处理函数中避免使用非异步信号安全函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">15.2 ID_sig_nonAsyncSafeCall</div>
     <div id="subtitle-tags">
@@ -21,7 +21,7 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>不处理共享数据也不会影响程序状态的函数，以及不会被信号中断的函数称为“<a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html" target="_blank" class="dashed-link">异步信号安全</a>”函数，处理信号时只应使用这种函数。</p>
+<p>不处理共享数据也不会影响程序状态的函数，以及不会被信号中断的函数称为“<a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html" target="_blank" class="dashed-link">异步信号安全</a>”函数，在异步信号处理函数中只应使用这种函数。</p>
 
 <p>示例：</p>
 <code>#include &lt;stdio.h&gt;

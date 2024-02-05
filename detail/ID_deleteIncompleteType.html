@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：如果用 delete 释放不完整类型的对象，而对象完整类型声明中有 non-trivial 析构函数，会导致标准未定义的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：如果用 delete 释放“不完整类型（incomplete type）”的对象，且对象的完整类型具有 non-trivial 析构函数，会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/iconfont.js"></script>
@@ -21,25 +21,27 @@
   <hr class="dashed-hr"/>
 </header>
 <main>
-<p>如果用 delete 释放不完整类型的对象，而对象完整类型声明中有 non-trivial 析构函数，会导致标准未定义的行为。</p>
+<p>如果用 delete 释放“<a href="https://en.cppreference.com/w/cpp/language/type#Incomplete_type" target="_blank" class="dashed-link">不完整类型（incomplete type）</a>”的对象，且对象的完整类型具有 non-trivial 析构函数，会导致标准未定义的行为。</p>
 
 <p>示例：</p>
-<code>struct T;
+<code>struct T;   //<i> Forward declaration, the type is incomplete</i>
 
 void foo(T* p) {
-    delete p;       //<i> Non-compliant, undefined behavior</i>
+    delete p;      //<i> Non-compliant, undefined behavior</i>
 }
 
 struct T {
-   ~T();            //<i> Non-trivial destructor</i>
+   ~T();     //<i> Non-trivial destructor</i>
 };</code>
-<p>例中 delete 作用于不完整类型的指针 p，析构函数不会正确执行，应保证 T 在 foo 之前定义：</p>
+<p>例中指针 p 被释放时，其类型是不完整的，如果指针的完整类型以及相关基类或非静态成员具有显式定义的非默认析构函数，即 non-trivial 析构函数，会导致未定义的行为，相关析构函数可能不会正确执行。</p>
+
+<p>应保证指针的类型在释放前具有完整声明：</p>
 <code>struct T {
    ~T();
 };
 
 void foo(T* p) {
-    delete p;       //<i> Compliant</i>
+    delete p;      //<i> Compliant</i>
 }</code>
 
 </main>

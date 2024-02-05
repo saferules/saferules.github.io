@@ -23,7 +23,7 @@
 <main>
 <p>重载的取地址运算符可以返回任意类型的数据，易被误用，非智能指针相关的基础类不应重载取地址运算符。</p>
 
-<p>获取不完整类型的对象地址时，如果其完整类型重载了取地址运算符，会导致标准未定义的行为。</p>
+<p>获取“<a href="https://en.cppreference.com/w/cpp/language/type#Incomplete_type" target="_blank" class="dashed-link">不完整类型（incomplete type）</a>”的对象地址时，如果其完整类型重载了取地址运算符，会导致标准未定义的行为。</p>
 
 <p>示例：</p>
 <code>struct X;   //<i> Incomplete type</i>
