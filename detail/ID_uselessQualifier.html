@@ -30,9 +30,10 @@
 {
     e0, e1, e2
 };
-E e = e0;  //<i> ‘e’ is not const</i>
-</code>
-<p>将 E 的底层类型声明为 const 是没有意义的，e 为变量，应改为：</p>
+E e = e0;  //<i> ‘e’ is not const</i></code>
+<p>将例中 E 的底层类型声明为 const 是没有意义的，e 仍为变量。</p>
+
+<p>应改为：</p>
 <code>enum E: unsigned int  //<i> Compliant</i>
 {
     e0, e1, e2
