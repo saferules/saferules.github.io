@@ -32,11 +32,11 @@
 #include &lt;foo.h&gt;        //<i> Compliant</i>
 #include &lt;foo_bar&gt;      //<i> Compliant</i>
 </code>
-<p>可以用 / 作为路径分隔符，但不应出现  // 或 /*，  如：</p>
+<p>可以用 / 作为路径分隔符，但不应出现  // 或 /*，  否则会导致未定义的行为，如：</p>
 <code>#include &lt;foo//bar.h&gt;   //<i> Non-Compliant, undefined behavior</i>
 #include &lt;foo/*bar.h&gt;   //<i> Non-Compliant, undefined behavior</i>
 </code>
-<p>另外，某些平台的文件路径不区分大小写，建议在头文件名称中只使用小写字母以提高可移植性。</p>
+<p>另外，某些平台的文件路径不区分大小写，建议头文件以小写字母命名以提高可移植性。</p>
 
 </main>
 
