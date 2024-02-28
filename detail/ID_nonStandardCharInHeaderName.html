@@ -26,13 +26,13 @@
 <p>示例：</p>
 <code>#include &lt;&quot;foo&quot;&gt;        //<i> Non-compliant</i>
 #include &lt;foo*&gt;         //<i> Non-compliant</i>
-#include &lt;foo&#x27;bar&gt;      // Non-compliant
+#include &lt;foo&#x27;bar&gt;      //<i> Non-compliant</i>
 
 #include &lt;foo&gt;          //<i> Compliant</i>
 #include &lt;foo.h&gt;        //<i> Compliant</i>
 #include &lt;foo_bar&gt;      //<i> Compliant</i>
 </code>
-<p>可以用 / 作为路径分隔符，但不应出现  // 或 /*，  否则会导致未定义的行为，如：</p>
+<p>可以用 / 作为路径分隔符，但不应出现 // 或 /*，否则会导致未定义的行为，如：</p>
 <code>#include &lt;foo//bar.h&gt;   //<i> Non-Compliant, undefined behavior</i>
 #include &lt;foo/*bar.h&gt;   //<i> Non-Compliant, undefined behavior</i>
 </code>

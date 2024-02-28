@@ -24,8 +24,8 @@
 <p>预处理器连接以反斜杠结尾的各行代码后将其转为预处理符号序列，在处理指令和展开宏之前，如果出现了不符合词法的单引号或双引号，会导致未定义的行为。</p>
 
 <p>示例：</p>
-<code>#defined X  &#x27;     // Undefined behavior
-#defined Y  &quot;     // Undefined behavior
+<code>#defined X  &#x27;     //<i> Undefined behavior</i>
+#defined Y  &quot;     //<i> Undefined behavior</i>
 </code>
 <p>例中的引号无法与其他字符组成预处理符号，可能不会通过编译，也可能产生非预期的结果。</p>
 

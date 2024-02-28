@@ -43,7 +43,7 @@ void bar() {
     do_something();
 }</code>
 <p>如果“universal character name”被反斜杠截断会导致标准未定义的行为，如：</p>
-<code>const char* s = &quot;\u4e\      // Non-compliant, undefined behavior
+<code>const char* s = &quot;\u4e\      //<i> Non-compliant, undefined behavior</i>
 2d&quot;;</code>
 <p>应去掉反斜杠：</p>
 <code>const char* s = &quot;\u4e2d&quot;;   //<i> Compliant</i></code>
