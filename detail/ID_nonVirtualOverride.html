@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：派生类不应重新定义与基类相同的非虚函数，否则与多态机制相矛盾，易造成意料之外的问题。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>派生类不应重新定义与基类相同的非虚函数 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>派生类不应重新定义与基类相同的非虚函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.8.1 ID_nonVirtualOverride</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.function">Home</a> › <a class="nav-link" href="./ID_illOperatorRetType.html">next</a> › <a class="nav-link" href="./ID_plainBinaryChar.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.function">目录</a> › <a class="rule-toc-link" href="./ID_illOperatorRetType.html">next</a> › <a class="rule-toc-link" href="./ID_plainBinaryChar.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>派生类不应重新定义与基类相同的非虚函数，否则与多态机制相矛盾，易造成意料之外的问题。</p>
 
 <p>示例：</p>
-<code>struct A {
+<pre><code>struct A {
     int foo() const { return 0; }
 };
 
@@ -39,7 +55,7 @@ int bar(A* a) {
 int main() {
     B b;
     return bar(&amp;b);  //<i> Problematic</i>
-}</code>
+}</code></pre>
 <p>如果将 B 类型的指针传入 bar 函数，将执行 A::foo，然而参数实际指向的是 B 类型的对象，但 B::foo 不会被执行，这就形成了逻辑上的矛盾，极易造成意料之外的问题。</p>
 
 </main>
@@ -47,7 +63,10 @@ int main() {
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">Effective C++ item 36</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

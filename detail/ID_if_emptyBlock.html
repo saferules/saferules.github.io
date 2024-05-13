@@ -6,50 +6,69 @@
   <meta name="description" content="C/C++ 安全编程要点：空的 if 语句或 else 子句无实际意义，往往是残留代码或功能未实现。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>if 语句不应为空 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>if 语句不应为空</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.1.12 ID_if_emptyBlock</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#control.if">Home</a> › <a class="nav-link" href="./ID_if_tooManyElseIf.html">next</a> › <a class="nav-link" href="./ID_if_assignment.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#control.if">目录</a> › <a class="rule-toc-link" href="./ID_if_tooManyElseIf.html">next</a> › <a class="rule-toc-link" href="./ID_if_assignment.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>空的 if 语句或 else 子句无实际意义，往往是残留代码或功能未实现。</p>
 
 <p>示例：</p>
-<code>if (cond);     //<i> Non-compliant</i>
-if (cond) {}   //<i> Non-compliant</i></code>
+<pre><code>if (cond);     //<i> Non-compliant</i>
+if (cond) {}   //<i> Non-compliant</i></code></pre>
 <p>如果 if 语句没有 else 分枝，且其分枝内容为空，这样的 if 语句无任何意义，即使其条件有副作用，也不应继续保留该 if 结构。</p>
 
 <p>又如：</p>
-<code>if (cond) {    //<i> Non-compliant, empty</i>
+<pre><code>if (cond) {    //<i> Non-compliant, empty</i>
 } else {
     ....       //<i> Nonempty statements</i>
-}</code>
+}</code></pre>
 <p>应改为：</p>
-<code>if (!cond) {   //<i> Compliant</i>
+<pre><code>if (!cond) {   //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>或者添加注释说明为何为空：</p>
-<code>if (cond) {
+<pre><code>if (cond) {
     ;          //<i> Compliant if reasonable comments are provided</i>
 } else {
     ....
-}</code>
+}</code></pre>
 
 </main>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/1071.html" target="_blank" class="related-link">CWE-1071</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

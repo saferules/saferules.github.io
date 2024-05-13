@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：指针运算的结果溢出会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免指针运算的结果溢出 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免指针运算的结果溢出</h1>
   <div id="subtitle">
     <div id="subtitle-id">14.5 ID_arrayIndexOverflow</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#pointer">Home</a> › <a class="nav-link" href="./ID_illPtrDiff.html">next</a> › <a class="nav-link" href="./ID_danglingDeref.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#pointer">目录</a> › <a class="rule-toc-link" href="./ID_illPtrDiff.html">next</a> › <a class="rule-toc-link" href="./ID_danglingDeref.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>指针运算的结果溢出会导致标准未定义的行为。</p>
@@ -32,7 +48,7 @@
 
 </ul>
 <p>示例：</p>
-<code>int a[10];
+<pre><code>int a[10];
 int *p, *e;
 
 p = a + 0;    //<i> Compliant</i>
@@ -43,26 +59,27 @@ p = a - 1;    //<i> Non-compliant, the array subscript is -1, which exceeds [0, 
 e = a + 11;   //<i> Non-compliant, the array subscript is 11, which exceeds [0, N]</i>
 
 --p;          //<i> Non-compliant, may overflow</i>
-e++;          //<i> Non-compliant, may overflow</i></code>
+e++;          //<i> Non-compliant, may overflow</i></code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.5.6(8)-undefined
 ISO/IEC 9899:2011 6.5.6(8)-undefined
 ISO/IEC 14882:2003 5.7(5)-undefined
 ISO/IEC 14882:2011 5.7(5)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 17.1
 MISRA C 2012 18.1
 MISRA C++ 2008 5-0-16
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/ARR30-C.+Do+not+form+or+use+out-of-bounds+pointers+or+array+subscripts" target="_blank" class="related-link">SEI CERT ARR30-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

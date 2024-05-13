@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：应避免取值范围大的类型向取值范围小的类型隐式转换，相关显式转换也应在合理的条件下完成。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免类型转换造成数据丢失 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免类型转换造成数据丢失</h1>
   <div id="subtitle">
     <div id="subtitle-id">12.1 ID_narrowCast</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#cast">Home</a> › <a class="nav-link" href="./ID_invalidPromotion.html">next</a> › <a class="nav-link" href="./ID_literal_casualSeparators.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#cast">目录</a> › <a class="rule-toc-link" href="./ID_invalidPromotion.html">next</a> › <a class="rule-toc-link" href="./ID_literal_casualSeparators.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>应避免取值范围大的类型向取值范围小的类型隐式转换，相关显式转换也应在合理的条件下完成。</p>
@@ -26,16 +42,16 @@
 <p>如果对象的值在新类型取值范围内，但无法用新类型精确表示，转换由实现定义；如果对象的值超出了新类型的取值范围，会导致数据丢失以及由实现定义或未定义的行为。</p>
 
 <p>示例：</p>
-<code>int i;
+<pre><code>int i;
 double d;
 ....
 short s = i;  //<i> Non-compliant, may cause data loss</i>
 long l = d;   //<i> Non-compliant, may cause undefined behavior</i>
-float f = d;  //<i> Non-compliant, may cause undefined behavior</i></code>
+float f = d;  //<i> Non-compliant, may cause undefined behavior</i></code></pre>
 <p>将整数类型转为取值范围更小的整数类型会造成数据丢失，将浮点类型转为整数类型或取值范围更小的浮点类型，则可导致由实现定义或未定义的行为，所以应在转换前判断是否可以安全转换，或实现特定的转换逻辑。</p>
 
 <p>下面给出判断转换是否安全的示例：</p>
-<code>template &lt;class To, class From&gt;
+<pre><code>template &lt;class To, class From&gt;
 struct Checker {
     static To cast(From x) {
         auto y = static_cast&lt;To&gt;(x);
@@ -47,11 +63,11 @@ struct Checker {
 template &lt;class To, class From&gt;
 To checked_cast(From x) {
     return Checker&lt;To, From&gt;::cast(x);
-}</code>
+}</code></pre>
 <p>函数 checked_cast 委托类 Checker 将源类型转为目标类型，再将目标类型转回源类型，如果经两次转换得到的值与转换前的值不符，说明转换存在数据丢失，抛出异常。</p>
 
 <p>浮点型转换可能导致未定义的行为，所以应在转换之前判断取值范围，可通过特化 Checker 实现：</p>
-<code>template &lt;&gt; struct Checker&lt;long, double&gt; {
+<pre><code>template &lt;&gt; struct Checker&lt;long, double&gt; {
     static bool check(double x) {
         return !isgreater(x, LONG_MAX) &amp;&amp; !isless(x, LONG_MIN);
     }
@@ -67,22 +83,21 @@ template &lt;&gt; struct Checker&lt;float, double&gt; {
     static float cast(double x) {
         return check(x)? static_cast&lt;float&gt;(x): throw DataLoss();
     }
-};</code>
+};</code></pre>
 <p>这样当 double 对象的值超出 long 或 float 对象的取值范围时会抛出异常。另外，浮点类型转整数类型时小数部分如何取舍、负数是否可以转为无符号数等问题均可以根据实际需求通过特化 Checker 来实现。</p>
 
 <p>函数 checked_cast 的用法：</p>
-<code>int i;
+<pre><code>int i;
 double d;
 ....
 short s = checked_cast&lt;short&gt;(i);  //<i> Compliant</i>
 long l = checked_cast&lt;long&gt;(d);    //<i> Compliant</i>
-float f = checked_cast&lt;float&gt;(d);  //<i> Compliant</i></code>
+float f = checked_cast&lt;float&gt;(d);  //<i> Compliant</i></code></pre>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.3.1.4(1)-undefined
 ISO/IEC 9899:1999 6.3.1.5(2)-undefined
 ISO/IEC 9899:2011 6.3.1.4(1)-undefined
@@ -93,7 +108,6 @@ ISO/IEC 14882:2011 4.8(1)-undefined
 ISO/IEC 14882:2011 4.9(1 2)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es46-avoid-lossy-narrowing-truncating-arithmetic-conversions" target="_blank" class="related-link">C++ Core Guidelines ES.46</a>
 MISRA C 2012 10.3
 MISRA C 2012 10.5
@@ -101,4 +115,8 @@ MISRA C++ 2008 5-0-5
 MISRA C++ 2008 5-0-6
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/FLP34-C.+Ensure+that+floating-point+conversions+are+within+range+of+the+new+type" target="_blank" class="related-link">SEI CERT FLP34-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

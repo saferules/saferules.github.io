@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：重复的或过于相似的代码不利于维护。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免重复的函数实现 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免重复的函数实现</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.46 ID_functionRepetition</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_if_semicolon.html">next</a> › <a class="nav-link" href="./ID_mixedAsm.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_if_semicolon.html">next</a> › <a class="rule-toc-link" href="./ID_mixedAsm.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>重复的或过于相似的代码不利于维护。</p>
 
 <p>示例：</p>
-<code>struct A {
+<pre><code>struct A {
     int a[10];
     ....
     int* foo() {     //<i> Non-compliant, almost identical to ‘foo() const’</i>
@@ -45,11 +61,11 @@
         }
         return p;
     }
-};</code>
+};</code></pre>
 <p>例中 foo() 返回数组中最大元素的地址，代码与 foo() const 几乎完全相同，当需求有变化时，需要同时修改两个函数，极易造成意料之外的差异，显然是不利于维护的。</p>
 
 <p>本例可通过模板和自动类型推理将公有代码抽取出来：</p>
-<code>template &lt;class T&gt;
+<pre><code>template &lt;class T&gt;
 auto* foo_impl(T* t) {   //<i> The common function extracted</i>
     auto* p = t-&gt;a;
     for (auto i = 1; i != 10; i++) {
@@ -68,20 +84,22 @@ struct A {
     const int* foo() const {
         return foo_impl(this);   //<i> Compliant</i>
     }
-};</code>
+};</code></pre>
 <p>这样，foo() 与 foo() const 的代码便得到了简化，虽然简化后仍然是相同的，但仅为接口调用，可以接受。</p>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">tokenCountThreshold: 符号数量阈值，小于此阈值的函数不参与比较
 repetitionRateThreshold: 函数相似度阈值，超过则报出</div>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/1041.html" target="_blank" class="related-link">CWE-1041</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es3-dont-repeat-yourself-avoid-redundant-code" target="_blank" class="related-link">C++ Core Guidelines ES.3</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

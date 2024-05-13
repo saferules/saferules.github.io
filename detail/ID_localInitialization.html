@@ -6,58 +6,72 @@
   <meta name="description" content="C/C++ 安全编程要点：未初始化的局部对象具有不确定的值，读取未初始化的对象会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>局部对象在使用前应被初始化 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>局部对象在使用前应被初始化</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.9 ID_localInitialization</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_memberInitialization.html">next</a> › <a class="nav-link" href="./ID_illForwardingReference.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_memberInitialization.html">next</a> › <a class="rule-toc-link" href="./ID_illForwardingReference.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>未初始化的局部对象具有不确定的值，读取未初始化的对象会导致标准未定义的行为。</p>
 
 <p>示例：</p>
-<code>int foo() {
+<pre><code>int foo() {
     int a;         //<i> A local object(automatic storage duration)</i>
     if (cond) {
         a = 0;
     }
     return a;      //<i> Non-compliant, may be an indeterminate value</i>
-}</code>
+}</code></pre>
 <p>例中局部对象 a 的初始化依赖某种条件，在条件范围之外读取 a 的值会得到不确定的结果。</p>
 
 <p>建议对象在声明处初始化，即使不方便在声明处初始化，也应该在声明的附近进行无条件初始化：</p>
-<code>int a = 0;    //<i> Good</i>
+<pre><code>int a = 0;    //<i> Good</i>
 
 int b;
 b = 123;      //<i> OK</i>
-</code>
+</code></pre>
 <p>不建议的模式：</p>
-<code>int a;
+<pre><code>int a;
 if (x) {
     a = 0;
 }
 ....
 if (y) {
     use(a);   //<i> Dangerous</i>
-}</code>
+}</code></pre>
 <p>例中 a 的初始化依赖条件 x，并在满足条件 y 时被使用，即使条件 x 和条件 y 有一定相关性可以保证对 a 的使用是正确的，也会造成潜在的维护困难，当条件比较复杂或有变化时极易出错。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_illAccess.html" class="related-link">ID_illAccess</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.2.4(5 6)
 ISO/IEC 9899:2011 6.2.4(6 7)
 ISO/IEC 9899:2011 6.3.2.1(2)-undefined
@@ -67,11 +81,14 @@ ISO/IEC 14882:2011 4.1(1)-undefined
 ISO/IEC 14882:2011 8.5(11)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/457.html" target="_blank" class="related-link">CWE-457</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es20-always-initialize-an-object" target="_blank" class="related-link">C++ Core Guidelines ES.20</a>
 MISRA C 2004 9.1
 MISRA C 2012 9.1
 MISRA C++ 2008 8-5-1</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

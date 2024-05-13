@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：语言要求字符串以空字符结尾，程序应保证有足够的内存空间安置空字符，否则会破坏程序基本的执行机制，造成严重问题。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>确保字符串以空字符结尾 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>确保字符串以空字符结尾</h1>
   <div id="subtitle">
     <div id="subtitle-id">13.3 ID_improperNullTermination</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#buffer">Home</a> › <a class="nav-link" href="./ID_nonPODFilling.html">next</a> › <a class="nav-link" href="./ID_insufficientBuffer.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#buffer">目录</a> › <a class="rule-toc-link" href="./ID_nonPODFilling.html">next</a> › <a class="rule-toc-link" href="./ID_insufficientBuffer.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>语言要求字符串以空字符结尾，程序应保证有足够的内存空间安置空字符，否则会破坏程序基本的执行机制，造成严重问题。</p>
@@ -26,15 +42,15 @@
 <p>空字符指 &#x27;\0&#x27;、L&#x27;\0&#x27;、u&#x27;\0&#x27;、U&#x27;\0&#x27;，分别对应 char*、wchar_t*、char16_t*、char32_t* 等字符串类型。</p>
 
 <p>示例：</p>
-<code>void foo(const char* p) {
+<pre><code>void foo(const char* p) {
     char a[4];
     strncpy(a, p, sizeof(a));
     printf(&quot;%s\n&quot;, strupr(a));   //<i> To upper case and print, dangerous</i>
-}</code>
+}</code></pre>
 <p>例示代码将字符串复制到数组中，转为大写并打印，然而如果 p 所指字符串的长度超过 3，strncpy 不会在数组的结尾安置空字符 &#x27;\0&#x27;，导致 strupr 内存访问越界，程序可能会崩溃，也可能打印出本该隐藏的敏感数据。</p>
 
 <p>应改为：</p>
-<code>void foo(const char* p) {
+<pre><code>void foo(const char* p) {
     char a[4] = &quot;&quot;;                 //<i> Initialize all to &#x27;\0&#x27;</i>
     strncpy(a, p, sizeof(a));
     if (a[3] == &#x27;\0&#x27;) {
@@ -42,23 +58,24 @@
     } else {
         ....                        //<i> Handle string length exceptions</i>
     }
-}</code>
+}</code></pre>
 <p>将所有数组元素初始化为 &#x27;\0&#x27;，调用 strncpy 后如果数组最后一个元素是 &#x27;\0&#x27;，说明输入字符串的长度符合要求，否则可作出相应的异常处理。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_unsafeStringFunction.html" class="related-link">ID_unsafeStringFunction</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 7.21.2.4
 ISO/IEC 9899:2011 7.24.2.4</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/170.html" target="_blank" class="related-link">CWE-170</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/STR32-C.+Do+not+pass+a+non-null-terminated+character+sequence+to+a+library+function+that+expects+a+string" target="_blank" class="related-link">SEI CERT STR32-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

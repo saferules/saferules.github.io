@@ -6,49 +6,68 @@
   <meta name="description" content="C/C++ 安全编程要点：对单独的基本变量或只包含少量基本变量的对象不应使用动态内存分配。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免不必要的内存分配 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免不必要的内存分配</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.22 ID_unnecessaryAllocation</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#resource">Home</a> › <a class="nav-link" href="./ID_zeroLengthAllocation.html">next</a> › <a class="nav-link" href="./ID_unsuitableArraySize.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#resource">目录</a> › <a class="rule-toc-link" href="./ID_zeroLengthAllocation.html">next</a> › <a class="rule-toc-link" href="./ID_unsuitableArraySize.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>对单独的基本变量或只包含少量基本变量的对象不应使用动态内存分配。</p>
 
 <p>示例：</p>
-<code>bool* pb = new bool;   //<i> Non-compliant</i>
-char* pc = new char;   //<i> Non-compliant</i></code>
+<pre><code>bool* pb = new bool;   //<i> Non-compliant</i>
+char* pc = new char;   //<i> Non-compliant</i></code></pre>
 <p>内存分配的开销远大于变量的直接使用，而且还涉及到回收问题，是得不偿失的。</p>
 
 <p>应改为：</p>
-<code>bool b = false;   //<i> Compliant</i>
+<pre><code>bool b = false;   //<i> Compliant</i>
 char c = 0;       //<i> Compliant</i>
-</code>
+</code></pre>
 <p>用 new[] 分配数组时方括号被误写成小括号，或使用 unique_ptr 等智能指针时遗漏了数组括号也是常见笔误，如：</p>
-<code>int* pi = new int(32);            //<i> Non-compliant</i>
+<pre><code>int* pi = new int(32);            //<i> Non-compliant</i>
 auto ui = make_unique&lt;int&gt;(32);   //<i> Non-compliant</i>
-</code>
+</code></pre>
 <p>应改为：</p>
-<code>int* pi = new int[32];              //<i> Compliant</i>
+<pre><code>int* pi = new int[32];              //<i> Compliant</i>
 auto ui = make_unique&lt;int[]&gt;(32);   //<i> Compliant</i>
-</code>
+</code></pre>
 <p>有时可能需要区分变量是否存在，用空指针表示不存在，并通过资源分配创建变量的方式属于低效实现，不妨改用变量的特殊值表示变量的状态，在 C++ 代码中也可使用 std::optional 实现相关功能。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_dynamicAllocation.html" class="related-link">ID_dynamicAllocation</a></div>
 
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：TODO、FIXME、XXX、BUG 等特殊注释表示代码中存在问题，这种问题不应被遗忘，应有计划地予以解决。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>关注 TODO、FIXME、XXX、BUG 等特殊注释 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>关注 TODO、FIXME、XXX、BUG 等特殊注释</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.5.3 ID_specialComment</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.comment">Home</a> › <a class="nav-link" href="./ID_sourceFileExt.html">next</a> › <a class="nav-link" href="./ID_badCommentPosition.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#precompile.comment">目录</a> › <a class="rule-toc-link" href="./ID_sourceFileExt.html">next</a> › <a class="rule-toc-link" href="./ID_badCommentPosition.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>TODO、FIXME、XXX、BUG 等特殊注释表示代码中存在问题，这种问题不应被遗忘，应有计划地予以解决。</p>
@@ -26,7 +42,7 @@
 <p>及时记录问题是一种好习惯，而且最好有署名和日期。</p>
 
 <p>示例：</p>
-<code>void foo() {
+<pre><code>void foo() {
     /*
      * Some plans...         //<i> Bad, easy to forget</i>
      */
@@ -36,18 +52,20 @@ void foo() {
     /* TODO:
      * Some plans...  -- my name, date     //<i> Good</i>
      */
-}</code>
+}</code></pre>
 <p>审计工具不妨定期搜索这些关键词对应的注释，以供相关人员核对问题解决情况。</p>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">specialCommentPatterns: 特殊注释的模式字符串（如正则表达式等），供审计工具查找</div>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/546.html" target="_blank" class="related-link">CWE-546</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

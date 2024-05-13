@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：应遵循易于读写，并可准确表达代码意图的命名方式。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>遵循合理的命名方式 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>遵循合理的命名方式</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.1.1 ID_badName</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.naming">Home</a> › <a class="nav-link" href="./ID_reservedName.html">next</a> › <a class="nav-link" href="./ID_forbidUnion.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.naming">目录</a> › <a class="rule-toc-link" href="./ID_reservedName.html">next</a> › <a class="rule-toc-link" href="./ID_forbidUnion.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>应遵循易于读写，并可准确表达代码意图的命名方式。</p>
@@ -33,7 +49,7 @@
 
 </ul>
 <p>示例：</p>
-<code>int xxx(int);   //<i> Bad, meaningless name</i>
+<pre><code>int xxx(int);   //<i> Bad, meaningless name</i>
 
 int fun(int);   //<i> Bad, vague name</i>
 
@@ -43,30 +59,29 @@ int YE5, N0;   //<i> Bad, like a word but not</i>
 
 int \u540d\u79f0;   //<i> Bad, no readability</i>
 
-int nVarietyisthespiceoflife = 123;   //<i> Bad, hard to read or write</i></code>
+int nVarietyisthespiceoflife = 123;   //<i> Bad, hard to read or write</i></code></pre>
 <p>例中 xxx、fun 这种无意义或意义过于空泛的名称，以及 l、lI、N0 这种易与数字或其他单词混淆的名称均是不符合要求的；Unicode 转义名称只应出现在字符串中，否则没有可读性；名称中各单词间应有下划线或大小写变化，否则不便于读写。</p>
 
 <p>本规则集合示例中出现的 foo、bar 等名称，意在代指一般的代码元素，仅作示例，实际代码中不应出现。</p>
 
 <p>注意，不良命名方式甚至会导致标准未定义的行为，如：</p>
-<code>extern int identifier_of_a_very_very_long_name_1;
-extern int identifier_of_a_very_very_long_name_2;   //<i> Dangerous</i></code>
+<pre><code>extern int identifier_of_a_very_very_long_name_1;
+extern int identifier_of_a_very_very_long_name_2;   //<i> Dangerous</i></code></pre>
 <p>如果两个名称有相同的前缀，当相同前缀超过一定长度时是危险的，可能会导致编译器无法有效区分相关名称。C 标准指明，保证名称前 31 位不同可避免这种问题。</p>
 
 <p>不建议采用相同“长前缀”+ 不同“短后缀”的命名方式，这种名称非常容易造成笔误或复制粘贴错误，如：</p>
-<code>struct Expr {
+<pre><code>struct Expr {
     Expr* sub0;   //<i> Bad</i>
     Expr* sub1;   //<i> Bad</i>
-};</code>
+};</code></pre>
 <p>设 Expr 是某二元表达式类，sub0、sub1 为左右子表达式，这种命名方式应改进：</p>
-<code>struct Expr {
+<pre><code>struct Expr {
     Expr* left;   //<i> Better</i>
     Expr* right;  //<i> Better</i>
-};</code>
+};</code></pre>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">maxObjNameLength: 对象名称长度上限，超过则报出
 maxFunNameLength: 函数名称长度上限，超过则报出
 maxTypeNameLength: 类型名称长度上限，超过则报出
@@ -74,14 +89,12 @@ maxWordLength: 连续无大小写变化的字符数量上限，超过则报出</
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 5.2.4.1(1)
 ISO/IEC 9899:1999 6.4.2.1(6)-undefined
 ISO/IEC 9899:2011 5.2.4.1(1)
 ISO/IEC 9899:2011 6.4.2.1(6)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#nl19-avoid-names-that-are-easily-misread" target="_blank" class="related-link">C++ Core Guidelines NL.19</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es8-avoid-similar-looking-names" target="_blank" class="related-link">C++ Core Guidelines ES.8</a>
 MISRA C 2004 5.1
@@ -91,4 +104,8 @@ MISRA C 2012 5.4
 MISRA C 2012 5.5
 MISRA C++ 2008 2-10-1</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

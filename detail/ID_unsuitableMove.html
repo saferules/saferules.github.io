@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：std::move 的参数应为左值，返回值应直接作为接口的参数，除此之外的使用方式价值有限，且易产生错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>合理使用 std::move - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>合理使用 std::move</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.6.13 ID_unsuitableMove</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.call">Home</a> › <a class="nav-link" href="./ID_unsuitableForward.html">next</a> › <a class="nav-link" href="./ID_forbidAtox.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.call">目录</a> › <a class="rule-toc-link" href="./ID_unsuitableForward.html">next</a> › <a class="rule-toc-link" href="./ID_forbidAtox.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>std::move 的参数应为左值，返回值应直接作为接口的参数，除此之外的使用方式价值有限，且易产生错误。</p>
@@ -26,48 +42,50 @@
 <p>左值可由 std::move 转为将亡值，宣告对象的数据即将被转移到其他对象中，将亡值和纯右值统称右值，对应转移接口的右值引用型参数。左值和将亡值也统称泛左值，具体分类依据可参见“<a href="https://en.cppreference.com/w/cpp/language/value_category" target="_blank" class="dashed-link">值类别（value categories）</a>”。</p>
 
 <p>示例：</p>
-<code>string foo();
-string s = move(foo());   //<i> Non-compliant</i></code>
+<pre><code>string foo();
+string s = move(foo());   //<i> Non-compliant</i></code></pre>
 <p>例中 foo 函数返回临时对象，为纯右值，move 在此处是多余的。</p>
 
 <p>又如：</p>
-<code>string a(&quot;....&quot;);
+<pre><code>string a(&quot;....&quot;);
 string&amp;&amp; b = move(a);   //<i> Non-compliant</i>
-string c(b);            //<i> Not move construction</i></code>
+string c(b);            //<i> Not move construction</i></code></pre>
 <p>例中 b 是具有名称的右值引用，为左值，c 仍会复制 a 的数据，move 在此处没有意义。</p>
 
 <p>应改为：</p>
-<code>string a(&quot;....&quot;);
-string c(move(a));   //<i> Compliant</i></code>
+<pre><code>string a(&quot;....&quot;);
+string c(move(a));   //<i> Compliant</i></code></pre>
 <p>这样便可将 a 的数据转移到 c 中。</p>
 
 <p>又如：</p>
-<code>string foo() {
+<pre><code>string foo() {
     string s;
     ....
     return move(s);   //<i> Non-compliant</i>
-}</code>
+}</code></pre>
 <p>例中 foo 函数返回对象，编译器会进行“<a href="https://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization" target="_blank" class="dashed-link">RVO（Return Value Optimization）</a>”优化，使用 move 会干扰优化，故不应出现 return std::move(....) 这种代码。</p>
 
 <p>应改为：</p>
-<code>string foo() {
+<pre><code>string foo() {
     string s;
     ....
     return s;   //<i> Compliant</i>
-}</code>
+}</code></pre>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2011 20.2.3(6)
 ISO/IEC 14882:2017 23.2.5(5)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es56-write-stdmove-only-when-you-need-to-explicitly-move-an-object-to-another-scope" target="_blank" class="related-link">C++ Core Guidelines ES.56</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f18-for-will-move-from-parameters-pass-by-x-and-stdmove-the-parameter" target="_blank" class="related-link">C++ Core Guidelines F.18</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f48-dont-return-stdmovelocal" target="_blank" class="related-link">C++ Core Guidelines F.48</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

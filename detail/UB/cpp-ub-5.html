@@ -6,36 +6,55 @@
   <meta name="description" content="C++ undefined behavior: 在 #include 指令中，&#x27;、&quot;、\、//、/* 出现在定界符 &lt;  &gt; 之间，或 &#x27;、\、//、/* 出现在定界符 &quot; 之间" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
   <title>在 #include 指令中，&#x27;、&quot;、\、//、/* 出现在定界符 &lt;  &gt; 之间，或 &#x27;、\、//、/* 出现在定界符 &quot; 之间 - C++ undefined behavior</title>
 </head>
+
+<div class="footer-holder">
+<nav>
+<ul class="nav-list">
+  <li><span class="nav-icon">☰</span></li>
+  <li><a href="../../index.html">首页</a></li>
+  <li><a href="../../index.html#rules-class-title">规则分类</a></li>
+  <li><a href="../introduction.html">项目介绍</a></li>
+</ul>
+<div class="nav-stuff"></div>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+  <img alt="search" id="search-icon" src="../../img/search.svg" onclick="onClickSearchIcon(this)"/>
+</div>
+<span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>在 #include 指令中，&#x27;、&quot;、\、//、/* 出现在定界符 &lt;  &gt; 之间，或 &#x27;、\、//、/* 出现在定界符 &quot; 之间</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-5</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-6.html">next</a> › <a class="nav-link" href="./cpp-ub-4.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../cpp-ub-list.html">目录</a> › <a class="rule-toc-link" href="./cpp-ub-6.html">next</a> › <a class="rule-toc-link" href="./cpp-ub-4.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>示例：</p>
-<code>#include &lt;&quot;foo&quot;&gt;      //<i> Undefined behavior in C++03</i>
-#include &quot;foo//bar&quot;   //<i> Undefined behavior in C++03</i></code>
+<pre><code>#include &lt;&quot;foo&quot;&gt;      //<i> Undefined behavior in C++03</i>
+#include &quot;foo//bar&quot;   //<i> Undefined behavior in C++03</i></code></pre>
 <p>程序在这种情况下的行为在 C++03 中是未定义的，在 C++11 中是由实现定义的。</p>
 
 </main>
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 2.8(2)-undefined
 ISO/IEC 14882:2011 2.9(2)-implementation</div>
 
 <h3>规则</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="../ID_nonStandardCharInHeaderName.html" class="related-link">ID_nonStandardCharInHeaderName</a>
 <a href="../ID_forbidBackslashInHeaderName.html" class="related-link">ID_forbidBackslashInHeaderName</a></div>
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

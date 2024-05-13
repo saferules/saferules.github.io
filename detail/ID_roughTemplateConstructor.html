@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：带模板的构造函数不应与拷贝或移动构造函数混淆，存在带模板的构造函数时应明确声明拷贝和移动构造函数。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>带模板的构造函数不应与拷贝或移动构造函数混淆 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>带模板的构造函数不应与拷贝或移动构造函数混淆</h1>
   <div id="subtitle">
     <div id="subtitle-id">5.1.15 ID_roughTemplateConstructor</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#type.class">Home</a> › <a class="nav-link" href="./ID_unsuitableAssignOperator.html">next</a> › <a class="nav-link" href="./ID_roughTemplateAssignOperator.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#type.class">目录</a> › <a class="rule-toc-link" href="./ID_unsuitableAssignOperator.html">next</a> › <a class="rule-toc-link" href="./ID_roughTemplateAssignOperator.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>带模板的构造函数不应与拷贝或移动构造函数混淆，存在带模板的构造函数时应明确声明拷贝和移动构造函数。</p>
 
 <p>示例：</p>
-<code>class A   //<i> Non-compliant, missing copy and move constructors</i>
+<pre><code>class A   //<i> Non-compliant, missing copy and move constructors</i>
 {
     int* dat;   //<i> Need deep copy</i>
 
@@ -43,32 +59,33 @@ void foo(A&amp; x)
 {
     A y(x);   //<i> Not a deep copy</i>
     ....
-}</code>
+}</code></pre>
 <p>设例中的类需要深拷贝，标准规定即使带模板的构造函数在功能上可以满足拷贝或移动构造函数的需求，也不能作为拷贝或移动构造函数，故其拷贝和移动构造函数仍然是默认的，无法完成深拷贝以及正确的数据移动。</p>
 
 <p>应明确声明拷贝和移动构造函数：</p>
-<code>class A   //<i> Compliant</i>
+<pre><code>class A   //<i> Compliant</i>
 {
     ....
     A(const A&amp;);
     A(A&amp;&amp;);
     ....
-};</code>
+};</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_roughTemplateAssignOperator.html" class="related-link">ID_roughTemplateAssignOperator</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 12.8(2)
 ISO/IEC 14882:2011 12.8(2)
 ISO/IEC 14882:2011 12.8(3)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C++ 2008 14-5-2</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

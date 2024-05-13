@@ -6,23 +6,40 @@
   <meta name="description" content="C++ undefined behavior: 使用非标准转义字符" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
   <title>使用非标准转义字符 - C++ undefined behavior</title>
 </head>
+
+<div class="footer-holder">
+<nav>
+<ul class="nav-list">
+  <li><span class="nav-icon">☰</span></li>
+  <li><a href="../../index.html">首页</a></li>
+  <li><a href="../../index.html#rules-class-title">规则分类</a></li>
+  <li><a href="../introduction.html">项目介绍</a></li>
+</ul>
+<div class="nav-stuff"></div>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+  <img alt="search" id="search-icon" src="../../img/search.svg" onclick="onClickSearchIcon(this)"/>
+</div>
+<span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>使用非标准转义字符</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-7</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-8.html">next</a> › <a class="nav-link" href="./cpp-ub-6.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../cpp-ub-list.html">目录</a> › <a class="rule-toc-link" href="./cpp-ub-8.html">next</a> › <a class="rule-toc-link" href="./cpp-ub-6.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>标准转义字符：</p>
-<code>\a          //<i> Alert</i>
+<pre><code>\a          //<i> Alert</i>
 \b          //<i> Backspace</i>
 \f          //<i> Formfeed page break</i>
 \n          //<i> New line</i>
@@ -35,18 +52,20 @@
 \&quot;          //<i> Double quotation mark</i>
 \0          //<i> Null character</i>
 \ddd        //<i> Any character, ‘d’ is an octal number</i>
-\xhh        //<i> Any character, ‘h’ is a hex number</i></code>
+\xhh        //<i> Any character, ‘h’ is a hex number</i></code></pre>
 <p>反斜杠后如果出现其他形式的字符或字符序列会导致未定义的行为。</p>
 
 </main>
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 2.13.2(3)-undefined
 ISO/IEC 14882:2011 2.14.3(3)-implementation</div>
 
 <h3>规则</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="../ID_literal_nonStandardEsc.html" class="related-link">ID_literal_nonStandardEsc</a></div>
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

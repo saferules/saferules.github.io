@@ -6,40 +6,59 @@
   <meta name="description" content="C++ undefined behavior: 代码行以反斜杠结尾，且与下一行连接后生成通用字符名称" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
   <title>代码行以反斜杠结尾，且与下一行连接后生成通用字符名称 - C++ undefined behavior</title>
 </head>
+
+<div class="footer-holder">
+<nav>
+<ul class="nav-list">
+  <li><span class="nav-icon">☰</span></li>
+  <li><a href="../../index.html">首页</a></li>
+  <li><a href="../../index.html#rules-class-title">规则分类</a></li>
+  <li><a href="../introduction.html">项目介绍</a></li>
+</ul>
+<div class="nav-stuff"></div>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+  <img alt="search" id="search-icon" src="../../img/search.svg" onclick="onClickSearchIcon(this)"/>
+</div>
+<span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>代码行以反斜杠结尾，且与下一行连接后生成通用字符名称</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-1</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-2.html">next</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../cpp-ub-list.html">目录</a> › <a class="rule-toc-link" href="./cpp-ub-2.html">next</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>如果代码行以反斜杠结尾，预处理器会删除行尾的反斜杠和换行符，使其与下一行连接，如果连接后产生了以 \u 或 \U 开头的通用字符名称（universal character name）会导致未定义的行为。</p>
 
 <p>示例：</p>
-<code>auto s = &quot;\u54\
+<pre><code>auto s = &quot;\u54\
 0D&quot;;               //<i> Undefined behavior</i>
 
 auto \u54\
-0D = &#x27;a&#x27;;          //<i> Undefined behavior</i></code>
+0D = &#x27;a&#x27;;          //<i> Undefined behavior</i></code></pre>
 <p>这种代码可能不会通过编译，也可能不会造成实际问题，但一定不具备可移植性。</p>
 
 </main>
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 2.1(2)-undefined
 ISO/IEC 14882:2011 2.2(2)-undefined</div>
 
 <h3>规则</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="../ID_badBackslash.html" class="related-link">ID_badBackslash</a></div>
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

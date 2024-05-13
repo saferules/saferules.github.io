@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：重新抛出异常时应使用空 throw 表达式，避免异常对象的精度损失和不必要的复制开销。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>重新抛出异常时应使用空 throw 表达式（throw;） - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>重新抛出异常时应使用空 throw 表达式（throw;）</h1>
   <div id="subtitle">
     <div id="subtitle-id">7.20 ID_improperRethrow</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#exception">Home</a> › <a class="nav-link" href="./ID_rethrowOutOfCatch.html">next</a> › <a class="nav-link" href="./ID_catch_justRethrow.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#exception">目录</a> › <a class="rule-toc-link" href="./ID_rethrowOutOfCatch.html">next</a> › <a class="rule-toc-link" href="./ID_catch_justRethrow.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>重新抛出异常时应使用空 throw 表达式，避免异常对象的精度损失和不必要的复制开销。</p>
 
 <p>示例：</p>
-<code>class Base {};
+<pre><code>class Base {};
 class Derive: public Base {};
 
 void foo() {
@@ -44,17 +60,20 @@ void bar() {
         ....
     }
 }
-</code>
+</code></pre>
 <p>注意，例中 foo 函数虽然捕获的是 Derive 对象，但 throw e; 抛出的是 Base 对象，这也是一种“<a href="https://en.wikipedia.org/wiki/Object_slicing" target="_blank" class="dashed-link">对象切片</a>”问题，造成了对象类型的“精度损失”。将 throw e; 改为 throw; 可解决这种问题。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 15.1(6)
 ISO/IEC 14882:2011 15.1(8)</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

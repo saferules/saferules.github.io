@@ -7,30 +7,40 @@
   <meta name="description" content="未定义的行为（Undefined Behavior）指程序不可预测的执行效果，一般由错误的代码实现引起。本文针对 C 语言，列出会导致未定义行为的各种问题。" />
   <link type="text/css" rel="stylesheet" href="../css/index.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script type="text/javascript" src="../js/search.js"></script>
   <title>C 未定义行为成因列表 - 360 安全规则集合</title>
 </head>
-<article>
-  <div id="article-wrapper">
-    <header>
-      <div id="header-wrapper">
-        <a href="https://github.com/Qihoo360/safe-rules/">
-          <img alt="logo" id="main-logo" src="../img/main_logo.png"/>
-        </a>
-        <div id="titles">
-        <h1 id="main-title">360 安全规则集合 <img alt="version-1.3.2" src="https://img.shields.io/badge/version-1.3.2-brightgreen"></h1>
-        <div id="sub-title">附录：C 未定义行为成因列表</div>
-        </div>
+<article class="footer-holder">
+  <nav>
+    <ul class="nav-list">
+      <li><span class="nav-icon">☰</span></li>
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="./introduction.html">项目介绍</a></li>
+    </ul>
+    <div class="nav-stuff"></div>
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+      <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+    </div>
+    <span class="nav-ellipsis">•••</span>
+  </nav>
+  <header>
+    <div id="header-wrapper">
+      <div id="titles">
+        <h1 id="ub-list-main-title">C 未定义行为成因列表 <img id="version-tag" alt="version-1.3.2" src="https://img.shields.io/badge/version-1.3.2-brightgreen"></h1>
+        <blockquote>blog.llvm.org: "<i>Many seemingly reasonable things in C actually have undefined behavior, and this is a common source of bugs in programs.</i>" </blockquote>
       </div>
-    </header>
-    <nav>
-      <a href="../index.html">首页</a>
-      •
-      <a href="./introduction.html">项目介绍</a>
-    </nav>
+      <div>
+        <img alt="logo" id="main-logo" src="../img/main_logo.png"/>     
+      </div>
+    </div>
+  </header>
+
     <div class="content-wrapper content-first-section">
       <p>未定义的行为（Undefined Behavior）指程序不可预测的执行效果，一般由错误的代码实现引起。出于效率、兼容性等多方面原因，语言标准不便于定义错误程序的明确行为，而是将其统称为“未定义”的行为，可以是崩溃，也可以是非预期的任意表现，有些问题在编译器和执行环境的特殊处理下也可能不会造成实质性的危害，但不具备可移植性。代码质量管理的一个重要目标就是消除会导致未定义行为的代码。</p>
       <p>ISO/IEC 9899:2011 在 Annex J.2 中罗列了导致未定义行为的各种情况，但某些条目缺少上下文信息不便于直接阅读，本文对其进行了补充并转译如下：</p>
-      <ol id="c-ub-list"><li>违反了出现在约束之外的 shall 或 shall not 要求 — clause 4</li>
+      <ol id="c-ub-list">
+<li>违反了出现在约束之外的 shall 或 shall not 要求 — clause 4</li>
 <li>非空源文件未以换行符结尾，或以换行符结尾但换行符之前是反斜杠，或以不完整的预处理符号结尾，或以不完整的注释结尾 — 5.1.1.2</li>
 <li>预处理符号连接产生了通用字符名称（universal character name） — 5.1.1.2</li>
 <li>宿主环境（hosted environment）中的程序没有按要求定义 main 函数 — 5.1.2.2.1</li>
@@ -232,10 +242,10 @@
 <li>不正确地使用 mbstate_t 对象 — 7.29.6</li>
 <li>传递给宽字符分类或映射函数的 wint_t 参数，其值即不是 WEOF 也不能用 wchar_t 表示 — 7.30.1</li>
 <li>iswctype 配合 wctype 使用时，作用于这两个函数的 LC_CTYPE 类别不一致 — 7.30.2.2.1</li>
-<li>towctrans 配合 wctrans 使用时，作用于这两个函数的 LC_CTYPE 类别不一致 — 7.30.3.2.1</li><ol>
+<li>towctrans 配合 wctrans 使用时，作用于这两个函数的 LC_CTYPE 类别不一致 — 7.30.3.2.1</li>
+      </ol>
     </div>
     <div class="content-wrapper content-last-section"></div>
-  </div>
 </article>
 <footer>
   <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>

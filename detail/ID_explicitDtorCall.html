@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：何时调用析构函数应由语言的底层机制决定，程序不宜显式调用析构函数。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免显式调用析构函数 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免显式调用析构函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.6.4 ID_explicitDtorCall</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.call">Home</a> › <a class="nav-link" href="./ID_nonPODVariadicArgument.html">next</a> › <a class="nav-link" href="./ID_objectSlicing.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.call">目录</a> › <a class="rule-toc-link" href="./ID_nonPODVariadicArgument.html">next</a> › <a class="rule-toc-link" href="./ID_objectSlicing.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>何时调用析构函数应由语言的底层机制决定，程序不宜显式调用析构函数。</p>
@@ -26,7 +42,7 @@
 <p>显式调用析构函数后，应释放对象的内存空间并舍弃对象，或者重新构造对象，否则访问对象的任何非静态成员都会导致标准未定义的行为。显式调用析构函数会提前结束对象的生命周期，易被误用，不应作为惯用方法。</p>
 
 <p>示例：</p>
-<code>class A {
+<pre><code>class A {
     int* p = new int[123];
 public:
    ~A() { delete[] p; }
@@ -35,21 +51,20 @@ public:
 void foo() {
     A a;
     a.~A();   //<i> Non-compliant, explicitly call the destructor</i>
-}             //<i> ~A() twice called, crash</i></code>
+}             //<i> ~A() twice called, crash</i></code></pre>
 <p>例中对象 a 的析构函数被显式调用，foo 返回前会再次调用析构函数，造成内存被重复释放。应去掉显式调用，由类提供提前释放资源的方法，并保证资源不会被重复释放。</p>
 
 <p>处理专用硬件资源或开发资源管理设施时，显式析构可能是必要的，一般与“<a href="https://en.cppreference.com/w/cpp/language/new#Placement_new" target="_blank" class="dashed-link">placement new</a>”配合使用，如：</p>
-<code>size_t n = sizeof(A);
+<pre><code>size_t n = sizeof(A);
 alignas(A) byte buf[n];
 A* p = new(buf) A;      //<i> Place an object of ‘A’ into the pre-allocated ‘buf’</i>
-p-&gt;~A();                //<i> OK, used with the placement new</i></code>
+p-&gt;~A();                //<i> OK, used with the placement new</i></code></pre>
 <p>例中 new(buf) A 在指定的内存空间中构造对象，通过这种方式构造的对象可被显式析构。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 12.4(14)-undefined
 ISO/IEC 14882:2011 12.4(15)-undefined
 ISO/IEC 14882:2017 15.4(15)
@@ -57,4 +72,8 @@ ISO/IEC 14882:2017 15.4(16)-undefined</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

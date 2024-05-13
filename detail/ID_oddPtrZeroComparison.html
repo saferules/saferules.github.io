@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：指针与空指针比较大小往往意味着逻辑错误，而且只有指向同一数组或对象的指针才能比较大小，否则会导致标准未定义的行为，空指针不指向任何数组或对象，故指针与空指针不应比较大小。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>指针与空指针不应比较大小 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>指针与空指针不应比较大小</h1>
   <div id="subtitle">
     <div id="subtitle-id">14.19 ID_oddPtrZeroComparison</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#pointer">Home</a> › <a class="nav-link" href="./ID_this_zeroComparison.html">next</a> › <a class="nav-link" href="./ID_oddPtrCharComparison.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#pointer">目录</a> › <a class="rule-toc-link" href="./ID_this_zeroComparison.html">next</a> › <a class="rule-toc-link" href="./ID_oddPtrCharComparison.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>指针与空指针比较大小往往意味着逻辑错误，而且只有指向同一数组或对象的指针才能比较大小，否则会导致标准未定义的行为，空指针不指向任何数组或对象，故指针与空指针不应比较大小。</p>
@@ -28,27 +44,28 @@
 <p>本规则是 <a href="./ID_illPtrDiff.html" class="dashed-link">ID_illPtrDiff</a> 的特化。</p>
 
 <p>示例（设 p 为指针）：</p>
-<code>p &lt; NULL       //<i> Non-compliant, may be always false</i>
+<pre><code>p &lt; NULL       //<i> Non-compliant, may be always false</i>
 p &gt;= 0         //<i> Non-compliant, may be always true</i>
 p &gt; nullptr    //<i> Non-compliant, use p != nullptr instead</i>
 p &lt;= 0         //<i> Non-compliant, use p == 0 instead</i>
 
 p == NULL      //<i> Compliant</i>
-p != nullptr   //<i> Compliant</i></code>
+p != nullptr   //<i> Compliant</i></code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_illPtrDiff.html" class="related-link">ID_illPtrDiff</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.5.8(5)-undefined
 ISO/IEC 9899:2011 6.5.8(5)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/1025.html" target="_blank" class="related-link">CWE-1025</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

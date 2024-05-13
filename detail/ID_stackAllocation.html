@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：alloca、strdupa 等函数可以在栈上动态分配内存，但分配失败时难以通过标准方法控制程序的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免使用在栈上动态分配内存的函数 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免使用在栈上动态分配内存的函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.20 ID_stackAllocation</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#resource">Home</a> › <a class="nav-link" href="./ID_unsuitableArraySize.html">next</a> › <a class="nav-link" href="./ID_variableLengthArray.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#resource">目录</a> › <a class="rule-toc-link" href="./ID_unsuitableArraySize.html">next</a> › <a class="rule-toc-link" href="./ID_variableLengthArray.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>alloca、strdupa 等函数可以在栈上动态分配内存，但分配失败时难以通过标准方法控制程序的行为。</p>
@@ -26,7 +42,7 @@
 <p>在栈上动态分配内存的函数可能效率更高，分配的内存也不用显式回收，但无法满足分配需求时会直接导致运行时错误，对其返回值的检查是无效的。应避免使用这种后果难以控制的函数，尤其在循环和递归调用过程中更不应使用这种函数，而且这种函数不是标准函数，依赖平台和编译器的具体实现。</p>
 
 <p>示例：</p>
-<code>#include &lt;alloca.h&gt;  //<i> Or use malloc.h in MSVC</i>
+<pre><code>#include &lt;alloca.h&gt;  //<i> Or use malloc.h in MSVC</i>
 
 void fun(size_t n) {
     int* p = (int*)alloca(n * sizeof(int));  //<i> Non-compliant</i>
@@ -34,20 +50,22 @@ void fun(size_t n) {
         return;  //<i> Invalid</i>
     }
     ....
-}</code>
+}</code></pre>
 <p>例中 alloca 函数在栈上分配内存，如果 n 过大会使程序崩溃。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_variableLengthArray.html" class="related-link">ID_variableLengthArray</a>
 <a href="./ID_invalidNullCheck.html" class="related-link">ID_invalidNullCheck</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/770.html" target="_blank" class="related-link">CWE-770</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/MEM05-C.+Avoid+large+stack+allocations" target="_blank" class="related-link">SEI CERT MEM05-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

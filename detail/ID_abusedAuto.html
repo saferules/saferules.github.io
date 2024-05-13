@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：auto 关键字隐藏了类型名称，在使用时需注意不应降低可读性。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>合理使用 auto 关键字 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>合理使用 auto 关键字</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.3.1 ID_abusedAuto</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.specifier">Home</a> › <a class="nav-link" href="./ID_deprecatedSpecifier.html">next</a> › <a class="nav-link" href="./ID_nonConstUnmodified.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.specifier">目录</a> › <a class="rule-toc-link" href="./ID_deprecatedSpecifier.html">next</a> › <a class="rule-toc-link" href="./ID_nonConstUnmodified.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>auto 关键字隐藏了类型名称，在使用时需注意不应降低可读性。</p>
@@ -26,7 +42,7 @@
 <p>非局部对象不宜用 auto 声明，如接口的返回类型、参数、全局对象等。如果局部对象的类型对程序的行为有显著影响，也不宜用 auto 声明。</p>
 
 <p>示例：</p>
-<code>auto foo() {
+<pre><code>auto foo() {
     ....
 }
 
@@ -37,28 +53,28 @@ auto bar() {
 }
 
 auto obj = bar();  //<i> What the hell is ‘obj’??</i>
-</code>
+</code></pre>
 <p>如果想确定 obj 对象的类型，必须通读所有与之相关的代码，可读性很差。</p>
 
 <p>将代码中所有可以替换成 auto 的标识符全部替换成 auto，其结果是不可想象的，与 Python 等语言不同，C++ 语言存在重载、模板等多种严格依赖于类型的特性，如果类型名称不明确，必然会造成阅读和维护等方面的障碍。</p>
 
 <p>下面给出 auto 关键字的合理用法：</p>
-<code>Type* a = static_cast&lt;Type*&gt;(ptr);               //<i> Repeated type name</i>
+<pre><code>Type* a = static_cast&lt;Type*&gt;(ptr);               //<i> Repeated type name</i>
 unique_ptr&lt;Type[]&gt; b = make_unique&lt;Type[]&gt;(10);  //<i> Repeated type name</i>
-</code>
+</code></pre>
 <p>重复的类型名称使代码变得繁琐，这种情况使用 auto 是更好的方法：</p>
-<code>auto* a = static_cast&lt;Type*&gt;(ptr);  //<i> OK</i>
+<pre><code>auto* a = static_cast&lt;Type*&gt;(ptr);  //<i> OK</i>
 auto b = make_unique&lt;Type[]&gt;(10);   //<i> OK</i>
-</code>
+</code></pre>
 <p>又如：</p>
-<code>vector&lt;Type&gt; v{ .... };
+<pre><code>vector&lt;Type&gt; v{ .... };
 vector&lt;Type&gt;::iterator i = v.begin();  //<i> Verbose</i>
-</code>
+</code></pre>
 <p>begin 函数返回迭代器是一种常识，且迭代器类型名称往往较长，这种情况应使用 auto：</p>
-<code>auto i = v.begin();  //<i> OK</i>
-</code>
+<pre><code>auto i = v.begin();  //<i> OK</i>
+</code></pre>
 <p>又如：</p>
-<code>struct SomeClass {
+<pre><code>struct SomeClass {
     struct Sub {
         ....
     };
@@ -67,22 +83,24 @@ vector&lt;Type&gt;::iterator i = v.begin();  //<i> Verbose</i>
 
 SomeClass::Sub SomeClass::foo() {  //<i> Repeated ‘SomeClass’</i>
     ....
-}</code>
+}</code></pre>
 <p>重复的类作用域声明十分繁琐，可用 auto 关键字配合后置返回类型改善：</p>
-<code>auto SomeClass::foo() -&gt; Sub {  //<i> OK</i>
+<pre><code>auto SomeClass::foo() -&gt; Sub {  //<i> OK</i>
     ....
-}</code>
+}</code></pre>
 <p>总之，使用 auto 关键字的目的应是提高可读性，而不是单纯地简化代码。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_roughAuto.html" class="related-link">ID_roughAuto</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es11-use-auto-to-avoid-redundant-repetition-of-type-names" target="_blank" class="related-link">C++ Core Guidelines ES.11</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

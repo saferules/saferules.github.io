@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：针对一些常见攻击，平台和编译器会提供防御机制，程序应利用这种机制加强自身的安全性。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>启用平台和编译器提供的防御机制 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>启用平台和编译器提供的防御机制</h1>
   <div id="subtitle">
     <div id="subtitle-id">1.21 ID_missingHardening</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#security">Home</a> › <a class="nav-link" href="./ID_unsafeCompileOption.html">next</a> › <a class="nav-link" href="./ID_backDoor.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#security">目录</a> › <a class="rule-toc-link" href="./ID_unsafeCompileOption.html">next</a> › <a class="rule-toc-link" href="./ID_backDoor.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>针对一些常见攻击，平台和编译器会提供防御机制，如：</p>
@@ -31,34 +47,37 @@
 <p>程序应利用这种机制加强自身的安全性，进一步可参见“<a href="https://en.wikipedia.org/wiki/Hardening_(computing)" target="_blank" class="dashed-link">security hardening</a>”。</p>
 
 <p>示例：</p>
-<code>//<i> In test.c</i>
+<pre><code>//<i> In test.c</i>
 #include &lt;stdio.h&gt;
 
 int main(void) {
     printf(&quot;%p\n&quot;, main);
 }
-</code>
+</code></pre>
 <p>如果在 Linux 等平台上按如下方式编译：</p>
-<code>cc test.c -o test</code>
+<pre><code>cc test.c -o test</code></pre>
 <p>各函数的地址在虚拟内存中是固定的，易被攻击者猜中，进而施展攻击手段。</p>
 
 <p>当平台启用了“<a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization" target="_blank" class="dashed-link">ASLR</a>”机制，再按如下方式编译：</p>
-<code>cc test.c -o test -fPIE -pie</code>
+<pre><code>cc test.c -o test -fPIE -pie</code></pre>
 <p>可使程序各结构的地址随机化，函数的地址在每次运行时均不相同，有效提高了攻击难度。</p>
 
 <p>如无特殊原因，在编译程序时不应屏蔽这种防御机制，如：</p>
-<code>cc test.c -o test -z execstack           # Non-compliant, disable NX
+<pre><code>cc test.c -o test -z execstack           # Non-compliant, disable NX
 cc test.c -o test -z norelro             # Non-compliant, disable RELRO
-cc test.c -o test -fno-stack-protector   # Non-compliant, disable CANARY</code>
+cc test.c -o test -fno-stack-protector   # Non-compliant, disable CANARY</code></pre>
 <p>如果必须屏蔽，应落实相关的评审与测试。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_unsafeCompileOption.html" class="related-link">ID_unsafeCompileOption</a></div>
 
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

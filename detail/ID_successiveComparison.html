@@ -6,46 +6,64 @@
   <meta name="description" content="C/C++ 安全编程要点：在 C/C++ 语言中，连续的比较运算是没有意义的，本规则是 ID_illBoolOperation 的特化。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>比较运算不可作为另一个比较运算的直接子表达式 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>比较运算不可作为另一个比较运算的直接子表达式</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.5.6 ID_successiveComparison</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.comparison">Home</a> › <a class="nav-link" href="./ID_returnValueIgnored.html">next</a> › <a class="nav-link" href="./ID_differentEnumComparison.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.comparison">目录</a> › <a class="rule-toc-link" href="./ID_returnValueIgnored.html">next</a> › <a class="rule-toc-link" href="./ID_differentEnumComparison.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>在 C/C++ 语言中，连续的比较运算是没有意义的，本规则是 <a href="./ID_illBoolOperation.html" class="dashed-link">ID_illBoolOperation</a> 的特化。</p>
 
 <p>示例：</p>
-<code>bool foo(int a, int b, int c) {
+<pre><code>bool foo(int a, int b, int c) {
     return a &gt;= b &gt;= c;           //<i> Non-compliant, logic error</i>
-}</code>
+}</code></pre>
 <p>例中 a &gt;= b 的结果为 bool 型，bool 型数据是没有大小概念的，这个结果再与 c 比较大小是没有意义的。</p>
 
 <p>例外：</p>
-<code>a &gt; b == true        //<i> Compliant, but odd</i>
+<pre><code>a &gt; b == true        //<i> Compliant, but odd</i>
 a != b != true       //<i> Compliant, but odd</i>
-(a &gt; b) == (c &gt; d)   //<i> Compliant, but complex</i></code>
+(a &gt; b) == (c &gt; d)   //<i> Compliant, but complex</i></code></pre>
 <p>如果是判断两个 bool 表达式是否相等，可不受本规则约束，但这种复杂的形式并不值得提倡。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_illBoolOperation.html" class="related-link">ID_illBoolOperation</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/697.html" target="_blank" class="related-link">CWE-697</a>
 <a href="https://cwe.mitre.org/data/definitions/1024.html" target="_blank" class="related-link">CWE-1024</a>
 <a href="https://cwe.mitre.org/data/definitions/1025.html" target="_blank" class="related-link">CWE-1025</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

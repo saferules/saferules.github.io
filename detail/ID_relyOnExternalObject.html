@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：全局对象的初始化或构造过程不可依赖在其他源文件中定义的全局对象，也不可依赖在其后面定义的对象。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>全局对象的初始化不可依赖未初始化的对象 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>全局对象的初始化不可依赖未初始化的对象</h1>
   <div id="subtitle">
     <div id="subtitle-id">4.9 ID_relyOnExternalObject</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#global">Home</a> › <a class="nav-link" href="./ID_nonConstNonStaticGlobalObject.html">next</a> › <a class="nav-link" href="./ID_staticInAnonymousNamespace.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#global">目录</a> › <a class="rule-toc-link" href="./ID_nonConstNonStaticGlobalObject.html">next</a> › <a class="rule-toc-link" href="./ID_staticInAnonymousNamespace.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>全局对象的初始化或构造过程不可依赖在其他源文件中定义的全局对象，也不可依赖在其后面定义的对象。</p>
@@ -26,24 +42,23 @@
 <p>在不同源文件中定义的全局对象，以及类的静态成员对象，其初始化顺序是不确定的，在同一源文件中定义的对象，排在前面的会先于后面的初始化。为避免产生问题，建议只使用基本类型的常量作为全局对象，且尽量不要使用 extern 关键字。</p>
 
 <p>示例：</p>
-<code>extern int i;   //<i> Defined in other translate unit</i>
-int j = i;      //<i> Non-compliant</i></code>
+<pre><code>extern int i;   //<i> Defined in other translate unit</i>
+int j = i;      //<i> Non-compliant</i></code></pre>
 <p>例中 i 是在其他源文件中定义的对象，j 初始化时无法保证 i 已被正确初始化。</p>
 
 <p>又如：</p>
-<code>int foo() {
+<pre><code>int foo() {
     return 1;
 }
 extern int x;   //<i> Defined after ‘y’</i>
 int y = x;      //<i> Non-compliant, unspecified</i>
-int x = foo();</code>
+int x = foo();</code></pre>
 <p>例中 x 在 y 的后面定义，y 会先于 x 初始化，y 的值是 0 还是 foo 函数的返回值在标准中是未声明的。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:2011 5.1.2(1)-unspecified
 ISO/IEC 14882:2011 3.6.2(2)
 ISO/IEC 14882:2011 3.6.2(3)-unspecified
@@ -51,7 +66,10 @@ ISO/IEC 14882:2017 6.6.2(3)-unspecified
 ISO/IEC 14882:2017 6.6.3(2)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#i22-avoid-complex-initialization-of-global-objects" target="_blank" class="related-link">C++ Core Guidelines I.22</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

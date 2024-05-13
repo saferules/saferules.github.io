@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：已过时的标准库组件会被语言标准弃用，应改用更完善的替代方法。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免使用已过时的标准库组件 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免使用已过时的标准库组件</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.12.9 ID_obsoleteStdFunction</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.other">Home</a> › <a class="nav-link" href="./ID_usingDeprecatedName.html">next</a> › <a class="nav-link" href="./ID_unportableType.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.other">目录</a> › <a class="rule-toc-link" href="./ID_usingDeprecatedName.html">next</a> › <a class="rule-toc-link" href="./ID_unportableType.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>已过时的标准库组件会被语言标准弃用，应改用更完善的替代方法。</p>
@@ -38,31 +54,29 @@
 
 </ul>
 <p>示例：</p>
-<code>auto_ptr&lt;T&gt; a(new T);      //<i> Non-compliant</i>
+<pre><code>auto_ptr&lt;T&gt; a(new T);      //<i> Non-compliant</i>
 auto_ptr&lt;T&gt; b;             //<i> Non-compliant</i>
 void foo(auto_ptr&lt;T&gt; p);   //<i> Non-compliant</i>
 
 b = a;    //<i> ‘a’ is invalid after the assignment</i>
 foo(b);   //<i> ‘b’ is invalid after the call</i>
-....      //<i> Undefined behavior if dereference ‘a’ or ‘b’</i></code>
+....      //<i> Undefined behavior if dereference ‘a’ or ‘b’</i></code></pre>
 <p>auto_ptr 对象的赋值或传参都会引起资源所有权的转移，如 b = a 会使 a 的资源被转移到 b 中，foo(b) 会使 b 的资源转移到参数中，这种方式很容易使人误解，故 auto_ptr 被 C++11 标准判为已过时，并从 C++17 标准中移出。</p>
 
 <p>可使用 unique_ptr 代替 auto_ptr：</p>
-<code>unique_ptr&lt;T&gt; a = make_unique&lt;T&gt;();
+<pre><code>unique_ptr&lt;T&gt; a = make_unique&lt;T&gt;();
 unique_ptr&lt;T&gt; b;
 
 b = a;         //<i> Compile error</i>
-b = move(a);   //<i> OK, explicit moving</i></code>
+b = move(a);   //<i> OK, explicit moving</i></code></pre>
 <p>unique_ptr 禁止资源所有权隐式转移，语义更为明确。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_obsoleteFunction.html" class="related-link">ID_obsoleteFunction</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2011 D.6-deprecated
 ISO/IEC 14882:2011 D.7-deprecated
 ISO/IEC 14882:2011 D.8-deprecated
@@ -73,4 +87,8 @@ ISO/IEC 14882:2017 20.5.4.3.1(1)</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

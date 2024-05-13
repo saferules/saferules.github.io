@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：对运算符优先级的错误理解是产生逻辑错误的主要原因之一。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>注意运算符优先级，避免非预期的结果 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>注意运算符优先级，避免非预期的结果</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.3.1 ID_unexpectedPrecedence</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.operator">Home</a> › <a class="nav-link" href="./ID_minusOnUnsigned.html">next</a> › <a class="nav-link" href="./ID_incDecAsSubExpression.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.operator">目录</a> › <a class="rule-toc-link" href="./ID_minusOnUnsigned.html">next</a> › <a class="rule-toc-link" href="./ID_incDecAsSubExpression.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>对运算符优先级的错误理解是产生逻辑错误的主要原因之一。</p>
@@ -26,20 +42,19 @@
 <p>位运算、赋值、三元等表达式作为子表达式时，合理使用括号既能保证正确性，又能提高可读性。由于运算符的特性各不相同，较为灵活，难以用一条规则来规范，本规则集合将分开讨论，与优先级有关的规则均作为本规则的相关规则以供参考。</p>
 
 <p>示例：</p>
-<code>int foo(bool cond) {
+<pre><code>int foo(bool cond) {
     return 1 + cond? 2: 3;  //<i> Rather suspicious</i>
-}</code>
+}</code></pre>
 <p>加号的优先级大于三元运算符，但 cond 是 bool 型变量，所以这种情况十分可疑。</p>
 
 <p>应合理使用括号：</p>
-<code>int foo(bool cond) {
+<pre><code>int foo(bool cond) {
     return 1 + (cond? 2: 3);  //<i> Right</i>
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_macro_expNotEnclosed.html" class="related-link">ID_macro_expNotEnclosed</a>
 <a href="./ID_macro_paramNotEnclosed.html" class="related-link">ID_macro_paramNotEnclosed</a>
 <a href="./ID_illBoolOperation.html" class="related-link">ID_illBoolOperation</a>
@@ -49,9 +64,12 @@
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/783.html" target="_blank" class="related-link">CWE-783</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es41-if-in-doubt-about-operator-precedence-parenthesize" target="_blank" class="related-link">C++ Core Guidelines ES.41</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP00-C.+Use+parentheses+for+precedence+of+operation" target="_blank" class="related-link">SEI CERT EXP00-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

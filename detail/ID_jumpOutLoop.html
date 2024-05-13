@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：循环的退出条件应与其控制表达式一致，使代码具有清晰的静态结构，否则可读性较差，尤其在多个嵌套的作用域中使用 break、goto 或 return 等跳转语句，会使代码难以理解。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免使用跳转语句退出循环 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免使用跳转语句退出循环</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.7.7 ID_jumpOutLoop</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#control.jump">Home</a> › <a class="nav-link" href="./ID_illIdentical.html">next</a> › <a class="nav-link" href="./ID_redundantJump.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#control.jump">目录</a> › <a class="rule-toc-link" href="./ID_illIdentical.html">next</a> › <a class="rule-toc-link" href="./ID_redundantJump.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>循环的退出条件应与其控制表达式一致，使代码具有清晰的静态结构，否则可读性较差，尤其在多个嵌套的作用域中使用 break、goto 或 return 等跳转语句，会使代码难以理解。</p>
 
 <p>示例：</p>
-<code>while (cond) {
+<pre><code>while (cond) {
     if (x) {
         if (y) {
             break;   //<i> Bad</i>
@@ -34,20 +50,22 @@
         ....
         break;   //<i> Bad</i>
     }
-}</code>
+}</code></pre>
 <p>例中循环条件散落在循环体内，而且循环的主体逻辑被各种跳转语句“割裂”，是不利于阅读和维护的。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_tooManyExit.html" class="related-link">ID_tooManyExit</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 14.6
 MISRA C 2012 15.4
 MISRA C++ 2008 6-6-4</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

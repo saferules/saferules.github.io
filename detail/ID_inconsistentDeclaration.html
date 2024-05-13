@@ -6,66 +6,83 @@
   <meta name="description" content="C/C++ 安全编程要点：声明与实现在书写上应完全一致，否则极易引起误解，而且对同一对象或函数进行类型不兼容的声明，也会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>声明与实现应一致 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>声明与实现应一致</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.12.2 ID_inconsistentDeclaration</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.other">Home</a> › <a class="nav-link" href="./ID_violateODR.html">next</a> › <a class="nav-link" href="./ID_unsuitableDeclaration.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.other">目录</a> › <a class="rule-toc-link" href="./ID_violateODR.html">next</a> › <a class="rule-toc-link" href="./ID_unsuitableDeclaration.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>声明与实现在书写上应完全一致，否则极易引起误解，而且对同一对象或函数进行类型不兼容的声明，也会导致标准未定义的行为。</p>
 
 <p>示例：</p>
-<code>extern long n;   //<i> Non-compliant, undefined behavior</i>
+<pre><code>extern long n;   //<i> Non-compliant, undefined behavior</i>
 
 int foo() {
     return n++;   //<i> Undefined behavior</i>
 }
 
-short n;</code>
+short n;</code></pre>
 <p>例中变量 n 有多处声明，但类型不一致，会导致标准未定义的行为。</p>
 
 <p>又如：</p>
-<code>int foo(int x);
+<pre><code>int foo(int x);
 
 typedef int type;
 type foo(type x) {   //<i> Non-compliant, confusing</i>
     ....
-}</code>
+}</code></pre>
 <p>例中在实现处为参数类型定义别名是不符合要求的，在允许重载的 C++ 代码中会引起更大的误解。</p>
 
 <p>应改为：</p>
-<code>typedef int type;
+<pre><code>typedef int type;
 type foo(type x);
 
 type foo(type x) {   //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_inconsistentParamName.html" class="related-link">ID_inconsistentParamName</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.2.7(2)-undefined
 ISO/IEC 9899:2011 6.2.7(2)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 8.4
 MISRA C 2012 8.3
 MISRA C++ 2008 3-9-1
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/DCL40-C.+Do+not+create+incompatible+declarations+of+the+same+function+or+object" target="_blank" class="related-link">SEI CERT DCL40-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：命名风格不统一会严重降低代码可读性，易造成理解上的偏差，增加维护成本。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>遵循统一的命名风格 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>遵循统一的命名风格</h1>
   <div id="subtitle">
     <div id="subtitle-id">17.2 ID_inconsistentNaming</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#style">Home</a> › <a class="nav-link" href="./ID_spaceStyle.html">next</a> › <a class="nav-link" href="./ID_inconsistentStyle.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#style">目录</a> › <a class="rule-toc-link" href="./ID_spaceStyle.html">next</a> › <a class="rule-toc-link" href="./ID_inconsistentStyle.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>命名风格不统一会严重降低代码可读性，易造成理解上的偏差，增加维护成本。</p>
@@ -35,7 +51,7 @@
 <p>对于不良名称产生的后果可参见 <a href="./ID_badName.html" class="dashed-link">ID_badName</a>、<a href="./ID_reservedName.html" class="dashed-link">ID_reservedName</a>。</p>
 
 <p>示例：</p>
-<code>struct Tp {
+<pre><code>struct Tp {
     int foo_;
     int m_bar;   //<i> Inconsistent</i>
     int baz;     //<i> Inconsistent</i>
@@ -43,13 +59,12 @@
 
 int foo_bar();
 int fooBar();    //<i> Inconsistent</i>
-int FooBar();    //<i> Inconsistent</i></code>
+int FooBar();    //<i> Inconsistent</i></code></pre>
 <p>例中各名称具有不同的前缀、后缀以及不同的单词连接方式是不符合要求的。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_inconsistentStyle.html" class="related-link">ID_inconsistentStyle</a>
 <a href="./ID_badName.html" class="related-link">ID_badName</a>
 <a href="./ID_macro_badName.html" class="related-link">ID_macro_badName</a>
@@ -58,9 +73,12 @@ int FooBar();    //<i> Inconsistent</i></code>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/1099.html" target="_blank" class="related-link">CWE-1099</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#nl8-use-a-consistent-naming-style" target="_blank" class="related-link">C++ Core Guidelines NL.8</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#nl10-prefer-underscore_style-names" target="_blank" class="related-link">C++ Core Guidelines NL.10</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,46 +6,65 @@
   <meta name="description" content="C/C++ 安全编程要点：deprecated 属性用于标记已过时的函数、对象或类型，具有该属性的函数、对象或类型不应再被使用。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应使用具有 deprecated 属性的函数、对象或类型 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应使用具有 deprecated 属性的函数、对象或类型</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.12.10 ID_usingDeprecatedName</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.other">Home</a> › <a class="nav-link" href="./ID_exceptionUnsafe.html">next</a> › <a class="nav-link" href="./ID_obsoleteStdFunction.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.other">目录</a> › <a class="rule-toc-link" href="./ID_exceptionUnsafe.html">next</a> › <a class="rule-toc-link" href="./ID_obsoleteStdFunction.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>deprecated 属性用于标记已过时的函数、对象或类型，具有该属性的函数、对象或类型不应再被使用。</p>
 
 <p>示例：</p>
-<code>[[deprecated]] int fun();   //<i> C++14 attribute</i>
+<pre><code>[[deprecated]] int fun();   //<i> C++14 attribute</i>
 
 int main() {
     return fun();   //<i> Non-compliant</i>
 }
-</code>
+</code></pre>
 <p>在 C 代码以及遵循 C++14 之前标准的 C++ 代码中可使用相关编译器扩展属性，如：</p>
-<code>#ifdef _MSC_VER
+<pre><code>#ifdef _MSC_VER
 __declspec(deprecated) int fun();   //<i> MSVC attribute</i>
 #elif defined __GNUC__
 __attribute__((deprecated)) int fun();   //<i> GCC attribute</i>
-#endif</code>
+#endif</code></pre>
 <p>具有相同属性的函数、对象或类型均受本规则约束。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2014 7.6.5
 ISO/IEC 14882:2017 10.6.4</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

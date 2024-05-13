@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：以派生类对象为参数的 catch 子句应排在以基类对象为参数的 catch 子句之前，否则后面的 catch 子句会失去作用。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>面向派生类的 catch 子句应排在面向基类的 catch 子句之前 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>面向派生类的 catch 子句应排在面向基类的 catch 子句之前</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.6.5 ID_try_disorderedHandlers</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#control.try-catch">Home</a> › <a class="nav-link" href="./ID_forbidGotoBlocks.html">next</a> › <a class="nav-link" href="./ID_try_disorderedEllipsis.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#control.try-catch">目录</a> › <a class="rule-toc-link" href="./ID_forbidGotoBlocks.html">next</a> › <a class="rule-toc-link" href="./ID_try_disorderedEllipsis.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>以派生类对象为参数的 catch 子句应排在以基类对象为参数的 catch 子句之前，否则后面的 catch 子句会失去作用。</p>
 
 <p>示例：</p>
-<code>class B {};
+<pre><code>class B {};
 class D: public B {};
 
 try {
@@ -33,35 +49,36 @@ try {
     ....
 } catch (D&amp;) {  //<i> Non-compliant, unreachable</i>
     ....
-}</code>
+}</code></pre>
 <p>例中 B 为基类，D 为派生类，D 类异常会被第一个 catch 子句捕获，第二个 catch 子句失去了作用。</p>
 
 <p>应改为：</p>
-<code>try {
+<pre><code>try {
     ....
 } catch (D&amp;) {
     ....
 } catch (B&amp;) {  //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_unreachableCode.html" class="related-link">ID_unreachableCode</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 15.3
 ISO/IEC 14882:2011 15.3
 ISO/IEC 14882:2011 18.3</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/561.html" target="_blank" class="related-link">CWE-561</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#e31-properly-order-your-catch-clauses" target="_blank" class="related-link">C++ Core Guidelines E.31</a>
 MISRA C++ 2008 15-3-6
 <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR54-CPP.+Catch+handlers+should+order+their+parameter+types+from+most+derived+to+least+derived" target="_blank" class="related-link">SEI CERT ERR54-CPP</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

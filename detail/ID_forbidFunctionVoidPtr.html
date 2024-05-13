@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：与接口相关的数据类型应保持精确，不应将参数类型或返回类型设为 void*。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>接口的参数类型和返回类型不应为 void* - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>接口的参数类型和返回类型不应为 void*</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.4.4 ID_forbidFunctionVoidPtr</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.declarator">Home</a> › <a class="nav-link" href="./ID_forbidMemberVoidPtr.html">next</a> › <a class="nav-link" href="./ID_forbidFlexibleArray.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.declarator">目录</a> › <a class="rule-toc-link" href="./ID_forbidMemberVoidPtr.html">next</a> › <a class="rule-toc-link" href="./ID_forbidFlexibleArray.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>与接口相关的数据类型应保持精确，不应将参数类型或返回类型设为 void*。</p>
@@ -26,38 +42,40 @@
 <p>在 C++ 代码中，如果参数或返回值需要面对多种不同类型的数据，应合理使用重载或模板机制。</p>
 
 <p>示例：</p>
-<code>class A {
+<pre><code>class A {
 public:
     void* foo();      //<i> Non-compliant</i>
     void bar(void*);  //<i> Non-compliant</i>
-};</code>
+};</code></pre>
 <p>例中 foo 和 bar 函数的返回值以及参数是不符合要求的。</p>
 
 <p>C 语言中存在大量的库函数不符合本规则要求，在 C++ 代码中应避免使用，如：</p>
-<code>int buf[123];
-memset(buf, 0, 123);  //<i> Logic error, should be ‘123 * sizeof(int)’</i></code>
+<pre><code>int buf[123];
+memset(buf, 0, 123);  //<i> Logic error, should be ‘123 * sizeof(int)’</i></code></pre>
 <p>例中 memset 函数的第一个形式参数就是 void* 型，只能通过更底层的二进制方式访问对象序列，是一种对类型设计的破坏，应改用 STL 标准库提供的方法：</p>
-<code>int buf[123];
-std::fill_n(buf, 123, 0);  //<i> Safe and brief</i></code>
+<pre><code>int buf[123];
+std::fill_n(buf, 123, 0);  //<i> Safe and brief</i></code></pre>
 <p>改用类型明确的方法可以使很多问题在编译期得到控制。</p>
 
 <p>例外：</p>
-<code>struct T {
+<pre><code>struct T {
     void* operator new(size_t);   //<i> Compliant</i>
     void operator delete(void*);  //<i> Compliant</i>
-};</code>
+};</code></pre>
 <p>C++ 语言规定 new 运算符的返回类型为 void*，delete 运算符的参数类型为 void*，这些情况可不受本规则约束。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_voidCast.html" class="related-link">ID_voidCast</a>
 <a href="./ID_forbidMemberVoidPtr.html" class="related-link">ID_forbidMemberVoidPtr</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#i4-make-interfaces-precisely-and-strongly-typed" target="_blank" class="related-link">C++ Core Guidelines I.4</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：struct 和 class 关键字应分别对应与 C 兼容的类和具有 C++ 特性的类。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>POD 类和非 POD 类应分别使用 struct 和 class 关键字定义 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>POD 类和非 POD 类应分别使用 struct 和 class 关键字定义</h1>
   <div id="subtitle">
     <div id="subtitle-id">5.1.21 ID_unsuitableStructTag</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#type.class">Home</a> › <a class="nav-link" href="./ID_inheritTooDeep.html">next</a> › <a class="nav-link" href="./ID_accessSpecifierDisorder.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#type.class">目录</a> › <a class="rule-toc-link" href="./ID_inheritTooDeep.html">next</a> › <a class="rule-toc-link" href="./ID_accessSpecifierDisorder.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>struct 和 class 关键字应分别对应与 C 兼容的类和具有 C++ 特性的类。</p>
@@ -26,7 +42,7 @@
 <p>“<a href="https://en.cppreference.com/w/cpp/language/classes#POD_class" target="_blank" class="dashed-link">POD 类</a>”与 C 兼容可配合 C 接口使用，非 POD 类具有 C++ 特性，不应与 C 接口一同使用，用 struct 和 class 关键字显式区分这两种类有助于提高可读性和可维护性。</p>
 
 <p>示例：</p>
-<code>struct A {     //<i> Compliant</i>
+<pre><code>struct A {     //<i> Compliant</i>
     int x, y;
 };
 
@@ -36,15 +52,18 @@ struct B {     //<i> Non-compliant</i>
 
 private:
     int x, y;
-};</code>
+};</code></pre>
 
 </main>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c2-use-class-if-the-class-has-an-invariant-use-struct-if-the-data-members-can-vary-independently" target="_blank" class="related-link">C++ Core Guidelines C.2</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c8-use-class-rather-than-struct-if-any-member-is-non-public" target="_blank" class="related-link">C++ Core Guidelines C.8</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

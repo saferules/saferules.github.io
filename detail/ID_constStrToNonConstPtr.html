@@ -6,50 +6,64 @@
   <meta name="description" content="C/C++ 安全编程要点：常量字符串与非常量字符串指针的隐式转换是不安全的，一旦相关内存被修改会导致标准未定义的行为，这种转换在 C++ 标准中是过时的，在 C 代码中也不应出现。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>指向常量字符串的指针应使用 const 声明 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>指向常量字符串的指针应使用 const 声明</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.2.6 ID_constStrToNonConstPtr</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.qualifier">Home</a> › <a class="nav-link" href="./ID_uselessQualifier.html">next</a> › <a class="nav-link" href="./ID_sandwichedModifier.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.qualifier">目录</a> › <a class="rule-toc-link" href="./ID_uselessQualifier.html">next</a> › <a class="rule-toc-link" href="./ID_sandwichedModifier.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>常量字符串与非常量字符串指针的隐式转换是不安全的，一旦相关内存被修改会导致标准未定义的行为，这种转换在 C++ 标准中是过时的，在 C 代码中也不应出现。</p>
 
 <p>指向常量字符串的指针应声明为 const chartype *，chartype 为常量字符串中的字符类型，如：</p>
-<code>char、wchar_t、char16_t、char32_t
-</code>
+<pre><code>char、wchar_t、char16_t、char32_t
+</code></pre>
 <p>示例：</p>
-<code>char* p = &quot;....&quot;;   //<i> Non-compliant</i>
-p[x] = &#x27;\0&#x27;;        //<i> Undefined behavior</i></code>
+<pre><code>char* p = &quot;....&quot;;   //<i> Non-compliant</i>
+p[x] = &#x27;\0&#x27;;        //<i> Undefined behavior</i></code></pre>
 <p>例中非常量指针 p 指向常量字符串，通过 p 修改常量数据一般会引发“<a href="https://en.wikipedia.org/wiki/Segmentation_fault" target="_blank" class="dashed-link">段错误</a>”而导致崩溃，应改为：</p>
-<code>const char* p = &quot;....&quot;;   //<i> Compliant</i>
-p[x] = &#x27;\0&#x27;;              //<i> Compile-time protected</i></code>
+<pre><code>const char* p = &quot;....&quot;;   //<i> Compliant</i>
+p[x] = &#x27;\0&#x27;;              //<i> Compile-time protected</i></code></pre>
 <p>改为常量字符串指针后，错误的操作无法通过编译。</p>
 
 <p>又如：</p>
-<code>void foo(char*);
+<pre><code>void foo(char*);
 
 void bar() {
     foo(&quot;....&quot;);   //<i> Non-compliant</i>
-}</code>
+}</code></pre>
 <p>应将 foo 的参数类型改为 const char*，或将常量字符串复制后传给 foo 函数。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_nonConstUnmodified.html" class="related-link">ID_nonConstUnmodified</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.4.5(6)-undefined
 ISO/IEC 9899:2011 6.4.5(7)-undefined
 ISO/IEC 14882:1998 D.4(1)-deprecated
@@ -59,8 +73,11 @@ ISO/IEC 14882:2011 2.14.5(12)-undefined
 ISO/IEC 14882:2017 5.13.5(16)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 7.4
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/STR30-C.+Do+not+attempt+to+modify+string+literals" target="_blank" class="related-link">SEI CERT STR30-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：无名且不受控制的临时对象在构造之后会立即析构，在逻辑上没有意义，往往意味着错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应产生无效的临时对象 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应产生无效的临时对象</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.7.1 ID_inaccessibleTmpObject</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.object">Home</a> › <a class="nav-link" href="./ID_selfDependentInitialization.html">next</a> › <a class="nav-link" href="./ID_repeatedDesignator.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.object">目录</a> › <a class="rule-toc-link" href="./ID_selfDependentInitialization.html">next</a> › <a class="rule-toc-link" href="./ID_repeatedDesignator.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>无名且不受控制的临时对象在构造之后会立即析构，在逻辑上没有意义，往往意味着错误。</p>
 
 <p>示例：</p>
-<code>class A {
+<pre><code>class A {
     int a;
 
 public:
@@ -33,38 +49,41 @@ public:
     }
 
     A(int x): a(x) {}
-};</code>
+};</code></pre>
 <p>示例代码意在调用重载的构造函数，但 A(0); 只生成了一个无效的临时对象，成员并没有被正确初始化，应改用 this-&gt;A::A(0); 等形式，在遵循 C++11 标准的代码中也可将 A(0) 移入初始化列表：</p>
-<code>class A {
+<pre><code>class A {
     int a;
 
 public:
     A(): A(0) {}        //<i> Compliant</i>
     A(int x): a(x) {}
 };
-</code>
+</code></pre>
 <p>又如：</p>
-<code>class LockGuard { .... };
+<pre><code>class LockGuard { .... };
 
 void fun() {
     LockGuard();   //<i> Non-compliant, meaningless</i>
     ....
-}</code>
+}</code></pre>
 <p>设 LockGuard 是某种 RAII 锁，LockGuard(); 只生成了一个临时对象，该对象会立即析构，起不到作用，这也是一种常见的错误。</p>
 
 <p>应改为：</p>
-<code>void fun() {
+<pre><code>void fun() {
     LockGuard guard;   //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 
 </main>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/665.html" target="_blank" class="related-link">CWE-665</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es84-dont-try-to-declare-a-local-variable-with-no-name" target="_blank" class="related-link">C++ Core Guidelines ES.84</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

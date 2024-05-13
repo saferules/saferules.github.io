@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：自定义的名称不应与标准库或编译环境中的名称相同，否则会导致标准未定义的行为，也不利于阅读和维护。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应定义具有保留意义的名称 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应定义具有保留意义的名称</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.1.2 ID_reservedName</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.naming">Home</a> › <a class="nav-link" href="./ID_hideLocal.html">next</a> › <a class="nav-link" href="./ID_badName.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.naming">目录</a> › <a class="rule-toc-link" href="./ID_hideLocal.html">next</a> › <a class="rule-toc-link" href="./ID_badName.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>自定义的名称不应与标准库或编译环境中的名称相同，否则会导致标准未定义的行为，也不利于阅读和维护。</p>
@@ -42,7 +58,7 @@
 <p>对于宏，本规则特化为 <a href="./ID_macro_defineReserved.html" class="dashed-link">ID_macro_defineReserved</a>、<a href="./ID_macro_undefReserved.html" class="dashed-link">ID_macro_undefReserved</a>。</p>
 
 <p>示例：</p>
-<code>#include &lt;errno.h&gt;
+<pre><code>#include &lt;errno.h&gt;
 
 struct A {
     void foo() {
@@ -52,27 +68,25 @@ struct A {
     }
 private:
     int errno;  //<i> Non-compliant</i>
-};</code>
+};</code></pre>
 <p>例中成员变量 errno 与标准库中的 errno 名称相同，不便于区分是自定义的还是系统定义的。</p>
 
 <p>又如：</p>
-<code>size_t _Size();   //<i> Non-compliant</i>
+<pre><code>size_t _Size();   //<i> Non-compliant</i>
 
 size_t operator &quot;&quot; KB(unsigned long long n) {   //<i> Non-compliant</i>
     return n * 1024;
-}</code>
+}</code></pre>
 <p>例中函数名 _Size 以一个下划线和一个大写字母开头，自定义字面常量后缀 KB 未以下划线开头，均不符合要求。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_macro_defineReserved.html" class="related-link">ID_macro_defineReserved</a>
 <a href="./ID_macro_undefReserved.html" class="related-link">ID_macro_undefReserved</a>
 <a href="./ID_inconsistentNaming.html" class="related-link">ID_inconsistentNaming</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 7.1.3(1)
 ISO/IEC 9899:2011 7.1.3(1)
 ISO/IEC 14882:2003 17.4.3.1
@@ -80,7 +94,6 @@ ISO/IEC 14882:2011 17.6.4.3
 ISO/IEC 14882:2017 20.5.4.3</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 21.2
 MISRA C++ 2008 17-0-1
 MISRA C++ 2008 17-0-2
@@ -88,4 +101,8 @@ MISRA C++ 2008 17-0-3
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/DCL37-C.+Do+not+declare+or+define+a+reserved+identifier" target="_blank" class="related-link">SEI CERT DCL37-C</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL51-CPP.+Do+not+declare+or+define+a+reserved+identifier" target="_blank" class="related-link">SEI CERT DCL51-CPP</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

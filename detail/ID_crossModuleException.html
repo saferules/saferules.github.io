@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：异常的传播机制依赖编译器的具体实现，在不同编译器产生的模块间传播异常会造成运行时错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应在模块之间传播异常 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应在模块之间传播异常</h1>
   <div id="subtitle">
     <div id="subtitle-id">7.25 ID_crossModuleException</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#exception">Home</a> › <a class="nav-link" href="./ID_forbidThrowSpecification.html">next</a> › <a class="nav-link" href="./ID_throwNullptr.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#exception">目录</a> › <a class="rule-toc-link" href="./ID_forbidThrowSpecification.html">next</a> › <a class="rule-toc-link" href="./ID_throwNullptr.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>异常的传播机制依赖编译器的具体实现，在不同编译器产生的模块间传播异常会造成运行时错误。</p>
@@ -26,7 +42,7 @@
 <p>除非模块均由同一编译器的同一版本生成，否则模块供外部使用的接口不应抛出异常。</p>
 
 <p>示例：</p>
-<code>//<i> a.dll</i>
+<pre><code>//<i> a.dll</i>
 void foo() {
     throw Exception();   //<i> Non-compliant</i>
 }
@@ -36,18 +52,20 @@ int main() try {
     foo();
 } catch (Exception&amp;) {   //<i> May not catch</i>
     ....
-}</code>
+}</code></pre>
 <p>设例中 a.dll 和 b.exe 由不同的编译器生成，异常的抛出机制和捕获机制可能并不匹配，进而导致冲突。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_ABIConflict.html" class="related-link">ID_ABIConflict</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR59-CPP.+Do+not+throw+an+exception+across+execution+boundaries" target="_blank" class="related-link">SEI CERT ERR59-CPP</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

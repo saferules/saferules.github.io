@@ -6,39 +6,58 @@
   <meta name="description" content="C/C++ 安全编程要点：逻辑或、逻辑与的子表达式可以合并成一个表达式时应尽量合并。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>化简可被合并的逻辑子表达式 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>化简可被合并的逻辑子表达式</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.1.7 ID_simplifiableCondition</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.logic">Home</a> › <a class="nav-link" href="./ID_simplifiableTernary.html">next</a> › <a class="nav-link" href="./ID_shortCircuitSideEffect.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.logic">目录</a> › <a class="rule-toc-link" href="./ID_simplifiableTernary.html">next</a> › <a class="rule-toc-link" href="./ID_shortCircuitSideEffect.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>逻辑或、逻辑与的子表达式可以合并成一个表达式时应尽量合并。</p>
 
 <p>示例：</p>
-<code>a &lt; b || a &gt; b      //<i> None-compliant, use a != b instead</i>
+<pre><code>a &lt; b || a &gt; b      //<i> None-compliant, use a != b instead</i>
 a &gt; b || a == b     //<i> None-compliant, use a &gt;= b instead</i>
 a &lt; b || a == b     //<i> None-compliant, use a &lt;= b instead</i>
 a &lt;= b &amp;&amp; a &gt;= b    //<i> None-compliant, use a == b instead</i>
-</code>
+</code></pre>
 <p>不合理的繁琐写法也可能意味着某种错误，需认真对待。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_redundantCondition.html" class="related-link">ID_redundantCondition</a>
 <a href="./ID_conflictCondition.html" class="related-link">ID_conflictCondition</a></div>
 
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

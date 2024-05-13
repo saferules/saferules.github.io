@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：及时清理不再使用的敏感数据是重要的安全措施，且应保证清理过程不会因为编译器的优化而失效。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>敏感数据在使用后应被有效清理 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>敏感数据在使用后应被有效清理</h1>
   <div id="subtitle">
     <div id="subtitle-id">1.3 ID_unsafeCleanup</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#security">Home</a> › <a class="nav-link" href="./ID_sensitiveName.html">next</a> › <a class="nav-link" href="./ID_secretLeak.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#security">目录</a> › <a class="rule-toc-link" href="./ID_sensitiveName.html">next</a> › <a class="rule-toc-link" href="./ID_secretLeak.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>及时清理不再使用的敏感数据是重要的安全措施，且应保证清理过程不会因为编译器的优化而失效。</p>
@@ -26,41 +42,42 @@
 <p>程序会反复利用内存，敏感数据可能会残留在未初始化的对象或对象之间的填充数据中，如果被存储到磁盘或传输到网络就会造成敏感信息的泄露，可参见 <a href="./ID_secretLeak.html" class="dashed-link">ID_secretLeak</a> 和 <a href="./ID_ignorePaddingData.html" class="dashed-link">ID_ignorePaddingData</a> 的进一步讨论。</p>
 
 <p>示例：</p>
-<code>void foo() {
+<pre><code>void foo() {
     char password[8] = {};
     ....
     memset(password, 0, sizeof(password));  //<i> Non-compliant</i>
-}</code>
+}</code></pre>
 <p>示例代码调用 memset 覆盖敏感数据以达到清理目的，然而保存敏感信息的 password 为局部数组且 memset 之后没有再被引用，根据相关标准，编译器可将 memset 过程去掉，使敏感数据没有得到有效清理。C11 提供了 memset_s 函数以避免这种问题，某些平台和库也提供了相关支持，如 SecureZeroMemory、explicit_bzero、OPENSSL_cleanse 等不会被优化掉的函数。</p>
 
 <p>在 C++ 代码中，可用 volatile 限定相关数据以避免编译器的优化，再用 std::fill_n 等方法清理，如：</p>
-<code>void foo() {
+<pre><code>void foo() {
     char password[8] = {};
     ....
     volatile char  v_padding = 0;
     volatile char* v_address = password;
     std::fill_n(v_address, sizeof(password), v_padding);  //<i> Compliant</i>
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_secretLeak.html" class="related-link">ID_secretLeak</a>
 <a href="./ID_ignorePaddingData.html" class="related-link">ID_ignorePaddingData</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 5.1.2.3(3)
 ISO/IEC 9899:2011 5.1.2.3(4)
 ISO/IEC 9899:2011 K.3.7.4.1</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/14.html" target="_blank" class="related-link">CWE-14</a>
 <a href="https://cwe.mitre.org/data/definitions/226.html" target="_blank" class="related-link">CWE-226</a>
 <a href="https://cwe.mitre.org/data/definitions/244.html" target="_blank" class="related-link">CWE-244</a>
 <a href="https://cwe.mitre.org/data/definitions/733.html" target="_blank" class="related-link">CWE-733</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/MSC06-C.+Beware+of+compiler+optimizations" target="_blank" class="related-link">SEI CERT MSC06-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

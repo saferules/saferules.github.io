@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：存在拷贝构造函数或析构函数时，不应缺少拷贝赋值运算符。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>存在拷贝构造函数或析构函数时，不应缺少拷贝赋值运算符 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>存在拷贝构造函数或析构函数时，不应缺少拷贝赋值运算符</h1>
   <div id="subtitle">
     <div id="subtitle-id">5.1.7 ID_missingCopyAssignOperator</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#type.class">Home</a> › <a class="nav-link" href="./ID_missingDestructor.html">next</a> › <a class="nav-link" href="./ID_missingCopyConstructor.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#type.class">目录</a> › <a class="rule-toc-link" href="./ID_missingDestructor.html">next</a> › <a class="rule-toc-link" href="./ID_missingCopyConstructor.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>三个紧密相关的函数：</p>
@@ -31,34 +47,36 @@
 <p>当这三个函数中的任何一个函数被定义时，其他两个函数也需要被定义，详见“<a href="https://en.wikipedia.org/wiki/Rule_of_three_(C%2B%2B_programming)" target="_blank" class="dashed-link">Rule of three</a>”。</p>
 
 <p>示例：</p>
-<code>class A {  //<i> Non-compliant, missing copy assignment operator</i>
+<pre><code>class A {  //<i> Non-compliant, missing copy assignment operator</i>
 public:
     A();
     A(const A&amp;);
    ~A();
 };
-</code>
+</code></pre>
 <p>应明确定义赋值运算符：</p>
-<code>class A {  //<i> Compliant</i>
+<pre><code>class A {  //<i> Compliant</i>
 public:
     A();
     A(const A&amp;);
    ~A();
 
     A&amp; operator = (const A&amp;);  //<i> Copy assignment operator</i>
-};</code>
+};</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_missingDestructor.html" class="related-link">ID_missingDestructor</a>
 <a href="./ID_missingCopyConstructor.html" class="related-link">ID_missingCopyConstructor</a>
 <a href="./ID_violateRuleOfFive.html" class="related-link">ID_violateRuleOfFive</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c21-if-you-define-or-delete-any-copy-move-or-destructor-function-define-or-delete-them-all" target="_blank" class="related-link">C++ Core Guidelines C.21</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

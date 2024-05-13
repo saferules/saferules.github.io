@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：从基类到派生类的向下类型转换往往意味着现有接口已经不能满足需求，故应避免这种转换。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免向下类型转换 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免向下类型转换</h1>
   <div id="subtitle">
     <div id="subtitle-id">12.6 ID_downCast</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#cast">Home</a> › <a class="nav-link" href="./ID_ptrIntCast.html">next</a> › <a class="nav-link" href="./ID_voidCast.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#cast">目录</a> › <a class="rule-toc-link" href="./ID_ptrIntCast.html">next</a> › <a class="rule-toc-link" href="./ID_voidCast.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>从基类到派生类的向下类型转换往往意味着现有接口已经不能满足需求，故应避免这种转换。</p>
 
 <p>示例：</p>
-<code>class A { .... };
+<pre><code>class A { .... };
 
 class B: public A {
 public:
@@ -35,9 +51,9 @@ void foo(A* a) {
     if (B* p = dynamic_cast&lt;B*&gt;(a)) {   //<i> Bad, down cast</i>
         p-&gt;bar();
     }
-}</code>
+}</code></pre>
 <p>例中 foo 接口对基类参数进行向下类型转换是不利于维护的，当这种特殊处理较多时，应利用多态方法合理重构。</p>
-<code>class A {
+<pre><code>class A {
     ....
 public:
     virtual void bar();
@@ -52,18 +68,20 @@ void foo(A* a) {
     if (a) {
         a-&gt;bar();   //<i> Good</i>
     }
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_nonDynamicDownCast.html" class="related-link">ID_nonDynamicDownCast</a>
 <a href="./ID_narrowCast.html" class="related-link">ID_narrowCast</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es48-avoid-casts" target="_blank" class="related-link">C++ Core Guidelines ES.48</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

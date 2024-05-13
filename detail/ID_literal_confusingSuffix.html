@@ -6,49 +6,67 @@
   <meta name="description" content="C/C++ 安全编程要点：小写字母“l”极易与数字“1”混淆，为了提高可读性，常量后缀均应由大写字母组成。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>常量后缀由应由大写字母组成 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>常量后缀由应由大写字母组成</h1>
   <div id="subtitle">
     <div id="subtitle-id">11.8 ID_literal_confusingSuffix</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#literal">Home</a> › <a class="nav-link" href="./ID_literal_missingSuffix.html">next</a> › <a class="nav-link" href="./ID_literal_misspelling.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#literal">目录</a> › <a class="rule-toc-link" href="./ID_literal_missingSuffix.html">next</a> › <a class="rule-toc-link" href="./ID_literal_misspelling.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>小写字母“l”极易与数字“1”混淆，为了提高可读性，常量后缀均应由大写字母组成。</p>
 
 <p>示例：</p>
-<code>long long a = 100ll;    //<i> Non-compliant, may be misread as 10011</i>
+<pre><code>long long a = 100ll;    //<i> Non-compliant, may be misread as 10011</i>
 long double b = 100.l;  //<i> Non-compliant, may be misread as 100.1</i>
-</code>
+</code></pre>
 <p>应改为：</p>
-<code>long long a = 100LL;    //<i> Compliant</i>
+<pre><code>long long a = 100LL;    //<i> Compliant</i>
 long double b = 100.L;  //<i> Compliant</i>
-</code>
+</code></pre>
 <p>后缀大小写混用的情况会使人更加困惑：</p>
-<code>long long c = 100lL;            //<i> Non-compliant, very bad</i>
-unsigned long long d = 100lLU;  //<i> Non-compliant, very bad</i></code>
+<pre><code>long long c = 100lL;            //<i> Non-compliant, very bad</i>
+unsigned long long d = 100lLU;  //<i> Non-compliant, very bad</i></code></pre>
 <p>其中，小写的 l 和大写的 L 混在了一起，应改为：</p>
-<code>long long c = 100LL;            //<i> Compliant</i>
-unsigned long long d = 100LLU;  //<i> Compliant</i></code>
+<pre><code>long long c = 100LL;            //<i> Compliant</i>
+unsigned long long d = 100LLU;  //<i> Compliant</i></code></pre>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">allSuffixCharMustBeUpperCase: 要求后缀中所有字符均为大写，或只要求小写字符“l”不得用于后缀</div>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#nl19-avoid-names-that-are-easily-misread" target="_blank" class="related-link">C++ Core Guidelines NL.19</a>
 MISRA C 2012 7.3
 MISRA C++ 2008 2-13-4</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

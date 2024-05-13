@@ -6,50 +6,68 @@
   <meta name="description" content="C/C++ 安全编程要点：相互矛盾的逻辑子表达式会使整个表达式的结果恒为真或恒为假，导致逻辑错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>逻辑子表达式之间不应存在矛盾 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>逻辑子表达式之间不应存在矛盾</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.1.2 ID_conflictCondition</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.logic">Home</a> › <a class="nav-link" href="./ID_redundantCondition.html">next</a> › <a class="nav-link" href="./ID_illIdentical.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.logic">目录</a> › <a class="rule-toc-link" href="./ID_redundantCondition.html">next</a> › <a class="rule-toc-link" href="./ID_illIdentical.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>相互矛盾的逻辑子表达式会使整个表达式的结果恒为真或恒为假，导致逻辑错误。</p>
 
 <p>示例：</p>
-<code>a == 1 &amp;&amp; a == 2   //<i> always false</i>
-a != 1 || a != 2   //<i> always true</i></code>
+<pre><code>a == 1 &amp;&amp; a == 2   //<i> always false</i>
+a != 1 || a != 2   //<i> always true</i></code></pre>
 <p>同一变量不可能同时等于不同的值，这种表达式是无效的。</p>
 
 <p>又如：</p>
-<code>a &gt; b &amp;&amp; a &lt;= b   //<i> always false</i>
+<pre><code>a &gt; b &amp;&amp; a &lt;= b   //<i> always false</i>
 a &gt; b || a &lt;= b   //<i> always true</i>
 
 a == b &amp;&amp; a != b   //<i> always false</i>
 a == b || a != b   //<i> always true</i>
 
 a &lt; -128 &amp;&amp; a &gt; 127     //<i> always false</i>
-a &gt;= -128 || a &lt;= 127   //<i> always true</i></code>
+a &gt;= -128 || a &lt;= 127   //<i> always true</i></code></pre>
 <p>这种表达式均为常见笔误，应及时修正。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_redundantCondition.html" class="related-link">ID_redundantCondition</a>
 <a href="./ID_simplifiableCondition.html" class="related-link">ID_simplifiableCondition</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/570.html" target="_blank" class="related-link">CWE-570</a>
 <a href="https://cwe.mitre.org/data/definitions/571.html" target="_blank" class="related-link">CWE-571</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

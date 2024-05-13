@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：将重写的虚函数都声明为 override 或 final 有利于提高可读性，并可确保虚函数被有效重写。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>重写的虚函数应声明为 override 或 final - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>重写的虚函数应声明为 override 或 final</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.3.5 ID_missingExplicitOverride</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.specifier">Home</a> › <a class="nav-link" href="./ID_redundantOverride.html">next</a> › <a class="nav-link" href="./ID_invalidExternSpecifier.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.specifier">目录</a> › <a class="rule-toc-link" href="./ID_redundantOverride.html">next</a> › <a class="rule-toc-link" href="./ID_invalidExternSpecifier.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>将重写的虚函数都声明为 override 或 final 有利于提高可读性，并可确保虚函数被有效重写。</p>
 
 <p>示例：</p>
-<code>class A {
+<pre><code>class A {
     virtual int foo();
     virtual int bar();
 };
@@ -32,26 +48,28 @@
 class B: public A {
     int foo();          //<i> Non-compliant</i>
     virtual int bar();  //<i> Non-compliant</i>
-};</code>
+};</code></pre>
 <p>例中 B 重写 A 的 foo 和 bar 这两个虚函数，如果不看 A 的声明，则看不出 B::foo 是虚函数，也看不出 B::bar 是重写的虚函数。</p>
 
 <p>改为如下方式会清晰很多：</p>
-<code>class B: public A {
+<pre><code>class B: public A {
     int foo() override;  //<i> Compliant</i>
     int bar() override;  //<i> Compliant</i>
-};</code>
+};</code></pre>
 <p>而且当重写的函数名、参数、返回类型与基类声明不符时，不能通过编译，可及时修正问题。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2011 10.3(4 5)
 ISO/IEC 14882:2017 13.3(4 5)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c128-virtual-functions-should-specify-exactly-one-of-virtual-override-or-final" target="_blank" class="related-link">C++ Core Guidelines C.128</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：共享对象的使用情况在异步过程中是难以掌控的，贸然终止共享对象的生命周期往往会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免异步终止共享对象的生命周期 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免异步终止共享对象的生命周期</h1>
   <div id="subtitle">
     <div id="subtitle-id">16.6 ID_illLifetime</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#concurrency">Home</a> › <a class="nav-link" href="./ID_spuriouslyWakeUp.html">next</a> › <a class="nav-link" href="./ID_asynchronousTermination.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#concurrency">目录</a> › <a class="rule-toc-link" href="./ID_spuriouslyWakeUp.html">next</a> › <a class="rule-toc-link" href="./ID_asynchronousTermination.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>共享对象的使用情况在异步过程中是难以掌控的，贸然终止共享对象的生命周期往往会导致标准未定义的行为。</p>
 
 <p>示例：</p>
-<code>void foo(mutex* pm) {
+<pre><code>void foo(mutex* pm) {
     lock(pm);
     ....
 }
@@ -33,25 +49,26 @@ void bar() {
     mutex m;
     beginThread(foo, &amp;m);   //<i> Non-compliant, ‘m’ is a local object</i>
     beginThread(foo, &amp;m);   //<i> Non-compliant</i>
-}</code>
+}</code></pre>
 <p>设例中 beginThread 创建执行 foo 函数的线程，bar 与 foo 是异步过程，共享对象 m 在 bar 返回后失效，如果 foo 继续访问共享对象就会出错，bar 应等待线程执行完毕或调整共享对象的生命周期。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_asynchronousTermination.html" class="related-link">ID_asynchronousTermination</a>
 <a href="./ID_localAddressFlowOut.html" class="related-link">ID_localAddressFlowOut</a>
 <a href="./ID_danglingDeref.html" class="related-link">ID_danglingDeref</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2011 30.4.1.2.1(5)-undefined
 ISO/IEC 14882:2017 33.4.3.2.1(5)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/c/CON31-C.+Do+not+destroy+a+mutex+while+it+is+locked" target="_blank" class="related-link">SEI CERT CON31-C</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CON50-CPP.+Do+not+destroy+a+mutex+while+it+is+locked" target="_blank" class="related-link">SEI CERT CON50-CPP</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

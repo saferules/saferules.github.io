@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：字节等二进制概念不应受对齐方式或符号位的干扰，字节的类型应为 std::byte 或 unsigned char。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>字节的类型应为 std::byte 或 unsigned char - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>字节的类型应为 std::byte 或 unsigned char</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.7.3 ID_plainBinaryChar</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.object">Home</a> › <a class="nav-link" href="./ID_nonVirtualOverride.html">next</a> › <a class="nav-link" href="./ID_selfDependentInitialization.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.object">目录</a> › <a class="rule-toc-link" href="./ID_nonVirtualOverride.html">next</a> › <a class="rule-toc-link" href="./ID_selfDependentInitialization.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>字节等二进制概念不应受对齐方式或符号位的干扰，字节的类型应为 std::byte 或 unsigned char。</p>
@@ -26,7 +42,7 @@
 <p>std::byte  是 C++17 的标准字节类型，对字节相关的运算和操作提供了更安全的限定。在 C 代码或不便于遵循新标准的 C++ 代码中，应将字节类型声明为 unsigned char。</p>
 
 <p>示例：</p>
-<code>typedef char byte;       //<i> Non-compliant</i>
+<pre><code>typedef char byte;       //<i> Non-compliant</i>
 byte buf[100];
 FILE* fp = fopen(&quot;foo&quot;, &quot;rb&quot;);
 fread(buf, 1, 100, fp);
@@ -35,22 +51,20 @@ if (buf[0] == 0xff) {    //<i> May be always false</i>
 }
 if (buf[1] &lt;&lt; 1) {       //<i> May cause undefined behavior</i>
     ....
-}</code>
+}</code></pre>
 <p>char 类型的符号由实现定义，有符号的 char 变量在数值计算、位运算等方面很容易产生意料之外的结果。</p>
 
 <p>应改为：</p>
-<code>typedef unsigned char byte;   //<i> Compliant</i></code>
+<pre><code>typedef unsigned char byte;   //<i> Compliant</i></code></pre>
 <p>这样做也可有效区分二进制数据与字符串，提高可读性。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_plainNumericChar.html" class="related-link">ID_plainNumericChar</a>
 <a href="./ID_bitwiseOperOnSigned.html" class="related-link">ID_bitwiseOperOnSigned</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.2.5(3 15)-implementation
 ISO/IEC 9899:2011 6.2.5(3 15)-implementation
 ISO/IEC 14882:2003 3.9.1(1)-implementation
@@ -60,4 +74,8 @@ ISO/IEC 14882:2017 21.2.5</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

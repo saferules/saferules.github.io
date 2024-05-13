@@ -6,40 +6,58 @@
   <meta name="description" content="C/C++ 安全编程要点：函数、对象、缓冲区的地址以及相关内存区域的长度等信息不可被外界感知，否则会成为攻击者的线索。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>与内存空间布局相关的信息不可被外界感知 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>与内存空间布局相关的信息不可被外界感知</h1>
   <div id="subtitle">
     <div id="subtitle-id">1.5 ID_addressExposure</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#security">Home</a> › <a class="nav-link" href="./ID_hardcodedIP.html">next</a> › <a class="nav-link" href="./ID_sensitiveName.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#security">目录</a> › <a class="rule-toc-link" href="./ID_hardcodedIP.html">next</a> › <a class="rule-toc-link" href="./ID_sensitiveName.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>函数、对象、缓冲区的地址以及相关内存区域的长度等信息不可被外界感知，否则会成为攻击者的线索。</p>
 
 <p>示例：</p>
-<code>int foo(int* p, int n) {
+<pre><code>int foo(int* p, int n) {
     if (n &gt;= some_value) {
         log(&quot;buffer address: %p, size: %d&quot;, p, n);   //<i> Non-compliant</i>
     }
-}</code>
+}</code></pre>
 <p>示例代码将缓冲区的地址和长度输出到日志是不安全的，这种代码多以调试为目的，不应将其编译到产品的正式版本中。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/200.html" target="_blank" class="related-link">CWE-200</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

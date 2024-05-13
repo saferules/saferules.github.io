@@ -7,6 +7,13 @@ h1 {
     padding-top: 0.2em;
     padding-bottom: 0.2em;
 }
+h3 {
+    border-bottom: 1px solid #d0d7deb3;
+    padding-bottom: 0.3em;
+}
+header {
+    padding-top: 35px;
+}
 article {
     max-width: 800px;
     margin: 0 auto;
@@ -15,28 +22,26 @@ article {
     padding-right: 1em;
     padding-bottom: 2.5em;
 }
-.dashed-hr {
-    height: 1px;
-    border: none;
-    border-top: 1px dashed #aaa;
-}
 .icon {
     width: 1em;
     height: 1em;
     vertical-align: -0.15em;
     fill: currentColor;
     overflow: hidden;
+    padding-right: 1ch;
 }
 #subtitle {
     width: 100%;
     height: 1.6em;
     line-height: 1.6em;
     color: #555;
+    display: flex;
+    flex-direction: row;
 }
 #subtitle-id {
-    float: left;
     min-width: 40%;
     max-width: 50%;
+    padding-right: 2ch;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -48,23 +53,23 @@ article {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.nav-link {
+.rule-toc-link {
     color: #555;
     text-decoration: none;
 }
-.nav-link:hover {
+.rule-toc-link:hover {
     color: #218bff;
     text-decoration: none;
 }
-.dashed-hr {
+.solid-hr {
     height: 1px;
     border: none;
-    border-top: 1px dashed #aac;
+    border-top: 1px solid #d0d7deb3;
 }
 .dashed-link {
     color: #1A1A1A;
     text-decoration: none;
-    border-bottom: #1A1A1A 1px dashed;
+    border-bottom: #5A5A5A 1px dashed;
 }
 .dashed-link:hover {
     color: #218bff;
@@ -99,19 +104,73 @@ main li {
     line-height: 1.5em;
     overflow-x: hidden;
 }
-code {
-    width: 100%;
+pre {
     display: block;
-    padding: 0;
-    margin-left: 1.38em;
-    margin-top: 1.2em;
-    margin-right: 0;
-    margin-bottom: 1.2em;
-    overflow: auto;
     white-space: pre;
-    font-family: "Courier New", Courier, ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin-left: 1.38em;
+    margin-top: 0.7em;
+    margin-right: 1ch;
+    margin-bottom: 0.7em;
+    overflow: auto;    
+}
+code {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-family: "Courier New", monospace;
 }
 code i {
+    margin: 0;
+    padding: 0;
+    margin-right: 1ch;
     font-style: italic;
-    font-family: "Times New Roman", Serif;
+    font-family: "Times New Roman", Serif;    
+}
+pre::-webkit-scrollbar {
+    height: 4px;
+    background-color: #f5f5f5;
+}
+pre::-webkit-scrollbar-thumb {
+    height: 4px;
+    background-color: #e2e3e9;
+}
+pre::-webkit-scrollbar-thumb:hover {
+    background-color: #a2a3a9;
+}
+@-moz-document url-prefix() {
+pre {
+    scrollbar-width: thin;
+    scrollbar-color: #e2e3e9 #f5f5f5;
+}
+}
+@media (prefers-color-scheme: dark) {
+#subtitle {
+    color: #848d97;
+}
+.rule-toc-link {
+    color: #848d97;
+}
+.related-link {
+    color: #e6edf3;
+}
+.dashed-link {
+    color: #e6edf3;
+    border-bottom: #e6edf3 1px dashed;
+}
+pre::-webkit-scrollbar {
+    background-color: #212429;
+}
+pre::-webkit-scrollbar-thumb {
+    background-color: #313439;
+}
+pre::-webkit-scrollbar-thumb:hover {
+    background-color: #414449;
+}
+@-moz-document url-prefix() {
+pre {
+    scrollbar-color: #313439 #212429;
+}
+}
 }

@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：将资源托管于类的对象，使资源的生命周期协同于对象的生命周期，避免分散处理分配与回收等问题，是 C++ 程序设计中的重要方法。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>使资源接受对象化管理 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>使资源接受对象化管理</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.4 ID_ownerlessResource</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#resource">Home</a> › <a class="nav-link" href="./ID_incompleteNewDeletePair.html">next</a> › <a class="nav-link" href="./ID_illAccess.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#resource">目录</a> › <a class="rule-toc-link" href="./ID_incompleteNewDeletePair.html">next</a> › <a class="rule-toc-link" href="./ID_illAccess.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>将资源托管于类的对象，使资源的生命周期协同于对象的生命周期，避免分散处理分配与回收等问题，是 C++ 程序设计中的重要方法。</p>
@@ -26,7 +42,7 @@
 <p>动态申请的资源如果只能通过普通指针或变量访问，不受对象的构造和析构等机制控制，则称为“无主”资源，极易产生泄漏或死锁等问题。应尽量使用标准库提供的容器、智能指针以及资源对应的类，避免直接使用 new、delete 以及底层资源管理接口。</p>
 
 <p>示例：</p>
-<code>int* p = new int[8];   //<i> Non-compliant, ownerless</i>
+<pre><code>int* p = new int[8];   //<i> Non-compliant, ownerless</i>
 ....                   //<i> If any exception is thrown,</i>
                        //<i> or any wrong jump occurs, the memory leaks</i>
 
@@ -36,33 +52,33 @@ x.p = new int[8];      //<i> Non-compliant, no destructor, ‘x’ is not an own
 ....
 
 delete[] p;     //<i> Non-compliant, explicit delete</i>
-delete[] x.p;   //<i> Non-compliant</i></code>
+delete[] x.p;   //<i> Non-compliant</i></code></pre>
 <p>例中用不受析构函数控制的指针保存 new 表达式的结果，以及对应的 delete 表达式均不符合要求。</p>
 
 <p>应将资源托管于类的对象：</p>
-<code>class Mgr {
+<pre><code>class Mgr {
     int* p;
 public:
     Mgr(size_t n): p(new int[n]) {}
    ~Mgr() { delete[] p; }
 };
 
-Mgr m(8);   //<i> Compliant, ‘m’ is the owner of the resource</i></code>
+Mgr m(8);   //<i> Compliant, ‘m’ is the owner of the resource</i></code></pre>
 <p>例中 m 对象负责资源的分配与回收，称 m 对象拥有资源的所有权，相关资源的生命周期与对象的生命周期一致，有效避免了资源泄漏或错误回收等问题。针对成员的 new、delete 可不受本规则限制，但应优先使用容器或智能指针。</p>
 
 <p>资源的所有权可以发生转移，但应保证转移前后均有对象负责管理资源，并且在转移过程中不会产生异常。进一步理解对象化管理方法，可参见“<a href="https://en.cppreference.com/w/cpp/language/raii" target="_blank" class="dashed-link">RAII（Resource Acquisition Is Initialization）</a>”等机制。</p>
 
 <p>另外，底层资源管理接口也不应直接在业务代码中使用，如：</p>
-<code>void foo(const TCHAR* path) {
+<pre><code>void foo(const TCHAR* path) {
     WIN32_FIND_DATA ffd;
     HANDLE h = FindFirstFile(path, &amp;ffd);  //<i> Non-compliant, ownerless</i>
     ....
     CloseHandle(h);  //<i> Is it right?</i>
-}</code>
+}</code></pre>
 <p>例中 FindFirstFile 是 Windows API，返回的资源句柄对应“无主”资源，需要显式回收。</p>
 
 <p>应对其合理封装：</p>
-<code>class MY_FIND_DATA
+<pre><code>class MY_FIND_DATA
 {
     struct HANDLE_DELETER
     {
@@ -76,7 +92,7 @@ public:
     MY_FIND_DATA(const TCHAR* path): uptr(FindFirstFile(path, &amp;ffd)) {}
     ....
     HANDLE handle() { return uptr.get(); }
-};</code>
+};</code></pre>
 <p>将 FindFirstFile 及其相关数据封装成一个类，由 unique_ptr 对象保存 FindFirstFile 的结果，FindClose 是资源的回收方法，将其作为 unique_ptr 对象的组成部分，使资源可以被自动回收。</p>
 
 </main>
@@ -84,8 +100,11 @@ public:
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r11-avoid-calling-new-and-delete-explicitly" target="_blank" class="related-link">C++ Core Guidelines R.11</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r12-immediately-give-the-result-of-an-explicit-resource-allocation-to-a-manager-object" target="_blank" class="related-link">C++ Core Guidelines R.12</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

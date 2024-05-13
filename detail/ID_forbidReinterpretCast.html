@@ -6,54 +6,72 @@
   <meta name="description" content="C/C++ 安全编程要点：reinterpret_cast 是一种不安全的类型转换，如果必须使用需提供合理的注释说明。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>合理使用 reinterpret_cast - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>合理使用 reinterpret_cast</h1>
   <div id="subtitle">
     <div id="subtitle-id">12.21 ID_forbidReinterpretCast</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#cast">Home</a> › <a class="nav-link" href="./ID_forbidCStyleCast.html">next</a> › <a class="nav-link" href="./ID_unsuitableReinterpretCast.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#cast">目录</a> › <a class="rule-toc-link" href="./ID_forbidCStyleCast.html">next</a> › <a class="rule-toc-link" href="./ID_unsuitableReinterpretCast.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>reinterpret_cast 是一种不安全的类型转换，如果必须使用需提供合理的注释说明。</p>
 
 <p>示例：</p>
-<code>class MyData { .... };
+<pre><code>class MyData { .... };
 
 void foo(const char* path) {
     unsigned char* p = read_from_file(path);
     MyData* dat = reinterpret_cast&lt;MyData*&gt;(p);  //<i> Bad</i>
     ....
-}</code>
+}</code></pre>
 <p>设例中 read_from_file 读取并返回文件的二进制数据，用 reinterpret_cast 将二进制数据直接转为对象是不安全的，妥善的做法是根据文件数据将对象的成员逐一构造出来，可参见 <a href="./ID_stricterAlignedCast.html" class="dashed-link">ID_stricterAlignedCast</a> 介绍的方法，这样也可以及时发现并处理问题。</p>
 
 <p>又如：</p>
-<code>ext_type* ext_interface();   //<i> External interface</i>
+<pre><code>ext_type* ext_interface();   //<i> External interface</i>
 
 void foo() {
     auto* raw = ext_interface();
     auto* dat = reinterpret_cast&lt;MyType*&gt;(raw);   //<i> OK</i>
     ....
-}</code>
+}</code></pre>
 <p>例中 ext_interface 是不受控制的外部接口，它的返回类型不完整或不可用，甚至返回的地址也不遵循 C++ 内存模型，需要将其“重解释”为另一种类型才能探究其内部结构和数据，MyType 是为了解决这个问题而自定义的类型，这种情况可以使用 reinterpret_cast 完成这种非常规转换，但需注明这种情况产生的原因。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_forbidCStyleCast.html" class="related-link">ID_forbidCStyleCast</a>
 <a href="./ID_stricterAlignedCast.html" class="related-link">ID_stricterAlignedCast</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/843.html" target="_blank" class="related-link">CWE-843</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#prosafety-type-safety-profile" target="_blank" class="related-link">C++ Core Guidelines Pro.safety</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,53 +6,71 @@
   <meta name="description" content="C/C++ 安全编程要点：以 .h 或 .hpp 为扩展名的头文件应包含头文件守卫。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>头文件不应缺少守卫 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>头文件不应缺少守卫</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.4.1 ID_missingHeaderGuard</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.directive">Home</a> › <a class="nav-link" href="./ID_illFormedDirective.html">next</a> › <a class="nav-link" href="./ID_deprecatedOffsetof.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#precompile.directive">目录</a> › <a class="rule-toc-link" href="./ID_illFormedDirective.html">next</a> › <a class="rule-toc-link" href="./ID_deprecatedOffsetof.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>以 .h 或 .hpp 为扩展名的头文件应包含头文件守卫。</p>
 
 <p>示例：</p>
-<code>//<i> Header file foo.h</i>
+<pre><code>//<i> Header file foo.h</i>
 #ifndef LIBRARY_FOO_H
 #define LIBRARY_FOO_H
 ....
-#endif</code>
+#endif</code></pre>
 <p>例中 foo.h 是“Library”模块中的头文件，宏 LIBRARY_FOO_H 即可作为它的守卫，保证头文件被重复引入也不会出现问题，守卫名称不可有重复，建议守卫名称遵循“模块名_文件名”的形式。</p>
 
 <p>#pragma once 指令也可作为头文件守卫，但并不是 C/C++ 的标准方式，只是多数编译器均有支持。这种方式由编译器维护一个列表，引入头文件时，如果发现文件中有 #pragma once 指令就将文件路径加入列表，当这个文件再次被 include 时便不会加载，而宏守卫的方式仍然要对文件进行预编译，所以 #pragma once 方式在编译效率上会更高一些。</p>
 
 <p>宏守卫用宏名区分头文件，所以不能有重复。宏的引入可以使相关设定更灵活，比如声明头文件之间的依赖或排斥关系，如果 bar.h 依赖 foo.h，在 #include &quot;bar.h&quot; 之前必须 #include &quot;foo.h&quot;，可在 bar.h 中设置：</p>
-<code>//<i> Header file bar.h</i>
+<pre><code>//<i> Header file bar.h</i>
 #ifndef LIBRARY_FOO_H
 #error foo.h should be included first
-#endif</code>
+#endif</code></pre>
 <p>这样如果不满足条件无法通过编译。</p>
 
 <p>本规则建议使用宏守卫的方式，但 #pragma once 方法也是惯用写法，不妨通过配置项决定其是否合规。</p>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">allowPragmaOnce: 是否允许 #pragma once 作为头文件守卫</div>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#sf8-use-include-guards-for-all-header-files" target="_blank" class="related-link">C++ Core Guidelines SF.8</a>
 MISRA C 2004 19.15
 MISRA C++ 2008 16-2-3</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

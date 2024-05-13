@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：全局名称应具有标识性，长度不应过短，否则易与局部名称产生冲突。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>全局名称应遵循合理的命名方式 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>全局名称应遵循合理的命名方式</h1>
   <div id="subtitle">
     <div id="subtitle-id">4.1 ID_nameTooShort</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#global">Home</a> › <a class="nav-link" href="./ID_missingNamespace.html">next</a> › <a class="nav-link" href="./ID_badBackslash.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#global">目录</a> › <a class="rule-toc-link" href="./ID_missingNamespace.html">next</a> › <a class="rule-toc-link" href="./ID_badBackslash.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>全局名称应具有标识性，长度不应过短，否则易与局部名称产生冲突。</p>
@@ -26,31 +42,32 @@
 <p>本规则是 <a href="./ID_badName.html" class="dashed-link">ID_badName</a> 的特化。</p>
 
 <p>示例：</p>
-<code>//<i> In global scope</i>
+<pre><code>//<i> In global scope</i>
 const int i = 0;     //<i> Non-compliant, name too short</i>
 typedef int t;       //<i> Non-compliant, name too short</i>
 class A { .... };    //<i> Non-compliant, name too short</i>
 
 int foo(int i) {
     return i + i;    //<i> Confusing</i>
-}</code>
+}</code></pre>
 <p>名称适用的作用域范围越广，其长度也应该越长，建议全局名称长度不小于 3 个字符。</p>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">minVariableNameLength: 全局对象名称长度下限，小于则报出
 minFunctionNameLength: 全局函数名称长度下限，小于则报出
 minNameSpaceNameLength: 全局命名空间名称长度下限，小于则报出
 minTypeNameLength: 全局类型名称长度下限，小于则报出</div>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_badName.html" class="related-link">ID_badName</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#nl7-make-the-length-of-a-name-roughly-proportional-to-the-length-of-its-scope" target="_blank" class="related-link">C++ Core Guidelines NL.7</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

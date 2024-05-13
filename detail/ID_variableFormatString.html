@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：出于安全性和可读性的考量，C 格式化字符串最好直接写成常量字符串的形式。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>C 格式化字符串应为常量 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>C 格式化字符串应为常量</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.6.8 ID_variableFormatString</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.call">Home</a> › <a class="nav-link" href="./ID_forbidCStringFormat.html">next</a> › <a class="nav-link" href="./ID_inconsistentFormatArgType.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.call">目录</a> › <a class="rule-toc-link" href="./ID_forbidCStringFormat.html">next</a> › <a class="rule-toc-link" href="./ID_inconsistentFormatArgType.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>出于安全性和可读性的考量，C 格式化字符串最好直接写成常量字符串的形式。</p>
@@ -26,24 +42,26 @@
 <p>本规则是 <a href="./ID_hijack.html" class="dashed-link">ID_hijack</a> 的特化。</p>
 
 <p>示例：</p>
-<code>int a, b, c;
+<pre><code>int a, b, c;
 const char* fmt = foo();
 ....
-printf(fmt, a, b, c);  //<i> Non-compliant</i></code>
+printf(fmt, a, b, c);  //<i> Non-compliant</i></code></pre>
 <p>例中格式化字符串 fmt 是变量，这种方式可读性较差，而且要注意如果 fmt 可受外界影响，则可能被攻击者利用造成不良后果。</p>
 
 <p>应将 fmt 改为常量：</p>
-<code>printf(&quot;%d %d %d&quot;, a, b, c);  //<i> Compliant</i></code>
+<pre><code>printf(&quot;%d %d %d&quot;, a, b, c);  //<i> Compliant</i></code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_hijack.html" class="related-link">ID_hijack</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/134.html" target="_blank" class="related-link">CWE-134</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

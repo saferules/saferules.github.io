@@ -6,37 +6,56 @@
   <meta name="description" content="C++ undefined behavior: 函数指针被转为不兼容的类型并执行" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
   <title>函数指针被转为不兼容的类型并执行 - C++ undefined behavior</title>
 </head>
+
+<div class="footer-holder">
+<nav>
+<ul class="nav-list">
+  <li><span class="nav-icon">☰</span></li>
+  <li><a href="../../index.html">首页</a></li>
+  <li><a href="../../index.html#rules-class-title">规则分类</a></li>
+  <li><a href="../introduction.html">项目介绍</a></li>
+</ul>
+<div class="nav-stuff"></div>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+  <img alt="search" id="search-icon" src="../../img/search.svg" onclick="onClickSearchIcon(this)"/>
+</div>
+<span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>函数指针被转为不兼容的类型并执行</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-35</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-36.html">next</a> › <a class="nav-link" href="./cpp-ub-34.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../cpp-ub-list.html">目录</a> › <a class="rule-toc-link" href="./cpp-ub-36.html">next</a> › <a class="rule-toc-link" href="./cpp-ub-34.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>示例：</p>
-<code>void foo();
+<pre><code>void foo();
 
 return ((int(*)())(&amp;foo))();  //<i> Undefined behavior</i>
-</code>
+</code></pre>
 <p>例中 foo 函数没有返回值，将其强转为有返回值的函数并调用，会导致未定义的行为。</p>
 
 </main>
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 5.2.10(6)-undefined
 ISO/IEC 14882:2011 5.2.10(6)-undefined</div>
 
 <h3>规则</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="../ID_functionPointerCast.html" class="related-link">ID_functionPointerCast</a></div>
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

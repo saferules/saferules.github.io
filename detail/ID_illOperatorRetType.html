@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：为了便于调用者使用，并满足泛型编程的要求，重载运算符的返回类型应与内置运算符相符。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>重载运算符的返回类型应与内置运算符相符 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>重载运算符的返回类型应与内置运算符相符</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.8.2 ID_illOperatorRetType</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.function">Home</a> › <a class="nav-link" href="./ID_nonStdAssignmentRetType.html">next</a> › <a class="nav-link" href="./ID_nonVirtualOverride.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.function">目录</a> › <a class="rule-toc-link" href="./ID_nonStdAssignmentRetType.html">next</a> › <a class="rule-toc-link" href="./ID_nonVirtualOverride.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>为了便于调用者使用，并满足泛型编程的要求，重载运算符的返回类型应与内置运算符相符：</p>
@@ -33,23 +49,26 @@
 
 </ul>
 <p>示例：</p>
-<code>struct A {
+<pre><code>struct A {
     int operator &lt; (const A&amp;);   //<i> Non-compliant</i>
-};</code>
+};</code></pre>
 <p>例中重载的比较运算符返回 int 型对象，而内置比较运算符的结果为 bool 型，重载运算符的行为和内置运算符不一致会导致意料之外的错误，相关对象也可能无法被通用泛型算法接受。</p>
 
 <p>应改为：</p>
-<code>struct A {
+<pre><code>struct A {
     bool operator &lt; (const A&amp;);   //<i> Compliant</i>
-};</code>
+};</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_nonStdAssignmentRetType.html" class="related-link">ID_nonStdAssignmentRetType</a></div>
 
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

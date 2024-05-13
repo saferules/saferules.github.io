@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：非常量全局对象破坏了面向对象的封装理念，如果必须使用全局对象，应将其限定在文件范围之内。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>全局对象只应为常量或静态对象 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>全局对象只应为常量或静态对象</h1>
   <div id="subtitle">
     <div id="subtitle-id">4.10 ID_nonConstNonStaticGlobalObject</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#global">Home</a> › <a class="nav-link" href="./ID_nonConstGlobalObject.html">next</a> › <a class="nav-link" href="./ID_relyOnExternalObject.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#global">目录</a> › <a class="rule-toc-link" href="./ID_nonConstGlobalObject.html">next</a> › <a class="rule-toc-link" href="./ID_relyOnExternalObject.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>非常量全局对象破坏了面向对象的封装理念，如果必须使用全局对象，应将其限定在文件范围之内。</p>
@@ -26,22 +42,24 @@
 <p>本规则放宽了 <a href="./ID_nonConstGlobalObject.html" class="dashed-link">ID_nonConstGlobalObject</a> 的要求，对于 C++ 代码不建议选取本规则，对于 C 代码可酌情选取。</p>
 
 <p>示例：</p>
-<code>//<i> In global scope</i>
+<pre><code>//<i> In global scope</i>
 int i = 0;          //<i> Non-compliant</i>
 static int j = 0;   //<i> Let it go</i>
-const int k = 0;    //<i> Compliant</i></code>
+const int k = 0;    //<i> Compliant</i></code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_nonConstGlobalObject.html" class="related-link">ID_nonConstGlobalObject</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#i2-avoid-non-const-global-variables" target="_blank" class="related-link">C++ Core Guidelines I.2</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#cp3-minimize-explicit-sharing-of-writable-data" target="_blank" class="related-link">C++ Core Guidelines CP.3</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r6-avoid-non-const-global-variables" target="_blank" class="related-link">C++ Core Guidelines R.6</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

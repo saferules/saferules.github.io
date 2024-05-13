@@ -6,39 +6,57 @@
   <meta name="description" content="C/C++ 安全编程要点：重复的指派符（designator）会使其指定的元素被重复初始化，往往意味着笔误或复制粘贴错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>初始化列表中不应存在重复的指派符 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>初始化列表中不应存在重复的指派符</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.6.3 ID_repeatedDesignator</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.initializer">Home</a> › <a class="nav-link" href="./ID_inaccessibleTmpObject.html">next</a> › <a class="nav-link" href="./ID_missingBracedInitializer.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.initializer">目录</a> › <a class="rule-toc-link" href="./ID_inaccessibleTmpObject.html">next</a> › <a class="rule-toc-link" href="./ID_missingBracedInitializer.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>重复的指派符（designator）会使其指定的元素被重复初始化，往往意味着笔误或复制粘贴错误。</p>
 
 <p>示例：</p>
-<code>struct T { int x, y; };
+<pre><code>struct T { int x, y; };
 struct T obj = { .x = 0, .x = 1 };            //<i> Non-compliant</i>
-int arr[3] = { [0] = 0, [1] = 1, [1] = 2 };   //<i> Non-compliant</i></code>
+int arr[3] = { [0] = 0, [1] = 1, [1] = 2 };   //<i> Non-compliant</i></code></pre>
 <p>例中重复的指派符 .x 和 [1] 是没有意义的。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.7.8(6 7)
 ISO/IEC 9899:2011 6.7.9(6 7)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 9.4</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

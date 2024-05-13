@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：所有 switch 语句都配有 default 分枝是“防御性编程”思想的良好体现。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>switch 语句应配有 default 分枝 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>switch 语句应配有 default 分枝</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.5.12 ID_switch_missingDefault</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#control.switch">Home</a> › <a class="nav-link" href="./ID_switch_breakOmitted.html">next</a> › <a class="nav-link" href="./ID_switch_tooManyCases.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#control.switch">目录</a> › <a class="rule-toc-link" href="./ID_switch_breakOmitted.html">next</a> › <a class="rule-toc-link" href="./ID_switch_tooManyCases.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>所有 switch 语句都配有 default 分枝是“<a href="https://en.wikipedia.org/wiki/Defensive_programming" target="_blank" class="dashed-link">防御性编程</a>”思想的良好体现。</p>
 
 <p>示例：</p>
-<code>switch (v)
+<pre><code>switch (v)
 {
 case 0:
     ....
@@ -38,22 +54,24 @@ default:
     //<i> it’s better to log or throw an exception</i>
     break;
 }
-</code>
+</code></pre>
 <p>例外：</p>
 <p>当 switch 条件为枚举类型，且 case 标签已对应所有枚举项时，不再要求有 default 分枝。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_if_missingEndingElse.html" class="related-link">ID_if_missingEndingElse</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/478.html" target="_blank" class="related-link">CWE-478</a>
 MISRA C 2012 16.4
 MISRA C++ 2008 6-4-6
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/MSC01-C.+Strive+for+logical+completeness" target="_blank" class="related-link">SEI CERT MSC01-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

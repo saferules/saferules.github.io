@@ -6,43 +6,61 @@
   <meta name="description" content="C/C++ 安全编程要点：指针加减偏移量时会自动计入指针指向类型的大小，如果再计入 sizeof 的值，很可能是某种错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>指针加减偏移量时计入 sizeof 是可疑的 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>指针加减偏移量时计入 sizeof 是可疑的</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.7.5 ID_sizeof_suspiciousAdd</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.sizeof">Home</a> › <a class="nav-link" href="./ID_sizeof_zeroComparison.html">next</a> › <a class="nav-link" href="./ID_sizeof_pointerDivision.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.sizeof">目录</a> › <a class="rule-toc-link" href="./ID_sizeof_zeroComparison.html">next</a> › <a class="rule-toc-link" href="./ID_sizeof_pointerDivision.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>指针加减偏移量时会自动计入指针指向类型的大小，如果再计入 sizeof 的值，很可能是某种错误。</p>
 
 <p>示例：</p>
-<code>int foo(int* p, int i) {
+<pre><code>int foo(int* p, int i) {
     return *(p + i * sizeof(int));   //<i> Rather suspicious</i>
 }
-</code>
+</code></pre>
 <p>如果 foo 函数是为了获取指针 p 之后第 i 个整数的值，那么这种实现是错误的，应改为：</p>
-<code>int foo(int* p, int i) {
+<pre><code>int foo(int* p, int i) {
     return *(p + i);       //<i> Right</i>
-}</code>
+}</code></pre>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.5.6(8)
 ISO/IEC 9899:2011 6.5.6(8)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/468.html" target="_blank" class="related-link">CWE-468</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

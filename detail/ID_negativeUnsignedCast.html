@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：负数转为无符号数的适用场景有限，易导致意料之外的错误，应避免负数与无符号数的隐式转换，相关显式转换也应在合理的条件下完成。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应将负数转为无符号数 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应将负数转为无符号数</h1>
   <div id="subtitle">
     <div id="subtitle-id">12.4 ID_negativeUnsignedCast</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#cast">Home</a> › <a class="nav-link" href="./ID_voidCast.html">next</a> › <a class="nav-link" href="./ID_signChangeCast.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#cast">目录</a> › <a class="rule-toc-link" href="./ID_voidCast.html">next</a> › <a class="rule-toc-link" href="./ID_signChangeCast.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>负数转为无符号数的适用场景有限，易导致意料之外的错误，应避免负数与无符号数的隐式转换，相关显式转换也应在合理的条件下完成。</p>
@@ -26,24 +42,26 @@
 <p>本规则是 <a href="./ID_signChangeCast.html" class="dashed-link">ID_signChangeCast</a> 的特化。</p>
 
 <p>示例：</p>
-<code>size_t foo() {
+<pre><code>size_t foo() {
     if (cond) {
         return -1;   //<i> Non-compliant</i>
     }
     ....
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_signChangeCast.html" class="related-link">ID_signChangeCast</a>
 <a href="./ID_minusOnUnsigned.html" class="related-link">ID_minusOnUnsigned</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/195.html" target="_blank" class="related-link">CWE-195</a>
 MISRA C++ 2008 5-0-4</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

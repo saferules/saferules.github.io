@@ -6,58 +6,75 @@
   <meta name="description" content="C/C++ 安全编程要点：由于子表达式的求值顺序存在很多未声明的情况，在表达式中多次显式分配资源易造成资源泄露。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>在一个表达式语句中最多使用一次 new - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>在一个表达式语句中最多使用一次 new</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.17 ID_multiAllocation</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#resource">Home</a> › <a class="nav-link" href="./ID_copiedStream.html">next</a> › <a class="nav-link" href="./ID_illDealloc.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#resource">目录</a> › <a class="rule-toc-link" href="./ID_copiedStream.html">next</a> › <a class="rule-toc-link" href="./ID_illDealloc.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>由于子表达式的求值顺序存在很多未声明的情况，在表达式中多次显式分配资源易造成资源泄露。</p>
 
 <p>示例：</p>
-<code>fun(
+<pre><code>fun(
     shared_ptr&lt;T&gt;(new T),
     shared_ptr&lt;T&gt;(new T)   //<i> Non-compliant, potential memory leak</i>
-);</code>
+);</code></pre>
 <p>例中 fun 函数的两个参数均包含 new 表达式，而参数的求值顺序在标准中是未声明的，出于优化等目的，可能会先为两个 T 类对象分配内存，之后再分别执行对象的构造函数，如果某个构造函数抛出异常，已分配的内存就无法回收了。</p>
 
 <p>从 C++17 开始，参数的求值过程不再有所重叠，示例代码的问题在 C++17 后会有所缓解，但为了更广泛的适用性和兼容性，应避免在表达式中多次显式分配资源。</p>
 
 <p>应改为：</p>
-<code>shared_ptr&lt;T&gt; a{new T};   //<i> Compliant</i>
+<pre><code>shared_ptr&lt;T&gt; a{new T};   //<i> Compliant</i>
 shared_ptr&lt;T&gt; b{new T};   //<i> Compliant</i>
-fun(a, b);</code>
+fun(a, b);</code></pre>
 <p>这样即使构造函数抛出异常也会自动回收已分配的内存。</p>
 
 <p>更好的方法是避免显式资源分配，用 make_shared、make_unique 等函数代替 new 运算符：</p>
-<code>fun(
+<pre><code>fun(
     make_shared&lt;T&gt;(),
     make_shared&lt;T&gt;()    //<i> Compliant, safe and brief</i>
-);</code>
+);</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_memoryLeak.html" class="related-link">ID_memoryLeak</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 5.2.2(8)-unspecified
 ISO/IEC 14882:2011 5.2.2(8)
 ISO/IEC 14882:2017 8.2.2(5)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r13-perform-at-most-one-explicit-resource-allocation-in-a-single-expression-statement" target="_blank" class="related-link">C++ Core Guidelines R.13</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：char 类型是否有符号由实现定义，未显式声明 signed、unsigned 的 char 对象不应被当作整数使用。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>参与数值运算的 char 对象应显式声明 signed 或 unsigned - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>参与数值运算的 char 对象应显式声明 signed 或 unsigned</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.2.6 ID_plainNumericChar</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.evaluation">Home</a> › <a class="nav-link" href="./ID_excessiveCharSign.html">next</a> › <a class="nav-link" href="./ID_illEnumOperation.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.evaluation">目录</a> › <a class="rule-toc-link" href="./ID_excessiveCharSign.html">next</a> › <a class="rule-toc-link" href="./ID_illEnumOperation.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>char 类型是否有符号由实现定义，未显式声明 signed、unsigned 的 char 对象不应被当作整数使用。</p>
@@ -28,36 +44,37 @@
 <p>虽然字符类型由整数类型实现，但应分清各自的职责，混用不利于阅读和维护，char、wchar_t、char16_t、char32_t 均不应被当作整数使用。</p>
 
 <p>示例：</p>
-<code>int foo(char c) {     //<i> Compliant</i>
+<pre><code>int foo(char c) {     //<i> Compliant</i>
     return c == &#x27;a&#x27;;
 }
 
 int bar(char c) {     //<i> Non-compliant</i>
     return c &gt;= 0;    //<i> May be always true</i>
-}</code>
+}</code></pre>
 <p>例中 foo 函数的 char 型参数只与字符有关，可不必声明符号属性，而 bar 函数的参数被当作整数参与了比较运算，应显式声明 signed，否则在 char 为无符号整型的环境中会得到错误的结果。</p>
 
 <p>应改为：</p>
-<code>int bar(signed char c) {   //<i> Compliant</i>
+<pre><code>int bar(signed char c) {   //<i> Compliant</i>
     return c &gt;= 0;
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_excessiveCharSign.html" class="related-link">ID_excessiveCharSign</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.2.5(3 15)-implementation
 ISO/IEC 9899:2011 6.2.5(3 15)-implementation
 ISO/IEC 14882:2003 3.9.1(1)-implementation
 ISO/IEC 14882:2011 3.9.1(1)-implementation</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C++ 2008 5-0-11
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/INT07-C.+Use+only+explicitly+signed+or+unsigned+char+type+for+numeric+values" target="_blank" class="related-link">SEI CERT INT07-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

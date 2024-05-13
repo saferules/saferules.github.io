@@ -6,19 +6,36 @@
   <meta name="description" content="C++ undefined behavior: 在分配空间后，生命周期开始前，或在生命周期结束后，回收空间前，通过 glvalue 访问对象" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
   <title>在分配空间后，生命周期开始前，或在生命周期结束后，回收空间前，通过 glvalue 访问对象 - C++ undefined behavior</title>
 </head>
+
+<div class="footer-holder">
+<nav>
+<ul class="nav-list">
+  <li><span class="nav-icon">☰</span></li>
+  <li><a href="../../index.html">首页</a></li>
+  <li><a href="../../index.html#rules-class-title">规则分类</a></li>
+  <li><a href="../introduction.html">项目介绍</a></li>
+</ul>
+<div class="nav-stuff"></div>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+  <img alt="search" id="search-icon" src="../../img/search.svg" onclick="onClickSearchIcon(this)"/>
+</div>
+<span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>在分配空间后，生命周期开始前，或在生命周期结束后，回收空间前，通过 glvalue 访问对象</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-20</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-21.html">next</a> › <a class="nav-link" href="./cpp-ub-19.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../cpp-ub-list.html">目录</a> › <a class="rule-toc-link" href="./cpp-ub-21.html">next</a> › <a class="rule-toc-link" href="./cpp-ub-19.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>在对象的生命周期之外，通过 glvalue 进行如下操作会导致未定义的行为：</p>
@@ -32,7 +49,7 @@
 
 </ul>
 <p>示例：</p>
-<code>struct B { void foo(); };
+<pre><code>struct B { void foo(); };
 struct D: B { .... };
 
 void B::foo() {
@@ -44,15 +61,18 @@ void bar(B&amp; b) {
     if (typeid(b) == ....) {   //<i> Undefined behavior</i>
         ....
     }
-}</code>
+}</code></pre>
 <p>例中 b.foo 执行后 b 的生命周期结束，之后再对 b 的访问会导致未定义的行为。</p>
 
 </main>
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 3.8(6)-undefined
 ISO/IEC 14882:2011 3.8(6)-undefined</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

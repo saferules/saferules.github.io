@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：紧邻 default 标签的空 case 标签是没有意义的，应当去除。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应存在紧邻 default 标签的空 case 标签 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应存在紧邻 default 标签的空 case 标签</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.5.6 ID_switch_uselessFallThrough</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#control.switch">Home</a> › <a class="nav-link" href="./ID_switch_identicalBranch.html">next</a> › <a class="nav-link" href="./ID_switch_badFormedCase.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#control.switch">目录</a> › <a class="rule-toc-link" href="./ID_switch_identicalBranch.html">next</a> › <a class="rule-toc-link" href="./ID_switch_badFormedCase.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>紧邻 default 标签的空 case 标签是没有意义的，应当去除。</p>
 
 <p>示例：</p>
-<code>switch (v)
+<pre><code>switch (v)
 {
 case 0:     //<i> Compliant</i>
     ....
@@ -36,9 +52,9 @@ case 2:     //<i> Non-compliant</i>
     ....
     break;
 }
-</code>
+</code></pre>
 <p>应改为：</p>
-<code>switch (v)
+<pre><code>switch (v)
 {
 case 0:     //<i> Compliant</i>
     ....
@@ -47,7 +63,7 @@ case 0:     //<i> Compliant</i>
 default:    //<i> Compliant</i>
     ....
     break;
-}</code>
+}</code></pre>
 
 </main>
 
@@ -55,4 +71,8 @@ default:    //<i> Compliant</i>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

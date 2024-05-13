@@ -6,59 +6,75 @@
   <meta name="description" content="C/C++ 安全编程要点：对于 memset、memcpy、memmove、memcmp 及同类函数，表示长度的参数不应存在常见笔误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>memset 等函数长度相关的参数不应有误 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>memset 等函数长度相关的参数不应有误</h1>
   <div id="subtitle">
     <div id="subtitle-id">13.5 ID_badLength</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#buffer">Home</a> › <a class="nav-link" href="./ID_valueOverflow.html">next</a> › <a class="nav-link" href="./ID_nonPODFilling.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#buffer">目录</a> › <a class="rule-toc-link" href="./ID_valueOverflow.html">next</a> › <a class="rule-toc-link" href="./ID_nonPODFilling.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>对于 memset、memcpy、memmove、memcmp 及同类函数，表示长度的参数不应存在常见笔误。</p>
 
 <p>示例：</p>
-<code>char buf[1024];
-memset(buf, 1024, 0);  //<i> Non-compliant</i></code>
+<pre><code>char buf[1024];
+memset(buf, 1024, 0);  //<i> Non-compliant</i></code></pre>
 <p>长度和填充值参数被写反是常见笔误，应改为：</p>
-<code>memset(buf, 0, 1024);  //<i> Compliant</i>
-</code>
+<pre><code>memset(buf, 0, 1024);  //<i> Compliant</i>
+</code></pre>
 <p>又如：</p>
-<code>int arr[1024];
+<pre><code>int arr[1024];
 memset(buf, 0, 1024);  //<i> Rather suspicious</i>
-memset(buf, 1, 123);   //<i> Non-compliant</i></code>
+memset(buf, 1, 123);   //<i> Non-compliant</i></code></pre>
 <p>memset 等函数的长度单位为字节，不应遗漏 sizeof 因子，应改为：</p>
-<code>memset(buf, 0, 1024 * sizeof(int));  //<i> Compliant</i>
+<pre><code>memset(buf, 0, 1024 * sizeof(int));  //<i> Compliant</i>
 memset(buf, 1, 123 * sizeof(int));   //<i> Compliant</i>
-</code>
+</code></pre>
 <p>又如（设 p 为对象指针）：</p>
-<code>memset(p, 0, sizeof(p));   //<i> Non-compliant</i></code>
+<pre><code>memset(p, 0, sizeof(p));   //<i> Non-compliant</i></code></pre>
 <p>应改为：</p>
-<code>memset(p, 0, sizeof(*p));  //<i> Compliant</i></code>
+<pre><code>memset(p, 0, sizeof(*p));  //<i> Compliant</i></code></pre>
 <p>sizeof 作用于指针并不能获取到对象的大小，可参见 <a href="./ID_sizeof_pointer.html" class="dashed-link">ID_sizeof_pointer</a> 的进一步讨论。</p>
 
 <p>又如（设 a、b 是对象）：</p>
-<code>memset(&amp;a, 0, sizeof(&amp;a));   //<i> Non-compliant</i>
-memcpy(&amp;a, &amp;b, sizeof(&amp;a));  //<i> Non-compliant</i></code>
+<pre><code>memset(&amp;a, 0, sizeof(&amp;a));   //<i> Non-compliant</i>
+memcpy(&amp;a, &amp;b, sizeof(&amp;a));  //<i> Non-compliant</i></code></pre>
 <p>应改为：</p>
-<code>memset(&amp;a, 0, sizeof(a));    //<i> Compliant</i>
-memcpy(&amp;a, &amp;b, sizeof(a));   //<i> Compliant</i></code>
+<pre><code>memset(&amp;a, 0, sizeof(a));    //<i> Compliant</i>
+memcpy(&amp;a, &amp;b, sizeof(a));   //<i> Compliant</i></code></pre>
 <p>这是常见的复制粘贴错误。</p>
 
 <p>又如：</p>
-<code>if (memcmp(&amp;a, &amp;b, sizeof(a) != 0)) {  //<i> Non-compliant</i>
+<pre><code>if (memcmp(&amp;a, &amp;b, sizeof(a) != 0)) {  //<i> Non-compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>长度参数不应为比较表达式，应改为：</p>
-<code>if (memcmp(&amp;a, &amp;b, sizeof(a)) != 0) {  //<i> Compliant</i>
+<pre><code>if (memcmp(&amp;a, &amp;b, sizeof(a)) != 0) {  //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>括号的错误嵌套也是常见的笔误。</p>
 
 </main>
@@ -66,8 +82,11 @@ memcpy(&amp;a, &amp;b, sizeof(a));   //<i> Compliant</i></code>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/130.html" target="_blank" class="related-link">CWE-130</a>
 <a href="https://cwe.mitre.org/data/definitions/805.html" target="_blank" class="related-link">CWE-805</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

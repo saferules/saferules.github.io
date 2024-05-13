@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：对象的动态类型在其构造过程中不生效。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>在构造函数中不应使用动态类型 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>在构造函数中不应使用动态类型</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.14 ID_virtualCallInConstructor</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_virtualCallInDestructor.html">next</a> › <a class="nav-link" href="./ID_disorderedInitialization.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_virtualCallInDestructor.html">next</a> › <a class="rule-toc-link" href="./ID_disorderedInitialization.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>对象的动态类型在其构造过程中不生效。</p>
@@ -35,7 +51,7 @@
 <p>注意，如果在构造函数中调用未实现的纯虚函数会导致标准未定义的行为。</p>
 
 <p>示例：</p>
-<code>struct A {
+<pre><code>struct A {
     int tag;
     A();
     virtual ~A() = default;
@@ -52,21 +68,23 @@ A::A() {
     }
 }
 
-B b;  //<i> ‘b.tag’ is 1</i></code>
+B b;  //<i> ‘b.tag’ is 1</i></code></pre>
 <p>在基类 A 的构造函数中判断动态类型是无效的。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 10.4(6)-undefined
 ISO/IEC 14882:2011 10.4(6)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c82-dont-call-virtual-functions-in-constructors-and-destructors" target="_blank" class="related-link">C++ Core Guidelines C.82</a>
 MISRA C++ 2008 12-1-1
 Effective C++ item 9</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

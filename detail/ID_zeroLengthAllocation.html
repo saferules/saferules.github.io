@@ -6,38 +6,54 @@
   <meta name="description" content="C/C++ 安全编程要点：当申请分配的内存空间大小为 0 时，malloc、calloc、realloc 等函数的行为是由实现定义的。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免分配大小为零的内存空间 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免分配大小为零的内存空间</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.23 ID_zeroLengthAllocation</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#resource">Home</a> › <a class="nav-link" href="./ID_dynamicAllocation.html">next</a> › <a class="nav-link" href="./ID_unnecessaryAllocation.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#resource">目录</a> › <a class="rule-toc-link" href="./ID_dynamicAllocation.html">next</a> › <a class="rule-toc-link" href="./ID_unnecessaryAllocation.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>当申请分配的内存空间大小为 0 时，malloc、calloc、realloc 等函数的行为是由实现定义的。</p>
 
 <p>示例：</p>
-<code>int n = user_input();
+<pre><code>int n = user_input();
 if (n &gt;= 0) {
     int* p = (int*)malloc(n * sizeof(int));   //<i> Non-compliant</i>
     if (p == NULL)
         log(&quot;Required too much memory&quot;);   //<i> ‘n’ may also be zero</i>
     else
         ....
-}</code>
+}</code></pre>
 <p>当例中 n 为 0 时，malloc 可能会分配元素个数为 0 的数组，也可能会返回空指针。</p>
 
 <p>又如：</p>
-<code>int* p = (int*)malloc(n * sizeof(int));
+<pre><code>int* p = (int*)malloc(n * sizeof(int));
 ....
-realloc(p, 0);   //<i> Non-compliant, use free(p) instead</i></code>
+realloc(p, 0);   //<i> Non-compliant, use free(p) instead</i></code></pre>
 <p>C90 规定当 realloc 函数的长度参数为 0 时会释放内存，与 free(p) 相同，但在后续标准中废弃了这一特性，不应继续使用。</p>
 
 <p>这种情况下 C++ 语言的 new 运算符会分配元素个数为 0 的数组，但这种数组往往没有实际价值，而且要注意，在 C 和 C++ 语言中元素个数为 0 的数组也需要被释放。</p>
@@ -46,7 +62,6 @@ realloc(p, 0);   //<i> Non-compliant, use free(p) instead</i></code>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1990 7.10.3.4
 ISO/IEC 9899:1999 7.20.3(1)-implementation
 ISO/IEC 9899:2011 7.22.3(1)-implementation
@@ -54,7 +69,10 @@ ISO/IEC 14882:2003 5.3.4(7)
 ISO/IEC 14882:2011 5.3.4(7)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/c/MEM04-C.+Beware+of+zero-length+allocations" target="_blank" class="related-link">SEI CERT MEM04-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

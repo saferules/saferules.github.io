@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：头文件中由 static 关键字声明的对象、数组或函数，会在每个包含该头文件的翻译单元或模块中生成副本造成数据冗余，如果将静态数据误用作全局数据也会造成逻辑错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应在头文件中使用静态声明 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应在头文件中使用静态声明</h1>
   <div id="subtitle">
     <div id="subtitle-id">4.5 ID_staticInHeader</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#global">Home</a> › <a class="nav-link" href="./ID_anonymousNamespaceInHeader.html">next</a> › <a class="nav-link" href="./ID_usingNamespaceInHeader.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#global">目录</a> › <a class="rule-toc-link" href="./ID_anonymousNamespaceInHeader.html">next</a> › <a class="rule-toc-link" href="./ID_usingNamespaceInHeader.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>头文件中由 static 关键字声明的对象、数组或函数，会在每个包含该头文件的翻译单元或模块中生成副本造成数据冗余，如果将静态数据误用作全局数据也会造成逻辑错误。</p>
@@ -26,24 +42,24 @@
 <p>类的静态成员不受本规则限制。</p>
 
 <p>示例：</p>
-<code>//<i> In a header file</i>
+<pre><code>//<i> In a header file</i>
 static int i = 0;    //<i> Non-compliant</i>
 
 static int foo() {   //<i> Non-compliant</i>
     return i;
-}</code>
+}</code></pre>
 <p>在编译每个包含该头文件的源文件时，变量 i 和函数 foo 都会生成不必要的副本。</p>
 
 <p>在头文件中实现的内联或模板函数中，也不应使用静态声明，如：</p>
-<code>//<i> In a header file</i>
+<pre><code>//<i> In a header file</i>
 inline void bar() {
     static Type obj;   //<i> Non-compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>如果该头文件被不同的模块（so、dll、exe）包含，obj 对象会生成不同的副本，很可能造成逻辑错误。</p>
 
 <p>另外，由 const 或 constexpr 关键字限定的常量也具有静态数据的特性，在头文件中定义常量也面对这种问题，基本类型的常量经过编译优化可以不占用存储空间（有取地址操作的除外），而对于非基本类型的常量对象或数组也不应在头文件中定义，建议采用单件模式，将其数据定义在 cpp 等源文件中，在头文件中定义访问这些数据的接口，如：</p>
-<code>//<i> In arr.h</i>
+<pre><code>//<i> In arr.h</i>
 using Arr = int[256];
 const Arr&amp; getArr();
 
@@ -55,17 +71,15 @@ const Arr&amp; getArr() {
         1, 2, 3, ....
     };
     return a;
-}</code>
+}</code></pre>
 <p>在需要用到常量数组的地方调用 getArr 函数，即可获取该数组的引用，没有任何重复的数据产生，并可保证数组在使用之前被有效初始化。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_unsuitableDeclaration.html" class="related-link">ID_unsuitableDeclaration</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.2.2(3)
 ISO/IEC 9899:2011 6.2.2(3)
 ISO/IEC 14882:2003 3.5(3)
@@ -73,4 +87,8 @@ ISO/IEC 14882:2011 3.5(3)</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

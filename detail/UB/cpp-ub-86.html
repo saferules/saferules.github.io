@@ -6,25 +6,42 @@
   <meta name="description" content="C++ undefined behavior: 多线程调用标准库函数造成数据竞争" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
   <title>多线程调用标准库函数造成数据竞争 - C++ undefined behavior</title>
 </head>
+
+<div class="footer-holder">
+<nav>
+<ul class="nav-list">
+  <li><span class="nav-icon">☰</span></li>
+  <li><a href="../../index.html">首页</a></li>
+  <li><a href="../../index.html#rules-class-title">规则分类</a></li>
+  <li><a href="../introduction.html">项目介绍</a></li>
+</ul>
+<div class="nav-stuff"></div>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+  <img alt="search" id="search-icon" src="../../img/search.svg" onclick="onClickSearchIcon(this)"/>
+</div>
+<span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>多线程调用标准库函数造成数据竞争</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-86</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-87.html">next</a> › <a class="nav-link" href="./cpp-ub-85.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../cpp-ub-list.html">目录</a> › <a class="rule-toc-link" href="./cpp-ub-87.html">next</a> › <a class="rule-toc-link" href="./cpp-ub-85.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>某些库函数与共享数据相关，但并未提供安全的同步机制，在多线程环境中使用会导致未定义的行为。</p>
 
 <p>示例：</p>
-<code>void foo() {
+<pre><code>void foo() {
     while (true) {
         auto r = rand();   //<i> Undefined behavior</i>
         ....
@@ -34,17 +51,19 @@
 int main() {
     thread t0(foo), t1(foo);
     ....
-}</code>
+}</code></pre>
 <p>多线程并发调用 rand、srand 等函数会造成数据竞争，导致未定义的行为。</p>
 
 </main>
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2011 17.6.4.10(1)-undefined</div>
 
 <h3>规则</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="../ID_dataRaces.html" class="related-link">ID_dataRaces</a></div>
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

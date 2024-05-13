@@ -6,42 +6,58 @@
   <meta name="description" content="C/C++ 安全编程要点：对象与超出其类型取值范围的值比较，或与取值范围的边界进行无意义的比较属于逻辑错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>参与比较的对象之间应具备合理的大小关系 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>参与比较的对象之间应具备合理的大小关系</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.5.1 ID_illComparison</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.comparison">Home</a> › <a class="nav-link" href="./ID_illFloatComparison.html">next</a> › <a class="nav-link" href="./ID_assignmentAsSubExpression.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.comparison">目录</a> › <a class="rule-toc-link" href="./ID_illFloatComparison.html">next</a> › <a class="rule-toc-link" href="./ID_assignmentAsSubExpression.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>对象与超出其类型取值范围的值比较，或与取值范围的边界进行无意义的比较属于逻辑错误。</p>
 
 <p>示例：</p>
-<code>void foo(string&amp; txt, string&amp; sub) {
+<pre><code>void foo(string&amp; txt, string&amp; sub) {
     size_t n = txt.find(sub);
     if (n &gt;= 0) {               //<i> Non-compliant, always true</i>
         ....
     }
-}</code>
+}</code></pre>
 <p>例中 n 为无符号变量，一定大于或等于 0，n &gt;= 0 是无意义的比较，也是一种常见笔误。</p>
 
 <p>又如：</p>
-<code>void bar(uint16_t x) {
+<pre><code>void bar(uint16_t x) {
     if (x == -1) {      //<i> Non-compliant, always false</i>
         ....
     }
-}</code>
+}</code></pre>
 <p>例中 x 为 16 位无符号变量，其取值范围为 [0, 65535]，x == -1 恒为假。由于“<a href="https://en.cppreference.com/w/c/language/conversion#Integer_promotions" target="_blank" class="dashed-link">类型提升</a>”，x 可以被转为 int 型再与 -1 比较，x 恒为正数而 -1 为负数，故不可能相等。</p>
 
 <p>对于有符号字符型变量，与其比较的数值不在 [-128, 127] 范围内时，也是无效的：</p>
-<code>CodePage encodingDetect(const char* src) {
+<pre><code>CodePage encodingDetect(const char* src) {
     char b0 = src[0];
     char b1 = src[1];
     char b2 = src[2];
@@ -49,20 +65,22 @@
         return cpUtf8;
     }
     ....
-}</code>
+}</code></pre>
 <p>即使例中 b0 的二进制绝对值确实为 0xef，但由于类型提升，b0 转为 int 型后为负数，0xef 为正数，比较的结果恒为假。char 型变量是否有符号由实现定义，可参见 <a href="./ID_plainNumericChar.html" class="dashed-link">ID_plainNumericChar</a> 的进一步说明，将 b0 等变量设为 unsigned char 可解决这个问题。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_switch_caseOutOfRange.html" class="related-link">ID_switch_caseOutOfRange</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/697.html" target="_blank" class="related-link">CWE-697</a>
 <a href="https://cwe.mitre.org/data/definitions/1024.html" target="_blank" class="related-link">CWE-1024</a>
 <a href="https://cwe.mitre.org/data/definitions/1025.html" target="_blank" class="related-link">CWE-1025</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

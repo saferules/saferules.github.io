@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：如果构造函数的参数不是同类对象的左值引用，则不构成拷贝构造函数，拷贝构造函数不应具备复制之外的功能，故其参数不应被修改，应受 const 关键字限制。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>拷贝构造函数的参数应为同类对象的 const 左值引用 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>拷贝构造函数的参数应为同类对象的 const 左值引用</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.8.4 ID_illCopyConstructorParam</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.function">Home</a> › <a class="nav-link" href="./ID_nonStdCopyAssignmentParam.html">next</a> › <a class="nav-link" href="./ID_nonStdAssignmentRetType.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.function">目录</a> › <a class="rule-toc-link" href="./ID_nonStdCopyAssignmentParam.html">next</a> › <a class="rule-toc-link" href="./ID_nonStdAssignmentRetType.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>如果构造函数的参数不是同类对象的左值引用，则不构成拷贝构造函数，拷贝构造函数不应具备复制之外的功能，故其参数不应被修改，应受 const 关键字限制。</p>
@@ -26,21 +42,20 @@
 <p>拷贝构造函数可能会被优化而导致复制之外的功能不生效，可参见 <a href="./ID_sideEffectCopyConstructor.html" class="dashed-link">ID_sideEffectCopyConstructor</a> 的进一步讨论。</p>
 
 <p>示例：</p>
-<code>struct A {
+<pre><code>struct A {
     A(A);    //<i> Non-compliant, logic and compile error</i>
     A(A&amp;);   //<i> Non-compliant, missing ‘const’</i>
-};</code>
+};</code></pre>
 <p>拷贝构造函数不可按值传递参数，否则会再次调用拷贝构造函数，从而陷入无限递归。</p>
 
 <p>应改为：</p>
-<code>struct A {
+<pre><code>struct A {
     A(const A&amp;);   //<i> Compliant</i>
-};</code>
+};</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_sideEffectCopyConstructor.html" class="related-link">ID_sideEffectCopyConstructor</a>
 <a href="./ID_nonStdCopyAssignmentParam.html" class="related-link">ID_nonStdCopyAssignmentParam</a>
 <a href="./ID_nonConstUnmodified.html" class="related-link">ID_nonConstUnmodified</a></div>
@@ -48,4 +63,8 @@
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：统一的代码编写风格有利于相关人员按统一的方式理解和维护代码，避免各种偏差，也有利于排查问题，并增强协作开发效率。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>遵循统一的代码编写风格 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>遵循统一的代码编写风格</h1>
   <div id="subtitle">
     <div id="subtitle-id">17.1 ID_inconsistentStyle</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#style">Home</a> › <a class="nav-link" href="./ID_inconsistentNaming.html">next</a> › <a class="nav-link" href="./ID_signalInMultiThreading.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#style">目录</a> › <a class="rule-toc-link" href="./ID_inconsistentNaming.html">next</a> › <a class="rule-toc-link" href="./ID_signalInMultiThreading.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>统一的代码编写风格有利于相关人员按统一的方式理解和维护代码，避免各种偏差，也有利于排查问题，并增强协作开发效率。</p>
@@ -26,7 +42,7 @@
 <p>软件项目应至少对命名、注释、换行、缩进、空格的风格制定明确规范，可参见相关规则的进一步讨论。</p>
 
 <p>示例：</p>
-<code>enum E {
+<pre><code>enum E {
     e0 = 0XAB, e1 = 0xcd   //<i> Inconsistent</i>
 };
 
@@ -34,13 +50,12 @@ void foo(E x, E y) {
     if (x == e0 &amp;&amp; e1 == y) {   //<i> Inconsistent</i>
         ....
     }
-}</code>
+}</code></pre>
 <p>例中 16 进制常量大小写应统一，常量与变量比较时，常量也最好出现在运算符的同一侧。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_inconsistentNaming.html" class="related-link">ID_inconsistentNaming</a>
 <a href="./ID_inconsistentIndent.html" class="related-link">ID_inconsistentIndent</a>
 <a href="./ID_spaceStyle.html" class="related-link">ID_spaceStyle</a>
@@ -49,7 +64,10 @@ void foo(E x, E y) {
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/1078.html" target="_blank" class="related-link">CWE-1078</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

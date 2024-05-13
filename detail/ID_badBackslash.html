@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：反斜杠可用于标识转义字符，也可用于实现“伪换行”，即代码换行显示但在语法上并没有换行，一般用于宏定义，除此之外不应再使用反斜杠，否则没有实际意义，也会造成混乱。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>除转义字符、宏定义之外不应使用反斜杠 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>除转义字符、宏定义之外不应使用反斜杠</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.7.3 ID_badBackslash</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.other">Home</a> › <a class="nav-link" href="./ID_nameTooShort.html">next</a> › <a class="nav-link" href="./ID_forbidDigraphs.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#precompile.other">目录</a> › <a class="rule-toc-link" href="./ID_nameTooShort.html">next</a> › <a class="rule-toc-link" href="./ID_forbidDigraphs.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>反斜杠可用于标识转义字符，也可用于实现“伪换行”，即代码换行显示但在语法上并没有换行，一般用于宏定义，除此之外不应再使用反斜杠，否则没有实际意义，也会造成混乱。</p>
 
 <p>示例：</p>
-<code>#define M(x, y) if(x) {\    //<i> Compliant</i>
+<pre><code>#define M(x, y) if(x) {\    //<i> Compliant</i>
     foo(y);\                //<i> Compliant</i>
 }
 
@@ -41,23 +57,25 @@ c = 123;
 void bar() {
     // comment  \           //<i> Non-compliant, The next line is also commented out</i>
     do_something();
-}</code>
+}</code></pre>
 <p>如果“universal character name”被反斜杠截断会导致标准未定义的行为，如：</p>
-<code>const char* s = &quot;\u4e\      //<i> Non-compliant, undefined behavior</i>
-2d&quot;;</code>
+<pre><code>const char* s = &quot;\u4e\      //<i> Non-compliant, undefined behavior</i>
+2d&quot;;</code></pre>
 <p>应去掉反斜杠：</p>
-<code>const char* s = &quot;\u4e2d&quot;;   //<i> Compliant</i></code>
+<pre><code>const char* s = &quot;\u4e2d&quot;;   //<i> Compliant</i></code></pre>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 2.1(1)-undefined
 ISO/IEC 14882:2011 2.2(1)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 3.2</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

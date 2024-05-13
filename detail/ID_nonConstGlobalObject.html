@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：非常量全局对象对外部的读写没有限制，破坏了面向对象的封装理念，不利于维护。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>全局对象只应为常量 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>全局对象只应为常量</h1>
   <div id="subtitle">
     <div id="subtitle-id">4.11 ID_nonConstGlobalObject</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#global">Home</a> › <a class="nav-link" href="./ID_staticAndConst.html">next</a> › <a class="nav-link" href="./ID_nonConstNonStaticGlobalObject.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#global">目录</a> › <a class="rule-toc-link" href="./ID_staticAndConst.html">next</a> › <a class="rule-toc-link" href="./ID_nonConstNonStaticGlobalObject.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>非常量全局对象对外部的读写没有限制，破坏了面向对象的封装理念，不利于维护。</p>
@@ -28,16 +44,16 @@
 <p>进一步讨论可参见 <a href="./ID_nonPrivateData.html" class="dashed-link">ID_nonPrivateData</a>、<a href="./ID_relyOnExternalObject.html" class="dashed-link">ID_relyOnExternalObject</a>。</p>
 
 <p>示例：</p>
-<code>char foo;               //<i> Non-compliant</i>
+<pre><code>char foo;               //<i> Non-compliant</i>
 extern char bar;        //<i> Non-compliant, worse</i>
 const char baz = &#x27;c&#x27;;   //<i> Compliant</i>
 
 void fun() {
     do_something(foo, bar);
 }
-</code>
+</code></pre>
 <p>应将全局对象和相关函数封装成类：</p>
-<code>class A {
+<pre><code>class A {
     char foo;   //<i> Compliant</i>
     char bar;   //<i> Compliant</i>
 public:
@@ -45,29 +61,30 @@ public:
         do_something(foo, bar);
     }
 };
-</code>
+</code></pre>
 <p>如果变量 foo、bar 确有全局意义，多个模块都需要访问，不妨将其单件化：</p>
-<code>A&amp; getGlobal() {
+<pre><code>A&amp; getGlobal() {
     static A obj;
     return obj;     //<i> The object must be initialized before returning</i>
-}</code>
+}</code></pre>
 <p>用 getGlobal 函数获取对象，再由其成员函数对数据进行读写，有效实现封装理念，而且可以保证对象在使用之前已被初始化。</p>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">onlyConstBasicTypeAllowed: 是否只允许基本类型的常量作为全局对象</div>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_nonPrivateData.html" class="related-link">ID_nonPrivateData</a>
 <a href="./ID_relyOnExternalObject.html" class="related-link">ID_relyOnExternalObject</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#i2-avoid-non-const-global-variables" target="_blank" class="related-link">C++ Core Guidelines I.2</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#cp3-minimize-explicit-sharing-of-writable-data" target="_blank" class="related-link">C++ Core Guidelines CP.3</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r6-avoid-non-const-global-variables" target="_blank" class="related-link">C++ Core Guidelines R.6</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

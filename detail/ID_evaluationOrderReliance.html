@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：依赖未声明的求值顺序会导致意料之外的错误，也会降低代码的可移植性。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不可依赖未声明的求值顺序 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不可依赖未声明的求值顺序</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.2.2 ID_evaluationOrderReliance</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.evaluation">Home</a> › <a class="nav-link" href="./ID_confusingAssignment.html">next</a> › <a class="nav-link" href="./ID_unevaluatedSideEffect.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.evaluation">目录</a> › <a class="rule-toc-link" href="./ID_confusingAssignment.html">next</a> › <a class="rule-toc-link" href="./ID_unevaluatedSideEffect.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>依赖未声明的求值顺序会导致意料之外的错误，也会降低代码的可移植性。</p>
@@ -28,38 +44,39 @@
 <p>C++ 标准与 C 标准大致相同，C++17 明确了赋值、移位、数组下标等表达式的求值顺序，详见“<a href="https://en.cppreference.com/w/cpp/language/eval_order" target="_blank" class="dashed-link">C++ 求值顺序</a>”。</p>
 
 <p>示例：</p>
-<code>Stack s {1, 2, 3};      //<i> A stack, the top is 1</i>
+<pre><code>Stack s {1, 2, 3};      //<i> A stack, the top is 1</i>
 int pop(void);          //<i> Pop and return the top element from the stack</i>
-int x = pop() - pop();  //<i> Non-compliant</i></code>
+int x = pop() - pop();  //<i> Non-compliant</i></code></pre>
 <p>设 pop 函数弹出并返回栈顶元素，减号左右的两个 pop 函数哪个先执行呢？这是标准未声明的，x 的值可以是 1 - 2，也可以是 2 - 1，所以不可臆断或依赖这种未声明的求值顺序。</p>
 
 <p>应改为：</p>
-<code>int a = pop();
+<pre><code>int a = pop();
 int b = pop();
-x = a - b;      //<i> Compliant, or ‘b - a’, depends on your needs</i></code>
+x = a - b;      //<i> Compliant, or ‘b - a’, depends on your needs</i></code></pre>
 <p>这样便明确了 x 的值为 1 - 2。</p>
 
 <p>又如：</p>
-<code>fun(pop(), pop());  //<i> Non-compliant</i></code>
+<pre><code>fun(pop(), pop());  //<i> Non-compliant</i></code></pre>
 <p>设 fun 是函数名称或获取函数指针的表达式，标准规定 fun 会先于参数求值，但参数之间的求值顺序是未声明的。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_confusingAssignment.html" class="related-link">ID_confusingAssignment</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 5.1.2.3(2)
 ISO/IEC 9899:1999 Annex C
 ISO/IEC 9899:2011 5.1.2.3(3)
 ISO/IEC 9899:2011 Annex C</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es43-avoid-expressions-with-undefined-order-of-evaluation" target="_blank" class="related-link">C++ Core Guidelines ES.43</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es44-dont-depend-on-order-of-evaluation-of-function-arguments" target="_blank" class="related-link">C++ Core Guidelines ES.44</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP10-C.+Do+not+depend+on+the+order+of+evaluation+of+subexpressions+or+the+order+in+which+side+effects+take+place" target="_blank" class="related-link">SEI CERT EXP10-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

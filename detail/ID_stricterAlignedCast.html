@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：访问不符合对齐要求的数据会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免向对齐要求更严格的指针转换 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免向对齐要求更严格的指针转换</h1>
   <div id="subtitle">
     <div id="subtitle-id">12.13 ID_stricterAlignedCast</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#cast">Home</a> › <a class="nav-link" href="./ID_arrayPointerCast.html">next</a> › <a class="nav-link" href="./ID_charWCharCast.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#cast">目录</a> › <a class="rule-toc-link" href="./ID_arrayPointerCast.html">next</a> › <a class="rule-toc-link" href="./ID_charWCharCast.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>访问不符合对齐要求的数据会导致标准未定义的行为。</p>
@@ -28,40 +44,41 @@
 <p>每种对象类型都有一个“<a href="https://en.cppreference.com/w/c/language/object#Alignment" target="_blank" class="dashed-link">对齐要求（alignment requirement）</a>”，一般来说占用空间越大的类型，对齐要求越严格，如 char 对象可以存储在任意地址，而 int 对象的地址只应是 sizeof(int) 的整数倍，所以解引用由 char 指针转换成的 int 指针很可能会造成“<a href="https://en.wikipedia.org/wiki/Bus_error#Unaligned_access" target="_blank" class="dashed-link">unaligned access</a>”。</p>
 
 <p>示例：</p>
-<code>void foo(unsigned char* p) {
+<pre><code>void foo(unsigned char* p) {
     char c = *(char*)p;            //<i> Compliant</i>
     long n = *(long*)(p + 1);      //<i> Non-compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>二进制数据转向结构化数据时，这种问题较为常见，例中 p + 1 与 long 型变量的对齐要求不同，不应直接转换。</p>
 
 <p>应改为：</p>
-<code>void foo(unsigned char* p) {
+<pre><code>void foo(unsigned char* p) {
     char c = *(char*)p;            //<i> Compliant</i>
     long n;
     memcpy(&amp;n, p + 1, sizeof(n));  //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>用 memcpy 等函数将低对齐要求的数据复制到高对齐要求的对象中，是避免相关问题的通用模式。</p>
 
 <p>例外：</p>
-<code>alignas(long) short a[32];
-long* p = (long*)a;          //<i> Compliant</i></code>
+<pre><code>alignas(long) short a[32];
+long* p = (long*)a;          //<i> Compliant</i></code></pre>
 <p>如果源类型的对齐声明与目标类型相符可不受本规则限制。另外，malloc、calloc 等函数的返回值已具备通用对齐要求，也不受本规则限制。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_castNoInheritance.html" class="related-link">ID_castNoInheritance</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.3.2.3(7)-undefined
 ISO/IEC 9899:2011 6.3.2.3(7)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP36-C.+Do+not+cast+pointers+into+more+strictly+aligned+pointer+types" target="_blank" class="related-link">SEI CERT EXP36-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

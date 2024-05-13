@@ -6,47 +6,65 @@
   <meta name="description" content="C/C++ 安全编程要点：宏用于文本处理，不受作用域、参数传递、重载等语言规则限制，且难以调试，可由函数实现的功能不应使用宏实现。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>可由函数实现的功能不应使用宏实现 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>可由函数实现的功能不应使用宏实现</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.2.10 ID_macro_function</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.macro-definition">Home</a> › <a class="nav-link" href="./ID_macro_redefined.html">next</a> › <a class="nav-link" href="./ID_macro_typeid.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#precompile.macro-definition">目录</a> › <a class="rule-toc-link" href="./ID_macro_redefined.html">next</a> › <a class="rule-toc-link" href="./ID_macro_typeid.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>宏用于文本处理，不受作用域、参数传递、重载等语言规则限制，且难以调试，可由函数实现的功能不应使用宏实现。</p>
 
 <p>示例：</p>
-<code>#define SUM(a, b) ((a) + (b))            //<i> Non-compliant</i>
+<pre><code>#define SUM(a, b) ((a) + (b))            //<i> Non-compliant</i>
 #define SUM(a, b, c) ((a) + (b) + (c))   //<i> Non-compliant</i>
 
 int foo(int a, int b) {
     return SUM(a, b);     //<i> Error</i>
-}</code>
+}</code></pre>
 <p>例中宏 SUM 意在获取参数的和，但宏无法被重载，最终只有一个宏被定义，foo 函数中的宏展开会造成错误。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_macro_sideEffectArgs.html" class="related-link">ID_macro_sideEffectArgs</a>
 <a href="./ID_macro_const.html" class="related-link">ID_macro_const</a>
 <a href="./ID_macro_typeid.html" class="related-link">ID_macro_typeid</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es31-dont-use-macros-for-constants-or-functions" target="_blank" class="related-link">C++ Core Guidelines ES.31</a>
 MISRA C 2004 19.7
 MISRA C 2012 Dir 4.9
 MISRA C++ 2008 16-0-4
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/PRE00-C.+Prefer+inline+or+static+functions+to+function-like+macros" target="_blank" class="related-link">SEI CERT PRE00-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

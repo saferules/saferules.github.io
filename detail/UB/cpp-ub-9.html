@@ -6,36 +6,55 @@
   <meta name="description" content="C++ undefined behavior: 窄字符串与宽字符串连接" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
   <title>窄字符串与宽字符串连接 - C++ undefined behavior</title>
 </head>
+
+<div class="footer-holder">
+<nav>
+<ul class="nav-list">
+  <li><span class="nav-icon">☰</span></li>
+  <li><a href="../../index.html">首页</a></li>
+  <li><a href="../../index.html#rules-class-title">规则分类</a></li>
+  <li><a href="../introduction.html">项目介绍</a></li>
+</ul>
+<div class="nav-stuff"></div>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+  <img alt="search" id="search-icon" src="../../img/search.svg" onclick="onClickSearchIcon(this)"/>
+</div>
+<span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>窄字符串与宽字符串连接</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-9</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-10.html">next</a> › <a class="nav-link" href="./cpp-ub-8.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../cpp-ub-list.html">目录</a> › <a class="rule-toc-link" href="./cpp-ub-10.html">next</a> › <a class="rule-toc-link" href="./cpp-ub-8.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>示例：</p>
-<code>auto* x = L&quot;123&quot; &quot;456&quot;;    //<i> Undefined in C++03</i>
+<pre><code>auto* x = L&quot;123&quot; &quot;456&quot;;    //<i> Undefined in C++03</i>
 auto* y = L&quot;123&quot; &quot;456&quot;;    //<i> A wide string in C++11</i>
-</code>
+</code></pre>
 <p>C++03 规定宽字符串与窄字符串连接会导致未定义的行为。C++11 规定一个字符串有前缀一个没有的话，结果以有前缀的为准，其他情况由实现定义。</p>
 
 </main>
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 2.13.4(3)-undefined
 ISO/IEC 14882:2011 2.14.5(13)-implementation</div>
 
 <h3>规则</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="../ID_literal_hybridConcat.html" class="related-link">ID_literal_hybridConcat</a></div>
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

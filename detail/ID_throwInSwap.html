@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：两个对象在交换（swap）过程中，每个对象的状态都是不完整的，如果在交换中途抛出异常，对象将处于错误的状态。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>对象交换过程不可抛出异常 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>对象交换过程不可抛出异常</h1>
   <div id="subtitle">
     <div id="subtitle-id">7.10 ID_throwInSwap</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#exception">Home</a> › <a class="nav-link" href="./ID_throwInMove.html">next</a> › <a class="nav-link" href="./ID_throwInDelete.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#exception">目录</a> › <a class="rule-toc-link" href="./ID_throwInMove.html">next</a> › <a class="rule-toc-link" href="./ID_throwInDelete.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>两个对象在交换（swap）过程中，每个对象的状态都是不完整的，如果在交换中途抛出异常，对象将处于错误的状态。</p>
@@ -26,7 +42,7 @@
 <p>注意，交换是保证异常安全的重要手段，不抛出异常是基本要求，详见 <a href="./ID_exceptionUnsafe.html" class="dashed-link">ID_exceptionUnsafe</a>。标准库中存在大量与交换相关的接口和算法，如果抛出异常也会使标准库无法按约定工作，所有交换相关的函数均应标记为 noexcept。</p>
 
 <p>示例：</p>
-<code>struct T {
+<pre><code>struct T {
     int* ptr = nullptr;
 
     void swap(T&amp; a) {
@@ -41,19 +57,21 @@
    ~T() {
         delete[] p;  //<i> Problems</i>
     }
-};</code>
+};</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_exceptionUnsafe.html" class="related-link">ID_exceptionUnsafe</a>
 <a href="./ID_throwInMove.html" class="related-link">ID_throwInMove</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c84-a-swap-function-must-not-fail" target="_blank" class="related-link">C++ Core Guidelines C.84</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c85-make-swap-noexcept" target="_blank" class="related-link">C++ Core Guidelines C.85</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

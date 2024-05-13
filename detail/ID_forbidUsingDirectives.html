@@ -6,59 +6,77 @@
   <meta name="description" content="C/C++ 安全编程要点：通过 using directive 将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>全局及命名空间作用域中禁用 using directive - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>全局及命名空间作用域中禁用 using directive</h1>
   <div id="subtitle">
     <div id="subtitle-id">4.13 ID_forbidUsingDirectives</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#global">Home</a> › <a class="nav-link" href="./ID_usingSelf.html">next</a> › <a class="nav-link" href="./ID_staticAndConst.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#global">目录</a> › <a class="rule-toc-link" href="./ID_usingSelf.html">next</a> › <a class="rule-toc-link" href="./ID_staticAndConst.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>通过 using directive 将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。</p>
 
 <p>示例：</p>
-<code>//<i> In global namespace</i>
+<pre><code>//<i> In global namespace</i>
 using namespace std;           //<i> Non-compliant</i>
 using namespace myspace;       //<i> Non-compliant</i>
 
 namespace myspace {
     using namespace hisspace   //<i> Non-compliant</i>
 }
-</code>
+</code></pre>
 <p>在函数作用域内可适当放宽要求，如：</p>
-<code>void foo() {
+<pre><code>void foo() {
     using namespace myspace;   //<i> Let it go</i>
 
     type x;                    //<i> Using myspace::type</i>
     some_fun(x);               //<i> Using mysapce::some_fun</i>
 }
-</code>
+</code></pre>
 <p>建议用 using declaration 代替 using directive：</p>
-<code>void foo() {
+<pre><code>void foo() {
     using myspace::type;       //<i> Compliant</i>
     using myspace::some_fun;   //<i> Compliant</i>
 
     type x;
     some_fun(x);
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_usingNamespaceInHeader.html" class="related-link">ID_usingNamespaceInHeader</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#sf6-use-using-namespace-directives-for-transition-for-foundation-libraries-such-as-std-or-within-a-local-scope-only" target="_blank" class="related-link">C++ Core Guidelines SF.6</a>
 MISRA C++ 2008 7-3-4</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

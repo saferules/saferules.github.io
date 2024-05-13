@@ -6,46 +6,62 @@
   <meta name="description" content="C/C++ 安全编程要点：原子对象可以保证某些特定操作的原子性，但特定操作的组合并不具备原子性，非同步地访问原子对象仍然存在数据竞争。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免在事务中多次非同步地访问原子对象 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免在事务中多次非同步地访问原子对象</h1>
   <div id="subtitle">
     <div id="subtitle-id">16.3 ID_atomicRaces</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#concurrency">Home</a> › <a class="nav-link" href="./ID_deadlock.html">next</a> › <a class="nav-link" href="./ID_TOCTOU.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#concurrency">目录</a> › <a class="rule-toc-link" href="./ID_deadlock.html">next</a> › <a class="rule-toc-link" href="./ID_TOCTOU.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>原子对象可以保证某些特定操作的原子性，但特定操作的组合并不具备原子性，非同步地访问原子对象仍然存在数据竞争。</p>
 
 <p>示例：</p>
-<code>atomic_int i = ATOMIC_VAR_INIT(0);
+<pre><code>atomic_int i = ATOMIC_VAR_INIT(0);
 
 void thd() {
     i = i + 1;   //<i> Non-compliant, data races</i>
-}</code>
+}</code></pre>
 <p>设 thd 为线程函数，原子对象 i 在表达式中出现了多次，其读取、计算、写入等过程在多线程中仍然是交织在一起的，造成数据竞争。</p>
 
 <p>应改为：</p>
-<code>void thd() {
+<pre><code>void thd() {
     atomic_fetch_add(&amp;i, 1);   //<i> Compliant, or use ‘operator++’ in C++</i>
 }
-</code>
+</code></pre>
 <p>对于一些复杂的原子运算，如：</p>
-<code>i = (i + 1) % 5;   //<i> Non-compliant</i>
-</code>
+<pre><code>i = (i + 1) % 5;   //<i> Non-compliant</i>
+</code></pre>
 <p>可采用“<a href="https://en.wikipedia.org/wiki/Compare-and-swap" target="_blank" class="dashed-link">CAS（compare and swap）</a>” 方法同步：</p>
-<code>int old_i = atomic_load(&amp;i);
+<pre><code>int old_i = atomic_load(&amp;i);
 int new_i = 0;
 do {
     new_i = (old_i + 1) % 5;
 } while (!compare_and_swap(&amp;i, &amp;old_i, new_i));   //<i> Compliant</i>
-</code>
+</code></pre>
 <p>首先读取原子对象的值 old_i，old_i 经过运算得到新值 new_i，再通过 compare_and_swap 更新原子对象的值。compare_and_swap 具有原子性，将 old_i 和原子对象当前值比较，相等则说明在运算过程中原子对象没有被其他线程更新，将原子对象的值设为 new_i，不相等则说明原子对象已被其他线程更新，将 old_i 设为原子对象当前值，再重复这个过程，直到原子对象可用 new_i 更新。</p>
 
 <p>compare_and_swap 是重要的原子对象同步手段，在实际代码中可与 atomic_compare_exchange_weak、atomic_compare_exchange_strong 等函数对应。</p>
@@ -53,12 +69,14 @@ do {
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_dataRaces.html" class="related-link">ID_dataRaces</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/c/CON40-C.+Do+not+refer+to+an+atomic+variable+twice+in+an+expression" target="_blank" class="related-link">SEI CERT CON40-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

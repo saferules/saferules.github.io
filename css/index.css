@@ -1,29 +1,17 @@
 @import "./common.css";
 
+h1 {
+    font-size: 1.8em;
+    border-bottom: 1px solid #d0d7deb3;
+    padding-bottom: 0.2em;
+}
 h2 {
-    border-left: 0.8em solid #0074F4;
-    padding-left: 0.5em;
+    font-size: 1.5em;
+    border-bottom: 1px solid #d0d7deb3;
+    padding-bottom: 0.3em;
 }
 header {
-    padding-top: 60px;
-    padding-bottom: 40px;
-    border-bottom: 1px dashed #aaa;
-}
-nav {
-    color: #aaa;
-    padding: 8px;
-    font-size: 14px;
-    text-align: right;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-nav a {
-    color: #999;
-    font-weight: bold;
-}
-nav a:hover {
-    color: #218bff;
+    padding-top: 100px;
 }
 a {
     color: #218bff;
@@ -41,49 +29,34 @@ p {
 #article-wrapper {
     padding-bottom: 25px;
 }
-footer {
-    height: 25px;
-    margin: 0;
-    padding: 0;
-    margin-top: -25px;
-    line-height: 25px;
-    text-align: center;
-    color: #bbb;
-    background: #F1F1F2;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: bold;
-    padding-left: 16px;
-    padding-right: 16px;
-}
-footer a {
-    color: #bbb;
-    text-decoration: none;
-}
-footer a:hover {
-    color: #aaa;
-}
 #header-wrapper {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    display: flex;
+    flex-direction: row;
 }
 #main-logo {
-    padding: 0;
-    margin: 0;
-    margin-right: -12px;
-    padding-left: 32px;
-    display: inline-block;
-    vertical-align: middle;
+    width: 136px;
+    height: auto;
+    padding-left: 16px;
+}
+#logo-360 {
+    display: block;
 }
 #titles {
-    display: inline-block;
-    vertical-align: middle;
+    width: 100%;
+    flex: 1;
 }
 #main-title {
     font-size: 3.0em;
+    font-weight: bold;
+    margin: 0;
+}
+#ub-list-main-title {
+    font-size: 2.3em;
     font-weight: bold;
     margin: 0;
 }
@@ -94,7 +67,25 @@ footer a:hover {
     margin-bottom: 0;
     padding-top: 0;
     padding-bottom: 0;
-    padding-left: 16px;
+    padding-left: 2em;
+}
+@media screen and (max-width: 715px){
+#main-logo {
+    display: none;
+}
+}
+@media screen and (max-width: 565px){
+#version-tag {
+    display: none;
+}
+}
+@media screen and (max-width: 500px){
+#logo-360 {
+    display: none;
+}
+#sub-title {
+    padding-left: 0;
+}
 }
 .content-wrapper {
     max-width: 800px;

@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：资源的分配和回收方法应在同一库或主程序等可执行模块、类等逻辑模块中提供。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>资源的分配与回收方法应成对提供 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>资源的分配与回收方法应成对提供</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.5 ID_incompleteNewDeletePair</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#resource">Home</a> › <a class="nav-link" href="./ID_incompatibleDealloc.html">next</a> › <a class="nav-link" href="./ID_ownerlessResource.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#resource">目录</a> › <a class="rule-toc-link" href="./ID_incompatibleDealloc.html">next</a> › <a class="rule-toc-link" href="./ID_ownerlessResource.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>资源的分配和回收方法应在同一库或主程序等可执行模块、类等逻辑模块中提供。</p>
@@ -26,7 +42,7 @@
 <p>如果一个模块分配的资源需要另一个模块回收，会打破模块之间的独立性，增加维护成本，而且 so、dll、exe 等可执行模块一般都有独立的堆栈，跨模块的分配与回收往往会造成严重错误。</p>
 
 <p>示例：</p>
-<code>//<i> In a.dll</i>
+<pre><code>//<i> In a.dll</i>
 int* foo() {
     return (int*)malloc(1024);
 }
@@ -36,11 +52,11 @@ void bar() {
     int* p = foo();
     ....
     free(p);   //<i> Non-compliant, crash</i>
-}</code>
+}</code></pre>
 <p>例中 a.dll 分配的内存由 b.dll 释放，相当于混淆了不同堆栈中的数据，程序一般会崩溃。</p>
 
 <p>应改为：</p>
-<code>//<i> In a.dll</i>
+<pre><code>//<i> In a.dll</i>
 int* foo_alloc() {
     return (int*)malloc(1024);
 }
@@ -54,11 +70,11 @@ void bar() {
     int* p = foo_alloc();
     ....
     foo_dealloc(p);   //<i> Compliant</i>
-}</code>
+}</code></pre>
 <p>修正后 a.dll 成对提供分配回收函数，b.dll 配套使用这些函数，避免了冲突。</p>
 
 <p>类等逻辑模块提供了分配方法，也应提供回收方法，如重载了 new 运算符，也应重载相应的 delete 运算符：</p>
-<code>class A {
+<pre><code>class A {
     void* operator new(size_t);   //<i> Non-compliant, missing ‘operator delete’</i>
 };
 
@@ -69,20 +85,22 @@ class B {
 class C {
     void* operator new(size_t);   //<i> Compliant</i>
     void operator delete(void*);   //<i> Compliant</i>
-};</code>
+};</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_memberDeallocation.html" class="related-link">ID_memberDeallocation</a>
 <a href="./ID_crossModuleTransfer.html" class="related-link">ID_crossModuleTransfer</a>
 <a href="./ID_incompatibleDealloc.html" class="related-link">ID_incompatibleDealloc</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r15-always-overload-matched-allocationdeallocation-pairs" target="_blank" class="related-link">C++ Core Guidelines R.15</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL54-CPP.+Overload+allocation+and+deallocation+functions+as+a+pair+in+the+same+scope" target="_blank" class="related-link">SEI CERT DCL54-CPP</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

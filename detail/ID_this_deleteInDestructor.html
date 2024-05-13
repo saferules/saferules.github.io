@@ -6,46 +6,63 @@
   <meta name="description" content="C/C++ 安全编程要点：析构函数开始执行时，对象整体已不存在，再次调用析构函数会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不可递归调用析构函数 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不可递归调用析构函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.43 ID_this_deleteInDestructor</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_nestedTooDeep.html">next</a> › <a class="nav-link" href="./ID_recursion.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_nestedTooDeep.html">next</a> › <a class="rule-toc-link" href="./ID_recursion.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>析构函数开始执行时，对象整体已不存在，再次调用析构函数会导致标准未定义的行为。</p>
 
 <p>示例：</p>
-<code>struct A {
+<pre><code>struct A {
     ~A() {
         delete this;  //<i> Non-compliant, undefined behavior</i>
     }
-};</code>
+};</code></pre>
 <p>在析构函数中调用 delete this 会再次调用析构函数，导致未定义的行为。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_recursion.html" class="related-link">ID_recursion</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 3.8(1)
 ISO/IEC 14882:2003 12.4(14)-undefined
 ISO/IEC 14882:2011 3.8(1)
 ISO/IEC 14882:2011 12.4(15)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/674.html" target="_blank" class="related-link">CWE-674</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

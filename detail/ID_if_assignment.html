@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：虽然语言允许在 if 语句的条件中赋值，但 = 和 == 极易混淆，建议所有产生 bool 型结果的表达式，都不要包含赋值运算符。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>if 语句的条件不应为赋值表达式 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>if 语句的条件不应为赋值表达式</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.1.11 ID_if_assignment</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#control.if">Home</a> › <a class="nav-link" href="./ID_if_emptyBlock.html">next</a> › <a class="nav-link" href="./ID_if_mayBeElseIf.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#control.if">目录</a> › <a class="rule-toc-link" href="./ID_if_emptyBlock.html">next</a> › <a class="rule-toc-link" href="./ID_if_mayBeElseIf.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>虽然语言允许在 if 语句的条件中赋值，但 = 和 == 极易混淆，建议所有产生 bool 型结果的表达式，都不要包含赋值运算符。</p>
@@ -26,42 +42,43 @@
 <p>本规则是 <a href="./ID_assignmentAsSubExpression.html" class="dashed-link">ID_assignmentAsSubExpression</a> 的特化。</p>
 
 <p>示例：</p>
-<code>void foo(HRESULT r) {
+<pre><code>void foo(HRESULT r) {
     if (r = S_OK) {     //<i> Non-compliant</i>
         ....
     }
-}</code>
+}</code></pre>
 <p>例中 S_OK 为常量，在条件中用常量对变量赋值是没有逻辑意义的，如果条件中等号右侧为常量，基本可以判定是 == 被误写成了 =。</p>
 
 <p>又如：</p>
-<code>if (r = fun()) {   //<i> Non-compliant</i>
+<pre><code>if (r = fun()) {   //<i> Non-compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>例中 fun 为函数，这也是一种公认的不良风格，应将赋值表达式拆分出来，或者在 C++ 代码中改为：</p>
-<code>if (auto r = fun()) {   //<i> Compliant</i>
+<pre><code>if (auto r = fun()) {   //<i> Compliant</i>
     ....
 }
-</code>
+</code></pre>
 <p>将赋值表达式加上括号表示有意为之，是一种惯用写法，但并不值得提倡，如：</p>
-<code>if ((r = fun())) {   //<i> Let it go?</i>
+<pre><code>if ((r = fun())) {   //<i> Let it go?</i>
     ....
-}</code>
+}</code></pre>
 <p>审计工具不妨通过配置决定是否放过这种情况。</p>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">allowEnclosedAssignment: 是否放过括号括起来的赋值表达式</div>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_assignmentAsSubExpression.html" class="related-link">ID_assignmentAsSubExpression</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/480.html" target="_blank" class="related-link">CWE-480</a>
 <a href="https://cwe.mitre.org/data/definitions/481.html" target="_blank" class="related-link">CWE-481</a>
 <a href="https://cwe.mitre.org/data/definitions/783.html" target="_blank" class="related-link">CWE-783</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

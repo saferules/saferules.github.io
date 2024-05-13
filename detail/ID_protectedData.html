@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：protected 数据成员在派生类中仍可被随意读写，破坏了封装理念。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>类的非常量数据成员不应定义为 protected - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>类的非常量数据成员不应定义为 protected</h1>
   <div id="subtitle">
     <div id="subtitle-id">5.1.2 ID_protectedData</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#type.class">Home</a> › <a class="nav-link" href="./ID_mixPublicPrivateData.html">next</a> › <a class="nav-link" href="./ID_nonPrivateData.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#type.class">目录</a> › <a class="rule-toc-link" href="./ID_mixPublicPrivateData.html">next</a> › <a class="rule-toc-link" href="./ID_nonPrivateData.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>protected 数据成员在派生类中仍可被随意读写，破坏了封装理念。</p>
@@ -28,32 +44,34 @@
 <p>常量数据成员不可被改变，所以可不受本规则约束。</p>
 
 <p>示例：</p>
-<code>class A {
+<pre><code>class A {
     ....
 protected:
     int data;   //<i> Non-compliant</i>
 };
-</code>
+</code></pre>
 <p>应改为由接口访问：</p>
-<code>class A {
+<pre><code>class A {
     ....
 protected:
     int access_data();   //<i> Interfaces for data</i>
 private:
     int data;   //<i> Compliant</i>
-};</code>
+};</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_mixPublicPrivateData.html" class="related-link">ID_mixPublicPrivateData</a>
 <a href="./ID_nonPrivateData.html" class="related-link">ID_nonPrivateData</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c9-minimize-exposure-of-members" target="_blank" class="related-link">C++ Core Guidelines C.9</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c133-avoid-protected-data" target="_blank" class="related-link">C++ Core Guidelines C.133</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

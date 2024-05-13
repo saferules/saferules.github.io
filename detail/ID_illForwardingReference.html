@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：不应混淆“转发引用（forwarding references）”与右值引用，除作为 std::forward 的参数之外，不应对转发引用再有任何操作。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>转发引用只应作为 std::forward 的参数 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>转发引用只应作为 std::forward 的参数</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.8 ID_illForwardingReference</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_localInitialization.html">next</a> › <a class="nav-link" href="./ID_paramPassedByValue.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_localInitialization.html">next</a> › <a class="rule-toc-link" href="./ID_paramPassedByValue.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>不应混淆“<a href="https://en.cppreference.com/w/cpp/language/reference#Forwarding_references" target="_blank" class="dashed-link">转发引用（forwarding references）</a>”与右值引用，除作为 std::forward 的参数之外，不应对转发引用再有任何操作。</p>
@@ -26,7 +42,7 @@
 <p>转发引用是类型为 T&amp;&amp; 的参数，T 为函数模板类型，无论左值还是右值均可被这种参数接受，而且 const、volatile 等属性也会被忽略，由于含有不确定的状态，所以直接操作转发引用是不妥的，只应通过 std::forward&lt;T&gt; 交由合适的接口处理。</p>
 
 <p>示例：</p>
-<code>int func();
+<pre><code>int func();
 int func(int&amp;);
 int func(const int&amp;);
 
@@ -38,9 +54,9 @@ int wrapper(T&amp;&amp; arg) {
 template &lt;class... V&gt;
 int wrapper(V&amp;&amp;... args) {
     return func(args...);   //<i> Non-compliant</i>
-}</code>
+}</code></pre>
 <p>例中 arg 和 args 为转发引用及相关参数包，不经 std::forward 的转换直接作为接口的参数无法正确选择重载的接口，应改为：</p>
-<code>template &lt;class T&gt;
+<pre><code>template &lt;class T&gt;
 int wrapper(T&amp;&amp; arg) {
     return func(forward&lt;T&gt;(arg));   //<i> Compliant</i>
 }
@@ -48,21 +64,22 @@ int wrapper(T&amp;&amp; arg) {
 template &lt;class... V&gt;
 int wrapper(V&amp;&amp;... args) {
     return func(forward&lt;V&gt;(args)...);   //<i> Compliant</i>
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_unsuitableForward.html" class="related-link">ID_unsuitableForward</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2011 20.2.3(1)
 ISO/IEC 14882:2017 23.2.5(1)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f19-for-forward-parameters-pass-by-tp-and-only-stdforward-the-parameter" target="_blank" class="related-link">C++ Core Guidelines F.19</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

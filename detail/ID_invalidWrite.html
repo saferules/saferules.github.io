@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：对于内存中的数据，写入之后应被读取，否则没有意义。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应存在无效的写入操作 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应存在无效的写入操作</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.20 ID_invalidWrite</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_missingSideEffect.html">next</a> › <a class="nav-link" href="./ID_this_selfJudgement.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_missingSideEffect.html">next</a> › <a class="rule-toc-link" href="./ID_this_selfJudgement.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>内存中的数据写入之后应被读取，如果出现：</p>
@@ -36,24 +52,24 @@
 
 </ul>
 <p>示例：</p>
-<code>void foo(int&amp; a, int&amp; b) {
+<pre><code>void foo(int&amp; a, int&amp; b) {
     ....
     a = 123;   //<i> Non-compliant</i>
     a = 456;
     ....
-}</code>
+}</code></pre>
 <p>例中参数 a 被赋值为 123 之后，又被无条件地赋值为 456，显然第一次赋值是没有意义的，很有可能是漏掉了什么。</p>
 
 <p>又如：</p>
-<code>int bar() {
+<pre><code>int bar() {
     int i = 0;
     ....
     return i++;     //<i> Non-compliant</i>
-}</code>
+}</code></pre>
 <p>例中 bar 函数返回局部变量 i 自增前的值，自增运算是没有意义的。</p>
 
 <p>对象的初始化可不受本规则限制，如：</p>
-<code>int baz() {
+<pre><code>int baz() {
     int n = 0;      //<i> OK</i>
     if (cond) {
         n = 123;
@@ -61,7 +77,7 @@
         n = 456;
     }
     return n;
-}</code>
+}</code></pre>
 <p>例中局部变量 n 初始化后经由 if-else 分枝，在其两个分枝中都被赋值，也相当于被无条件写入，但在声明处初始化是值得提倡的，故这种情况不受本规则限制。</p>
 
 </main>
@@ -69,7 +85,10 @@
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/563.html" target="_blank" class="related-link">CWE-563</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

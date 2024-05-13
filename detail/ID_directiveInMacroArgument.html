@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：如果预编译指令出现在宏的参数列表中，会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>宏的参数列表中不应出现预编译指令 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>宏的参数列表中不应出现预编译指令</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.4.6 ID_directiveInMacroArgument</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.directive">Home</a> › <a class="nav-link" href="./ID_incompleteDirective.html">next</a> › <a class="nav-link" href="./ID_explicitLineDirective.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#precompile.directive">目录</a> › <a class="rule-toc-link" href="./ID_incompleteDirective.html">next</a> › <a class="rule-toc-link" href="./ID_explicitLineDirective.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>如果预编译指令出现在宏的参数列表中，会导致标准未定义的行为。</p>
 
 <p>示例：</p>
-<code>#define PRINT(s) printf(#s)
+<pre><code>#define PRINT(s) printf(#s)
 
 PRINT(
 #ifdef MAC      //<i> Non-compliant, undefined behavior</i>
@@ -32,22 +48,24 @@ PRINT(
 #else           //<i> Non-compliant</i>
     hamster
 #endif          //<i> Non-compliant</i>
-);</code>
+);</code></pre>
 <p>可能会打印出 hamster，也可能是 #ifdef MAC rabbit #else hamster #endif 这种怪异的结果。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.10.3(11)-undefined
 ISO/IEC 9899:2011 6.10.3(11)-undefined
 ISO/IEC 14882:2003 16.3(10)-undefined
 ISO/IEC 14882:2011 16.3(11)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 20.6
 MISRA C++ 2008 16-0-5</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

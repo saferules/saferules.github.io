@@ -6,54 +6,72 @@
   <meta name="description" content="C/C++ 安全编程要点：为缓冲区分配足够的空间，避免溢出等问题。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>为缓冲区分配足够的空间 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>为缓冲区分配足够的空间</h1>
   <div id="subtitle">
     <div id="subtitle-id">13.2 ID_insufficientBuffer</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#buffer">Home</a> › <a class="nav-link" href="./ID_improperNullTermination.html">next</a> › <a class="nav-link" href="./ID_bufferOverflow.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#buffer">目录</a> › <a class="rule-toc-link" href="./ID_improperNullTermination.html">next</a> › <a class="rule-toc-link" href="./ID_bufferOverflow.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>为缓冲区分配足够的空间，避免溢出等问题。</p>
 
 <p>示例：</p>
-<code>void foo(const char* s) {
+<pre><code>void foo(const char* s) {
     char* p = (char*)malloc(strlen(s));  //<i> Non-compliant, should be ‘strlen(s) + 1’</i>
     strcpy(p, s);
     printf(&quot;%s\n&quot;, p);  //<i> Out of bounds, undefined behavior</i>
-}</code>
+}</code></pre>
 <p>字符串以空字符结尾，在分配字符串空间时不可漏掉空字符的空间。</p>
 
 <p>又如：</p>
-<code>void bar() {
+<pre><code>void bar() {
     int* p = (int*)malloc(123);  //<i> Non-compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>例中 bar 函数为 int 型数组分配了 123 个字节的空间，而 123 不能被 sizeof(int) 整除，最后一个元素会越界。虽然 malloc 函数返回已对齐的地址，但这种代码往往意味着 sizeof 因子的缺失。</p>
 
 <p>应改为：</p>
-<code>void bar() {
+<pre><code>void bar() {
     int* p = (int*)malloc(123 * sizeof(int));  //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/131.html" target="_blank" class="related-link">CWE-131</a>
 <a href="https://cwe.mitre.org/data/definitions/135.html" target="_blank" class="related-link">CWE-135</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

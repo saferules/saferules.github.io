@@ -6,41 +6,59 @@
   <meta name="description" content="C/C++ 安全编程要点：函数体过大违反模块化编程理念，使人难以阅读，更不便于维护，应适当重构。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>函数的行数应在规定范围之内 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>函数的行数应在规定范围之内</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.38 ID_tooManyLines</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_tooManyLambdaLines.html">next</a> › <a class="nav-link" href="./ID_tooManyLabels.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_tooManyLambdaLines.html">next</a> › <a class="rule-toc-link" href="./ID_tooManyLabels.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>函数体过大违反模块化编程理念，使人难以阅读，更不便于维护，应适当重构。</p>
 
 <p>示例：</p>
-<code>int main()
+<pre><code>int main()
 {
     //<i> ... 3000 lines ...</i>
     //<i> Who has the courage to read?</i>
-}</code>
+}</code></pre>
 <p>建议函数体不超过 60 行，以不需要拖拽滚动条就可以在屏幕上完整显示为宜。</p>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">maxLineCount: 函数行数上限，超过则报出</div>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f2-a-function-should-perform-a-single-logical-operation" target="_blank" class="related-link">C++ Core Guidelines F.2</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f3-keep-functions-short-and-simple" target="_blank" class="related-link">C++ Core Guidelines F.3</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

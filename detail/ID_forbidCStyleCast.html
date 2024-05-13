@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：C 风格类型转换易造成数据丢失或逻辑错误，在 C++ 代码中应使用 static_cast、dynamic_cast 等方法代替 C 风格类型转换。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>在 C++ 代码中禁用 C 风格类型转换 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>在 C++ 代码中禁用 C 风格类型转换</h1>
   <div id="subtitle">
     <div id="subtitle-id">12.22 ID_forbidCStyleCast</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#cast">Home</a> › <a class="nav-link" href="./ID_bufferOverflow.html">next</a> › <a class="nav-link" href="./ID_forbidReinterpretCast.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#cast">目录</a> › <a class="rule-toc-link" href="./ID_bufferOverflow.html">next</a> › <a class="rule-toc-link" href="./ID_forbidReinterpretCast.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>C 风格类型转换易造成数据丢失或逻辑错误，在 C++ 代码中应使用 static_cast、dynamic_cast 等方法代替 C 风格类型转换。</p>
 
 <p>示例：</p>
-<code>class A { .... };
+<pre><code>class A { .... };
 class B { .... };
 
 void foo(A* a) {
@@ -35,7 +51,7 @@ void foo(A* a) {
 void bar(A* a) {
     B* b = dynamic_cast&lt;B*&gt;(a);  //<i> Compliant, prevent errors at compile time</i>
     ....
-}</code>
+}</code></pre>
 <p>例中 A 和 B 是两种不相关的类型，用 C 语言的转换方式是可以转换成功的，但并没有逻辑意义，在 C++ 代码中应使用 static_cast 或 dynamic_cast 等方法在编译时或运行时保障转换的有效性。</p>
 
 </main>
@@ -43,8 +59,11 @@ void bar(A* a) {
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es49-if-you-must-use-a-cast-use-a-named-cast" target="_blank" class="related-link">C++ Core Guidelines ES.49</a>
 MISRA C++ 2008 5-2-4</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

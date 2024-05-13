@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：缩进方式不统一会使代码结构混乱，严重降低可读性，也易导致逻辑错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>遵循统一的缩进风格 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>遵循统一的缩进风格</h1>
   <div id="subtitle">
     <div id="subtitle-id">17.5 ID_inconsistentIndent</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#style">Home</a> › <a class="nav-link" href="./ID_redundantParentheses.html">next</a> › <a class="nav-link" href="./ID_braceStyle.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#style">目录</a> › <a class="rule-toc-link" href="./ID_redundantParentheses.html">next</a> › <a class="rule-toc-link" href="./ID_braceStyle.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>缩进方式不统一会使代码结构混乱，严重降低可读性，也易导致逻辑错误。</p>
@@ -26,7 +42,7 @@
 <p>缩进应清晰地体现语句的从属关系，函数、分枝、循环等代码块的内容应相对代码块的起始位置缩进一个层级，建议使用 2、4 或 8 个空格作为一个缩进层级，并避免使用制表符，以便代码在不同的编辑器中可以保持一致的样式。</p>
 
 <p>示例：</p>
-<code>switch (a) {
+<pre><code>switch (a) {
 case 0:
     switch (b) {
 case 1:           //<i> Inconsistent</i>
@@ -35,17 +51,19 @@ case 1:           //<i> Inconsistent</i>
     break;
 default:
     break;
-}</code>
+}</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_inconsistentStyle.html" class="related-link">ID_inconsistentStyle</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#nl4-maintain-a-consistent-indentation-style" target="_blank" class="related-link">C++ Core Guidelines NL.4</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

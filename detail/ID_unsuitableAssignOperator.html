@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：抽象类只能作为基类，没有独立的对象，调用拷贝或移动赋值运算符会造成数据不完整。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>抽象类禁用拷贝和移动赋值运算符 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>抽象类禁用拷贝和移动赋值运算符</h1>
   <div id="subtitle">
     <div id="subtitle-id">5.1.16 ID_unsuitableAssignOperator</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#type.class">Home</a> › <a class="nav-link" href="./ID_tooManyFields.html">next</a> › <a class="nav-link" href="./ID_roughTemplateConstructor.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#type.class">目录</a> › <a class="rule-toc-link" href="./ID_tooManyFields.html">next</a> › <a class="rule-toc-link" href="./ID_roughTemplateConstructor.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>抽象类只能作为基类，没有独立的对象，调用拷贝或移动赋值运算符会造成数据不完整。</p>
 
 <p>示例：</p>
-<code>struct A {
+<pre><code>struct A {
     virtual ~A() = 0;
     A&amp; operator = (const A&amp;);   //<i> Non-compliant</i>
     A&amp; operator = (A&amp;&amp;);        //<i> Non-compliant</i>
@@ -33,16 +49,16 @@
 
 void foo(A&amp; x, A&amp; y) {
     x = y;               //<i> Incomplete assignment</i>
-}</code>
+}</code></pre>
 <p>例中 foo 函数的参数只能是 A 的派生类对象，派生类对象调用基类的拷贝赋值运算符会得到不完整的复制结果。</p>
 
 <p>应改为：</p>
-<code>struct A {
+<pre><code>struct A {
     virtual ~A() = 0;
     A&amp; operator = (const A&amp;) = delete;   //<i> Compliant</i>
     A&amp; operator = (A&amp;&amp;) = delete;        //<i> Compliant</i>
     ....
-};</code>
+};</code></pre>
 <p>将抽象类的拷贝和移动赋值运算符设为 =delete 或 private，可在编译期阻止不完整的复制和移动。</p>
 
 </main>
@@ -50,8 +66,11 @@ void foo(A&amp; x, A&amp; y) {
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c67-a-polymorphic-class-should-suppress-public-copymove" target="_blank" class="related-link">C++ Core Guidelines C.67</a>
 MISRA C++ 2008 12-8-2</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

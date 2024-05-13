@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：在 C 语言中，如果将函数的参数列表声明为空括号，表示参数的声明被省略，而不是没有参数，这很容易使人误解，没有参数的参数列表应声明为“(void)”。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>C 代码中参数列表如果为空应声明为“(void)” - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>C 代码中参数列表如果为空应声明为“(void)”</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.5.6 ID_missingVoid</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.parameter">Home</a> › <a class="nav-link" href="./ID_superfluousVoid.html">next</a> › <a class="nav-link" href="./ID_deprecatedDefaultArgument.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.parameter">目录</a> › <a class="rule-toc-link" href="./ID_superfluousVoid.html">next</a> › <a class="rule-toc-link" href="./ID_deprecatedDefaultArgument.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>在 C 语言中，如果将函数的参数列表声明为空括号，表示参数的声明被省略，而不是没有参数，这很容易使人误解，没有参数的参数列表应声明为“(void)”。</p>
 
 <p>示例：</p>
-<code>//<i> In a.h</i>
+<pre><code>//<i> In a.h</i>
 int foo();  //<i> Non-compliant</i>
 
 //<i> In a.c</i>
@@ -42,32 +58,33 @@ int main() {
     printf(&quot;%d\n&quot;, foo(1));  //<i> Output: 2</i>
     printf(&quot;%d\n&quot;, foo());   //<i> Can be compiled, but what is output?</i>
 }
-</code>
+</code></pre>
 <p>例中 foo(1) 和 foo() 两种调用都可以通过编译，然而声明与实现不一致的问题总是令人困惑的，如果明确将参数声明为 void 或 int a 则可以解决这种问题。</p>
 
 <p>应改为：</p>
-<code>int foo(void);   //<i> Compliant, ‘foo(1)’ cannot be compiled</i>
-</code>
+<pre><code>int foo(void);   //<i> Compliant, ‘foo(1)’ cannot be compiled</i>
+</code></pre>
 <p>或者：</p>
-<code>int foo(int a);  //<i> Compliant, ‘foo()’ cannot be compiled</i></code>
+<pre><code>int foo(int a);  //<i> Compliant, ‘foo()’ cannot be compiled</i></code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_oldStyleParamList.html" class="related-link">ID_oldStyleParamList</a>
 <a href="./ID_superfluousVoid.html" class="related-link">ID_superfluousVoid</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.7.5.3(14)
 ISO/IEC 9899:1999 6.11.6(1)-deprecated
 ISO/IEC 9899:2011 6.7.6.3(14)
 ISO/IEC 9899:2011 6.11.6(1)-deprecated</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 16.5
 MISRA C 2012 8.2</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

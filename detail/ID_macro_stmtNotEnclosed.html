@@ -6,58 +6,75 @@
   <meta name="description" content="C/C++ 安全编程要点：由多个语句组成的宏定义应该用“do {”和“} while(0)”括起来，从而避免意料之外的错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>由多个语句组成的宏定义应该用 do-while(0) 括起来 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>由多个语句组成的宏定义应该用 do-while(0) 括起来</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.2.6 ID_macro_stmtNotEnclosed</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.macro-definition">Home</a> › <a class="nav-link" href="./ID_macro_complexConcat.html">next</a> › <a class="nav-link" href="./ID_macro_paramNotEnclosed.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#precompile.macro-definition">目录</a> › <a class="rule-toc-link" href="./ID_macro_complexConcat.html">next</a> › <a class="rule-toc-link" href="./ID_macro_paramNotEnclosed.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>由多个语句组成的宏定义应该用“do {”和“} while(0)”括起来，从而避免意料之外的错误。</p>
 
 <p>示例：</p>
-<code>#define SWAP(a, b)\
+<pre><code>#define SWAP(a, b)\
     a ^= b; b ^= a; a ^= b   //<i> Non-compliant</i>
-</code>
+</code></pre>
 <p>如果按如下方式使用宏：</p>
-<code>if (x &gt; y)
+<pre><code>if (x &gt; y)
     SWAP(x, y);
-</code>
+</code></pre>
 <p>展开后 b ^= a; a ^= b; 不在 if 语句的范围内，应改为：</p>
-<code>#define SWAP(a, b) {\          //<i> Compliant</i>
+<pre><code>#define SWAP(a, b) {\          //<i> Compliant</i>
     a ^= b; b ^= a; a ^= b;\
 }
-</code>
+</code></pre>
 <p>更进一步地，建议使用 do-while(0) 结构：</p>
-<code>#define SWAP(a, b) do {\       //<i> Good</i>
+<pre><code>#define SWAP(a, b) do {\       //<i> Good</i>
     a ^= b; b ^= a; a ^= b;\
-} while(0)</code>
+} while(0)</code></pre>
 <p>这样在使用宏时必须以分号结尾，否则无法通过编译，使宏在使用风格上与函数相同，便于阅读。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_if_scope.html" class="related-link">ID_if_scope</a>
 <a href="./ID_while_scope.html" class="related-link">ID_while_scope</a>
 <a href="./ID_for_scope.html" class="related-link">ID_for_scope</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.10.3.5(4)
 ISO/IEC 9899:2011 6.10.3.5(4)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/483.html" target="_blank" class="related-link">CWE-483</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/PRE10-C.+Wrap+multistatement+macros+in+a+do-while+loop" target="_blank" class="related-link">SEI CERT PRE10-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

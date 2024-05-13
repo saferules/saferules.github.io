@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：联合体各成员共享存储地址，是一种对类型理念的破坏。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>禁用联合体 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>禁用联合体</h1>
   <div id="subtitle">
     <div id="subtitle-id">5.3.3 ID_forbidUnion</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#type.union">Home</a> › <a class="nav-link" href="./ID_badName.html">next</a> › <a class="nav-link" href="./ID_forbidNakedUnion.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#type.union">目录</a> › <a class="rule-toc-link" href="./ID_badName.html">next</a> › <a class="rule-toc-link" href="./ID_forbidNakedUnion.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>联合体的问题主要有：</p>
@@ -32,21 +48,21 @@
 <p>这些问题在本质上是对类型理念的破坏，面向对象的程序设计应避免使用联合体。</p>
 
 <p>示例：</p>
-<code>union U {    //<i> Non-compliant</i>
+<pre><code>union U {    //<i> Non-compliant</i>
     int i;
     char c;
 };
 
 U u;
 u.i = 1000;
-cout &lt;&lt; u.c &lt;&lt; &#x27;\n&#x27;;   //<i> Equivalent to a cast without any restrictions</i></code>
+cout &lt;&lt; u.c &lt;&lt; &#x27;\n&#x27;;   //<i> Equivalent to a cast without any restrictions</i></code></pre>
 <p>例中对 u.c 的访问也相当于一种没有任何限制的类型转换。</p>
 
 <p>在 C++ 代码中建议用 std::variant 或 std::any 取代联合体：</p>
-<code>std::variant&lt;int, char&gt; u;
+<pre><code>std::variant&lt;int, char&gt; u;
 u = 1000;
 cout &lt;&lt; get&lt;int&gt;(u) &lt;&lt; &#x27;\n&#x27;;    //<i> OK</i>
-cout &lt;&lt; get&lt;char&gt;(u) &lt;&lt; &#x27;\n&#x27;;   //<i> Throw ‘std::bad_variant_access’</i></code>
+cout &lt;&lt; get&lt;char&gt;(u) &lt;&lt; &#x27;\n&#x27;;   //<i> Throw ‘std::bad_variant_access’</i></code></pre>
 <p>std::variant 可以有效记录对象当前持有的类型，如果以不正确的类型访问对象会及时抛出异常。</p>
 
 <p>本规则比 <a href="./ID_forbidNakedUnion.html" class="dashed-link">ID_forbidNakedUnion</a> 更严格，针对所有联合体。</p>
@@ -54,14 +70,16 @@ cout &lt;&lt; get&lt;char&gt;(u) &lt;&lt; &#x27;\n&#x27;;   //<i> Throw ‘std::
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_forbidNakedUnion.html" class="related-link">ID_forbidNakedUnion</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 18.4
 MISRA C 2012 19.2
 MISRA C++ 2008 9-5-1</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

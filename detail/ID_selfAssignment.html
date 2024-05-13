@@ -6,36 +6,52 @@
   <meta name="description" content="C/C++ 安全编程要点：左右子表达式相同的赋值表达式不改变对象的值，往往是笔误或残留代码。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>赋值运算符左右子表达式不应相同 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>赋值运算符左右子表达式不应相同</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.3.4 ID_selfAssignment</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.operator">Home</a> › <a class="nav-link" href="./ID_selfDivision.html">next</a> › <a class="nav-link" href="./ID_bitwiseOperOnSigned.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.operator">目录</a> › <a class="rule-toc-link" href="./ID_selfDivision.html">next</a> › <a class="rule-toc-link" href="./ID_bitwiseOperOnSigned.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>左右子表达式相同的赋值表达式不改变对象的值，往往是笔误或残留代码。</p>
 
 <p>示例：</p>
-<code>a = a;       //<i> Non-compliant</i>
-a = b = a;   //<i> Non-compliant</i></code>
+<pre><code>a = a;       //<i> Non-compliant</i>
+a = b = a;   //<i> Non-compliant</i></code></pre>
 <p>有时这种代码被用来消除编译警告，编译器可能会报出没有被用到的参数，将参数赋值给自身可去除警告，但这并不是一种好方法，引入了没有实际意义的代码，改进方法可参见 <a href="./ID_paramNotUsed.html" class="dashed-link">ID_paramNotUsed</a>。</p>
 
 <p>有时为了设置调试断点，但又找不到合适的位置，可以增加这种代码作为断点，但这种非正式的代码是不应被保留的。</p>
 
 <p>又如：</p>
-<code>class A {
+<pre><code>class A {
     int a;
 public:
     A(int a) { a = a; }   //<i> Non-compliant, ‘a’ is not the member</i>
-};</code>
+};</code></pre>
 <p>例中构造函数对成员 a 的赋值是无效的，应改为 this-&gt;a = a，或在初始化列中完成赋值。</p>
 
 </main>
@@ -43,7 +59,10 @@ public:
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/682.html" target="_blank" class="related-link">CWE-682</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

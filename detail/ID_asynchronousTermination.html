@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：资源的使用情况在异步过程中是难以掌控的，异步终止线程往往会导致泄漏或死锁等严重问题。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免异步终止线程 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免异步终止线程</h1>
   <div id="subtitle">
     <div id="subtitle-id">16.5 ID_asynchronousTermination</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#concurrency">Home</a> › <a class="nav-link" href="./ID_illLifetime.html">next</a> › <a class="nav-link" href="./ID_deadlock.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#concurrency">目录</a> › <a class="rule-toc-link" href="./ID_illLifetime.html">next</a> › <a class="rule-toc-link" href="./ID_deadlock.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>资源的使用情况在异步过程中是难以掌控的，异步终止线程往往会导致泄漏或死锁等严重问题。</p>
 
 <p>示例：</p>
-<code>void* foo(void* param) {
+<pre><code>void* foo(void* param) {
     pthread_setcanceltype(
         PTHREAD_CANCEL_ASYNCHRONOUS, ....  //<i> Non-compliant</i>
     );
@@ -36,7 +52,7 @@ void bar() {
     pthread_create(&amp;thd, NULL, foo, NULL);
     ....
     pthread_cancel(thd);   //<i> Non-compliant, leak or deadlock</i>
-}</code>
+}</code></pre>
 <p>以 pthread 线程库为例，foo 和 bar 是两个相关的异步过程，foo 通过 PTHREAD_CANCEL_ASYNCHRONOUS 指定其线程可以随时被终止，bar 调用 pthread_cancel 终止 foo 线程，在一个过程中暴力终止另一个过程是非常危险的，会使锁、信号量或动态分配的资源无法释放。</p>
 
 <p>PTHREAD_CANCEL_ASYNCHRONOUS 等选项、TerminateThread 等 Windows API，以及具有相同功能的选项或 API 均不应使用，应使线程主动执行清理并正常结束执行。</p>
@@ -44,14 +60,16 @@ void bar() {
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_resourceLeak.html" class="related-link">ID_resourceLeak</a>
 <a href="./ID_deadlock.html" class="related-link">ID_deadlock</a>
 <a href="./ID_illLifetime.html" class="related-link">ID_illLifetime</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/c/POS47-C.+Do+not+use+threads+that+can+be+canceled+asynchronously" target="_blank" class="related-link">SEI CERT POS47-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

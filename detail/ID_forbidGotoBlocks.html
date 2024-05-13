@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：不同的作用域对应不同的条件约束，在不同的作用域间跳转是对约束的破坏，很容易导致逻辑混乱。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>禁止 goto 语句向嵌套的或无包含关系的作用域跳转 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>禁止 goto 语句向嵌套的或无包含关系的作用域跳转</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.7.1 ID_forbidGotoBlocks</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#control.jump">Home</a> › <a class="nav-link" href="./ID_forbidGotoBack.html">next</a> › <a class="nav-link" href="./ID_try_disorderedHandlers.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#control.jump">目录</a> › <a class="rule-toc-link" href="./ID_forbidGotoBack.html">next</a> › <a class="rule-toc-link" href="./ID_try_disorderedHandlers.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>不同的作用域对应不同的条件约束，在不同的作用域间跳转是对约束的破坏，很容易导致逻辑混乱。</p>
@@ -26,7 +42,7 @@
 <p>向嵌套的或无包含关系的作用域跳转是不应被允许的，如果是为了结束当前流程而在同层或向外层作用域跳转，则可被本规则允许。</p>
 
 <p>示例：</p>
-<code>int foo(int a) {
+<pre><code>int foo(int a) {
     if (a == 0) {
         goto L;    //<i> Non-compliant, jumps into a block</i>
     }
@@ -41,20 +57,22 @@ L:
     }
 M:
     return a;
-}</code>
+}</code></pre>
 <p>例中 goto L 从 if 语句跳入循环语句是应当被禁止的，而 goto M 用于结束循环流程，可以保留。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_forbidGotoBack.html" class="related-link">ID_forbidGotoBack</a>
 <a href="./ID_forbidGoto.html" class="related-link">ID_forbidGoto</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 15.3
 MISRA C++ 2008 6-6-1</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

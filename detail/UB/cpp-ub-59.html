@@ -6,49 +6,68 @@
   <meta name="description" content="C++ undefined behavior: 在对象生命周期结束后调用其析构函数" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
   <title>在对象生命周期结束后调用其析构函数 - C++ undefined behavior</title>
 </head>
+
+<div class="footer-holder">
+<nav>
+<ul class="nav-list">
+  <li><span class="nav-icon">☰</span></li>
+  <li><a href="../../index.html">首页</a></li>
+  <li><a href="../../index.html#rules-class-title">规则分类</a></li>
+  <li><a href="../introduction.html">项目介绍</a></li>
+</ul>
+<div class="nav-stuff"></div>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+  <img alt="search" id="search-icon" src="../../img/search.svg" onclick="onClickSearchIcon(this)"/>
+</div>
+<span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>在对象生命周期结束后调用其析构函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-59</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-60.html">next</a> › <a class="nav-link" href="./cpp-ub-58.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../cpp-ub-list.html">目录</a> › <a class="rule-toc-link" href="./cpp-ub-60.html">next</a> › <a class="rule-toc-link" href="./cpp-ub-58.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>示例：</p>
-<code>struct T { ~T(); };
+<pre><code>struct T { ~T(); };
 
 void foo() {
     T obj;
     obj.~T();  //<i> End of lifetime</i>
-}              //<i> Undefined behavior</i></code>
+}              //<i> Undefined behavior</i></code></pre>
 <p>显式调用 obj 的析构函数后，obj 的生命周期结束，但函数返回前还会调用 obj 的析构函数，导致未定义的行为。</p>
 
 <p>又如：</p>
-<code>struct B { .... };
+<pre><code>struct B { .... };
 struct D: B { .... };
 
 D* p = new D;
 p-&gt;B::~B();    //<i> End of lifetime of base class object</i>
-delete p;      //<i> Undefined behavior</i></code>
+delete p;      //<i> Undefined behavior</i></code></pre>
 <p>调用 p-&gt;B::~B() 后，基类对象的生命周期结束，但在 delete p 时基类析构函数仍会被执行，导致未定义的行为。</p>
 
 </main>
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 12.4(14)-undefined
 ISO/IEC 14882:2011 12.4(15)-undefined</div>
 
 <h3>规则</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="../ID_explicitDtorCall.html" class="related-link">ID_explicitDtorCall</a>
 <a href="../ID_this_deleteInDestructor.html" class="related-link">ID_this_deleteInDestructor</a></div>
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,43 +6,61 @@
   <meta name="description" content="C/C++ 安全编程要点：返回类型不是 void 说明函数有返回值，与 noreturn 属性矛盾。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>具有 noreturn 属性的函数返回类型只应为 void - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>具有 noreturn 属性的函数返回类型只应为 void</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.33 ID_unsuitableReturnType</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_exitHandlerNoReturn.html">next</a> › <a class="nav-link" href="./ID_unsuitableReturn.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_exitHandlerNoReturn.html">next</a> › <a class="rule-toc-link" href="./ID_unsuitableReturn.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>返回类型不是 void 说明函数有返回值，与 noreturn 属性矛盾。</p>
 
 <p>示例：</p>
-<code>_Noreturn    int foo();     //<i> Non-compliant in C</i>
-[[noreturn]] int bar();     //<i> Non-compliant in C++</i></code>
+<pre><code>_Noreturn    int foo();     //<i> Non-compliant in C</i>
+[[noreturn]] int bar();     //<i> Non-compliant in C++</i></code></pre>
 <p>例中函数的返回类型为 int，与 noreturn 属性矛盾，也会对函数的使用者造成困扰。</p>
 
 <p>应改为：</p>
-<code>_Noreturn    void foo();    //<i> Compliant in C</i>
-[[noreturn]] void bar();    //<i> Compliant in C++</i></code>
+<pre><code>_Noreturn    void foo();    //<i> Compliant in C</i>
+[[noreturn]] void bar();    //<i> Compliant in C++</i></code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_unsuitableReturn.html" class="related-link">ID_unsuitableReturn</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:2011 6.7.4(8 12)-undefined
 ISO/IEC 14882:2011 7.6.3(2)-undefined</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

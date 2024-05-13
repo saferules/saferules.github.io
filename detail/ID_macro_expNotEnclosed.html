@@ -6,46 +6,64 @@
   <meta name="description" content="C/C++ 安全编程要点：宏的展开只是文本替换，不考虑运算符优先级等问题，所以宏定义为表达式时应该用括号括起来，从而避免意料之外的错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>宏定义为表达式时应该用括号括起来 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>宏定义为表达式时应该用括号括起来</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.2.4 ID_macro_expNotEnclosed</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.macro-definition">Home</a> › <a class="nav-link" href="./ID_macro_paramNotEnclosed.html">next</a> › <a class="nav-link" href="./ID_macro_undefReserved.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#precompile.macro-definition">目录</a> › <a class="rule-toc-link" href="./ID_macro_paramNotEnclosed.html">next</a> › <a class="rule-toc-link" href="./ID_macro_undefReserved.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>宏的展开只是文本替换，不考虑运算符优先级等问题，所以宏定义为表达式时应该用括号括起来，从而避免意料之外的错误。</p>
 
 <p>示例：</p>
-<code>#define ABS(x) (x) &lt; 0? -(x): (x)  //<i> Non-compliant</i>
-</code>
+<pre><code>#define ABS(x) (x) &lt; 0? -(x): (x)  //<i> Non-compliant</i>
+</code></pre>
 <p>设 a 为变量，如果按如下方式使用宏：</p>
-<code>a = ABS(a) + 1;
-</code>
+<pre><code>a = ABS(a) + 1;
+</code></pre>
 <p>则相当于：</p>
-<code>a = (a) &lt; 0? -(a): (a) + 1;
-</code>
+<pre><code>a = (a) &lt; 0? -(a): (a) + 1;
+</code></pre>
 <p>这显然会造成意料之外的结果，所以宏定义应该用括号括起来：</p>
-<code>#define ABS(x) ((x) &lt; 0? -(x): (x))  //<i> Compliant</i></code>
+<pre><code>#define ABS(x) ((x) &lt; 0? -(x): (x))  //<i> Compliant</i></code></pre>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.10.3.5(4)
 ISO/IEC 9899:2011 6.10.3.5(4)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/783.html" target="_blank" class="related-link">CWE-783</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/PRE02-C.+Macro+replacement+lists+should+be+parenthesized" target="_blank" class="related-link">SEI CERT PRE02-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

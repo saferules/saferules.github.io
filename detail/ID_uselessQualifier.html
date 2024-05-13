@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：在 C++ 语言中，将 enum 或 enum class 的底层类型（underlying type）设为 const 或 volatile 是没有意义的，会被编译器忽略。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>声明枚举类型的底层类型时不应使用 const 或 volatile - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>声明枚举类型的底层类型时不应使用 const 或 volatile</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.2.7 ID_uselessQualifier</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.qualifier">Home</a> › <a class="nav-link" href="./ID_constLiteralReference.html">next</a> › <a class="nav-link" href="./ID_constStrToNonConstPtr.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.qualifier">目录</a> › <a class="rule-toc-link" href="./ID_constLiteralReference.html">next</a> › <a class="rule-toc-link" href="./ID_constStrToNonConstPtr.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>在 C++ 语言中，将 enum 或 enum class 的底层类型（underlying type）设为 const 或 volatile 是没有意义的，会被编译器忽略。</p>
@@ -26,28 +42,31 @@
 <p>枚举类型基于整数类型实现，故称枚举类型的底层类型为整数类型。enum 的底层类型在 C 和 C++ 语言中由实现定义，C++11  引入 enum class，并与 enum 一起均可显式声明底层类型，若未显式声明，enum class 的底层类型为 int，enum 的底层类型仍由实现定义。</p>
 
 <p>示例：</p>
-<code>enum E: const unsigned int  //<i> Non-compliant, ‘const’ is invalid</i>
+<pre><code>enum E: const unsigned int  //<i> Non-compliant, ‘const’ is invalid</i>
 {
     e0, e1, e2
 };
-E e = e0;  //<i> ‘e’ is not const</i></code>
+E e = e0;  //<i> ‘e’ is not const</i></code></pre>
 <p>将例中 E 的底层类型声明为 const 是没有意义的，e 仍为变量。</p>
 
 <p>应改为：</p>
-<code>enum E: unsigned int  //<i> Compliant</i>
+<pre><code>enum E: unsigned int  //<i> Compliant</i>
 {
     e0, e1, e2
 };
-const E e = e0;  //<i> OK, ‘e’ is const</i></code>
+const E e = e0;  //<i> OK, ‘e’ is const</i></code></pre>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2011 7.2(2)
 ISO/IEC 14882:2011 10.2(2)</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

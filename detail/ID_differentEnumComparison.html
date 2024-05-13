@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：比较非同类枚举值相当于比较不同类别的事物，没有逻辑意义，往往是设计缺陷或逻辑错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应比较非同类枚举值 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应比较非同类枚举值</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.5.5 ID_differentEnumComparison</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.comparison">Home</a> › <a class="nav-link" href="./ID_successiveComparison.html">next</a> › <a class="nav-link" href="./ID_inconsistentSignComparison.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.comparison">目录</a> › <a class="rule-toc-link" href="./ID_successiveComparison.html">next</a> › <a class="rule-toc-link" href="./ID_inconsistentSignComparison.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>比较非同类枚举值相当于比较不同类别的事物，没有逻辑意义，往往是设计缺陷或逻辑错误。</p>
 
 <p>示例：</p>
-<code>enum Fruit { apple, orange, banana };
+<pre><code>enum Fruit { apple, orange, banana };
 enum Pet { hamster, chipmunk, chinchilla };
 
 void foo(Fruit f) {
@@ -42,15 +58,18 @@ void bar(Pet p) {
         ....
         break;
     }
-}</code>
+}</code></pre>
 
 </main>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/697.html" target="_blank" class="related-link">CWE-697</a>
 MISRA C 2012 10.4</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

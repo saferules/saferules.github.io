@@ -6,69 +6,86 @@
   <meta name="description" content="C/C++ 安全编程要点：由于历史原因，C 标准库中的某些字符串函数不执行边界检查，易造成运行时错误和安全漏洞。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>禁用不安全的字符串函数 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>禁用不安全的字符串函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.6.11 ID_unsafeStringFunction</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.call">Home</a> › <a class="nav-link" href="./ID_forbidAtox.html">next</a> › <a class="nav-link" href="./ID_inconsistentArraySize.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.call">目录</a> › <a class="rule-toc-link" href="./ID_forbidAtox.html">next</a> › <a class="rule-toc-link" href="./ID_inconsistentArraySize.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>由于历史原因，C 标准库中的某些字符串函数不执行边界检查，易造成运行时错误和安全漏洞。</p>
 
 <p>这类函数包括：</p>
-<code>gets、strcpy、strcat、wcscpy、wcscat、
+<pre><code>gets、strcpy、strcat、wcscpy、wcscat、
 sprintf、vsprintf、swprintf、vswprintf、
 scanf、sscanf、fscanf、vfscanf、vscanf、vsscanf
-</code>
+</code></pre>
 <p>与这类函数相似的函数同样受本规则约束，如下列 Windows API：</p>
-<code>StrCpy、StrCpyA、StrCpyW、StrCat、StrCatA、StrCatW、
+<pre><code>StrCpy、StrCpyA、StrCpyW、StrCat、StrCatA、StrCatW、
 lstrcpy、lstrcpyA、lstrcpyW、lstrcat、lstrcatA、lstrcatW
-</code>
+</code></pre>
 <p>在 C 代码中应采用更安全的库函数，如用 fgets 代替 gets，snprintf 代替 sprintf。在 C++ 代码中应采用 STL 标准库提供的相关功能。</p>
 
 <p>示例：</p>
-<code>char buf[100];
-gets(buf);      //<i> Non-compliant</i></code>
+<pre><code>char buf[100];
+gets(buf);      //<i> Non-compliant</i></code></pre>
 <p>例中 gets 函数无法检查缓冲区的大小，一旦输入超过了 buf 数组的边界，程序的数据或流程就会遭到破坏，这种情况会被攻击者利用，可参见 <a href="./ID_bufferOverflow.html" class="dashed-link">ID_bufferOverflow</a> 的进一步说明。如果代码中存在 gets 等函数，可以直接判定程序是有漏洞的。</p>
 
 <p>应改为：</p>
-<code>char buf[100];
-fgets(buf, sizeof(buf), stdin);  //<i> Compliant</i></code>
+<pre><code>char buf[100];
+fgets(buf, sizeof(buf), stdin);  //<i> Compliant</i></code></pre>
 <p>fgets 与 gets 不同，当输入超过缓冲区大小时会被截断，保证缓冲区之外的数据不会被破坏。</p>
 
 <p>又如：</p>
-<code>char buf[100];
-scanf(&quot;%s&quot;, buf);  //<i> Non-compliant</i></code>
+<pre><code>char buf[100];
+scanf(&quot;%s&quot;, buf);  //<i> Non-compliant</i></code></pre>
 <p>例中 scanf 函数与 gets 函数有相同的问题，可改为：</p>
-<code>char buf[100];
-scanf(&quot;%99s&quot;, buf);  //<i> Let it go, but ‘fgets’ is better</i></code>
+<pre><code>char buf[100];
+scanf(&quot;%99s&quot;, buf);  //<i> Let it go, but ‘fgets’ is better</i></code></pre>
 <p>scanf、sprintf、strcpy 等函数无视缓冲区大小，需要在外部另行实现防止缓冲区溢出的代码，完全依赖于开发者的小心谨慎。历史表明，对人的单方面依赖是不可靠的，改用更安全的方法才是明智的选择。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:2011 Annex K
 ISO/IEC 9899:2011 K.3.7
 ISO/IEC 9899:2011 K.3.9</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/119.html" target="_blank" class="related-link">CWE-119</a>
 <a href="https://cwe.mitre.org/data/definitions/120.html" target="_blank" class="related-link">CWE-120</a>
 <a href="https://cwe.mitre.org/data/definitions/676.html" target="_blank" class="related-link">CWE-676</a>
 MISRA C++ 2008 18-0-5</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

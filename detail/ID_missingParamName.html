@@ -6,31 +6,47 @@
   <meta name="description" content="C/C++ 安全编程要点：参数的名称是其用途的直接说明，合理的名称可显著提高可读性。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>函数原型声明中的参数应具有合理的名称 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>函数原型声明中的参数应具有合理的名称</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.5.1 ID_missingParamName</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.parameter">Home</a> › <a class="nav-link" href="./ID_invalidParamArraySize.html">next</a> › <a class="nav-link" href="./ID_mixedDeclarations.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.parameter">目录</a> › <a class="rule-toc-link" href="./ID_invalidParamArraySize.html">next</a> › <a class="rule-toc-link" href="./ID_mixedDeclarations.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>参数的名称是其用途的直接说明，合理的名称可显著提高可读性。</p>
 
 <p>示例：</p>
-<code>char* strstr(const char* haystack, const char* needle);   //<i> Good</i>
-</code>
+<pre><code>char* strstr(const char* haystack, const char* needle);   //<i> Good</i>
+</code></pre>
 <p>这是标准库函数 strstr 的原型声明，利用形象的比喻，表示在 haystack 中查找 needle。</p>
 
 <p>如果将声明改为如下形式，就令人费解了：</p>
-<code>char* strstr(const char*, const char*);       //<i> Bad</i>
-char* strstr(const char* a, const char* b);   //<i> Bad</i></code>
+<pre><code>char* strstr(const char*, const char*);       //<i> Bad</i>
+char* strstr(const char* a, const char* b);   //<i> Bad</i></code></pre>
 <p>例中无名称或名称无实际意义的参数是不符合要求的。</p>
 
 </main>
@@ -38,8 +54,11 @@ char* strstr(const char* a, const char* b);   //<i> Bad</i></code>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 16.3
 MISRA C 2012 8.2</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

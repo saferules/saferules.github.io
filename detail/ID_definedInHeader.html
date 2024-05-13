@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：在头文件中定义的函数或对象会被引入不同的翻译单元（translate-unit）造成编译冲突。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应在头文件中实现函数或定义对象 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应在头文件中实现函数或定义对象</h1>
   <div id="subtitle">
     <div id="subtitle-id">4.7 ID_definedInHeader</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#global">Home</a> › <a class="nav-link" href="./ID_staticInAnonymousNamespace.html">next</a> › <a class="nav-link" href="./ID_anonymousNamespaceInHeader.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#global">目录</a> › <a class="rule-toc-link" href="./ID_staticInAnonymousNamespace.html">next</a> › <a class="rule-toc-link" href="./ID_anonymousNamespaceInHeader.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>在头文件中定义的函数或对象会被引入不同的翻译单元（translate-unit）造成编译冲突。</p>
@@ -30,15 +46,15 @@
 <p>注意，定义在头文件中的函数发生变化时，所有相关模块均需重新编译，会增加构建和维护成本，在使用动态链接库时这个问题尤为突出，如果库的导入者没有及时编译，可能会造成严重后果。在头文件中定义的函数是模块二进制接口的一部分，应合理规划以降低维护成本。</p>
 
 <p>示例：</p>
-<code>//<i> In a header</i>
+<pre><code>//<i> In a header</i>
 int a[] = {1, 2, 3};   //<i> Non-compliant</i>
 
 int foo() {    //<i> Non-compliant</i>
     return 1;
 }
-</code>
+</code></pre>
 <p>对于较为复杂的模板函数，应将其实现与声明分离，如：</p>
-<code>//<i> In a header</i>
+<pre><code>//<i> In a header</i>
 template &lt;class T&gt;
 struct A {
     T foo(T&amp;);   //<i> Declaration</i>
@@ -49,18 +65,20 @@ struct A {
 template &lt;class T&gt;
 T A&lt;T&gt;::foo(T&amp; p) {   //<i> Implementation</i>
     ....
-}</code>
+}</code></pre>
 <p>将模板函数的实现移入 .imp 文件中，再由主头文件包含即可，.imp 文件称为模板实现文件。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_complexInlineFunction.html" class="related-link">ID_complexInlineFunction</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#sf2-a-header-file-must-not-contain-object-definitions-or-non-inline-function-definitions" target="_blank" class="related-link">C++ Core Guidelines SF.2</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

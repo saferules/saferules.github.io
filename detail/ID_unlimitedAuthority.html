@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：对资源设定合理的访问权限，避免为攻击者提供不应拥有的权限或能力。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>对资源设定合理的访问权限 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>对资源设定合理的访问权限</h1>
   <div id="subtitle">
     <div id="subtitle-id">1.8 ID_unlimitedAuthority</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#security">Home</a> › <a class="nav-link" href="./ID_improperAuthorization.html">next</a> › <a class="nav-link" href="./ID_hijack.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#security">目录</a> › <a class="rule-toc-link" href="./ID_improperAuthorization.html">next</a> › <a class="rule-toc-link" href="./ID_hijack.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>对资源设定合理的访问权限，避免为攻击者提供不应拥有的权限或能力。</p>
@@ -33,20 +49,20 @@
 <p>权限设定是产品设计与实现的重要环节，需落实相关的评审与测试。</p>
 
 <p>示例：</p>
-<code>#include &lt;stdio.h&gt;
+<pre><code>#include &lt;stdio.h&gt;
 
 int main() {
     umask(000);                     //<i> Non-compliant</i>
     FILE* fp = fopen(&quot;bar&quot;, &quot;w&quot;);   //<i> Old method</i>
     ....
     fclose(fp);
-}</code>
+}</code></pre>
 <p>例中 umask 函数开放了所有用户对文件的读写权限，这是很不安全的，进程之间不应直接通过文件通信，应实现安全的接口和交互机制。</p>
 
 <p>由于历史原因，C 语言的 fopen 和 C++ 语言的 fstream 都不能确保文件只能被当前用户访问，C11 提供了 fopen_s，C++17 提供了 std::filesystem::permissions 以填补这方面的需求。</p>
 
 <p>C11 fopen_s 简例：</p>
-<code>#define __STDC_WANT_LIB_EXT1__ 1
+<pre><code>#define __STDC_WANT_LIB_EXT1__ 1
 #include &lt;stdio.h&gt;
 
 int main() {
@@ -54,7 +70,7 @@ int main() {
     errno_t e = fopen_s(&amp;fp, &quot;bar&quot;, &quot;w&quot;);   //<i> Good</i>
     ....
     fclose(fp);
-}</code>
+}</code></pre>
 <p>与 fopen 不同，fopen_s 可以不受 umask 等函数的影响，直接将文件的权限设为当前用户私有，其他用户不可访问，降低了文件被窃取或篡改的风险，是一种更安全的方法。</p>
 
 <p>除此之外，如果需要对资源进行更精细的权限管理，可参见“<a href="https://en.wikipedia.org/wiki/Access-control_list" target="_blank" class="dashed-link">access control list（ACL）</a>”。</p>
@@ -63,14 +79,16 @@ int main() {
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:2011 K.3.5.2.1(7)
 ISO/IEC 14882:2017 30.10.15.26</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/266.html" target="_blank" class="related-link">CWE-266</a>
 <a href="https://cwe.mitre.org/data/definitions/732.html" target="_blank" class="related-link">CWE-732</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO06-C.+Create+files+with+appropriate+access+permissions" target="_blank" class="related-link">SEI CERT FIO06-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

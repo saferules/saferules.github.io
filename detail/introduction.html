@@ -7,28 +7,37 @@
   <meta name="description" content="《360安全规则集合》是一套完备的 C/C++ 安全编程指南、教程和培训资料，涵盖了数百种需要特别关注的问题，可以帮助您更好地保护您的软件产品免受各种安全威胁。" />
   <link type="text/css" rel="stylesheet" href="../css/index.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script type="text/javascript" src="../js/search.js"></script>
   <title>360 安全规则集合 - C/C++ 编程指南 - 项目介绍</title>
 </head>
-<article>
-  <div id="article-wrapper">
-    <header>
-      <div id="header-wrapper">
-        <a href="https://github.com/Qihoo360/safe-rules/">
-          <img alt="logo" id="main-logo" src="../img/main_logo.png"/>
-        </a>
-        <div id="titles">
-          <h1 id="main-title">360 安全规则集合 <img alt="version-1.3.2" src="https://img.shields.io/badge/version-1.3.2-brightgreen"></h1>
-          <div id="sub-title">详细的 C/C++ 安全编程指南</div>
-        </div>
+<article class="footer-holder">
+  <nav>
+    <ul class="nav-list">
+      <li><span class="nav-icon">☰</span></li>
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../index.html#rules-class-title">规则分类</a></li>
+      <li><a href="../index.html#rules-toc-title">规则目录</a></li>
+      <li><a href="../index.html#appendix-title">附录</a></li>
+    </ul>
+    <div class="nav-stuff"></div>
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+      <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+    </div>
+    <span class="nav-ellipsis">•••</span>
+  </nav>
+  <header>
+    <div id="header-wrapper">
+      <div id="titles">
+        <h1 id="main-title" style="display: flex;flex-direction: row;align-items: center;"><img id="logo-360" alt="360 logo" src="../img/360.png" width="150px" />安全规则集合</h1>
+        <div id="sub-title">详细的 C/C++ 安全编程指南</div>
       </div>
-    </header>
-    <nav>
-      <a href="../index.html#rules-class-title">规则分类</a>
-      •
-      <a href="../index.html#rules-toc-title">规则目录</a>
-      •
-      <a href="../index.html#appendix-title">附录</a>
-    </nav>
+      <div>
+        <img alt="logo" id="main-logo" src="../img/main_logo.png"/>     
+      </div>
+    </div>
+  </header>
+
     <div class="content-wrapper content-first-section">
       <p>《360 安全规则集合》简称《安规集》，是一套详细的 C/C++ 安全编程指南，由 360 集团质量工程部编著，
       将编程时需要注意的问题总结成若干规则，可为制定编程规范提供依据，也可为代码审计或相关培训提供指导意见，
@@ -37,8 +46,7 @@
       <p>《安规集》的最新动态请参见：<a href="https://github.com/Qihoo360/safe-rules">https://github.com/Qihoo360/safe-rules</a></p>
       <p>可在 <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache-2.0</a> 协议的许可范围内自由传播和使用《安规集》相关内容，同时也可以根据自身需求对某些规则进行适当的调整和取舍。</p>
     </div>
-    <div class="content-wrapper content-last-section"></div>
-  </div>
+    
 </article>
 <footer>
   <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>

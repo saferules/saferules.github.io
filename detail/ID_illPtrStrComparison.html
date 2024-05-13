@@ -6,48 +6,63 @@
   <meta name="description" content="C/C++ 安全编程要点：直接比较指针和字符串常量的结果往往总是 false，应改用字符串比较函数。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>指针不应与字符串常量直接比较 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>指针不应与字符串常量直接比较</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.5.3 ID_illPtrStrComparison</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.comparison">Home</a> › <a class="nav-link" href="./ID_inconsistentSignComparison.html">next</a> › <a class="nav-link" href="./ID_illFloatComparison.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.comparison">目录</a> › <a class="rule-toc-link" href="./ID_inconsistentSignComparison.html">next</a> › <a class="rule-toc-link" href="./ID_illFloatComparison.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>直接比较指针和字符串常量的结果往往总是 false，应改用字符串比较函数。</p>
 
 <p>示例：</p>
-<code>bool is_name(const char* p) {
+<pre><code>bool is_name(const char* p) {
     return p == &quot;bar&quot;;          //<i> Non-compliant</i>
 }
-</code>
+</code></pre>
 <p>如果例中 is_name 函数只接受常量字符串作为参数，该函数在某些环境中也可能正常工作，如：</p>
-<code>if (is_name(&quot;foo&quot;)) {   //<i> May be false</i>
+<pre><code>if (is_name(&quot;foo&quot;)) {   //<i> May be false</i>
     ....
 }
 if (is_name(&quot;bar&quot;)) {   //<i> May be true</i>
     ....
 }
-</code>
+</code></pre>
 <p>然而相同的字符串常量是否一定拥有相同的地址呢？对这个问题不同的编译器有不同的实现，有可移植性要求的代码要规避这种问题，而且这种问题极易导致错误，一般的程序都应该避免这种问题。</p>
 
 <p>应改为：</p>
-<code>bool is_name(const char* p) {
+<pre><code>bool is_name(const char* p) {
     return !strcmp(p, &quot;bar&quot;);   //<i> Compliant</i>
-}</code>
+}</code></pre>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.4.5(6)-unspecified
 ISO/IEC 9899:2011 6.4.5(7)-unspecified
 ISO/IEC 14882:2003 2.13.4(2)-implementation
@@ -55,10 +70,13 @@ ISO/IEC 14882:2011 2.14.5(12)-implementation
 ISO/IEC 14882:2017 5.13.5(16)-unspecified</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/595.html" target="_blank" class="related-link">CWE-595</a>
 <a href="https://cwe.mitre.org/data/definitions/697.html" target="_blank" class="related-link">CWE-697</a>
 <a href="https://cwe.mitre.org/data/definitions/1024.html" target="_blank" class="related-link">CWE-1024</a>
 <a href="https://cwe.mitre.org/data/definitions/1025.html" target="_blank" class="related-link">CWE-1025</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

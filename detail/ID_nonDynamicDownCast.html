@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：向下动态类型转换应使用 dynamic_cast 以保证安全性。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>向下动态类型转换应使用 dynamic_cast - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>向下动态类型转换应使用 dynamic_cast</h1>
   <div id="subtitle">
     <div id="subtitle-id">12.16 ID_nonDynamicDownCast</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#cast">Home</a> › <a class="nav-link" href="./ID_nullDerefDynamicCast.html">next</a> › <a class="nav-link" href="./ID_functionPointerCast.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#cast">目录</a> › <a class="rule-toc-link" href="./ID_nullDerefDynamicCast.html">next</a> › <a class="rule-toc-link" href="./ID_functionPointerCast.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>向下动态类型转换应使用 dynamic_cast 以保证安全性。</p>
 
 <p>示例：</p>
-<code>class A { .... };
+<pre><code>class A { .... };
 class B: public A { .... };   //<i> A and B are polymorphic classes</i>
 
 void foo(A* a)
@@ -34,11 +50,11 @@ void foo(A* a)
     B* b2 = reinterpret_cast&lt;B*&gt;(a);   //<i> Non-compliant</i>
     B* b3 = dynamic_cast&lt;B*&gt;(a);       //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>如果 a 实际指向的不是 B 类对象，使用 dynamic_cast 会得到一个空值便于进一步处理，其他方式的转换会得到无法判断对错的结果。</p>
 
 <p>注意，虚基类指针只能通过 dynamic_cast 转换为派生类指针，否则导致标准未定义的行为：</p>
-<code>class A { .... };
+<pre><code>class A { .... };
 class B: virtual A { .... };
 class C: virtual A { .... };
 class D: B, C { .... };
@@ -48,25 +64,26 @@ void foo(A* a) {
     D* d1 = dynamic_cast&lt;D*&gt;(a);   //<i> Right</i>
     ....
 }
-</code>
+</code></pre>
 <p>应尽量减少向下类型转换，参见 <a href="./ID_downCast.html" class="dashed-link">ID_downCast</a>。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_downCast.html" class="related-link">ID_downCast</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 5.2.7
 ISO/IEC 14882:2003 5.2.9(5 8)-undefined
 ISO/IEC 14882:2011 5.2.7
 ISO/IEC 14882:2011 5.2.9(11 12)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c146-use-dynamic_cast-where-class-hierarchy-navigation-is-unavoidable" target="_blank" class="related-link">C++ Core Guidelines C.146</a>
 MISRA C++ 2008 5-2-2</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：由于历史原因，有些系统接口甚至标准库函数存在缺陷，无法安全使用，也有一些接口的使用条件很苛刻，难以安全使用。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免使用危险接口 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免使用危险接口</h1>
   <div id="subtitle">
     <div id="subtitle-id">1.11 ID_dangerousFunction</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#security">Home</a> › <a class="nav-link" href="./ID_obsoleteFunction.html">next</a> › <a class="nav-link" href="./ID_dangerousName.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#security">目录</a> › <a class="rule-toc-link" href="./ID_obsoleteFunction.html">next</a> › <a class="rule-toc-link" href="./ID_dangerousName.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>由于历史原因，有些系统接口甚至标准库函数存在缺陷，无法安全使用，也有一些接口的使用条件很苛刻，难以安全使用。</p>
 
 <p>示例：</p>
-<code>gets       //<i> The most dangerous function</i>
+<pre><code>gets       //<i> The most dangerous function</i>
 mktemp     //<i> Every use of ‘mktemp’ is a security risk, use ‘mkstemp’ instead</i>
 getpass    //<i> Unsafe and not portable</i>
 crypt      //<i> Unsafe, exhaustive searches of the key space are possible</i>
@@ -38,7 +54,7 @@ SuspendThread       //<i> Forced suspension of a thread can cause many problems<
 TerminateThread     //<i> Forced termination of a thread can cause many problems</i>
 GlobalMemoryStatus        //<i> Return incorrect information, use ‘GlobalMemoryStatusEx’ instead</i>
 SetProcessWorkingSetSize  //<i> Cause adverse effects on other processes and the entire system</i>
-</code>
+</code></pre>
 <p>例中 gets 函数不检查缓冲区边界，无法安全使用；TerminateThread 等 Windows API 强制终止线程，线程持有的资源难以正确释放，极易导致泄漏或死锁等问题，应避免使用这类函数。</p>
 
 </main>
@@ -46,8 +62,11 @@ SetProcessWorkingSetSize  //<i> Cause adverse effects on other processes and the
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/242.html" target="_blank" class="related-link">CWE-242</a>
 <a href="https://cwe.mitre.org/data/definitions/676.html" target="_blank" class="related-link">CWE-676</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

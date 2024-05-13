@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：如果参数为基本类型，或只包含少量非静态数据成员，且通过简单赋值即可完成复制，可以通过值传递参数，否则应使用引用或指针的方式以避免额外的复制开销。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>复制成本高的参数不应按值传递 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>复制成本高的参数不应按值传递</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.7 ID_paramPassedByValue</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_illForwardingReference.html">next</a> › <a class="nav-link" href="./ID_paramModified.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_illForwardingReference.html">next</a> › <a class="rule-toc-link" href="./ID_paramModified.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>如果参数为基本类型，或只包含少量非静态数据成员，且通过简单赋值即可完成复制，可以通过值传递参数，否则应使用引用或指针的方式以避免额外的复制开销。</p>
@@ -26,40 +42,42 @@
 <p>一般而言，如果参数的大小超过了两个指针，不应使用值传递的方式。</p>
 
 <p>示例：</p>
-<code>using S = std::string;
+<pre><code>using S = std::string;
 
 void foo(S s) {   //<i> Non-compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>例中 s 是按值传递的参数，由传入的实际参数复制而成，涉及内存分配和非常量时间复杂度的数据复制，成本较高。</p>
 
 <p>应改为常量引用的方式：</p>
-<code>void foo(const S&amp; s) {   //<i> Compliant</i>
+<pre><code>void foo(const S&amp; s) {   //<i> Compliant</i>
     ....
 }
-</code>
+</code></pre>
 <p>当参数为复制成本较高的常量对象时，往往是漏写了引用符号，为常见笔误，如：</p>
-<code>void bar(const S s);   //<i> Non-compliant, missing ‘&amp;’</i>
-</code>
+<pre><code>void bar(const S s);   //<i> Non-compliant, missing ‘&amp;’</i>
+</code></pre>
 <p>当参数在函数体内被修改，也可能是有意让形式参数作为实际参数的副本，这种情况可不受本规则约束，但也可能是漏写了引用符号，审计工具不妨根据配置给出提醒，如：</p>
-<code>S lower(S s) {  //<i> Let it go?</i>
+<pre><code>S lower(S s) {  //<i> Let it go?</i>
     transform(
         s.begin(), s.end(), s.begin(),
         [](unsigned char c) { return static_cast&lt;char&gt;(tolower(c)); }
     );
     return s;
-}</code>
+}</code></pre>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">allowModifiedParam: 是否放过被修改的参数
 maxParamSize: 允许按值传递的参数对象大小上限</div>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f16-for-in-parameters-pass-cheaply-copied-types-by-value-and-others-by-reference-to-const" target="_blank" class="related-link">C++ Core Guidelines F.16</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

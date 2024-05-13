@@ -6,66 +6,80 @@
   <meta name="description" content="C/C++ 安全编程要点：对不改变程序流程的常量表达式进行逻辑判断是没有意义的。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>逻辑表达式及逻辑子表达式不应为常量 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>逻辑表达式及逻辑子表达式不应为常量</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.1.5 ID_constLogicExpression</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.logic">Home</a> › <a class="nav-link" href="./ID_shortCircuitSideEffect.html">next</a> › <a class="nav-link" href="./ID_invalidCondition.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.logic">目录</a> › <a class="rule-toc-link" href="./ID_shortCircuitSideEffect.html">next</a> › <a class="rule-toc-link" href="./ID_invalidCondition.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>对不改变程序流程的常量表达式进行逻辑判断是没有意义的。</p>
 
 <p>示例：</p>
-<code>if (false) {  //<i> Non-compliant</i>
+<pre><code>if (false) {  //<i> Non-compliant</i>
     ....
 }
 
 while (true || condition) {  //<i> Non-compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>这种代码会使相应的控制语句或控制条件失效，往往是调试或维护过程中产生的残留代码，应及时去除。</p>
 
 <p>又如：</p>
-<code>int* fun();
+<pre><code>int* fun();
 
 if (fun == NULL) {  //<i> Non-compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>函数地址、非动态创建的对象地址不会为空，这种地址与空指针比较往往意味着笔误。</p>
 
 <p>例外：</p>
-<code>while (true) {  //<i> Compliant</i>
+<pre><code>while (true) {  //<i> Compliant</i>
     ....
 }
 
 do {
     ....
-} while (0);  //<i> Compliant</i></code>
+} while (0);  //<i> Compliant</i></code></pre>
 <p>true 或 1 可作为 while 或 do-while 循环的条件，false 或 0 可作为 do-while 循环的条件。</p>
 
 <p>constexpr if 语句的常量条件表达式用于编译期分枝控制，也不受本规则约束：</p>
-<code>if constexpr (E) {  //<i> Compliant</i>
+<pre><code>if constexpr (E) {  //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>其中 E 为常量表达式。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_invalidCondition.html" class="related-link">ID_invalidCondition</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/570.html" target="_blank" class="related-link">CWE-570</a>
 <a href="https://cwe.mitre.org/data/definitions/571.html" target="_blank" class="related-link">CWE-571</a>
 MISRA C 2004 13.7
@@ -73,4 +87,8 @@ MISRA C 2012 14.3
 MISRA C++ 2008 0-1-2
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP16-C.+Do+not+compare+function+pointers+to+constant+values" target="_blank" class="related-link">SEI CERT EXP16-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

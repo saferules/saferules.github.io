@@ -6,49 +6,65 @@
   <meta name="description" content="C/C++ 安全编程要点：应遵循接口文档使用接口，不可臆断返回值的意义，否则造成逻辑错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不可臆断返回值的意义 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不可臆断返回值的意义</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.6.2 ID_wrongUseOfReturnValue</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.call">Home</a> › <a class="nav-link" href="./ID_objectSlicing.html">next</a> › <a class="nav-link" href="./ID_returnValueIgnored.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.call">目录</a> › <a class="rule-toc-link" href="./ID_objectSlicing.html">next</a> › <a class="rule-toc-link" href="./ID_returnValueIgnored.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>应遵循接口文档使用接口，不可臆断返回值的意义，否则造成逻辑错误。</p>
 
 <p>示例：</p>
-<code>void foo(const string&amp; s) {
+<pre><code>void foo(const string&amp; s) {
     if (s.find(&quot;bar&quot;)) {      //<i> Non-compliant</i>
         ....
     }
-}</code>
+}</code></pre>
 <p>例中 find 函数返回 &quot;bar&quot; 在 s 中的位置，当 s 中不存在 &quot;bar&quot; 时返回 string::npos，将 find 函数的返回值转为 bool 型是没有逻辑意义的。</p>
 
 <p>应改为：</p>
-<code>void foo(const string&amp; s) {
+<pre><code>void foo(const string&amp; s) {
     if (s.find(&quot;bar&quot;) != string::npos) {   //<i> Compliant</i>
         ....
     }
-}</code>
+}</code></pre>
 <p>想当然地认为返回 0 表示失败或不存在，非 0 表示成功或存在，是造成错误的常见原因。</p>
 
 <p>又如：</p>
-<code>bool gt(const char* a, const char* b) {
+<pre><code>bool gt(const char* a, const char* b) {
     return strcmp(a, b) == 1;             //<i> Non-compliant</i>
-}</code>
+}</code></pre>
 <p>strcmp 函数的返回值可以是等于、大于或小于 0 的任意整数，分别对应字符串的等于、大于或小于关系，认为其只能返回 0、1 或 -1 是一种常见的误解。</p>
 
 <p>应改为：</p>
-<code>bool gt(const char* a, const char* b) {
+<pre><code>bool gt(const char* a, const char* b) {
     return strcmp(a, b) &gt; 0;              //<i> Compliant</i>
-}</code>
+}</code></pre>
 <p>strcmp、wcscmp 以及 memcmp 等函数不应与 0 之外的任何值比较。</p>
 
 <p>下列函数的返回值不应与 0 比较，也不应转为 bool 型：</p>
@@ -64,12 +80,14 @@
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 7.21.4
 ISO/IEC 9899:2011 7.24.4</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/253.html" target="_blank" class="related-link">CWE-253</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

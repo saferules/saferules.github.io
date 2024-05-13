@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：避免使用在相关标准中已过时的接口，应改用更完善的替代方法以规避风险，提高可移植性。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免使用已过时的接口 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免使用已过时的接口</h1>
   <div id="subtitle">
     <div id="subtitle-id">1.12 ID_obsoleteFunction</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#security">Home</a> › <a class="nav-link" href="./ID_divideByZero.html">next</a> › <a class="nav-link" href="./ID_dangerousFunction.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#security">目录</a> › <a class="rule-toc-link" href="./ID_divideByZero.html">next</a> › <a class="rule-toc-link" href="./ID_dangerousFunction.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>避免使用在相关标准中已过时的接口，应改用更完善的替代方法以规避风险，提高可移植性。</p>
@@ -26,7 +42,7 @@
 <p>对于过时的 C++ 标准库接口，本规则特化为 <a href="./ID_obsoleteStdFunction.html" class="dashed-link">ID_obsoleteStdFunction</a>。</p>
 
 <p>示例：</p>
-<code>asctime         //<i> Use ‘strftime’ instead</i>
+<pre><code>asctime         //<i> Use ‘strftime’ instead</i>
 bcmp            //<i> Use ‘memcmp’ instead</i>
 bcopy           //<i> Use ‘memmove’ or ‘memcpy’ instead</i>
 bsd_signal      //<i> Use ‘sigaction’ instead</i>
@@ -48,19 +64,21 @@ CreateToolbarEx      //<i> Use ‘CreateWindowEx’ instead</i>
 InitCommonControls   //<i> Use ‘InitCommonControlsEx’ instead</i>
 NtQuerySystemTime    //<i> Use ‘GetSystemTimeAsFileTime’ instead</i>
 RegCreateKey         //<i> Use ‘RegCreateKeyEx’ instead</i>
-WinExec              //<i> Use ‘CreateProcess’ instead</i></code>
+WinExec              //<i> Use ‘CreateProcess’ instead</i></code></pre>
 <p>例中 C89 引入的 ctime、asctime 等函数在 POSIX.1-2008 标准中已过时，应改用 strftime 函数；RegCreateKey 等 16 位 Windows API 在 32 和 64 位平台中不应再被使用。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_obsoleteStdFunction.html" class="related-link">ID_obsoleteStdFunction</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/477.html" target="_blank" class="related-link">CWE-477</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/MSC24-C.+Do+not+use+deprecated+or+obsolescent+functions" target="_blank" class="related-link">SEI CERT MSC24-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

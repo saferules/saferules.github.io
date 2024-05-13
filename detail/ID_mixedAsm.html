@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：汇编代码的格式由实现定义，不具备可移植性，且可读性较差，故不应与普通代码混合。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>汇编代码不应与普通代码混合 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>汇编代码不应与普通代码混合</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.45 ID_mixedAsm</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_functionRepetition.html">next</a> › <a class="nav-link" href="./ID_nestedTooDeep.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_functionRepetition.html">next</a> › <a class="rule-toc-link" href="./ID_nestedTooDeep.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>汇编代码的格式由实现定义，不具备可移植性，且可读性较差，故不应与普通代码混合。</p>
@@ -26,7 +42,7 @@
 <p>如果条件允许，应使用汇编语言实现独立的库，再由 C/C++ 代码调用。</p>
 
 <p>示例：</p>
-<code>int avg(int a, int b) {
+<pre><code>int avg(int a, int b) {
     int sum;
     __asm {                //<i> Non-compliant</i>
         mov eax, a
@@ -35,9 +51,9 @@
         mov sum, eax
     }
     return sum / 2;        //<i> Non-compliant</i>
-}</code>
+}</code></pre>
 <p>例中 avg 函数同时含有汇编代码和 C 代码是不符合要求的，至少应将汇编代码单独隔离成一个函数，如：</p>
-<code>int add(int a, int b) {
+<pre><code>int add(int a, int b) {
     __asm {                //<i> Compliant</i>
         mov eax, a
         mov ebx, b
@@ -48,22 +64,24 @@
 int avg(int a, int b) {
     int sum = add(a, b);   //<i> Compliant</i>
     return sum / 2;
-}</code>
+}</code></pre>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 J.5.10-implementation
 ISO/IEC 9899:2011 J.5.10-implementation
 ISO/IEC 14882:2003 7.4(1)-implementation
 ISO/IEC 14882:2011 7.4(1)-implementation</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 2.1
 MISRA C 2012 Dir 4.3
 MISRA C++ 2008 7-4-3</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

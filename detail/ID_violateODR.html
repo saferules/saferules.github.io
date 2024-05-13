@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：任何翻译单元不得包含同一对象、函数、类型或模板的不同定义，这一准则称为“One Definition Rule（ODR）”，违反该准则会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>遵循 One Definition Rule - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>遵循 One Definition Rule</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.12.3 ID_violateODR</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.other">Home</a> › <a class="nav-link" href="./ID_labelNotUsed.html">next</a> › <a class="nav-link" href="./ID_inconsistentDeclaration.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.other">目录</a> › <a class="rule-toc-link" href="./ID_labelNotUsed.html">next</a> › <a class="rule-toc-link" href="./ID_inconsistentDeclaration.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>任何翻译单元不得包含同一对象、函数、类型或模板的不同定义，这一准则称为“<a href="https://en.cppreference.com/w/cpp/language/definition" target="_blank" class="dashed-link">One Definition Rule（ODR）</a>”，违反该准则会导致标准未定义的行为。</p>
 
 <p>示例：</p>
-<code>//<i> In a.cpp</i>
+<pre><code>//<i> In a.cpp</i>
 struct T {    //<i> One definition</i>
     short i;
 };
@@ -45,20 +61,22 @@ void bar(T*);
 
 void baz() {
     bar(foo());   //<i> Problems</i>
-}</code>
+}</code></pre>
 <p>例中类 T 在两个翻译单元中有不同的定义，违反了 One Definition Rule，会导致未定义的行为，应在头文件中统一定义。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 3.2(5)-undefined
 ISO/IEC 14882:2011 3.2(5)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C++ 2008 3-2-2
 <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL60-CPP.+Obey+the+one-definition+rule" target="_blank" class="related-link">SEI CERT DCL60-CPP</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

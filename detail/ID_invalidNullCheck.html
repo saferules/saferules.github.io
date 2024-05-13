@@ -6,55 +6,73 @@
   <meta name="description" content="C/C++ 安全编程要点：当指针的值一定不为空时，再对其进行检查是没有意义的，往往意味着逻辑错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免无效的空指针检查 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免无效的空指针检查</h1>
   <div id="subtitle">
     <div id="subtitle-id">14.9 ID_invalidNullCheck</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#pointer">Home</a> › <a class="nav-link" href="./ID_repeatedNullCheck.html">next</a> › <a class="nav-link" href="./ID_illPtrArithmetic.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#pointer">目录</a> › <a class="rule-toc-link" href="./ID_repeatedNullCheck.html">next</a> › <a class="rule-toc-link" href="./ID_illPtrArithmetic.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>当指针的值一定不为空时，再对其进行检查是没有意义的，往往意味着逻辑错误。</p>
 
 <p>示例：</p>
-<code>if (int* p = new int[100]) {   //<i> Non-compliant</i>
+<pre><code>if (int* p = new int[100]) {   //<i> Non-compliant</i>
     ....
 } else {   //<i> Invalid</i>
     ....
-}</code>
+}</code></pre>
 <p>标准规定默认 new 运算符的返回值不会为空，如果分配失败则抛出异常，所以这种检查和相关错误处理是无效的。</p>
 
 <p>应改为：</p>
-<code>if (int* p = new(std::nothrow) int[100]) {   //<i> Compliant</i>
+<pre><code>if (int* p = new(std::nothrow) int[100]) {   //<i> Compliant</i>
     ....
 } else {   //<i> OK</i>
     ....
 }
-</code>
+</code></pre>
 <p>又如：</p>
-<code>if (p) {        //<i> Meaningless</i>
+<pre><code>if (p) {        //<i> Meaningless</i>
     delete p;
-}</code>
+}</code></pre>
 <p>对于可接受空指针的接口，不必总在调用前判断指针是否为空，否则会使代码变得繁琐。delete 关键字或 free 函数可以作用于空指针，调用之前的检查是没有意义的。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_repeatedNullCheck.html" class="related-link">ID_repeatedNullCheck</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 18.4
 ISO/IEC 14882:2011 18.6</div>
 
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

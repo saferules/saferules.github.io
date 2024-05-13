@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：restrict 指针要求其他指针不能指向与之相同的区域，否则会导致标准未定义的行为，这种特性有助于编译器优化代码，但也增加了误用风险。restrict 指针由 C99 标准提出，不在 C++ 标准之内，在 C++ 代码中不应使用。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>禁用 restrict 指针 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>禁用 restrict 指针</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.2.9 ID_forbidRestrictPtr</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.qualifier">Home</a> › <a class="nav-link" href="./ID_forbidVolatile.html">next</a> › <a class="nav-link" href="./ID_constLiteralReference.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.qualifier">目录</a> › <a class="rule-toc-link" href="./ID_forbidVolatile.html">next</a> › <a class="rule-toc-link" href="./ID_constLiteralReference.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>restrict 指针要求其他指针不能指向与之相同的区域，否则会导致标准未定义的行为，这种特性有助于编译器优化代码，但也增加了误用风险。restrict 指针由 C99 标准提出，不在 C++ 标准之内，在 C++ 代码中不应使用。</p>
@@ -26,33 +42,35 @@
 <p>应在效率和风险之间合理取舍，不建议在有高可靠性要求的代码中使用这种特性。</p>
 
 <p>示例：</p>
-<code>void foo(int* restrict a, int* restrict b)   //<i> Non-compliant</i>
+<pre><code>void foo(int* restrict a, int* restrict b)   //<i> Non-compliant</i>
 {
     *a += *b;
     *a *= *b;
-}</code>
+}</code></pre>
 <p>例中指针 a 和 b 由 restrict 关键字限定，表示指向不同的对象，由于未通过 b 写入数据，在优化时可以认为 b 指向的对象不变，可将相关对象存入寄存器等高速存储器，不必每次都从内存中读取。</p>
 
 <p>但如果 a 和 b 指向同一对象会导致未定义的行为，如：</p>
-<code>int main(void)
+<pre><code>int main(void)
 {
     int i = 8;
     foo(&amp;i, &amp;i);     //<i> Undefined behavior</i>
     printf(&quot;%d&quot;, i);
-}</code>
+}</code></pre>
 <p>这段代码在启用优化时和关闭优化时可能会有不同的输出。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.7.3.1(4 9 11)-undefined
 ISO/IEC 9899:2011 6.7.3.1(4 9 11)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 8.14
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP43-C.+Avoid+undefined+behavior+when+using+restrict-qualified+pointers" target="_blank" class="related-link">SEI CERT EXP43-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

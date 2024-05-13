@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：如果未访问 this 指针的成员函数没有被设计为静态成员函数，很可能意味着错误或功能不完整。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>未访问 this 指针的成员函数应使用 static 声明 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>未访问 this 指针的成员函数应使用 static 声明</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.3.9 ID_this_notUsed</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.specifier">Home</a> › <a class="nav-link" href="./ID_missingStatic.html">next</a> › <a class="nav-link" href="./ID_invalidFinal.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.specifier">目录</a> › <a class="rule-toc-link" href="./ID_missingStatic.html">next</a> › <a class="rule-toc-link" href="./ID_invalidFinal.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>如果未访问 this 指针的成员函数没有被设计为静态成员函数，很可能意味着错误或功能不完整。</p>
 
 <p>示例：</p>
-<code>class A {
+<pre><code>class A {
     static int s;
 
 public:
@@ -35,7 +51,7 @@ public:
         return s++;
     }
     ....
-};</code>
+};</code></pre>
 <p>例中 foo 函数只访问了静态数据成员，但在调用时仍会将 this 指针作为参数，这在逻辑上是矛盾的，所以应使用 static 关键字明确声明。</p>
 
 </main>
@@ -43,7 +59,10 @@ public:
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C++ 2008 9-3-3</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

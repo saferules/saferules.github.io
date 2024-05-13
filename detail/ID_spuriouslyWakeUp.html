@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：条件不满足时条件变量也可以被唤醒，这种情况称为“虚假唤醒（spurious wakeup）”，条件变量被唤醒后应检查相关条件是否满足，否则会造成同步相关的错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免虚假唤醒造成同步错误 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免虚假唤醒造成同步错误</h1>
   <div id="subtitle">
     <div id="subtitle-id">16.7 ID_spuriouslyWakeUp</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#concurrency">Home</a> › <a class="nav-link" href="./ID_bitfieldDataRaces.html">next</a> › <a class="nav-link" href="./ID_illLifetime.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#concurrency">目录</a> › <a class="rule-toc-link" href="./ID_bitfieldDataRaces.html">next</a> › <a class="rule-toc-link" href="./ID_illLifetime.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>条件不满足时条件变量也可以被唤醒，这种情况称为“<a href="https://en.wikipedia.org/wiki/Spurious_wakeup" target="_blank" class="dashed-link">虚假唤醒（spurious wakeup）</a>”，条件变量被唤醒后应检查相关条件是否满足，否则会造成同步相关的错误。</p>
 
 <p>示例：</p>
-<code>mtx_t m;    //<i> Mutex</i>
+<pre><code>mtx_t m;    //<i> Mutex</i>
 cnd_t cv;   //<i> Condition variable</i>
 bool cnd;   //<i> Represents the condition</i>
 
@@ -34,7 +50,7 @@ void thd() {                 //<i> Thread function</i>
         cnd_wait(&amp;cv, &amp;m);   //<i> Wait</i>
     }
     ....
-}</code>
+}</code></pre>
 <p>设例中 cv 是条件变量，cnd 代表相关条件，cnd_wait 等待条件被其他异步过程满足，条件的判断与更改应是互斥的，cnd_wait 会解锁并进入等待状态，当得到 cnd_signal 或 cnd_broadcast 的通知后会退出等待状态并再次加锁，但在条件不满足时也可能退出等待，原因主要有：</p>
 <ul>
 <li>一个条件变量对应多个条件，与当前条件无关的条件被满足并通知了条件变量</li>
@@ -43,21 +59,24 @@ void thd() {                 //<i> Thread function</i>
 
 </ul>
 <p>这些问题取决于程序和系统的具体实现，在循环中等待并判断条件可一并解决这些问题：</p>
-<code>void thd() {
+<pre><code>void thd() {
     mtx_lock(&amp;m);
     while (!cnd) {           //<i> Compliant</i>
         cnd_wait(&amp;cv, &amp;m);
     }
     ....
-}</code>
+}</code></pre>
 
 </main>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/c/CON36-C.+Wrap+functions+that+can+spuriously+wake+up+in+a+loop" target="_blank" class="related-link">SEI CERT CON36-C</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CON54-CPP.+Wrap+functions+that+can+spuriously+wake+up+in+a+loop" target="_blank" class="related-link">SEI CERT CON54-CPP</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

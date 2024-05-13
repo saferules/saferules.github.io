@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：二元算术表达式、以二元算术表达式为分枝的三元表达式不应被隐式或显式地转为取值范围更大的类型。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>避免数据丢失造成类型转换失效 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>避免数据丢失造成类型转换失效</h1>
   <div id="subtitle">
     <div id="subtitle-id">12.2 ID_invalidPromotion</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#cast">Home</a> › <a class="nav-link" href="./ID_signChangeCast.html">next</a> › <a class="nav-link" href="./ID_narrowCast.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#cast">目录</a> › <a class="rule-toc-link" href="./ID_signChangeCast.html">next</a> › <a class="rule-toc-link" href="./ID_narrowCast.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>下列表达式的类型不应被隐式或显式地转为取值范围更大的类型：</p>
@@ -30,7 +46,7 @@
 <p>这种表达式的溢出或精度损失会发生在类型转换之前，使类型转换失效。</p>
 
 <p>示例：</p>
-<code>void foo(int32_t a, int32_t b)
+<pre><code>void foo(int32_t a, int32_t b)
 {
     int64_t i = a * b;            //<i> Non-compliant</i>
     int64_t j = int64_t(a + b);   //<i> Non-compliant</i>
@@ -38,11 +54,11 @@
     double x = a / b;             //<i> Non-compliant</i>
     double y = double(a / b);     //<i> Non-compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>例中表达式 a * b、a + b 的类型为 32 位整型，如果溢出则无法正确转为 64 位整型；a / b 的结果仍是整数，小数部分将丢失。</p>
 
 <p>应将操作数转为目标类型，使算术表达式与被赋值的对象具有相同的类型：</p>
-<code>void foo(int32_t a, int32_t b)
+<pre><code>void foo(int32_t a, int32_t b)
 {
     int64_t i = int64_t(a) * b;   //<i> Compliant</i>
     int64_t j = a + int64_t(b);   //<i> Compliant</i>
@@ -50,18 +66,16 @@
     double x = double(a) / b;     //<i> Compliant</i>
     double y = a / double(b);     //<i> Compliant</i>
     ....
-}</code>
+}</code></pre>
 <p>这样便可避免类型转换失效。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_evalOverflow.html" class="related-link">ID_evalOverflow</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 10.6
 MISRA C 2012 10.7
 MISRA C 2012 10.8
@@ -69,4 +83,8 @@ MISRA C++ 2008 5-0-3
 MISRA C++ 2008 5-0-7
 MISRA C++ 2008 5-0-8</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

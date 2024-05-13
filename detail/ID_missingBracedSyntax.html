@@ -6,42 +6,59 @@
   <meta name="description" content="C/C++ 安全编程要点：用 = 或 () 初始化不检查类型转换是否安全，可能会造成数据丢失，用 {} 初始化会进行相关检查，避免数据丢失。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>用 {} 代替 = 或 () 进行初始化 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>用 {} 代替 = 或 () 进行初始化</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.6.1 ID_missingBracedSyntax</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.initializer">Home</a> › <a class="nav-link" href="./ID_missingBracedInitializer.html">next</a> › <a class="nav-link" href="./ID_forbidStaticArrSize.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.initializer">目录</a> › <a class="rule-toc-link" href="./ID_missingBracedInitializer.html">next</a> › <a class="rule-toc-link" href="./ID_forbidStaticArrSize.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>用 = 或 () 初始化不检查类型转换是否安全，可能会造成数据丢失，用 {} 初始化会进行相关检查，避免数据丢失。</p>
 
 <p>示例：</p>
-<code>double d = 1.2;
+<pre><code>double d = 1.2;
 float x = d;     //<i> Non-compliant, may loss data</i>
 float y(d);      //<i> Non-compliant, may loss data</i>
-float z{d};      //<i> Compliant, compile-time protected</i></code>
+float z{d};      //<i> Compliant, compile-time protected</i></code></pre>
 <p>例中 x 和 y 的初始化可能存在数据丢失等问题，z 的初始化无法通过编译，使问题可以及时修正。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_narrowCast.html" class="related-link">ID_narrowCast</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2011 8.5.4</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es23-prefer-the--initializer-syntax" target="_blank" class="related-link">C++ Core Guidelines ES.23</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

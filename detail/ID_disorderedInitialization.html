@@ -6,45 +6,61 @@
   <meta name="description" content="C/C++ 安全编程要点：类成员的初始化顺序是按声明的顺序进行的，初始化前面的成员时不可使用后面成员的值。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>成员初始化应遵循声明的顺序 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>成员初始化应遵循声明的顺序</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.13 ID_disorderedInitialization</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#function">Home</a> › <a class="nav-link" href="./ID_virtualCallInConstructor.html">next</a> › <a class="nav-link" href="./ID_illMemberAccess.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_virtualCallInConstructor.html">next</a> › <a class="rule-toc-link" href="./ID_illMemberAccess.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>类成员的初始化顺序是按声明的顺序进行的，初始化前面的成员时不可使用后面成员的值。</p>
 
 <p>示例：</p>
-<code>struct A {
+<pre><code>struct A {
     int* p;
     size_t n;
 
     A(size_t s): n(s), p(new int[n])  //<i> Non-compliant</i>
     {}
-};</code>
+};</code></pre>
 <p>虽然在初始化列表中 n 在 p 的前面，但 p 先于 n 声明，n 仍然在 p 之后被初始化，“p(new int[n])”会造成严重错误。</p>
 
 <p>应改为：</p>
-<code>struct A {
+<pre><code>struct A {
     size_t n;
     int* p;
 
     A(size_t s): n(s), p(new int[n])  //<i> Compliant</i>
     {}
-};</code>
+};</code></pre>
 <p>调整了 n 和 p 的声明顺序，使 n 先于 p 初始化即可。</p>
 
 <p>如果使用后面成员的地址初始化前面的成员，则不受本规则约束，如：</p>
-<code>struct B {
+<pre><code>struct B {
     int*&amp; a;
     int*  b;
     int   c[3];
@@ -53,20 +69,22 @@
         a(b),  //<i> OK</i>
         b(c)   //<i> OK</i>
     {}
-};</code>
+};</code></pre>
 <p>例中 a 为引用，b 的地址在初始化之前就确定了，所以“a(b)”没问题；c 为数组，也是一个地址，所以“b(c)”没有问题。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 12.6.2(5)
 ISO/IEC 14882:2011 12.6.2(10)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c47-define-and-initialize-member-variables-in-the-order-of-member-declaration" target="_blank" class="related-link">C++ Core Guidelines C.47</a>
 <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/OOP53-CPP.+Write+constructor+member+initializers+in+the+canonical+order" target="_blank" class="related-link">SEI CERT OOP53-CPP</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

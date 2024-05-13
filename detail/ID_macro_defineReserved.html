@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：重新定义已有特殊用途的名称会导致标准未定义的行为，也会使代码陷入难以维护的境地。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不可定义具有保留意义的宏名称 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不可定义具有保留意义的宏名称</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.2.2 ID_macro_defineReserved</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.macro-definition">Home</a> › <a class="nav-link" href="./ID_macro_undefReserved.html">next</a> › <a class="nav-link" href="./ID_macro_badName.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#precompile.macro-definition">目录</a> › <a class="rule-toc-link" href="./ID_macro_undefReserved.html">next</a> › <a class="rule-toc-link" href="./ID_macro_badName.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>重新定义已有特殊用途的名称会导致标准未定义的行为，也会使代码陷入难以维护的境地。</p>
@@ -26,53 +42,53 @@
 <p>标准库、编译环境中的名称以及关键字不应重新定义。</p>
 
 <p>C++ 标准指明不可重新定义的宏有：</p>
-<code>__cplusplus、__TIME__、__DATE__、__FILE__、__ LINE__、
+<pre><code>__cplusplus、__TIME__、__DATE__、__FILE__、__ LINE__、
 __STDC__、__STDC_HOSTED__、__STDCPP_THREADS__、
 __STDC_MB_MIGHT_NEQ_WC__、__STDC_VERSION__、
 __STDC_ISO_10646__、__STDCPP_STRICT_POINTER_SAFETY__
-</code>
+</code></pre>
 <p>以下划线开头的名称用于表示标准库或编译环境的保留名称，自定义名称不应以下划线开头。</p>
 
 <p>示例：</p>
-<code>#define _WIN64   0      //<i> Non-compliant</i>
+<pre><code>#define _WIN64   0      //<i> Non-compliant</i>
 #define __GNUC__ 1      //<i> Non-compliant</i>
 #define __STDC__ 1      //<i> Non-compliant, undefined behavior</i>
-#define __cplusplus 0   //<i> Non-compliant, undefined behavior</i></code>
+#define __cplusplus 0   //<i> Non-compliant, undefined behavior</i></code></pre>
 <p>标识平台或编译环境的宏不可在代码中写死。</p>
 
-<code>#define defined            //<i> Non-compliant, undefined behavior</i>
-#define new new(nothrow)   //<i> Non-compliant</i></code>
+<pre><code>#define defined            //<i> Non-compliant, undefined behavior</i>
+#define new new(nothrow)   //<i> Non-compliant</i></code></pre>
 <p>不可重定义关键字。</p>
 
-<code>#define NDEBUG 0    //<i> Non-compliant</i>
+<pre><code>#define NDEBUG 0    //<i> Non-compliant</i>
 #define errno 0     //<i> Non-compliant</i>
-#define assert(x)   //<i> Non-compliant</i></code>
+#define assert(x)   //<i> Non-compliant</i></code></pre>
 <p>编译优化相关的宏不可在代码中写死，标准库中的名称不应被重新定义。</p>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">keywordAsReserved: 是否将关键字作为保留名称
 stdNameAsReserved: 是否将标准库中的名称作为保留名称
 underscoreAsReserved: 是否将下划线开头的名称作为保留名称
 reservedNames: 用户指定的保留名称</div>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_macro_undefReserved.html" class="related-link">ID_macro_undefReserved</a>
 <a href="./ID_reservedName.html" class="related-link">ID_reservedName</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 7.1.3(2)-undefined
 ISO/IEC 9899:2011 7.1.3(2)-undefined
 ISO/IEC 14882:2003 16.8(3)-undefined
 ISO/IEC 14882:2011 16.8(4)-undefined</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 20.4
 MISRA C 2012 21.1
 MISRA C++ 2008 17-0-1</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

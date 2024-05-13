@@ -6,56 +6,75 @@
   <meta name="description" content="C/C++ 安全编程要点：枚举项用于标记不同的事物，在同一枚举类型中，名称不同但值相同的枚举项往往意味着错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>同类枚举项的值不应相同 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>同类枚举项的值不应相同</h1>
   <div id="subtitle">
     <div id="subtitle-id">5.2.1 ID_duplicateEnumerator</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#type.enum">Home</a> › <a class="nav-link" href="./ID_casualInitialization.html">next</a> › <a class="nav-link" href="./ID_inheritTooDeep.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#type.enum">目录</a> › <a class="rule-toc-link" href="./ID_casualInitialization.html">next</a> › <a class="rule-toc-link" href="./ID_inheritTooDeep.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>枚举项用于标记不同的事物，在同一枚举类型中，名称不同但值相同的枚举项往往意味着错误。</p>
 
 <p>示例：</p>
-<code>enum Color {
+<pre><code>enum Color {
     red = 1,
     yellow = 2,
     blue = 2,    //<i> Non-compliant, same value as ‘yellow’</i>
-};</code>
+};</code></pre>
 <p>例中三个枚举项应分别表示三种颜色，但 blue 与 yellow 的值相同会造成逻辑错误。</p>
 
 <p>又如：</p>
-<code>enum Fruit {
+<pre><code>enum Fruit {
     apple,
     pear,
     grape,
     favorite = grape,  //<i> Non-compliant</i>
-};</code>
+};</code></pre>
 <p>例中 Fruit 定义了三种水果，而 favorite 表示最喜欢的水果，与其他枚举项不是同一层面的概念，不应聚为一类。</p>
 
 <p>应采用更结构化的方式：</p>
-<code>enum Fruit {
+<pre><code>enum Fruit {
     apple, pear, grape
 };
 
 Fruit favorite() {
     return grape;
-}</code>
+}</code></pre>
 
 </main>
 
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#enum8-specify-enumerator-values-only-when-necessary" target="_blank" class="related-link">C++ Core Guidelines Enum.8</a>
 MISRA C 2012 8.12</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

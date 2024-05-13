@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：C 语言在早期阶段曾允许省略声明对象或函数的类型，然而实践表明这种编程方式并不理想，已从 C99 标准中移出。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应省略声明对象或函数的类型 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应省略声明对象或函数的类型</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.11.2 ID_missingType</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.old-style">Home</a> › <a class="nav-link" href="./ID_oldStyleParamList.html">next</a> › <a class="nav-link" href="./ID_implicitDeclaration.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.old-style">目录</a> › <a class="rule-toc-link" href="./ID_oldStyleParamList.html">next</a> › <a class="rule-toc-link" href="./ID_implicitDeclaration.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>C 语言在早期阶段曾允许省略声明对象或函数的类型，然而实践表明这种编程方式并不理想，已从 C99 标准中移出。</p>
@@ -26,33 +42,34 @@
 <p>本规则针对 C 语言，C++ 语言没有这种特性，不受本规则限制。</p>
 
 <p>示例：</p>
-<code>extern a;     //<i> Non-compliant</i>
+<pre><code>extern a;     //<i> Non-compliant</i>
 const b;      //<i> Non-compliant</i>
 fun(void);    //<i> Non-compliant</i>
-typedef tp;   //<i> Non-compliant</i></code>
+typedef tp;   //<i> Non-compliant</i></code></pre>
 <p>例中 a、b、fun、tp 的类型为 int，可被省略声明，但可读性较差。</p>
 
 <p>应改为：</p>
-<code>extern int a;     //<i> Compliant</i>
+<pre><code>extern int a;     //<i> Compliant</i>
 const int b;      //<i> Compliant</i>
 int fun(void);    //<i> Compliant</i>
-typedef int tp;   //<i> Compliant</i></code>
+typedef int tp;   //<i> Compliant</i></code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_oldStyleParamList.html" class="related-link">ID_oldStyleParamList</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.7.2(2)
 ISO/IEC 9899:2011 6.7.2(2)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 8.2
 MISRA C 2012 8.1
 <a href="https://wiki.sei.cmu.edu/confluence/display/c/DCL31-C.+Declare+identifiers+before+using+them" target="_blank" class="related-link">SEI CERT DCL31-C</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

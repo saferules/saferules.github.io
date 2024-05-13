@@ -6,51 +6,65 @@
   <meta name="description" content="C/C++ 安全编程要点：#include 后只应为 &lt; 头文件路径 &gt; 或 &quot; 头文件路径 &quot;，否则会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>include 指令应符合标准格式 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>include 指令应符合标准格式</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.1.1 ID_illFormedInclude</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#precompile.include">Home</a> › <a class="nav-link" href="./ID_nonStandardCharInHeaderName.html">next</a> › <a class="nav-link" href="./ID_forbidMallocAndFree.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#precompile.include">目录</a> › <a class="rule-toc-link" href="./ID_nonStandardCharInHeaderName.html">next</a> › <a class="rule-toc-link" href="./ID_forbidMallocAndFree.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>#include 后只应为 &lt; 头文件路径 &gt; 或 &quot; 头文件路径 &quot;，否则会导致标准未定义的行为。</p>
 
 <p>示例：</p>
-<code>#include &lt;string.h&gt;         //<i> Compliant</i>
+<pre><code>#include &lt;string.h&gt;         //<i> Compliant</i>
 #include &quot;string.h&quot;         //<i> Compliant</i>
 
 #define HEADER &quot;string.h&quot;
 #include HEADER             //<i> Compliant</i>
 
-#include stdlib.h           //<i> Non-compliant, undefined behavior</i></code>
+#include stdlib.h           //<i> Non-compliant, undefined behavior</i></code></pre>
 <p>例中对 string.h 的引用符合标准，而对 stdlib.h 的引用会导致标准未定义的行为。</p>
 
 <p>注意，由引号标识的头文件路径并非字符串常量，不应对其使用字符串常量的特性，如：</p>
-<code>#include &quot;stdlib&quot; &quot;.h&quot;      //<i> Non-compliant, implementation defined</i></code>
+<pre><code>#include &quot;stdlib&quot; &quot;.h&quot;      //<i> Non-compliant, implementation defined</i></code></pre>
 <p>是否会将引号中的内容连接成一个路径是由实现定义的，这种代码是不可移植的。</p>
 
 <p>另外，如下形式的代码也是不符合标准的：</p>
-<code>#include L&quot;foo&quot;             //<i> Non-compliant</i>
+<pre><code>#include L&quot;foo&quot;             //<i> Non-compliant</i>
 #include u&quot;bar&quot;             //<i> Non-compliant</i>
 #include U&quot;baz&quot;             //<i> Non-compliant</i>
-#include R&quot;(..\foo\bar)&quot;    //<i> Non-compliant</i></code>
+#include R&quot;(..\foo\bar)&quot;    //<i> Non-compliant</i></code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_nonStandardCharInHeaderName.html" class="related-link">ID_nonStandardCharInHeaderName</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.10.2
 ISO/IEC 9899:2011 6.10.2
 ISO/IEC 14882:2003 2.8
@@ -61,9 +75,12 @@ ISO/IEC 14882:2011 16.2(4)-undefined
 ISO/IEC 14882:2011 16.2(4)-implementation</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2004 19.3
 MISRA C 2012 20.3
 MISRA C++ 2008 16-2-6</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

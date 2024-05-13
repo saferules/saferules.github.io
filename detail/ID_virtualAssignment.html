@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：拷贝和移动赋值运算符的参数应分别为所属类的左值和右值引用，这类运算符即使是虚函数也不便于被重写。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>拷贝和移动赋值运算符不应为虚函数 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>拷贝和移动赋值运算符不应为虚函数</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.8.11 ID_virtualAssignment</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.function">Home</a> › <a class="nav-link" href="./ID_virtualComparison.html">next</a> › <a class="nav-link" href="./ID_overloadLogicOperator.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.function">目录</a> › <a class="rule-toc-link" href="./ID_virtualComparison.html">next</a> › <a class="rule-toc-link" href="./ID_overloadLogicOperator.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>拷贝和移动赋值运算符的参数应分别为所属类的左值和右值引用，这类运算符即使是虚函数也不便于被重写。</p>
 
 <p>示例：</p>
-<code>class A {
+<pre><code>class A {
 public:
     virtual A&amp; operator = (const A&amp;);  //<i> Non-compliant</i>
 };
@@ -33,23 +49,24 @@ class B: public A {
 public:
     virtual B&amp; operator = (const B&amp;);  //<i> Not override</i>
     virtual A&amp; operator = (const A&amp;);  //<i> Override, but too complex</i>
-};</code>
+};</code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_nonStdAssignmentRetType.html" class="related-link">ID_nonStdAssignmentRetType</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 12.8(9)
 ISO/IEC 14882:2011 12.8(17)
 ISO/IEC 14882:2011 12.8(19)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c60-make-copy-assignment-non-virtual-take-the-parameter-by-const-and-return-by-non-const" target="_blank" class="related-link">C++ Core Guidelines C.60</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c63-make-move-assignment-non-virtual-take-the-parameter-by--and-return-by-non-const" target="_blank" class="related-link">C++ Core Guidelines C.63</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

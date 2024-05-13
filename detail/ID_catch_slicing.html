@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：通过值捕获多态类的异常对象会使其多态性失效，使异常被错误处理。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>捕获异常时不应产生对象切片问题 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>捕获异常时不应产生对象切片问题</h1>
   <div id="subtitle">
     <div id="subtitle-id">7.18 ID_catch_slicing</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#exception">Home</a> › <a class="nav-link" href="./ID_catch_justRethrow.html">next</a> › <a class="nav-link" href="./ID_catch_value.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#exception">目录</a> › <a class="rule-toc-link" href="./ID_catch_justRethrow.html">next</a> › <a class="rule-toc-link" href="./ID_catch_value.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>通过值捕获多态类的异常对象会使其多态性失效，使异常被错误处理。</p>
@@ -26,7 +42,7 @@
 <p>本规则是 <a href="./ID_catch_value.html" class="dashed-link">ID_catch_value</a> 与 <a href="./ID_objectSlicing.html" class="dashed-link">ID_objectSlicing</a> 的特化。</p>
 
 <p>示例：</p>
-<code>struct Exception {
+<pre><code>struct Exception {
     virtual const char* what() const { return nullptr; }
 };
 
@@ -41,20 +57,22 @@ void foo() {
     catch (Exception e) {   //<i> Non-compliant, use reference instead</i>
         log(e.what());      //<i> Only returns nullptr</i>
     }
-}</code>
+}</code></pre>
 <p>例中抛出的是派生类对象，但 what 函数只能返回 nullptr。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_catch_value.html" class="related-link">ID_catch_value</a>
 <a href="./ID_objectSlicing.html" class="related-link">ID_objectSlicing</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c145-access-polymorphic-objects-through-pointers-and-references" target="_blank" class="related-link">C++ Core Guidelines C.145</a>
 <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#es63-dont-slice" target="_blank" class="related-link">C++ Core Guidelines ES.63</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,19 +6,35 @@
   <meta name="description" content="C/C++ 安全编程要点：C 语言规定数组作为形式参数时，可用 static 关键字限定大小，要求对应的实际参数必须是数组第一个元素的地址，且数组的大小不能小于 static 关键字限定的值，否则会导致标准未定义的行为，这种特性有助于编译器优化代码，但也增加了误用风险。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>声明数组参数的大小时禁用 static 关键字 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>声明数组参数的大小时禁用 static 关键字</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.5.8 ID_forbidStaticArrSize</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#declaration.parameter">Home</a> › <a class="nav-link" href="./ID_missingBracedSyntax.html">next</a> › <a class="nav-link" href="./ID_superfluousVoid.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.parameter">目录</a> › <a class="rule-toc-link" href="./ID_missingBracedSyntax.html">next</a> › <a class="rule-toc-link" href="./ID_superfluousVoid.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>C 语言规定数组作为形式参数时，可用 static 关键字限定大小，要求对应的实际参数必须是数组第一个元素的地址，且数组的大小不能小于 static 关键字限定的值，否则会导致标准未定义的行为，这种特性有助于编译器优化代码，但也增加了误用风险。</p>
@@ -26,7 +42,7 @@
 <p>并非所有处理器都可以利用这种特性提高效率，而且应在效率和风险之间合理取舍，不建议在有高可靠性要求的代码中使用这种特性。</p>
 
 <p>示例：</p>
-<code>int foo(int a[static 5], int n) {   //<i> Non-compliant</i>
+<pre><code>int foo(int a[static 5], int n) {   //<i> Non-compliant</i>
     int i;
     int s = 0;
     for (i = 0; i &lt; n; i++) {
@@ -38,19 +54,21 @@
 int main() {
     int a[3] = {1, 2, 3};
     return foo(a, 3);       //<i> Undefined behavior</i>
-}</code>
+}</code></pre>
 <p>例中 foo 函数要求传入的数组至少有 5 个元素，但实际传入的数组只有 3 个元素，导致未定义的行为。</p>
 
 </main>
 
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 9899:1999 6.7.5.3(7)
 ISO/IEC 9899:2011 6.7.6.3(7)</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">MISRA C 2012 17.6</div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

@@ -6,41 +6,60 @@
   <meta name="description" content="C++ undefined behavior: 表达式的结果在数学上没有定义" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
+  <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
   <title>表达式的结果在数学上没有定义 - C++ undefined behavior</title>
 </head>
+
+<div class="footer-holder">
+<nav>
+<ul class="nav-list">
+  <li><span class="nav-icon">☰</span></li>
+  <li><a href="../../index.html">首页</a></li>
+  <li><a href="../../index.html#rules-class-title">规则分类</a></li>
+  <li><a href="../introduction.html">项目介绍</a></li>
+</ul>
+<div class="nav-stuff"></div>
+<div class="search-box">
+  <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+  <img alt="search" id="search-icon" src="../../img/search.svg" onclick="onClickSearchIcon(this)"/>
+</div>
+<span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>表达式的结果在数学上没有定义</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-29</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../cpp-ub-list.html">Home</a> › <a class="nav-link" href="./cpp-ub-30.html">next</a> › <a class="nav-link" href="./cpp-ub-28.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../cpp-ub-list.html">目录</a> › <a class="rule-toc-link" href="./cpp-ub-30.html">next</a> › <a class="rule-toc-link" href="./cpp-ub-28.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>如除 0、有符号整数溢出、负数位运算、浮点异常等均会导致未定义的行为。</p>
 
 <p>示例：</p>
-<code>signed s = INT_MAX + 1;     //<i> Undefined</i>
+<pre><code>signed s = INT_MAX + 1;     //<i> Undefined</i>
 unsigned u = UINT_MAX + 1;  //<i> Well-defined</i>
-</code>
+</code></pre>
 <p>例中变量 u 的值一定是 0，而 s 的值是标准未定义的，往往由编译器和执行环境决定。</p>
 
 <p>设无符号整数的最大值为 M，无符号整数运算在程序中的结果是数学上的结果与 (M + 1) 取模的结果，这在数学上是有明确定义的，而对于有符号整数，将符号位移出相关比特位，或将非符号位移入符号位，在数学上是没有意义的，故称无符号整数不存在溢出问题，有符号整数存在溢出问题，溢出会导致未定义的行为。</p>
 
 </main>
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 5(5)-undefined
 ISO/IEC 14882:2011 5(4)-undefined</div>
 
 <h3>规则</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="../ID_divideByZero.html" class="related-link">ID_divideByZero</a>
 <a href="../ID_evalOverflow.html" class="related-link">ID_evalOverflow</a></div>
 
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

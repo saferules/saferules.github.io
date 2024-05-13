@@ -9,28 +9,35 @@
   <meta name="google-site-verification" content="2if6_UYrqsVsI--sNJPom5VqOv-ZSH2DI4u4iU-xsXs" />
   <link type="text/css" rel="stylesheet" href="./css/index.css" />
   <link type="image/x-icon" rel="shortcut icon" href="./favicon.png" />
+  <script type="text/javascript" src="./js/search.js"></script>
   <title>360 安全规则集合 - C/C++ 编程指南</title>
 </head>
-<article>
-  <div id="article-wrapper">
+<article class="footer-holder">
+  <nav>
+    <ul class="nav-list">
+      <li><span class="nav-icon">☰</span></li>
+      <li><a href="./detail/introduction.html">项目介绍</a></li>
+      <li><a href="#rules-toc-title">规则目录</a></li>
+      <li><a href="#appendix-title">附录</a></li>
+    </ul>
+    <div class="nav-stuff"></div>
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+      <img alt="search" id="search-icon" src="./img/search.svg" onclick="onClickSearchIcon(this)"/>
+    </div>
+    <span class="nav-ellipsis">•••</span>
+  </nav>
   <header>
     <div id="header-wrapper">
-      <a href="https://github.com/Qihoo360/safe-rules/">
-        <img alt="logo" id="main-logo" src="./img/main_logo.png"/>
-      </a>
       <div id="titles">
-        <h1 id="main-title">360 安全规则集合 <img alt="version-1.3.2" src="https://img.shields.io/badge/version-1.3.2-brightgreen"></h1>
-        <div id="sub-title">详细的 C/C++ 安全编程指南</div>
+        <h1 id="main-title">360 安全规则集合 <img id="version-tag" alt="version-1.3.2" src="https://img.shields.io/badge/version-1.3.2-brightgreen"></h1>
+        <blockquote>Bjarne Stroustrup: “<i>C makes it easy to shoot yourself in the foot; C++ makes it harder, but when you do it blows your whole leg off.</i>” </blockquote>
+      </div>
+      <div>
+        <img alt="logo" id="main-logo" src="./img/main_logo.png"/>     
       </div>
     </div>
   </header>
-  <nav>
-    <a href="./detail/introduction.html" target="_blank">项目介绍</a>
-    •
-    <a href="#rules-toc-title">规则目录</a>
-    •
-    <a href="#appendix-title">附录</a>
-  </nav>
   <div class="content-wrapper content-first-section">
     <p>针对 C 和 C++ 语言，本文收录了 525 种需要重点关注的问题，
     每个问题对应一条规则，可作为代码审计依据或编程规范条款，也可为相关培训提供指导意见。</p>
@@ -728,7 +735,6 @@
       <li><a href="./detail/cpp-ub-list.html">C++ 未定义行为成因列表</a></li>
     </ul>
   </div>
-</div>
 </article>
 <footer>
   <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>

@@ -6,25 +6,41 @@
   <meta name="description" content="C/C++ 安全编程要点：为了避免意料之外的类型转换，重载的类型转换运算符需用 explicit 关键字限定。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>重载的类型转换运算符需用 explicit 关键字限定 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>重载的类型转换运算符需用 explicit 关键字限定</h1>
   <div id="subtitle">
     <div id="subtitle-id">5.1.12 ID_missingExplicitConvertor</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#type.class">Home</a> › <a class="nav-link" href="./ID_excessiveExplicit.html">next</a> › <a class="nav-link" href="./ID_missingExplicitConstructor.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#type.class">目录</a> › <a class="rule-toc-link" href="./ID_excessiveExplicit.html">next</a> › <a class="rule-toc-link" href="./ID_missingExplicitConstructor.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>为了避免意料之外的类型转换，重载的类型转换运算符需用 explicit 关键字限定。</p>
 
 <p>示例：</p>
-<code>struct A {
+<pre><code>struct A {
     ....
     operator char*();   //<i> Non-compliant</i>
 };
@@ -33,25 +49,27 @@ A foo();
 
 char* bar() {
     return foo();   //<i> Invalid address returned</i>
-}</code>
+}</code></pre>
 <p>例中 foo 返回临时对象，类型转换运算符被隐式调用，然而当 bar 返回后，临时对象被销毁，返回的指针是无效的。</p>
 
 <p>将类型转换运算符用 explicit 关键字限定，有问题的代码便不会通过编译：</p>
-<code>struct A {
+<pre><code>struct A {
     ....
     explicit operator char*();   //<i> Compliant</i>
-};</code>
+};</code></pre>
 <p>在类的接口设计中，应尽量减少隐式转换以避免不易察觉的问题。</p>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_missingExplicitConstructor.html" class="related-link">ID_missingExplicitConstructor</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c164-avoid-implicit-conversion-operators" target="_blank" class="related-link">C++ Core Guidelines C.164</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

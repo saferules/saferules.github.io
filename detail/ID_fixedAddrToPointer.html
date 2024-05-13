@@ -6,55 +6,72 @@
   <meta name="description" content="C/C++ 安全编程要点：将非零常量作为固定地址是不可移植的，且存在安全隐患。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>不应使用非零常量对指针赋值 - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>不应使用非零常量对指针赋值</h1>
   <div id="subtitle">
     <div id="subtitle-id">14.11 ID_fixedAddrToPointer</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#pointer">Home</a> › <a class="nav-link" href="./ID_zeroAsPtrValue.html">next</a> › <a class="nav-link" href="./ID_repeatedNullCheck.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#pointer">目录</a> › <a class="rule-toc-link" href="./ID_zeroAsPtrValue.html">next</a> › <a class="rule-toc-link" href="./ID_repeatedNullCheck.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>将非零常量作为固定地址是不可移植的，且存在安全隐患。</p>
 
 <p>示例：</p>
-<code>const void* badAddr = (void*)0xffffffff;  //<i> Non-compliant</i></code>
+<pre><code>const void* badAddr = (void*)0xffffffff;  //<i> Non-compliant</i></code></pre>
 <p>示例代码的本意是声明一个表示无效地址的值，但在 64 位系统中这个地址可能是有效的。</p>
 
 <p>又如：</p>
-<code>typedef int (*fp_t)(int);
+<pre><code>typedef int (*fp_t)(int);
 fp_t fp = (fp_t)0x1234abcd;  //<i> Non-compliant</i>
-int res = (*fp)(123);        //<i> Unsafe</i></code>
+int res = (*fp)(123);        //<i> Unsafe</i></code></pre>
 <p>示例代码假设在特定地址可以找到特定的函数，将该地址赋给一个指针并调用，这种假设是不可移植的，也可能本身就是错误的，会导致崩溃，而且函数地址往往也属于敏感信息，不应被写入代码，否则一旦泄露，攻击者可以更改预期地址上的数据，导致恶意代码被执行。</p>
 
 <p>某些框架或系统会以 -1 表示无效地址，但不具备通用性，审计工具不妨通过配置决定是否放过。</p>
 
 <p>例外：</p>
-<code>#define DEVICE_BASE ((volatile Dev*)0x1234)
+<pre><code>#define DEVICE_BASE ((volatile Dev*)0x1234)
 
-volatile Dev* p = DEVICE_BASE;  //<i> Let it go if the address is right</i></code>
+volatile Dev* p = DEVICE_BASE;  //<i> Let it go if the address is right</i></code></pre>
 <p>如果固定地址受环境支持，如固定的设备地址，可不受本规则约束，但应通过接口获取地址，避免将常量地址写死在代码中。</p>
 
 </main>
 <h3>配置</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">allowMinusOneAsPointerValue: 是否允许 -1 作为指针的值</div>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_addressExposure.html" class="related-link">ID_addressExposure</a>
 <a href="./ID_plainSensitiveInfo.html" class="related-link">ID_plainSensitiveInfo</a>
 <a href="./ID_ptrIntCast.html" class="related-link">ID_ptrIntCast</a></div>
 
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/587.html" target="_blank" class="related-link">CWE-587</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>

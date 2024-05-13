@@ -6,44 +6,61 @@
   <meta name="description" content="C/C++ 安全编程要点：标识符 NULL 由实现定义，在 C++ 语言中往往等同于常量 0，sizeof(NULL) 的结果很可能与预期不符。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
   <title>C++ 代码中 sizeof 不应作用于 NULL - C/C++ 安全规则</title>
 </head>
+<div class="footer-holder">
+<nav>
+  <ul class="nav-list">
+    <li><span class="nav-icon">☰</span></li>
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
 <article>
 <header>
   <h1>C++ 代码中 sizeof 不应作用于 NULL</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.7.8 ID_sizeof_NULL</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg> <a class="nav-link" href="../index.html#expression.sizeof">Home</a> › <a class="nav-link" href="./ID_sizeof_void.html">next</a> › <a class="nav-link" href="./ID_sizeof_sizeof.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#expression.sizeof">目录</a> › <a class="rule-toc-link" href="./ID_sizeof_void.html">next</a> › <a class="rule-toc-link" href="./ID_sizeof_sizeof.html">previous</a>
     </div>
   </div>
-  <hr class="dashed-hr"/>
+  <hr class="solid-hr"/>
 </header>
 <main>
 <p>标识符 NULL 由实现定义，在 C++ 语言中往往等同于常量 0，sizeof(NULL) 的结果很可能与预期不符。</p>
 
 <p>示例：</p>
-<code>size_t n = sizeof(NULL);   //<i> Non-compliant</i></code>
+<pre><code>size_t n = sizeof(NULL);   //<i> Non-compliant</i></code></pre>
 <p>不同的编译器对示例代码有不同的处理，有些会把 NULL 当作指针，有些会当作常量 0。</p>
 
 <p>应改为：</p>
-<code>size_t n = sizeof(nullptr);   //<i> Compliant</i></code>
+<pre><code>size_t n = sizeof(nullptr);   //<i> Compliant</i></code></pre>
 
 </main>
 
 <h3>相关</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="./ID_deprecatedNULL.html" class="related-link">ID_deprecatedNULL</a></div>
 
 <h3>依据</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items">ISO/IEC 14882:2003 C.2.2.3(1)-implementation
 ISO/IEC 14882:2011 C.3.2.4(1)-implementation
 ISO/IEC 14882:2017 C.5.2.7(1)-implementation</div>
 
 <h3>参考</h3>
-<hr class="dashed-hr"/>
 <div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/351.html" target="_blank" class="related-link">CWE-351</a></div>
 </article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
 </html>
