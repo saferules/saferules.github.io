@@ -3,3715 +3,3715 @@
   <url>
     <loc>https://saferules.github.io/index.html</loc>
     <priority>1.0</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/c-ub-list.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:43+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/cpp-ub-list.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_ABIConflict.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_abusedAuto.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_accessPaddingData.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_accessSpecifierDisorder.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_addressExposure.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_anonymousNamespaceInHeader.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_arrayIndexOverflow.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_arrayPointerCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_assignmentAsSubExpression.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_asynchronousTermination.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_atomicRaces.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_backDoor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badAssertion.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badBackslash.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badCommentPosition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badIncludePosition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badLength.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badParmN.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badQualifierPosition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badSpecifierPosition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_badVaArgType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_bitfieldDataRaces.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_bitwiseOperOnSigned.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_braceStyle.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:13+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_bufferOverflow.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_castNoInheritance.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_castNonPublicInheritance.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_casualInitialization.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_catch_emptyBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_catch_generic.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_catch_justRethrow.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_catch_nonExceptionType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_catch_slicing.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_catch_value.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_charWCharCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_complexAssertion.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_complexDeclaration.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_complexExpression.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_complexInlineFunction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_conflictCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_confusingAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_constLiteralReference.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_constLogicExpression.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_constStrToNonConstPtr.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_copiedStream.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_crossModuleException.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_crossModuleTransfer.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_dangerousFunction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_dangerousName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_danglingDeref.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_dataRaces.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_deadlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_definedInHeader.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_deleteIncompleteType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_deprecatedDefaultArgument.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_deprecatedErrno.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_deprecatedNULL.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_deprecatedOffsetof.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_deprecatedSpecifier.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_diamondExceptionInheritance.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_diamondInheritance.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_differentEnumComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_directiveInMacroArgument.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_disorderedInitialization.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_divideByZero.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_doubleFree.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_downCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_do_brace.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_do_deprecated.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_do_emptyBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_do_suspiciousContinue.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_duplicatedName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_duplicatedTypeName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_duplicateEnumerator.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_dynamicAllocation.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_evalOverflow.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_evaluationOrderReliance.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_exceededBitfield.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_exceptionInException.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_exceptionUnsafe.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_excessiveCharSign.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_excessiveDelete.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_excessiveExplicit.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_exitCallInDestructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_exitHandlerNoReturn.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_explicitDtorCall.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_explicitLineDirective.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_fileTooLarg.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_fixedAddrToPointer.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidAbsPathInHeaderName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidAtox.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidBackslashInHeaderName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidBitfield.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidCHeaderInCpp.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidCommaExpression.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidCStringFormat.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidCStyleCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbiddenHeader.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidDigraphs.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidEnumBitfield.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidException.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidFlexibleArray.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidFunctionVoidPtr.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidGoto.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidGotoBack.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidGotoBlocks.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidLongjmp.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidMallocAndFree.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidMemberVoidPtr.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidNakedUnion.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidNonBasicField.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidPragmaDirective.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidReinterpretCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidRestrictPtr.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidSignalFunction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidStaticArrSize.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidThrowSpecification.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidUnion.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidUnnamedEnum.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidUnscopedEnum.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidUsingDirectives.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidVariadicFunction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_forbidVolatile.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_for_brace.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_for_counterChangedInBody.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_for_counterNested.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_for_emptyBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_for_floatCounter.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_for_scope.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_for_semicolon.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_for_simplification.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_for_uncondBroken.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_functionPointerCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_functionRepetition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_functionSpecialization.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_hardcodedIP.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_hideGlobal.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_hideLocal.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_hideMember.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_hijack.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_assignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_brace.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_commonStatements.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_emptyBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_hiddenCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_identicalBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_identicalCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_identicalElseIfBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_identicalImplicitElseBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_identicalSucceedingBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_mayBeElseIf.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_missingEndingElse.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_scope.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_semicolon.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_if_tooManyElseIf.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_ignorePaddingData.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illAccess.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illBoolOperation.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illCopyConstructorParam.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illDealloc.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illEnumOperation.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illFloatComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illFormedCompoundAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illFormedDirective.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illFormedInclude.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illFormedMain.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illForwardingReference.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illIdentical.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illLifetime.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illMemberAccess.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illMemberCall.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illMoveConstructorParam.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illOperatorRetType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illPtrArithmetic.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illPtrComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illPtrDiff.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illPtrStrComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illSelfCompoundAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_illShiftCount.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_implementationDefinedFunction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_implicitDeclaration.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_improperAuthorization.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_improperBitfieldType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_improperNullTermination.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_improperRethrow.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inaccessibleTmpObject.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_incDecAsSubExpression.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_includedFileExt.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_includedSourceFile.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_incompatibleDealloc.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_incompleteDirective.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_incompleteNewDeletePair.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_incompleteVaMacros.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentArraySize.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentDeclaration.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentDefaultArgument.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentFormatArgNum.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentFormatArgType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentIndent.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:13+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentNaming.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:13+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentParamName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentSignComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inconsistentStyle.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inheritTooDeep.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_inlineRedundant.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_insufficientBuffer.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_insufficientDelete.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidCommaSubExpression.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidExternSpecifier.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidFinal.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidLocalDeclaration.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidNullCheck.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidParamArraySize.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidPromotion.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_invalidWrite.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_jumpOutLoop.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_labelNotUsed.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_casualSeparators.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_confusingSuffix.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_forbidOct.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_hardCodeChar.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_hardCodeString.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_hybridConcat.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_magicNumber.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_magicString.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_missingSuffix.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_misspelling.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_mixedEscSequence.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_multicharacter.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_nonStandardEsc.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_nonStandardSuffix.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_oddConcat.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_suspiciousChar.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_literal_trigraphs.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_localAddressFlowOut.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_localInitialization.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_badName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_complexConcat.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_const.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_defineReserved.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_expNotEnclosed.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_function.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_inBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_insufficientArgs.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_paramNotEnclosed.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_redefined.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_redundantArgs.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_sideEffectArgs.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_stmtNotEnclosed.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_typeid.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_undef.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_macro_undefReserved.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_mainReturnsNonInt.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_memberDeallocation.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_memberInitialization.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_memoryLeak.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_minusOnUnsigned.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingAddressOperator.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingArrayIndexing.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingArraySize.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingBracedInitializer.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingBracedSyntax.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingCopyAssignOperator.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingCopyConstructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingDestructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingExplicitConstructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingExplicitConvertor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingExplicitOverride.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingHardening.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingHeaderGuard.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingNamespace.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingNewLineFileEnd.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingParamName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingResetNull.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingSideEffect.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingStatic.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingVirtualDestructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_missingVoid.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_misspelling.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_mixedAsm.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_mixedDeclarations.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_mixedTypeObjDefinition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_mixNullptrAndNULL.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_mixPublicPrivateData.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_multiAllocation.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nameTooShort.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_narrowCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_negativeUnsignedCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nestedComment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nestedTooDeep.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonBoolCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonBoolPPCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonBoolSubCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonConstGlobalObject.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonConstNonStaticGlobalObject.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonConstUnmodified.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonDynamicDownCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonGlobalMain.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonPODBinaryCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonPODFilling.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonPODVariadicArgument.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonPOFHandler.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonPostfixSubCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonPrivateData.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonStandardCharInHeaderName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonStdAssignmentRetType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonStdCopyAssignmentParam.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonStdDirective.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonStdMoveAssignmentParam.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nonVirtualOverride.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_notAllBranchReturn.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nullDerefAllocRet.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nullDerefDynamicCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nullDerefInExp.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_nullDerefInScp.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_objectSlicing.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_obsoleteFunction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_obsoleteStdFunction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oddNew.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oddNewCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oddNullAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oddPtrBoolAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oddPtrBoolComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oddPtrCharAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oddPtrCharComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oddPtrZeroComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oddSubscripting.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_oldStyleParamList.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_overlappingAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_overloadAddressOperator.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_overloadComma.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_overloadLogicOperator.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_ownerlessResource.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_paramMayBeSlicing.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_paramModified.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_paramNotUsed.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_paramPassedByValue.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_plainBinaryChar.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_plainNumericChar.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_plainSensitiveInfo.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_privateNotUsed.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_protectedData.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_ptrIntCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_qualifierCastedAway.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_qualifierForPtrAlias.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_qualifierInvalid.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_qualifierRepeated.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_recursion.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_redundantCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_redundantCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_redundantJump.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_redundantOverride.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_redundantParentheses.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:13+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_redundantSemicolon.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:13+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_redundantVirtual.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_relyOnExternalObject.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_repeatedDesignator.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_repeatedNullCheck.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_repeatedUnaryOperators.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_reservedName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_resourceLeak.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_rethrowOutOfCatch.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_returnConstObject.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_returnNonConstData.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_returnOdd.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_returnRValueReference.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_returnSameConst.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_returnSuperfluousConst.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_returnValueIgnored.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_roughAuto.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_roughTemplateAssignOperator.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_roughTemplateConstructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sandwichedModifier.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_secretLeak.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_selfAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_selfComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_selfDependentInitialization.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_selfDivision.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_selfExclusiveOr.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_selfSubtraction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sensitiveName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_shortCircuitSideEffect.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sideEffectAssertion.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sideEffectCopyConstructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sideEffectMoveConstructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_signalInMultiThreading.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_signChangeCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sig_dataRaces.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sig_illReturn.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sig_nonAsyncSafeCall.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_simplifiableCondition.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_simplifiableTernary.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_singleSignedBitfield.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_arrayParameter.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_NULL.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_oddExpression.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_pointer.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_pointerDivision.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_sizeof.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_suspiciousAdd.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_void.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sizeof_zeroComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_sourceFileExt.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_spaceStyle.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:13+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_specialComment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_spuriouslyWakeUp.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_stackAllocation.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_staticAndConst.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_staticInAnonymousNamespace.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_staticInHeader.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_staticNotUsed.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_stdNamespaceModified.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_stickyAssignmentOperator.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_stricterAlignedCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_successiveComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_superfluousVoid.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_suspiciousCompoundAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_suspiciousPromotion.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_badFormedCase.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_bool.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_brace.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_breakOmitted.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_caseOutOfRange.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_emptyBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_forbidNest.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_identicalBranch.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_invalidStatement.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_missingDefault.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_onlyDefault.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_onlyOneCase.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_semicolon.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_tooManyCases.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_switch_uselessFallThrough.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_this_deleteInDestructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_this_forbidDeleteThis.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_this_notUsed.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_this_selfJudgement.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_this_zeroComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwGenericException.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwInConstructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwInDelete.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwInDestructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwInHash.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwInMove.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwInNoexcept.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwInSwap.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwNonExceptionType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwNULL.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwNullptr.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwOutOfMain.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwPointer.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_throwWhileThrowing.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_tmpAddressFlowOut.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_TOCTOU.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_tooManyDeclarators.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_tooManyExit.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_tooManyFields.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_tooManyLabels.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_tooManyLambdaLines.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_tooManyLines.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_tooManyParams.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_tooManyPtrLevel.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_topInlineNamespace.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_try_disorderedEllipsis.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_try_disorderedHandlers.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_try_emptyBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_try_forbidNest.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_uncaughtException.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_uncondJump.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_undefinedBehavior.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unevaluatedSideEffect.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unexpectedPrecedence.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unlimitedAuthority.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unnecessaryAllocation.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unportableType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unreachableCode.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsafeCleanup.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsafeCompileOption.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsafeStringFunction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unspecifiedBehavior.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableArraySize.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableAssignOperator.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableCapture.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableDeclaration.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableForward.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableMove.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableReinterpretCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableReturn.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableReturnType.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_unsuitableStructTag.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_untrustedComponent.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_untrustedThirdParty.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_useAfterMove.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_uselessQualifier.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_usingDeprecatedName.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_usingNamespaceInHeader.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_usingSelf.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_valueOverflow.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_variableFormatString.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_variableLengthArray.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_violateODR.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_violateRuleOfFive.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_violateRuleOfZero.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_virtualAssignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_virtualCallInConstructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_virtualCallInDestructor.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_virtualComparison.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_virtualInFinal.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_voidCast.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_warningDefault.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_warningDisabled.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_while_assignment.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_while_brace.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_while_emptyBlock.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_while_scope.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_while_semicolon.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_while_uncondBroken.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:40+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_wildPtrDeref.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_wrongUseOfReturnValue.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_zeroAsPtrValue.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:12+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:41+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/ID_zeroLengthAllocation.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/introduction.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:11+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:39+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-1.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-10.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-11.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-12.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-13.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-14.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-15.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-16.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-17.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-18.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-19.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-2.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-20.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-21.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-22.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-23.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-24.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-25.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-26.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-27.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-28.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-29.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-3.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-30.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-31.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-32.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-33.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-34.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-35.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-36.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-37.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-38.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-39.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-4.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-40.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-41.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-42.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-43.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-44.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-45.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-46.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-47.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-48.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-49.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-5.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-50.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-51.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-52.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-53.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-54.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-55.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-56.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-57.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-58.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-59.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-6.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-60.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-61.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-62.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-63.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-64.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-65.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-66.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-67.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-68.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-69.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-7.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-70.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-71.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-72.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-73.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-74.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-75.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-76.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-77.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-78.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-79.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-8.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-80.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-81.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-82.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-83.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-84.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-85.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-86.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-87.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-88.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-89.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-9.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:15+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://saferules.github.io/detail/UB/cpp-ub-90.html</loc>
     <priority>0.8</priority>
-    <lastmod>2024-02-05T15:18:16+08:00</lastmod>
+    <lastmod>2024-05-13T15:32:44+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>
