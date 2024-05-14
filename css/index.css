@@ -44,8 +44,15 @@ p {
     padding-left: 16px;
 }
 #logo-360 {
-    padding-right: 6px;
+    width: 150px;
     display: block;
+    padding-right: 6px;
+}
+#title-with-logo {
+    display: block;
+}
+#title-without-logo {
+    display: none;
 }
 #titles {
     width: 100%;
@@ -55,6 +62,14 @@ p {
     font-size: 3.0em;
     font-weight: bold;
     margin: 0;
+}
+#introduction-title {
+    font-size: 3.0em;
+    font-weight: bold;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;    
 }
 #ub-list-main-title {
     font-size: 2.3em;
@@ -83,6 +98,12 @@ p {
 @media screen and (max-width: 500px){
 #logo-360 {
     display: none;
+}
+#title-with-logo {
+    display: none;
+}
+#title-without-logo {
+    display: block;
 }
 #sub-title {
     padding-left: 0;
