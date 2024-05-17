@@ -197,3 +197,11 @@ p {
     margin-block-start: 0.4em;
     margin-block-end: 0.4em;
 }
+.ack-list {
+    margin-left: 2em;
+    color: #218bff;
+    padding-bottom: 8px;
+}
+.ack-list li {
+    line-height: 1.8em;
+}
