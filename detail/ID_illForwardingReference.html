@@ -39,29 +39,33 @@
 <main>
 <p>不应混淆“<a href="https://en.cppreference.com/w/cpp/language/reference#Forwarding_references" target="_blank" class="dashed-link">转发引用（forwarding references）</a>”与右值引用，除作为 std::forward 的参数之外，不应对转发引用再有任何操作。</p>
 
-<p>转发引用是类型为 T&amp;&amp; 的参数，T 为函数模板类型，无论左值还是右值均可被这种参数接受，而且 const、volatile 等属性也会被忽略，由于含有不确定的状态，所以直接操作转发引用是不妥的，只应通过 std::forward&lt;T&gt; 交由合适的接口处理。</p>
+<p>转发引用是类型为 T&amp;&amp; 的参数，T 为函数模板类型。左值和右值均可与转发引用绑定，但如果绑定右值，右值的相关特性会被隐藏，故不应直接操作转发引用，应通过 std::forward&lt;T&gt; 交由合适的接口处理。</p>
 
 <p>示例：</p>
-<pre><code>int func();
-int func(int&amp;);
-int func(const int&amp;);
+<pre><code>int fun(int&amp;) { return 1; }
+int fun(int&amp;&amp;) { return 2; }
+int fun(const int&amp;) { return 3; }
 
 template &lt;class T&gt;
-int wrapper(T&amp;&amp; arg) {
-    return func(arg);   //<i> Non-compliant</i>
+int wrapper(T&amp;&amp; arg) {  //<i> Forwarding reference</i>
+    return fun(arg);    //<i> Non-compliant</i>
 }
 
-template &lt;class... V&gt;
-int wrapper(V&amp;&amp;... args) {
-    return func(args...);   //<i> Non-compliant</i>
+int main() {
+    int n = 1;
+    cout &lt;&lt; wrapper(n);  //<i> wrapper&lt;int&amp;&gt;(int&amp;)</i>
+    cout &lt;&lt; wrapper(0);  //<i> wrapper&lt;int&gt;(int&amp;&amp;)</i>
 }</code></pre>
-<p>例中 arg 和 args 为转发引用及相关参数包，不经 std::forward 的转换直接作为接口的参数无法正确选择重载的接口，应改为：</p>
+<p>例中左值 n 和右值 0 均可与转发引用 arg 绑定，但右值相关的特性被隐藏，只能调用 fun(int&amp;)，无法正确选择重载的接口。</p>
+
+<p>应改为：</p>
 <pre><code>template &lt;class T&gt;
 int wrapper(T&amp;&amp; arg) {
     return func(forward&lt;T&gt;(arg));   //<i> Compliant</i>
 }
-
-template &lt;class... V&gt;
+</code></pre>
+<p>对转发引用参数包也有相同要求：</p>
+<pre><code>template &lt;class... V&gt;
 int wrapper(V&amp;&amp;... args) {
     return func(forward&lt;V&gt;(args)...);   //<i> Compliant</i>
 }</code></pre>

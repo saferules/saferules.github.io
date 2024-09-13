@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：字母、数字、下划线、点号之外的字符可能与文件系统存在冲突，也可能导致标准未定义的行为，不应出现在头文件和相关目录名称中。" />
+  <meta name="description" content="C/C++ 安全编程要点：特殊字符，即除英文字母、数字、下划线和点号之外的字符，可能与文件系统发生冲突，也可能导致标准未定义的行为，不应出现在头文件和相关目录的名称中。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>include 指令中禁用不合规的字符 - C/C++ 安全规则</title>
+  <title>避免在 include 指令中使用特殊字符 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>include 指令中禁用不合规的字符</h1>
+  <h1>避免在 include 指令中使用特殊字符</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.1.2 ID_nonStandardCharInHeaderName</div>
     <div id="subtitle-tags">
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>字母、数字、下划线、点号之外的字符可能与文件系统存在冲突，也可能导致标准未定义的行为，不应出现在头文件和相关目录名称中。</p>
+<p>特殊字符，即除英文字母、数字、下划线和点号之外的字符，可能与文件系统发生冲突，也可能导致标准未定义的行为，不应出现在头文件和相关目录的名称中。</p>
 
 <p>示例：</p>
 <pre><code>#include &lt;&quot;foo&quot;&gt;        //<i> Non-compliant</i>
@@ -48,11 +48,11 @@
 #include &lt;foo.h&gt;        //<i> Compliant</i>
 #include &lt;foo_bar&gt;      //<i> Compliant</i>
 </code></pre>
-<p>可以用 / 作为路径分隔符，但不应出现 // 或 /*，否则会导致未定义的行为，如：</p>
+<p>可以使用 / 作为路径分隔符，但路径中不应出现 // 或 /*，否则会导致未定义的行为，如：</p>
 <pre><code>#include &lt;foo//bar.h&gt;   //<i> Non-Compliant, undefined behavior</i>
 #include &lt;foo/*bar.h&gt;   //<i> Non-Compliant, undefined behavior</i>
 </code></pre>
-<p>另外，某些平台的文件路径不区分大小写，建议头文件以小写字母命名以提高可移植性。</p>
+<p>另外，某些平台的文件路径不区分大小写，建议头文件和相关目录均以小写字母命名以提高可移植性。</p>
 
 </main>
 

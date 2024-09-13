@@ -49,7 +49,7 @@ void foo(A* a) {
 }
 
 void bar(A* a) {
-    B* b = dynamic_cast&lt;B*&gt;(a);  //<i> Compliant, prevent errors at compile time</i>
+    B* b = dynamic_cast&lt;B*&gt;(a);  //<i> Compliant, prevent errors at compile-time</i>
     ....
 }</code></pre>
 <p>例中 A 和 B 是两种不相关的类型，用 C 语言的转换方式是可以转换成功的，但并没有逻辑意义，在 C++ 代码中应使用 static_cast 或 dynamic_cast 等方法在编译时或运行时保障转换的有效性。</p>

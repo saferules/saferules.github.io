@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：动态创建的对象在初始化前具有不确定的值，读取未初始化的对象会导致标准未定义的行为。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
+  <script src="../js/iconfont.js"></script>
+  <title>动态创建的对象在使用前应被初始化 - C/C++ 安全规则</title>
+</head>
+<div class="footer-holder">
+<nav>
+  <span class="nav-icon">☰</span>
+  <ul class="nav-list">
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
+<article>
+<header>
+  <h1>动态创建的对象在使用前应被初始化</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">8.10 ID_dynamicInitialization</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_memberInitialization.html">next</a> › <a class="rule-toc-link" href="./ID_localInitialization.html">previous</a>
+    </div>
+  </div>
+  <hr class="solid-hr"/>
+</header>
+<main>
+<p>动态创建的对象在初始化前具有不确定的值，读取未初始化的对象会导致标准未定义的行为。</p>
+
+<p>动态创建的对象即通过 malloc、new 等方式创建的对象，如果不指定初始值，动态创建的基本变量的值是不确定的，当这种基本变量作为类成员或数组元素时，问题同样存在。如果类对象或数组含有不确定的值，其整体状态也是不确定的，所以应在构造函数或初始化列表中妥善初始化各成员或元素的值。</p>
+
+<p>示例：</p>
+<pre><code>int* a = new int[2];
+use(a[0], a[1]);     //<i> Non-compliant</i>
+
+struct A {
+    int x, y;
+};
+A* b = new A;
+use(b-&gt;x, b-&gt;y);     //<i> Non-compliant</i>
+</code></pre>
+<p>建议在创建处初始化：</p>
+<pre><code>int* a = new int[2]();  //<i> Zero-initialization, all elements are 0</i>
+A* b = new A();         //<i> Zero-initialization, all members are 0</i></code></pre>
+<p>new 表达式结尾的空括号表示将元素或成员初始化为 0，对于类类型，如果存在自定义默认构造函数，则会调用默认构造函数进行初始化。</p>
+
+<p>也可以使用列表初始化指定元素或成员的值：</p>
+<pre><code>int* a = new int[2]{1, 2};  //<i> List-initialization</i>
+A* b = new A{3, 4};         //<i> List-initialization</i></code></pre>
+<p>数组的两个元素分别为 1 和 2，A 对象的两个成员分别为 3 和 4。</p>
+
+</main>
+
+<h3>相关</h3>
+<div class="ref-items"><a href="./ID_illAccess.html" class="related-link">ID_illAccess</a>
+<a href="./ID_localInitialization.html" class="related-link">ID_localInitialization</a></div>
+
+<h3>依据</h3>
+<div class="ref-items">ISO/IEC 14882:2003 5.3.4(15)
+ISO/IEC 14882:2011 5.3.4(15)</div>
+
+
+</article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
+</html>

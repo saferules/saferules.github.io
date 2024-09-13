@@ -40,10 +40,10 @@
 <p>逻辑或、逻辑与的子表达式可以合并成一个表达式时应尽量合并。</p>
 
 <p>示例：</p>
-<pre><code>a &lt; b || a &gt; b      //<i> None-compliant, use a != b instead</i>
-a &gt; b || a == b     //<i> None-compliant, use a &gt;= b instead</i>
-a &lt; b || a == b     //<i> None-compliant, use a &lt;= b instead</i>
-a &lt;= b &amp;&amp; a &gt;= b    //<i> None-compliant, use a == b instead</i>
+<pre><code>a &lt; b || a &gt; b      //<i> Non-compliant, use a != b instead</i>
+a &gt; b || a == b     //<i> Non-compliant, use a &gt;= b instead</i>
+a &lt; b || a == b     //<i> Non-compliant, use a &lt;= b instead</i>
+a &lt;= b &amp;&amp; a &gt;= b    //<i> Non-compliant, use a == b instead</i>
 </code></pre>
 <p>不合理的繁琐写法也可能意味着某种错误，需认真对待。</p>
 

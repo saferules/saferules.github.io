@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：绝对路径使代码过分依赖编译环境，意味着项目的编译设置不完善，应使用相对路径。" />
+  <meta name="description" content="C/C++ 安全编程要点：如果 include 指令中的头文件路径为绝对路径，会使项目依赖特定的编译环境，降低可移植性。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>include 指令中不应使用绝对路径 - C/C++ 安全规则</title>
+  <title>避免在 include 指令中使用绝对路径 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>include 指令中不应使用绝对路径</h1>
+  <h1>避免在 include 指令中使用绝对路径</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.1.4 ID_forbidAbsPathInHeaderName</div>
     <div id="subtitle-tags">
@@ -37,11 +37,15 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>绝对路径使代码过分依赖编译环境，意味着项目的编译设置不完善，应使用相对路径。</p>
+<p>如果 include 指令中的头文件路径为绝对路径，会使项目依赖特定的编译环境，降低可移植性。</p>
 
 <p>示例：</p>
 <pre><code>#include &quot;C:\\foo\\bar.h&quot;   //<i> Non-compliant</i>
-#include &quot;/foo/bar.h&quot;       //<i> Non-compliant</i></code></pre>
+#include &quot;/foo/bar.h&quot;       //<i> Non-compliant</i>
+</code></pre>
+<p>应使用相对路径或由构建工具定义的路径：</p>
+<pre><code>#include &quot;../bar.h&quot;   //<i> Compliant, a relative path</i>
+#include BAR_H_PATH   //<i> Compliant, a macro defined by building tools</i></code></pre>
 
 </main>
 

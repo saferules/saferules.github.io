@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：在全局对象初始化过程中抛出的异常没有被处理的机会，导致程序异常终止。" />
+  <meta name="description" content="C/C++ 安全编程要点：初始化全局对象时抛出的异常无法被处理，会导致程序异常终止。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>在全局对象初始化过程中抛出的异常没有被处理的机会，导致程序异常终止。</p>
+<p>初始化全局对象时抛出的异常无法被处理，会导致程序异常终止。</p>
 
 <p>本规则是 <a href="./ID_uncaughtException.html" class="dashed-link">ID_uncaughtException</a> 的特化。</p>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：由于子表达式的求值顺序存在很多未声明的情况，在表达式中多次显式分配资源易造成资源泄露。" />
+  <meta name="description" content="C/C++ 安全编程要点：由于子表达式的求值顺序存在很多未声明的情况，在表达式中多次显式分配资源易造成资源泄漏。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>由于子表达式的求值顺序存在很多未声明的情况，在表达式中多次显式分配资源易造成资源泄露。</p>
+<p>由于子表达式的求值顺序存在很多未声明的情况，在表达式中多次显式分配资源易造成资源泄漏。</p>
 
 <p>示例：</p>
 <pre><code>fun(
@@ -54,7 +54,7 @@ shared_ptr&lt;T&gt; b{new T};   //<i> Compliant</i>
 fun(a, b);</code></pre>
 <p>这样即使构造函数抛出异常也会自动回收已分配的内存。</p>
 
-<p>更好的方法是避免显式资源分配，用 make_shared、make_unique 等函数代替 new 运算符：</p>
+<p>更好的方法是避免显式资源分配，用 make_shared、make_unique 等工厂函数代替 new 运算符：</p>
 <pre><code>fun(
     make_shared&lt;T&gt;(),
     make_shared&lt;T&gt;()    //<i> Compliant, safe and brief</i>

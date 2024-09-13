@@ -29,7 +29,7 @@
 <header>
   <h1>由 atexit、at_quick_exit 指定的处理函数应正常返回</h1>
   <div id="subtitle">
-    <div id="subtitle-id">8.34 ID_exitHandlerNoReturn</div>
+    <div id="subtitle-id">8.35 ID_exitHandlerNoReturn</div>
     <div id="subtitle-tags">
       <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_functionSpecialization.html">next</a> › <a class="rule-toc-link" href="./ID_unsuitableReturnType.html">previous</a>
     </div>
@@ -47,7 +47,7 @@
 int main() {
     atexit(handler);
 }</code></pre>
-<p>例中程序在调用 exit 时会执行 handler，而 handler 又调用 exit，在逻辑上形成无限递归，其后果在标准中是未定义的。</p>
+<p>例中程序在调用 exit 时会执行 handler，而 handler 又调用 exit，造成了无限递归，其后果在标准中是未定义的。</p>
 
 <p>又如：</p>
 <pre><code>jmp_buf buf;
@@ -63,7 +63,7 @@ int main() {
     }
     return 1;
 }</code></pre>
-<p>例中 main 返回后会调用 handler，而 handler 又调用 longjmp 跳回 main 函数，在逻辑上形成死循环。</p>
+<p>例中 main 返回后会调用 handler，而 handler 又调用 longjmp 跳回 main，造成了死循环。</p>
 
 </main>
 

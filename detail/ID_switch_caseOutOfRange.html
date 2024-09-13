@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：如果 case 标签的值超出了 switch 条件的范围，会导致相应分枝永远不会被执行。" />
+  <meta name="description" content="C/C++ 安全编程要点：如果 case 标签的值超出了 switch 条件表达式的取值范围，会导致相应分枝永远不会被执行。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>case 标签的值不可超出 switch 条件的范围 - C/C++ 安全规则</title>
+  <title>case 标签的值不可超出 switch 条件表达式的取值范围 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>case 标签的值不可超出 switch 条件的范围</h1>
+  <h1>case 标签的值不可超出 switch 条件表达式的取值范围</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.5.3 ID_switch_caseOutOfRange</div>
     <div id="subtitle-tags">
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>如果 case 标签的值超出了 switch 条件的范围，会导致相应分枝永远不会被执行。</p>
+<p>如果 case 标签的值超出了 switch 条件表达式的取值范围，会导致相应分枝永远不会被执行。</p>
 
 <p>示例：</p>
 <pre><code>void foo(char c)

@@ -37,20 +37,16 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>宏用于文本处理，不受作用域等语言规则限制，不应使用宏实现类型等语言层面的概念。</p>
+<p>宏用于文本处理，不受语言规则限制，不应使用宏实现类型等语言层面的概念。</p>
 
 <p>示例：</p>
-<pre><code>namespace U {
-    #define Type int  //<i> Non-compliant</i>
-}
+<pre><code>#define ptr_type int*   //<i> Non-compliant</i>
+ptr_type p0, p1;        //<i> p0 is a pointer, p1 is an integer</i></code></pre>
+<p>例中宏展开后相当于 int* p0, p1，p0 是指针，但 p1 却不是指针，极易引起误解。</p>
 
-namespace V {
-    #define Type long  //<i> Non-compliant</i>
-}
-
-void foo(Type);  //<i> Unreliable</i>
-</code></pre>
-<p>例中 Type 的最终定义是 long，第二个宏定义会覆盖第一个宏定义，这显然是不可靠的。</p>
+<p>应使用 typedef 等方法定义类型：</p>
+<pre><code>typedef int* ptr_type;  //<i> Compliant</i>
+ptr_type p0, p1;        //<i> p0 and p1 are all pointers</i></code></pre>
 
 </main>
 

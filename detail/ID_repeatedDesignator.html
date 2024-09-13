@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：重复的指派符（designator）会使其指定的元素被重复初始化，往往意味着笔误或复制粘贴错误。" />
+  <meta name="description" content="C/C++ 安全编程要点：在 C 语言的初始化列表中，可以通过指派符（designator）对指定的结构体成员或数组元素进行初始化，应注意重复的指派符会使其指定的对象被重复初始化，往往意味着笔误或复制粘贴错误。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,13 +37,19 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>重复的指派符（designator）会使其指定的元素被重复初始化，往往意味着笔误或复制粘贴错误。</p>
+<p>在 C 语言的初始化列表中，可以通过指派符（designator）对指定的结构体成员或数组元素进行初始化，应注意重复的指派符会使其指定的对象被重复初始化，往往意味着笔误或复制粘贴错误。</p>
 
 <p>示例：</p>
 <pre><code>struct T { int x, y; };
 struct T obj = { .x = 0, .x = 1 };            //<i> Non-compliant</i>
 int arr[3] = { [0] = 0, [1] = 1, [1] = 2 };   //<i> Non-compliant</i></code></pre>
 <p>例中重复的指派符 .x 和 [1] 是没有意义的。</p>
+
+<p>C++20 对类对象的初始化也引入了指派符，但要求更为严格，重复的或颠倒次序的指派符无法通过编译，如：</p>
+<pre><code>struct T { int x, y; };
+T a = { .y = 0, .x = 1 };   //<i> Compile error in C++20</i>
+T b = { .x = 0, .x = 1 };   //<i> Compile error in C++20</i>
+T c = { .x = 0, .y = 1 };   //<i> OK</i></code></pre>
 
 </main>
 

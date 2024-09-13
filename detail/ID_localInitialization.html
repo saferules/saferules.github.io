@@ -31,13 +31,17 @@
   <div id="subtitle">
     <div id="subtitle-id">8.9 ID_localInitialization</div>
     <div id="subtitle-tags">
-      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_memberInitialization.html">next</a> › <a class="rule-toc-link" href="./ID_illForwardingReference.html">previous</a>
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_dynamicInitialization.html">next</a> › <a class="rule-toc-link" href="./ID_illForwardingReference.html">previous</a>
     </div>
   </div>
   <hr class="solid-hr"/>
 </header>
 <main>
 <p>未初始化的局部对象具有不确定的值，读取未初始化的对象会导致标准未定义的行为。</p>
+
+<p>在函数作用域内定义的，具有“<a href="https://en.cppreference.com/book/storage_durations" target="_blank" class="dashed-link">自动存储期（automatic storage duration）</a>”的对象简称局部对象，具有“<a href="https://en.cppreference.com/w/cpp/named_req/ScalarType" target="_blank" class="dashed-link">标量类型（scalar type）</a>”的对象简称基本变量，如果不明确指定初始值，局部基本变量的初始值是不确定的。</p>
+
+<p>当局部基本变量作为类成员或数组元素时，这个问题同样存在，如果类对象或数组含有不确定的值，其整体状态也是不确定的，所以应在构造函数或初始化列表中妥善初始化各成员或元素的值。</p>
 
 <p>示例：</p>
 <pre><code>int foo() {
@@ -55,7 +59,7 @@
 int b;
 b = 123;      //<i> OK</i>
 </code></pre>
-<p>不建议的模式：</p>
+<p>不建议的方式：</p>
 <pre><code>int a;
 if (x) {
     a = 0;
@@ -69,7 +73,8 @@ if (y) {
 </main>
 
 <h3>相关</h3>
-<div class="ref-items"><a href="./ID_illAccess.html" class="related-link">ID_illAccess</a></div>
+<div class="ref-items"><a href="./ID_illAccess.html" class="related-link">ID_illAccess</a>
+<a href="./ID_dynamicInitialization.html" class="related-link">ID_dynamicInitialization</a></div>
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 6.2.4(5 6)

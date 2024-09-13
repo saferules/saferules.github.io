@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：如果条件为 bool 型，应改用 if-else 语句使代码的结构更清晰。" />
+  <meta name="description" content="C/C++ 安全编程要点：如果条件表达式为 bool 型，应改用 if-else 语句使代码的结构更清晰。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>switch 语句的条件不应为 bool 型 - C/C++ 安全规则</title>
+  <title>switch 语句的条件表达式不应为 bool 型 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>switch 语句的条件不应为 bool 型</h1>
+  <h1>switch 语句的条件表达式不应为 bool 型</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.5.8 ID_switch_bool</div>
     <div id="subtitle-tags">
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>如果条件为 bool 型，应改用 if-else 语句使代码的结构更清晰。</p>
+<p>如果条件表达式为 bool 型，应改用 if-else 语句使代码的结构更清晰。</p>
 
 <p>示例：</p>
 <pre><code>void foo(bool b)

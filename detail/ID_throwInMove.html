@@ -40,19 +40,22 @@
 <p>在移动过程中，对象的状态是不完整的，如果在中途抛出异常，对象将处于错误的状态。</p>
 
 <p>示例：</p>
-<pre><code>struct T {
-    void swap(T&amp;) noexcept(false);   //<i> May throw, breaks <a href="./ID_throwInSwap.html" class="dashed-link">ID_throwInSwap</a></i>
+<pre><code>struct A {
+    A();
+    A(A&amp;&amp; a) noexcept;  //<i> Compliant</i>
+    ....
+};
 
-    T(T&amp;&amp; a) {   //<i> Non-compliant</i>
-        swap(a);
-    }
-
-    T&amp; operator = (T&amp;&amp; a) {   //<i> Non-compliant</i>
-        swap(a);
-        return *this;
+struct B: A {
+    B();
+    B(B&amp;&amp; b): A(move(b)) {
+        if (cond) {
+            throw Exception();   //<i> Non-compliant</i>
+        }
+        ....
     }
 };</code></pre>
-<p>例中 swap 函数会抛出异常，意味着移动构造函数和移动赋值运算符也会抛出异常，是不符合要求的。</p>
+<p>例中 B 的移动构造函数抛出异常时，基类对象的数据已被转移，被移动的对象将处于错误的状态。</p>
 
 </main>
 

@@ -39,7 +39,7 @@
 <main>
 <p>可变参数列表中省略号的前一个参数称为 parmN，如果：</p>
 <ul>
-<li>在 C 代码中，parmN 为数组、函数，或具有寄存器存储期，以及与默认参数提升后不兼容的类型</li>
+<li>在 C 代码中，parmN 为数组、函数，或具有寄存器存储类，以及与默认参数提升后不兼容的类型</li>
 <li>在 C++ 代码中，parmN 为引用、数组、函数，或具有与默认参数提升后不兼容的类型</li>
 
 </ul>
@@ -47,10 +47,10 @@
 
 <p>示例：</p>
 <pre><code>void foo(float f, ...);          //<i> Non-compliant</i>
-void bar(int&amp; i, ...);           //<i> Non-compliant in C++</i>
+void bar(int&amp; r, ...);           //<i> Non-compliant in C++</i>
 void baz(register int n, ...);   //<i> Non-compliant in C</i>
 </code></pre>
-<p>例中参数 f 为 float 型，与“<a href="https://en.cppreference.com/w/cpp/language/variadic_arguments#Default_conversions" target="_blank" class="dashed-link">默认参数提升（default argument promotion）</a>”后的类型 double 不兼容，参数 i 为引用，参数 n 被 register 限定具有寄存器存储期，这种代码均会导致标准未定义的行为。</p>
+<p>例中参数 f 为 float 型，与“<a href="https://en.cppreference.com/w/cpp/language/variadic_arguments#Default_conversions" target="_blank" class="dashed-link">默认参数提升（default argument promotion）</a>”后的类型 double 不兼容，参数 r 为引用，参数 n 被 register 关键字限定具有寄存器存储类，这种代码均会导致标准未定义的行为。</p>
 
 </main>
 

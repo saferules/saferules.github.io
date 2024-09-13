@@ -51,7 +51,7 @@
 
 <p>注意，由引号标识的头文件路径并非字符串常量，不应对其使用字符串常量的特性，如：</p>
 <pre><code>#include &quot;stdlib&quot; &quot;.h&quot;      //<i> Non-compliant, implementation defined</i></code></pre>
-<p>是否会将引号中的内容连接成一个路径是由实现定义的，这种代码是不可移植的。</p>
+<p>例中 &quot;stdlib&quot; &quot;.h&quot; 是否会被连接成 &quot;stdlib.h&quot; 由实现定义，存在可移植性方面的问题。</p>
 
 <p>另外，如下形式的代码也是不符合标准的：</p>
 <pre><code>#include L&quot;foo&quot;             //<i> Non-compliant</i>

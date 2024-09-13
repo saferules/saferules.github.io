@@ -40,10 +40,10 @@
 <p>逻辑或、逻辑与的子表达式有包含关系时，其中的一个表达式是多余的。</p>
 
 <p>示例：</p>
-<pre><code>a &gt; b &amp;&amp; a != b     //<i> None-compliant, a != b is redundant</i>
-a &lt; b || a != b     //<i> None-compliant, a &lt; b is redundant</i>
-a &gt;= b &amp;&amp; a == b    //<i> None-compliant, a &gt;= b is redundant</i>
-a == b || a &lt;= b    //<i> None-compliant, a == b is redundant</i>
+<pre><code>a &gt; b &amp;&amp; a != b     //<i> Non-compliant, a != b is redundant</i>
+a &lt; b || a != b     //<i> Non-compliant, a &lt; b is redundant</i>
+a &gt;= b &amp;&amp; a == b    //<i> Non-compliant, a &gt;= b is redundant</i>
+a == b || a &lt;= b    //<i> Non-compliant, a == b is redundant</i>
 </code></pre>
 <p>多余的子表达式很可能意味着某种错误，需认真对待。</p>
 

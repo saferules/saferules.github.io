@@ -51,7 +51,7 @@
     procedure_may_throw();  //<i> Unsafe</i>
     unlock();
 }</code></pre>
-<p>设 lock 是某种获取资源的操作，unlock 是释放资源的操作，procedure_may_throw 是可能抛出异常的过程，那么 foo 函数就不是异常安全的，一旦有异常抛出会导致死锁或泄露等问题。</p>
+<p>设 lock 是某种获取资源的操作，unlock 是释放资源的操作，procedure_may_throw 是可能抛出异常的过程，那么 foo 函数就不是异常安全的，一旦有异常抛出会导致死锁或泄漏等问题。</p>
 
 <p>应保证资源从分配到回收的过程不被异常中断，采用对象化管理方法，使分配和回收得以自动完成：</p>
 <pre><code>void foo() {

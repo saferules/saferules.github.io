@@ -53,13 +53,14 @@ if (f == 0.1) {     //<i> Non-compliant, do not use ‘==’ or ‘!=’</i>
 <p>这非常容易造成意料之外的混乱，所以判断浮点数是否相等不应直接使用 == 或 != 运算符，即使浮点数可以被精确存储。</p>
 
 <p>解决方法：</p>
-<pre><code>bool feq(float a, float b, float e = 0.0001f) {
+<pre><code>bool feq(float a, float b, float e = 0.000001f) {
     return fabs(a - b) &lt; e;
 }</code></pre>
-<p>利用 feq 函数判断浮点数是否相等，如果两个浮点数的差值非常小则可以认为相等，其中 fabs 为计算浮点数差值绝对值的函数，如果差值绝对值小于 e 则认为相等，否则不等。</p>
+<p>利用 feq 函数判断浮点数 a 和 b 是否相等，如果两个浮点数的差值非常小则可以认为相等，其中 fabs 为计算浮点数差值绝对值的函数，如果差值绝对值小于 e 则认为相等，否则不等。</p>
 <pre><code>if (feq(f, 0.1)) {   //<i> Compliant</i>
     cout &lt;&lt; &quot;OK&quot;;
 }</code></pre>
+<p>在实际代码中，对于 float、double、long double 等不同的浮点类型，可以分别使用 float.h 中定义的 FLT_EPSILON、DBL_EPSILON、LDBL_EPSILON 作为 e 的值，在 C++ 代码中也可以使用 std::numeric_limits&lt;T&gt;::epsilon()，T 为浮点类型。</p>
 
 </main>
 

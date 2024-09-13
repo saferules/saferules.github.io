@@ -39,7 +39,7 @@
     </div>
   </header>
   <div class="content-wrapper content-first-section">
-    <p>针对 C 和 C++ 语言，本文收录了 525 种需要重点关注的问题，
+    <p>针对 C 和 C++ 语言，本文收录了 526 种需要重点关注的问题，
     每个问题对应一条规则，可作为代码审计依据或编程规范条款，也可为相关培训提供指导意见。</p>
     <p>本文是适用于不同应用场景的规则集合，读者可从中选取某个子集以适应自身需求。</p>
     <h2 id="rules-class-title">规则分类</h2>
@@ -143,12 +143,12 @@
 <li id="precompile" class="rules-toc-chapter">Precompile<ol>
 <li id="precompile.include" class="rules-toc-section">Include<ol>
   <li><a href="./detail/ID_illFormedInclude.html">include 指令应符合标准格式</a></li>
-  <li><a href="./detail/ID_nonStandardCharInHeaderName.html">include 指令中禁用不合规的字符</a></li>
-  <li><a href="./detail/ID_forbidBackslashInHeaderName.html">include 指令中不应使用反斜杠</a></li>
-  <li><a href="./detail/ID_forbidAbsPathInHeaderName.html">include 指令中不应使用绝对路径</a></li>
+  <li><a href="./detail/ID_nonStandardCharInHeaderName.html">避免在 include 指令中使用特殊字符</a></li>
+  <li><a href="./detail/ID_forbidBackslashInHeaderName.html">避免在 include 指令中使用反斜杠</a></li>
+  <li><a href="./detail/ID_forbidAbsPathInHeaderName.html">避免在 include 指令中使用绝对路径</a></li>
   <li><a href="./detail/ID_badIncludePosition.html">include 指令应位于文件的起始部分</a></li>
-  <li><a href="./detail/ID_forbiddenHeader.html">禁用不合规的头文件</a></li>
-  <li><a href="./detail/ID_forbidCHeaderInCpp.html">C++ 代码不应引用 C 头文件</a></li>
+  <li><a href="./detail/ID_forbiddenHeader.html">禁用具有不良影响的头文件</a></li>
+  <li><a href="./detail/ID_forbidCHeaderInCpp.html">避免在 C++ 代码中包含 C 头文件</a></li>
   <li><a href="./detail/ID_includedSourceFile.html">源文件不应被包含</a></li>
 </ol></li>
 <li id="precompile.macro-definition" class="rules-toc-section">Macro-definition<ol>
@@ -179,8 +179,8 @@
   <li><a href="./detail/ID_illFormedDirective.html">不应出现非标准格式的预编译指令</a></li>
   <li><a href="./detail/ID_nonStdDirective.html">不应使用非标准预编译指令</a></li>
   <li><a href="./detail/ID_forbidPragmaDirective.html">避免使用 pragma 指令</a></li>
-  <li><a href="./detail/ID_explicitLineDirective.html">非自动生成的代码中不应出现 line 指令</a></li>
-  <li><a href="./detail/ID_directiveInMacroArgument.html">宏的参数列表中不应出现预编译指令</a></li>
+  <li><a href="./detail/ID_explicitLineDirective.html">在非自动生成的代码中不应使用 line 指令</a></li>
+  <li><a href="./detail/ID_directiveInMacroArgument.html">在宏的参数列表中不应使用预编译指令</a></li>
   <li><a href="./detail/ID_incompleteDirective.html">相互关联的条件编译指令应在同一文件中</a></li>
   <li><a href="./detail/ID_nonBoolPPCondition.html">条件编译指令控制表达式的值应为 0 或 1</a></li>
   <li><a href="./detail/ID_warningDisabled.html">对编译警告的屏蔽应慎重</a></li>
@@ -316,7 +316,7 @@
   <li><a href="./detail/ID_forbidStaticArrSize.html">声明数组参数的大小时禁用 static 关键字</a></li>
 </ol></li>
 <li id="declaration.initializer" class="rules-toc-section">Initializer<ol>
-  <li><a href="./detail/ID_missingBracedSyntax.html">用 {} 代替 = 或 () 进行初始化</a></li>
+  <li><a href="./detail/ID_missingBracedSyntax.html">用列表初始化代替用等号或小括号的方式进行初始化</a></li>
   <li><a href="./detail/ID_missingBracedInitializer.html">在初始化列表中对聚合体也应使用初始化列表</a></li>
   <li><a href="./detail/ID_repeatedDesignator.html">初始化列表中不应存在重复的指派符</a></li>
 </ol></li>
@@ -338,7 +338,7 @@
   <li><a href="./detail/ID_overloadLogicOperator.html">不应重载“逻辑与”和“逻辑或”运算符</a></li>
   <li><a href="./detail/ID_virtualAssignment.html">拷贝和移动赋值运算符不应为虚函数</a></li>
   <li><a href="./detail/ID_virtualComparison.html">比较运算符不应为虚函数</a></li>
-  <li><a href="./detail/ID_virtualInFinal.html">final 类中不应声明虚函数</a></li>
+  <li><a href="./detail/ID_virtualInFinal.html">在 final 类中不应声明虚函数</a></li>
 </ol></li>
 <li id="declaration.bitfield" class="rules-toc-section">Bitfield<ol>
   <li><a href="./detail/ID_improperBitfieldType.html">对位域声明合理的类型</a></li>
@@ -409,15 +409,16 @@
   <li><a href="./detail/ID_paramPassedByValue.html">复制成本高的参数不应按值传递</a></li>
   <li><a href="./detail/ID_illForwardingReference.html">转发引用只应作为 std::forward 的参数</a></li>
   <li><a href="./detail/ID_localInitialization.html">局部对象在使用前应被初始化</a></li>
+  <li><a href="./detail/ID_dynamicInitialization.html">动态创建的对象在使用前应被初始化</a></li>
   <li><a href="./detail/ID_memberInitialization.html">成员须在声明处或构造时初始化</a></li>
   <li><a href="./detail/ID_illMemberCall.html">基类对象构造完毕之前不可调用成员函数</a></li>
   <li><a href="./detail/ID_illMemberAccess.html">在面向构造或析构函数体的 catch 子句中不可访问非静态成员</a></li>
   <li><a href="./detail/ID_disorderedInitialization.html">成员初始化应遵循声明的顺序</a></li>
   <li><a href="./detail/ID_virtualCallInConstructor.html">在构造函数中不应使用动态类型</a></li>
   <li><a href="./detail/ID_virtualCallInDestructor.html">在析构函数中不应使用动态类型</a></li>
-  <li><a href="./detail/ID_exitCallInDestructor.html">在析构函数中避免调用 exit 函数</a></li>
-  <li><a href="./detail/ID_sideEffectCopyConstructor.html">拷贝构造函数应避免实现复制之外的功能</a></li>
-  <li><a href="./detail/ID_sideEffectMoveConstructor.html">移动构造函数应避免实现数据移动之外的功能</a></li>
+  <li><a href="./detail/ID_exitCallInDestructor.html">避免在析构函数中调用 exit 函数</a></li>
+  <li><a href="./detail/ID_sideEffectCopyConstructor.html">避免在拷贝构造函数中实现复制之外的功能</a></li>
+  <li><a href="./detail/ID_sideEffectMoveConstructor.html">避免在移动构造函数中实现数据移动之外的功能</a></li>
   <li><a href="./detail/ID_this_selfJudgement.html">拷贝赋值运算符应处理参数是自身对象时的情况</a></li>
   <li><a href="./detail/ID_invalidWrite.html">不应存在无效的写入操作</a></li>
   <li><a href="./detail/ID_missingSideEffect.html">不应存在没有副作用的语句</a></li>
@@ -450,11 +451,11 @@
 <li id="control" class="rules-toc-chapter">Control<ol>
 <li id="control.if" class="rules-toc-section">If<ol>
   <li><a href="./detail/ID_if_semicolon.html">if 语句不应被分号隔断</a></li>
-  <li><a href="./detail/ID_if_identicalCondition.html">在 if...else-if 分枝中不应有重复的条件</a></li>
-  <li><a href="./detail/ID_if_hiddenCondition.html">在 if...else-if 分枝中不应有被遮盖的条件</a></li>
+  <li><a href="./detail/ID_if_identicalCondition.html">if...else-if 分枝的条件不应重复</a></li>
+  <li><a href="./detail/ID_if_hiddenCondition.html">if...else-if 分枝的条件不应被遮盖</a></li>
   <li><a href="./detail/ID_if_identicalBlock.html">if 分枝和 else 分枝的代码不应完全相同</a></li>
-  <li><a href="./detail/ID_if_identicalElseIfBlock.html">if...else-if 各分枝的代码不应完全相同</a></li>
-  <li><a href="./detail/ID_if_identicalImplicitElseBlock.html">if 分枝和隐含的 else 分枝代码不应完全相同</a></li>
+  <li><a href="./detail/ID_if_identicalElseIfBlock.html">不应存在完全相同的 if...else-if 分枝</a></li>
+  <li><a href="./detail/ID_if_identicalImplicitElseBlock.html">if 分枝和隐含的 else 分枝不应完全相同</a></li>
   <li><a href="./detail/ID_if_identicalSucceedingBlock.html">没有 else 子句的 if 语句与其后续代码相同是可疑的</a></li>
   <li><a href="./detail/ID_if_commonStatements.html">if 分枝和 else 分枝的起止语句不应相同</a></li>
   <li><a href="./detail/ID_if_scope.html">if 语句作用域的范围不应有误</a></li>
@@ -493,12 +494,12 @@
 <li id="control.switch" class="rules-toc-section">Switch<ol>
   <li><a href="./detail/ID_switch_semicolon.html">switch 语句不应被分号隔断</a></li>
   <li><a href="./detail/ID_switch_emptyBlock.html">switch 语句不应为空</a></li>
-  <li><a href="./detail/ID_switch_caseOutOfRange.html">case 标签的值不可超出 switch 条件的范围</a></li>
-  <li><a href="./detail/ID_switch_invalidStatement.html">switch 语句中任何子句都应从属于某个 case 或 default 分枝</a></li>
+  <li><a href="./detail/ID_switch_caseOutOfRange.html">case 标签的值不可超出 switch 条件表达式的取值范围</a></li>
+  <li><a href="./detail/ID_switch_invalidStatement.html">switch 语句的子句均应从属于某个 case 或 default 分枝</a></li>
   <li><a href="./detail/ID_switch_badFormedCase.html">case 和 default 标签应直接从属于 switch 语句</a></li>
   <li><a href="./detail/ID_switch_uselessFallThrough.html">不应存在紧邻 default 标签的空 case 标签</a></li>
-  <li><a href="./detail/ID_switch_identicalBranch.html">不应存在内容完全相同的 case 分枝</a></li>
-  <li><a href="./detail/ID_switch_bool.html">switch 语句的条件不应为 bool 型</a></li>
+  <li><a href="./detail/ID_switch_identicalBranch.html">不应存在完全相同的 case 或 default 分枝</a></li>
+  <li><a href="./detail/ID_switch_bool.html">switch 语句的条件表达式不应为 bool 型</a></li>
   <li><a href="./detail/ID_switch_onlyDefault.html">switch 语句不应只包含 default 标签</a></li>
   <li><a href="./detail/ID_switch_onlyOneCase.html">switch 语句不应只包含一个 case 标签</a></li>
   <li><a href="./detail/ID_switch_tooManyCases.html">switch 语句分枝数量应在规定范围之内</a></li>
@@ -700,7 +701,7 @@
 </ol></li>
 <li id="interruption" class="rules-toc-chapter">Interruption<ol>
   <li><a href="./detail/ID_sig_dataRaces.html">避免异步信号处理产生的数据竞争</a></li>
-  <li><a href="./detail/ID_sig_nonAsyncSafeCall.html">在异步信号处理函数中避免使用非异步信号安全函数</a></li>
+  <li><a href="./detail/ID_sig_nonAsyncSafeCall.html">避免在异步信号处理函数中使用非异步信号安全函数</a></li>
   <li><a href="./detail/ID_sig_illReturn.html">SIGFPE、SIGILL、SIGSEGV 等信号的处理函数不可返回</a></li>
   <li><a href="./detail/ID_forbidSignalFunction.html">禁用 signal 函数</a></li>
   <li><a href="./detail/ID_nonPOFHandler.html">信号处理函数应为 POF</a></li>
@@ -714,7 +715,7 @@
   <li><a href="./detail/ID_illLifetime.html">避免异步终止共享对象的生命周期</a></li>
   <li><a href="./detail/ID_spuriouslyWakeUp.html">避免虚假唤醒造成同步错误</a></li>
   <li><a href="./detail/ID_bitfieldDataRaces.html">避免并发访问位域造成的数据竞争</a></li>
-  <li><a href="./detail/ID_signalInMultiThreading.html">多线程环境中不可使用 signal 函数</a></li>
+  <li><a href="./detail/ID_signalInMultiThreading.html">在多线程环境中不可使用 signal 函数</a></li>
 </ol></li>
 <li id="style" class="rules-toc-chapter">Style<ol>
   <li><a href="./detail/ID_inconsistentStyle.html">遵循统一的代码编写风格</a></li>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：嵌套的 /*...*/ 注释不符合标准，/* 与 */ 之间不应出现 /*，某些编译器可以接受嵌套，但不具备可移植性。" />
+  <meta name="description" content="C/C++ 安全编程要点：嵌套的 /*...*/ 注释不符合标准，/* 与 */ 之间不可出现 /*。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>嵌套的 /*...*/ 注释不符合标准，/* 与 */ 之间不应出现 /*，某些编译器可以接受嵌套，但不具备可移植性。</p>
+<p>嵌套的 /*...*/ 注释不符合标准，/* 与 */ 之间不可出现 /*。</p>
 
 <p>示例：</p>
 
@@ -47,14 +47,16 @@
      */                    //<i> #3</i>
 */                         //<i> #4, Non-compliant</i>
 </code></pre>
-<p>根据标准，#1 处的 /* 与 #3 处的 */ 匹配，而 #4 处的 */ 处于失配状态。</p>
+<p>例中 #1 处的 /* 与 #3 处的 */ 匹配，而 #4 处的 */ 处于失配状态。</p>
 
 </main>
 
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 6.4.9(1)
-ISO/IEC 9899:2011 6.4.9(1)</div>
+ISO/IEC 9899:2011 6.4.9(1)
+ISO/IEC 14882:2003 2.7(1)
+ISO/IEC 14882:2011 2.8(1)</div>
 
 <h3>参考</h3>
 <div class="ref-items">MISRA C 2004 2.3

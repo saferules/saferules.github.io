@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：禁用 C++ 异常。" />
+  <meta name="description" content="C/C++ 安全编程要点：禁用 try、catch、throw 关键字，并禁用使用异常的库。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,17 +37,19 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>本规则适用如下场景，可酌情选取。</p>
-<ol>
+<p>禁用 try、catch、throw 关键字，并禁用使用异常的库。</p>
+
+<p>本规则适用场景如下，应酌情选取：</p>
+<ul>
 <li>对时空性能有严格要求的项目</li>
 <li>代码所属框架不支持异常处理</li>
 <li>与 C 或其他语言兼容的接口实现</li>
 <li>项目没有依照异常安全的理念实施</li>
 
-</ol>
-<p>利用返回值或错误码的错误处理方式要求检查可能产生错误的每一个步骤，有些出错情况可能被遗漏，C++ 的异常机制可大幅简化这种繁琐的方式，使代码更专注于事务或算法的实现，而且 C++ 异常是不可被忽略的，然而 C++ 的异常机制是需要一定开销的，对代码的设计与实现也有更严格的要求。</p>
+</ul>
+<p>利用返回值或错误码的错误处理方式要求检查可能产生错误的每一个步骤，有些出错情况可能被遗漏，C++ 的异常机制可大幅简化这种繁琐的方式，使代码更专注于事务或算法的实现，而且 C++ 异常是不可被忽略的。</p>
 
-<p>如果异常情况频繁出现，其成本是不可被忽视的，不适用于具有高性能要求的实时软件系统。如果代码所属项目没有依照异常安全的理念实施，使用异常反而会造成更多问题，可参见 <a href="./ID_exceptionUnsafe.html" class="dashed-link">ID_exceptionUnsafe</a> 的进一步讨论。</p>
+<p>然而，C++ 异常机制需要一定的开销，对代码的设计与实现也有更严格的要求。异常的抛出与捕获会对性能产生影响，可能不适用于具有高性能要求的实时软件系统，如果项目没有依照异常安全的理念实施，使用异常也可能会造成资源泄漏等更多问题，可参见 <a href="./ID_exceptionUnsafe.html" class="dashed-link">ID_exceptionUnsafe</a> 的进一步讨论。</p>
 
 </main>
 

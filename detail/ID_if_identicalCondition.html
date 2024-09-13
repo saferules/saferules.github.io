@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：if...else-if 分枝的条件不应有重复，否则相同条件排在前面的分枝会得以执行，而排在后面的分枝得不到执行机会。" />
+  <meta name="description" content="C/C++ 安全编程要点：if...else-if 分枝的条件不应有所重复，否则排在前面的分枝会得以执行，排在后面的分枝得不到执行机会。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>在 if...else-if 分枝中不应有重复的条件 - C/C++ 安全规则</title>
+  <title>if...else-if 分枝的条件不应重复 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>在 if...else-if 分枝中不应有重复的条件</h1>
+  <h1>if...else-if 分枝的条件不应重复</h1>
   <div id="subtitle">
     <div id="subtitle-id">9.1.2 ID_if_identicalCondition</div>
     <div id="subtitle-tags">
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>if...else-if 分枝的条件不应有重复，否则相同条件排在前面的分枝会得以执行，而排在后面的分枝得不到执行机会。</p>
+<p>if...else-if 分枝的条件不应有所重复，否则排在前面的分枝会得以执行，排在后面的分枝得不到执行机会。</p>
 
 <p>示例：</p>
 <pre><code>if (condition1) {
@@ -54,7 +54,7 @@ else {
 }</code></pre>
 <p>例中 branch1 和 branch3 的条件是相同的，所以 branch3 不会被执行。</p>
 
-<p>此问题为常见笔误，多数由复制粘贴造成，也可能是维护代码时对之前的逻辑不够了解造成的错误。</p>
+<p>这种问题为常见笔误，多由复制粘贴或维护代码时对原有逻辑不够了解造成。</p>
 
 </main>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：异常类的拷贝构造函数抛出异常违反异常处理机制，导致程序异常终止。" />
+  <meta name="description" content="C/C++ 安全编程要点：异常类的拷贝构造函数抛出异常违反异常处理机制，会导致程序异常终止。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,9 +37,9 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>异常类的拷贝构造函数抛出异常违反异常处理机制，导致程序异常终止。</p>
+<p>异常类的拷贝构造函数抛出异常违反异常处理机制，会导致程序异常终止。</p>
 
-<p>当抛出异常时，throw 表达式指定的异常对象会被复制，用以初始化对应的 catch 子句的参数，如果在复制过程中又抛出异常便违反了异常处理机制，这种情况将直接引发 std::terminate 函数的执行，使程序异常终止。</p>
+<p>当抛出异常时，throw 表达式指定的异常对象会被复制，用以初始化相应 catch 子句的参数，如果在复制过程中又抛出异常便违反了异常处理机制，这种情况将直接引发 std::terminate 函数的执行，使程序异常终止。</p>
 
 <p>示例：</p>
 <pre><code>class E {
@@ -72,7 +72,8 @@ ISO/IEC 14882:2011 15.1(3 7)
 ISO/IEC 14882:2017 18.1(3 7)</div>
 
 <h3>参考</h3>
-<div class="ref-items"><a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR60-CPP.+Exception+objects+must+be+nothrow+copy+constructible" target="_blank" class="related-link">SEI CERT ERR60-CPP</a></div>
+<div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#e16-destructors-deallocation-swap-and-exception-type-copymove-construction-must-never-fail" target="_blank" class="related-link">C++ Core Guidelines E.16</a>
+<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR60-CPP.+Exception+objects+must+be+nothrow+copy+constructible" target="_blank" class="related-link">SEI CERT ERR60-CPP</a></div>
 </article>
 </div>
 <footer>

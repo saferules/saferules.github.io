@@ -39,8 +39,12 @@
 <main>
 <p>访问未初始化或已释放的资源属于逻辑错误，会导致标准未定义的行为。</p>
 
-<p>对于访问未初始化的局部对象，本规则特化为 <a href="./ID_localInitialization.html" class="dashed-link">ID_localInitialization</a>；对于解引用未初始化或已被释放的指针，本规则特化为 <a href="./ID_wildPtrDeref.html" class="dashed-link">ID_wildPtrDeref</a> 、<a href="./ID_danglingDeref.html" class="dashed-link">ID_danglingDeref</a>。</p>
+<p>资源在编程语言中往往与对象绑定：</p>
+<ul>
+<li>对于访问未初始化的对象，本规则特化为 <a href="./ID_localInitialization.html" class="dashed-link">ID_localInitialization</a>、<a href="./ID_dynamicInitialization.html" class="dashed-link">ID_dynamicInitialization</a></li>
+<li>对于解引用未初始化或已被释放的指针，本规则特化为 <a href="./ID_wildPtrDeref.html" class="dashed-link">ID_wildPtrDeref</a>、<a href="./ID_danglingDeref.html" class="dashed-link">ID_danglingDeref</a></li>
 
+</ul>
 <p>示例：</p>
 <pre><code>void foo(const char* path, char buf[], size_t n) {
     FILE* f;
@@ -49,21 +53,25 @@
     }
     fread(buf, 1, n, f);   //<i> Non-compliant, ‘f’ may be invalid</i>
     fclose(f);
-}
+}</code></pre>
+<p>当参数 path 为空时，fread 函数读取未打开的文件会导致严重错误。</p>
 
-void bar(FILE* f, char buf[], size_t n) {
+<p>又如：</p>
+<pre><code>void bar(FILE* f, char buf[], size_t n) {
     if (feof(f)) {
         fclose(f);
     }
     fread(buf, 1, n, f);   //<i> Non-compliant, ‘f’ may be closed</i>
 }</code></pre>
+<p>关闭文件后，文件对象已销毁，再次读取也会导致严重错误。</p>
 
 </main>
 
 <h3>相关</h3>
 <div class="ref-items"><a href="./ID_wildPtrDeref.html" class="related-link">ID_wildPtrDeref</a>
 <a href="./ID_danglingDeref.html" class="related-link">ID_danglingDeref</a>
-<a href="./ID_localInitialization.html" class="related-link">ID_localInitialization</a></div>
+<a href="./ID_localInitialization.html" class="related-link">ID_localInitialization</a>
+<a href="./ID_dynamicInitialization.html" class="related-link">ID_dynamicInitialization</a></div>
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 7.19.3(4)

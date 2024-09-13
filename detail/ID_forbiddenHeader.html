@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：已过时的、无意义的或有不良副作用的头文件应禁用。" />
+  <meta name="description" content="C/C++ 安全编程要点：具有危险功能的、已过时或不具备实际意义的头文件应禁用。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>禁用不合规的头文件 - C/C++ 安全规则</title>
+  <title>禁用具有不良影响的头文件 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>禁用不合规的头文件</h1>
+  <h1>禁用具有不良影响的头文件</h1>
   <div id="subtitle">
     <div id="subtitle-id">3.1.6 ID_forbiddenHeader</div>
     <div id="subtitle-tags">
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>已过时的、无意义的或有不良副作用的头文件应禁用。</p>
+<p>具有危险功能的、已过时或不具备实际意义的头文件应禁用。</p>
 
 <p>示例：</p>
 <pre><code>#include &lt;tgmath.h&gt;   //<i> Non-compliant</i>
@@ -51,11 +51,13 @@
 #include &lt;ccomplex&gt;   //<i> Non-compliant in C++</i>
 #include &lt;cstdalign&gt;  //<i> Non-compliant in C++</i>
 </code></pre>
-<p>tgmath.h 和 ctgmath 会使用语言标准之外的技术实现某种重载效果，而且其中的部分函数名称会干扰其他标准库中的名称，setjmp.h 和 csetjmp 则包含危险的过程间跳转函数。</p>
+<p>tgmath.h 提供模仿泛型数学函数的宏，但宏名称与 math.h、complex.h 等头文件中的函数名称相同，对代码可读性造成不良影响，在 C11 之前编译器只能通过语言标准之外的特殊方法实现相关功能，而且参数类型与要求的类型不兼容也会导致未定义的行为。</p>
+
+<p>setjmp.h、csetjmp 提供过程间跳转函数，非特定场景不应使用，详见 <a href="./ID_forbidLongjmp.html" class="dashed-link">ID_forbidLongjmp</a>。</p>
 
 <p>iso646.h、stdalign.h、stdbool.h 以及 ciso646、cstdalign、cstdbool 等头文件对 C++ 语言没有意义，ccomplex、cstdalign、cstdbool、ctgmath 等头文件在 C++17 标准中已过时，在 C++ 代码中不应使用这些头文件。</p>
 
-<p>stdio.h、signal.h、time.h、fenv.h 等头文件含有较多标准未声明或由实现定义的内容，对有高可靠性要求的软件系统也不建议使用。</p>
+<p>另外，stdio.h、signal.h、time.h、fenv.h 等头文件含有较多标准未声明或由实现定义的内容，对有高可靠性要求的软件系统也不建议使用。</p>
 
 <p>审计工具不妨通过配置设定不合规头文件的名称，如：</p>
 <pre><code>[<a href="./ID_forbiddenHeader.html" class="dashed-link">ID_forbiddenHeader</a>]

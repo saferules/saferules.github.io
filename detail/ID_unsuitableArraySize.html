@@ -46,7 +46,7 @@
     int arr[1024][1024][1024];   //<i> Non-compliant, too large</i>
     ....
 }</code></pre>
-<p>在栈上分配空间难以控制失败情况，如果条件允许可改在堆上分配：</p>
+<p>在栈上分配空间难以控制失败情况，如果条件允许可改用动态内存分配：</p>
 <pre><code>void foo() {
     int* arr = (int*)malloc(1024 * 1024 * 1024 * sizeof(int));   //<i> Compliant</i>
     if (arr) {

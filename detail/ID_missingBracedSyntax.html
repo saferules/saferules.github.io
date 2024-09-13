@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：用 = 或 () 初始化不检查类型转换是否安全，可能会造成数据丢失，用 {} 初始化会进行相关检查，避免数据丢失。" />
+  <meta name="description" content="C/C++ 安全编程要点：等号或小括号初始化不检查类型转换是否安全，列表初始化会进行相关检查，可避免数据丢失等问题，提高了安全性，而且列表初始化在语法形式上更统一，有助于提高可读性。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>用 {} 代替 = 或 () 进行初始化 - C/C++ 安全规则</title>
+  <title>用列表初始化代替用等号或小括号的方式进行初始化 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>用 {} 代替 = 或 () 进行初始化</h1>
+  <h1>用列表初始化代替用等号或小括号的方式进行初始化</h1>
   <div id="subtitle">
     <div id="subtitle-id">6.6.1 ID_missingBracedSyntax</div>
     <div id="subtitle-tags">
@@ -37,14 +37,53 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>用 = 或 () 初始化不检查类型转换是否安全，可能会造成数据丢失，用 {} 初始化会进行相关检查，避免数据丢失。</p>
+<p>等号或小括号初始化不检查类型转换是否安全，列表初始化会进行相关检查，可避免数据丢失等问题，提高了安全性，而且列表初始化在语法形式上更统一，有助于提高可读性。</p>
 
 <p>示例：</p>
-<pre><code>double d = 1.2;
-float x = d;     //<i> Non-compliant, may loss data</i>
-float y(d);      //<i> Non-compliant, may loss data</i>
-float z{d};      //<i> Compliant, compile-time protected</i></code></pre>
-<p>例中 x 和 y 的初始化可能存在数据丢失等问题，z 的初始化无法通过编译，使问题可以及时修正。</p>
+<pre><code>void foo(double x) {
+    float a = x;   //<i> Non-compliant, may loss data</i>
+    float b(x);    //<i> Non-compliant, may loss data</i>
+    float c{x};    //<i> Compliant, list-initialization, compile-time protected</i>
+    ....
+}</code></pre>
+<p>例中 a 和 b 的初始化可能存在数据丢失等问题，c 的初始化无法通过编译，使问题得以及时修正。</p>
+
+<p>在大多数情况下，列表出初始化均可代替等号或小括号初始化，如初始赋值、调用构造函数等：</p>
+<pre><code>struct A {
+    int x{1};       //<i> ‘x’ is set to 1</i>
+    A() = default;  //<i> Default constructor</i>
+    A(int i): x{i}  //<i> Overloaded constructor</i>
+    {}
+};
+A a{};        //<i> Calls the default constructor</i>
+A b{1};       //<i> Calls the overloaded constructor</i>
+A c{a};       //<i> Copy-initialization</i>
+A d[]{1, 2};  //<i> Initializate an array</i>
+
+struct B {
+    int i, j;
+};
+B e{};       //<i> Zero-initialization, members are set to 0</i>
+B f{1, 2};   //<i> Members are set to 1 and 2 respectively</i>
+</code></pre>
+<p>相比于列表初始化，小括号初始化的语法不统一：</p>
+<pre><code>B g();       //<i> This is a function, not an object</i>
+B h = B();   //<i> Zero-initialization, verbose</i></code></pre>
+<p>注意，例中 B g(); 是函数声明，易与对象定义混淆，改用 B g{}; 可以简练有效的对成员进行零初始化。</p>
+
+<p>列表初始化的大括号及之间的内容称为“初始化列表”，初始化列表之前可以有一个等号，但 = {....} 是拷贝初始化，不带等号才是直接初始化，虽然复制成本可被优化，但仍应避免使用多余的符号。</p>
+<pre><code>struct C {
+    int x;
+    explicit C(int i): x{i} {}
+};
+C a{1};     //<i> OK</i>
+C b = {1};  //<i> Compile error</i></code></pre>
+<p>构造函数被 explicit 关键字限定，故无法进行拷贝初始化。</p>
+
+<p>例外：</p>
+<pre><code>std::vector&lt;int&gt; v(5, 0);  //<i> 5 elements with value 0</i>
+std::vector&lt;int&gt; w{5, 0};  //<i> 2 elements, first is 5, second is 0</i></code></pre>
+<p>初始化列表的类型为 std::initializer_list，如果相关构造函数对其有重载，则调用重载了的构造函数。std::vector 对 initializer_list 进行了重载，可以像初始化数组一样初始化 vector，例中 v 有 5 个元素，每个元素都是 0，而 w 有两个元素，第一个是 5，第二个是 0，这一点列表初始化无法代替用括号的方式进行初始化。</p>
 
 </main>
 
