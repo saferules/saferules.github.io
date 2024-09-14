@@ -41,7 +41,7 @@
 
 <p>示例：</p>
 <pre><code>#define M(x, y) if(x) {\    //<i> Compliant</i>
-    foo(y);\                //<i> Compliant</i>
+    ++(y);\                 //<i> Compliant</i>
 }
 
 void foo() {
@@ -55,7 +55,7 @@ b\
 c = 123;
 
 void bar() {
-    // comment  \           //<i> Non-compliant, The next line is also commented out</i>
+    // comment  \           //<i> Non-compliant, the next line is also commented out</i>
     do_something();
 }</code></pre>
 <p>如果“universal character name”被反斜杠截断会导致标准未定义的行为，如：</p>

@@ -42,7 +42,7 @@
 <p>示例：</p>
 <pre><code>#define M   \
     fun0(); \
-  //<i>fun1(); \   // Non-compliant, use /*fun1();*/ instead</i>
+  //fun1(); \   //<i> Non-compliant, use /*fun1();*/ instead</i>
     fun2();
 </code></pre>
 <p>示例代码的本意是注释掉 fun1()，但由于结尾是反斜杠，fun2() 也被注释掉了。这种问题多出现在以反斜杠实现的多行宏定义中。</p>
