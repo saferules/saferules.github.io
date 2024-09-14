@@ -47,7 +47,7 @@
     void swap(T&amp; a) {   //<i> Non-compliant</i>
         string tmp = m;
         m = a.m;
-        a.m = tmp;  //<i> If allocation fails, both ‘a’ and *this will be incorrect</i>
+        a.m = tmp;   //<i> If allocation fails, both ‘a’ and *this will be incorrect</i>
     }
 };</code></pre>
 <p>例中通过复制的方式交换字符串是不符合要求的，如果内存分配失败，被交换的两个对象都将处于错误状态。</p>

@@ -53,7 +53,7 @@ void foo(A* a)
 }</code></pre>
 <p>如果 a 实际指向的不是 B 类对象，使用 dynamic_cast 会得到一个空值便于进一步处理，其他方式的转换会得到无法判断对错的结果。</p>
 
-<p>注意，虚基类指针只能通过 dynamic_cast 转换为派生类指针，否则导致标准未定义的行为：</p>
+<p>注意，虚基类指针只能通过 dynamic_cast 转换为派生类指针，否则会导致标准未定义的行为：</p>
 <pre><code>class A { .... };
 class B: virtual A { .... };
 class C: virtual A { .... };

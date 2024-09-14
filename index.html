@@ -39,7 +39,7 @@
     </div>
   </header>
   <div class="content-wrapper content-first-section">
-    <p>针对 C 和 C++ 语言，本文收录了 526 种需要重点关注的问题，
+    <p>针对 C 和 C++ 语言，本文收录了 532 种需要重点关注的问题，
     每个问题对应一条规则，可作为代码审计依据或编程规范条款，也可为相关培训提供指导意见。</p>
     <p>本文是适用于不同应用场景的规则集合，读者可从中选取某个子集以适应自身需求。</p>
     <h2 id="rules-class-title">规则分类</h2>
@@ -190,6 +190,7 @@
   <li><a href="./detail/ID_nestedComment.html">注释不可嵌套</a></li>
   <li><a href="./detail/ID_badCommentPosition.html">注释应出现在合理的位置</a></li>
   <li><a href="./detail/ID_specialComment.html">关注 TODO、FIXME、XXX、BUG 等特殊注释</a></li>
+  <li><a href="./detail/ID_commentEndingBackslash.html">单行注释不应以反斜杠结尾</a></li>
 </ol></li>
 <li id="precompile.file" class="rules-toc-section">File<ol>
   <li><a href="./detail/ID_sourceFileExt.html">源文件扩展名应一致</a></li>
@@ -304,6 +305,7 @@
   <li><a href="./detail/ID_missingArraySize.html">数组大小应被显式声明</a></li>
   <li><a href="./detail/ID_mixedTypeObjDefinition.html">不应将类型定义和对象声明写在一个语句中</a></li>
   <li><a href="./detail/ID_mixedDeclarations.html">不应将不同类别的声明写在一个语句中</a></li>
+  <li><a href="./detail/ID_forbidCArray.html">在 C++ 代码中用容器代替 C 数组</a></li>
 </ol></li>
 <li id="declaration.parameter" class="rules-toc-section">Parameter<ol>
   <li><a href="./detail/ID_missingParamName.html">函数原型声明中的参数应具有合理的名称</a></li>
@@ -385,7 +387,9 @@
   <li><a href="./detail/ID_throwWhileThrowing.html">异常类的拷贝构造函数不可抛出异常</a></li>
   <li><a href="./detail/ID_exceptionInException.html">异常类的构造函数和异常信息相关的函数不应抛出异常</a></li>
   <li><a href="./detail/ID_throwInHash.html">与标准库相关的 hash 过程不应抛出异常</a></li>
-  <li><a href="./detail/ID_throwInNoexcept.html">由 noexcept 标记的函数不可产生未处理的异常</a></li>
+  <li><a href="./detail/ID_nonCopiableException.html">异常类的拷贝、移动构造函数和析构函数均应是可访问的</a></li>
+  <li><a href="./detail/ID_missingNoexcept.html">使用 noexcept 关键字标注不抛出异常的函数</a></li>
+  <li><a href="./detail/ID_throwInNoexcept.html">由 noexcept 关键字标注的函数不可产生未处理的异常</a></li>
   <li><a href="./detail/ID_diamondExceptionInheritance.html">避免异常类多重继承自同一非虚基类</a></li>
   <li><a href="./detail/ID_catch_value.html">通过引用捕获异常</a></li>
   <li><a href="./detail/ID_catch_slicing.html">捕获异常时不应产生对象切片问题</a></li>
@@ -426,6 +430,7 @@
   <li><a href="./detail/ID_notAllBranchReturn.html">有返回值的函数其所有分枝都应显式返回</a></li>
   <li><a href="./detail/ID_localAddressFlowOut.html">不可返回局部对象的地址或引用</a></li>
   <li><a href="./detail/ID_tmpAddressFlowOut.html">不可返回临时对象的地址或引用</a></li>
+  <li><a href="./detail/ID_referInvalidTmpObject.html">不可引用失效的临时对象</a></li>
   <li><a href="./detail/ID_unsuitableCapture.html">合理设置 lambda 表达式的捕获方式</a></li>
   <li><a href="./detail/ID_returnRValueReference.html">函数返回值不应为右值引用</a></li>
   <li><a href="./detail/ID_returnConstObject.html">函数返回值不应为常量对象</a></li>
@@ -474,6 +479,7 @@
   <li><a href="./detail/ID_for_emptyBlock.html">for 循环体不应为空</a></li>
   <li><a href="./detail/ID_for_floatCounter.html">for 循环变量不应为浮点型</a></li>
   <li><a href="./detail/ID_for_counterChangedInBody.html">for 循环变量不应在循环体内被改变</a></li>
+  <li><a href="./detail/ID_for_invalidCounter.html">for 循环变量应在循环条件范围内有效增减</a></li>
   <li><a href="./detail/ID_for_counterNested.html">嵌套的 for 语句不应使用相同的循环变量</a></li>
   <li><a href="./detail/ID_for_brace.html">for 循环体应该用大括号括起来</a></li>
 </ol></li>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：用 throw 关键字声明的“动态异常说明（dynamic exception specification）”已过时，应使用 noexcept 关键字完成异常说明。" />
+  <meta name="description" content="C/C++ 安全编程要点：用 throw 关键字声明的“动态异常说明（dynamic exception specification）”已过时。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -29,7 +29,7 @@
 <header>
   <h1>禁用动态异常说明</h1>
   <div id="subtitle">
-    <div id="subtitle-id">7.26 ID_forbidThrowSpecification</div>
+    <div id="subtitle-id">7.28 ID_forbidThrowSpecification</div>
     <div id="subtitle-tags">
       <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#exception">目录</a> › <a class="rule-toc-link" href="./ID_forbidException.html">next</a> › <a class="rule-toc-link" href="./ID_crossModuleException.html">previous</a>
     </div>
@@ -37,15 +37,14 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>用 throw 关键字声明的“<a href="https://en.cppreference.com/w/cpp/language/except_spec" target="_blank" class="dashed-link">动态异常说明（dynamic exception specification）</a>”已过时，应使用 noexcept 关键字完成异常说明。</p>
+<p>用 throw 关键字声明的“<a href="https://en.cppreference.com/w/cpp/language/except_spec" target="_blank" class="dashed-link">动态异常说明（dynamic exception specification）</a>”已过时。</p>
 
-<p>动态异常说明将所有可能抛出的异常详细列出，尤其是牵扯到外部不可控代码时，会大幅增加异常管理成本，而且各编译器相关实现并未统一，现已从 C++17 标准中移出。</p>
+<p>动态异常说明将所有可能抛出的异常详细列出，如果与实际抛出的异常不一致，会使程序异常终止。</p>
+
+<p>当抛出的异常有变化时，需要根据调用关系修改所有相关函数的异常说明，尤其是牵扯到外部不可控代码时，会大幅增加维护成本，而且动态异常说明具有一定的运行时开销，现已从 C++17 标准中移出。</p>
 
 <p>示例：</p>
-<pre><code>int foo() throw(Exception);   //<i> Non-compliant</i>
-</code></pre>
-<p>应改为：</p>
-<pre><code>int foo() noexcept(false);   //<i> Compliant</i>
+<pre><code>int foo() throw(A, B, C);   //<i> Non-compliant, drop ‘throw(A, B, C)’</i>
 </code></pre>
 <p>例外：</p>
 <pre><code>int bar() throw();   //<i> Let it go?</i></code></pre>
@@ -61,8 +60,7 @@
 ISO/IEC 14882:2017 D.3-deprecated</div>
 
 <h3>参考</h3>
-<div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#e12-use-noexcept-when-exiting-a-function-because-of-a-throw-is-impossible-or-unacceptable" target="_blank" class="related-link">C++ Core Guidelines E.12</a>
-<a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#e30-dont-use-exception-specifications" target="_blank" class="related-link">C++ Core Guidelines E.30</a></div>
+<div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#e30-dont-use-exception-specifications" target="_blank" class="related-link">C++ Core Guidelines E.30</a></div>
 </article>
 </div>
 <footer>

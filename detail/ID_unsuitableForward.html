@@ -56,9 +56,7 @@ void bar(T&amp;&amp; x) {        //<i> Forwarding reference</i>
 void baz(const A&amp; a) {
     A b(a);
     bar(b);    //<i> Calls #1</i>
-
     bar(a);    //<i> Calls #2</i>
-
     bar(A());  //<i> Calls #3</i>
 }</code></pre>
 <p>例中 bar 接口的参数为转发引用，在 baz 函数中，bar 接口将左值、常量引用和临时对象分别转发给对应的 foo 接口，这种模式称为“完美转发”，std::forward 应在这种模式内使用。</p>
@@ -86,7 +84,7 @@ template &lt;class T&gt;
 void bar(T&amp;&amp; x) {
     foo(forward&lt;T&amp;&gt;(x));  //<i> Non-compliant, use ‘forward&lt;T&gt;(x)’</i>
 }</code></pre>
-<p>forward 的返回值应直接作为接口的参数，且只应使用 forward&lt;T&gt;。</p>
+<p>例中 forward 的返回值应直接作为接口的参数，且只应使用 forward&lt;T&gt;。</p>
 
 </main>
 

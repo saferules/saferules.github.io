@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：明确标注函数是否会抛出异常可以提升可读性，有助于异常安全理念的实施，编译器也可以其为依据进行优化。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
+  <script src="../js/iconfont.js"></script>
+  <title>使用 noexcept 关键字标注不抛出异常的函数 - C/C++ 安全规则</title>
+</head>
+<div class="footer-holder">
+<nav>
+  <span class="nav-icon">☰</span>
+  <ul class="nav-list">
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
+<article>
+<header>
+  <h1>使用 noexcept 关键字标注不抛出异常的函数</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">7.16 ID_missingNoexcept</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#exception">目录</a> › <a class="rule-toc-link" href="./ID_throwInNoexcept.html">next</a> › <a class="rule-toc-link" href="./ID_nonCopiableException.html">previous</a>
+    </div>
+  </div>
+  <hr class="solid-hr"/>
+</header>
+<main>
+<p>明确标注函数是否会抛出异常可以提升可读性，有助于异常安全理念的实施，编译器也可以其为依据进行优化。</p>
+
+<p>示例：</p>
+<pre><code>double area(double x) noexcept {
+    double s = x * 3 / 2;
+    return sqrt(s * pow(s - x, 3));
+}</code></pre>
+<p>为了保障异常安全，首先要明确函数是否会抛出异常，以便调用者妥善安排操作步骤和处理方式。例中 area 函数由数学运算表达式和 C 库函数组成，不会抛出异常，将其标记为 noexcept 是合理的。</p>
+
+<p>关于异常安全的进一步讨论，可参见 <a href="./ID_exceptionUnsafe.html" class="dashed-link">ID_exceptionUnsafe</a>。</p>
+
+</main>
+
+<h3>相关</h3>
+<div class="ref-items"><a href="./ID_exceptionUnsafe.html" class="related-link">ID_exceptionUnsafe</a>
+<a href="./ID_throwInNoexcept.html" class="related-link">ID_throwInNoexcept</a></div>
+
+<h3>依据</h3>
+<div class="ref-items">ISO/IEC 14882:2011 15.4
+ISO/IEC 14882:2017 18.4</div>
+
+<h3>参考</h3>
+<div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#e12-use-noexcept-when-exiting-a-function-because-of-a-throw-is-impossible-or-unacceptable" target="_blank" class="related-link">C++ Core Guidelines E.12</a></div>
+</article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
+</html>

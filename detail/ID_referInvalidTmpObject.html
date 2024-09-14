@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：可以通过将临时对象与引用绑定的方式延长临时对象的生命周期，但并不是在所有情况下都有效，应避免生命周期与预期不符造成的错误。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
+  <script src="../js/iconfont.js"></script>
+  <title>不可引用失效的临时对象 - C/C++ 安全规则</title>
+</head>
+<div class="footer-holder">
+<nav>
+  <span class="nav-icon">☰</span>
+  <ul class="nav-list">
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
+<article>
+<header>
+  <h1>不可引用失效的临时对象</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">8.27 ID_referInvalidTmpObject</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#function">目录</a> › <a class="rule-toc-link" href="./ID_unsuitableCapture.html">next</a> › <a class="rule-toc-link" href="./ID_tmpAddressFlowOut.html">previous</a>
+    </div>
+  </div>
+  <hr class="solid-hr"/>
+</header>
+<main>
+<p>将临时对象与引用绑定可以延长临时对象的生命周期，但并不是在所有情况下都有效，应避免生命周期与预期不符造成的错误。</p>
+
+<p>示例：</p>
+<pre><code>struct T {
+    string member = &quot;abc&quot;;
+    string val() { return member; }
+    string&amp; ref() { return member; }
+    string* ptr() { return &amp;member; }
+};
+auto&amp;&amp; a = T();         //<i> Compliant</i>
+auto&amp;&amp; b = T().member;  //<i> Compliant</i>
+auto&amp;&amp; c = T().val();   //<i> Compliant</i></code></pre>
+<p>将纯右值与引用直接绑定可以使其生命周期与引用的生命周期保持一致。例中 T()、T().member、T().val() 均为纯右值，其生命周期可以被延长。</p>
+
+<pre><code>auto&amp; x = T().ref();      //<i> Non-compliant, dangling reference</i>
+auto* y = T().ptr();      //<i> Non-compliant, dangling pointer</i>
+auto&amp; z = T().member[0];  //<i> Non-compliant, dangling reference</i></code></pre>
+<p>如果临时对象的成员函数返回成员的引用或地址，表达式执行完毕后临时对象析构，无法延长成员的生命周期。例中 x、z 为无效引用，y 为无效指针。</p>
+
+<p>另外，构造函数初始化列表中的绑定不会延长临时对象的生命周期：</p>
+<pre><code>struct A {
+    const string&amp; r;
+    A(): r(&quot;abc&quot;) {}             //<i> Non-compliant</i>
+    A(const string&amp; s): r(s) {}
+};
+A obj(&quot;123&quot;);  //<i> Non-compliant</i></code></pre>
+<p>例中由 &quot;abc&quot; 创建的临时 string 对象在构造函数执行完毕后析构，由 &quot;123&quot; 创建的临时对象生命周期与参数 s 的生命周期相同，均无法正确初始化成员引用。</p>
+
+<p>又如：</p>
+<pre><code>struct B { const string&amp; r; };
+B obj{&quot;abc&quot;};
+B* ptr = new B{&quot;123&quot;};  //<i> Non-compliant</i></code></pre>
+<p>如果不通过构造函数直接进行列表初始化，可以将临时对象与成员引用绑定，但 new 表达式中的临时对象与动态创建的对象具有不同的存储期，故不能保证可以正常绑定。总之，为了避免意料之外的错误并提高兼容性，不应将临时对象与成员引用绑定。</p>
+
+</main>
+
+<h3>相关</h3>
+<div class="ref-items"><a href="./ID_tmpAddressFlowOut.html" class="related-link">ID_tmpAddressFlowOut</a></div>
+
+<h3>依据</h3>
+<div class="ref-items">ISO/IEC 14882:2011 12.2(4 5)
+ISO/IEC 14882:2017 15.2(5 6)</div>
+
+
+</article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
+</html>

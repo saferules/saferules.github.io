@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：如果异常类的拷贝、移动构造函数或析构函数不可访问，会使异常对象无法适用于完整的异常处理机制，导致意料之外的错误或降低可移植性。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
+  <script src="../js/iconfont.js"></script>
+  <title>异常类的拷贝、移动构造函数和析构函数均应是可访问的 - C/C++ 安全规则</title>
+</head>
+<div class="footer-holder">
+<nav>
+  <span class="nav-icon">☰</span>
+  <ul class="nav-list">
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
+<article>
+<header>
+  <h1>异常类的拷贝、移动构造函数和析构函数均应是可访问的</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">7.15 ID_nonCopiableException</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#exception">目录</a> › <a class="rule-toc-link" href="./ID_missingNoexcept.html">next</a> › <a class="rule-toc-link" href="./ID_throwInHash.html">previous</a>
+    </div>
+  </div>
+  <hr class="solid-hr"/>
+</header>
+<main>
+<p>如果异常类的拷贝、移动构造函数或析构函数不可访问，会使异常对象无法适用于完整的异常处理机制，导致意料之外的错误或降低可移植性。</p>
+
+<p>示例：</p>
+<pre><code>auto f = async([]() {
+    throw make_unique&lt;string&gt;(&quot;X&quot;);  //<i> Non-compliant</i>
+});
+
+try {
+    f.get();
+}
+catch (unique_ptr&lt;string&gt;&amp; e) {
+    cout &lt;&lt; *e &lt;&lt; &#x27;\n&#x27;;
+}</code></pre>
+<p>例中不可复制的 unique_ptr 对象被抛出，是不符合要求的。</p>
+
+<p>不同编译器对示例代码的处理方式可能存在较大差异，其运行情况可能正常，也可能会崩溃，抑或无法通过编译。</p>
+
+<p>在异步过程中，需要将抛出的异常保存起来，回归同步时再重新抛出异常。某些执行环境需要通过复制来保存异常对象，如果复制接口不完备，可能会造成严重错误。</p>
+
+</main>
+
+<h3>相关</h3>
+<div class="ref-items"><a href="./ID_throwWhileThrowing.html" class="related-link">ID_throwWhileThrowing</a></div>
+
+<h3>依据</h3>
+<div class="ref-items">ISO/IEC 14882:2003 15.1(5)
+ISO/IEC 14882:2011 15.1(5)
+ISO/IEC 14882:2017 18.1(5)</div>
+
+
+</article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
+</html>

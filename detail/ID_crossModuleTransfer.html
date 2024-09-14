@@ -41,7 +41,7 @@
 
 <p>与资源管理相关的对象，如流、字符串、智能指针以及自定义对象均不应在模块间传递。</p>
 
-<p>不同的可执行模块往往具有独立的资源管理机制，跨模块的分配与回收会造成严重错误，而且不同的模块可能由不同的编译器生成，对同一对象的实现也可能存在冲突。</p>
+<p>不同的可执行模块可以具有独立的资源管理机制，跨模块的分配与回收会造成严重错误，而且不同的模块可能由不同的编译器生成，对同一类对象的实现也可能存在冲突。</p>
 
 <p>示例：</p>
 <pre><code>//<i> In a.dll</i>
@@ -54,9 +54,9 @@ int main() {
     vector&lt;int&gt; v {   //<i> Allocation in b.exe</i>
         1, 2, 3
     };
-    foo(v);   //<i> Non-compliant, reallocation in a.dll, crash</i>
+    foo(v);   //<i> Non-compliant, reallocation in a.dll, may crash</i>
 }</code></pre>
-<p>例中容器 v 的初始内存由 b.exe 分配，b.exe 与 a.dll 具有独立的堆栈，由于模板库的内联实现，reserve 函数会调用 a.dll 的内存管理函数重新分配 b.exe 中的内存，造成严重错误。</p>
+<p>例中 a.dll 和 b.exe 的动态内存管理是在各自的私有空间中进行的，容器 v 的初始内存由 b.exe 分配，由于模板库的内联实现，reserve 函数会调用 a.dll 的内存管理函数重新分配 b.exe 中的内存，造成严重错误。</p>
 
 </main>
 

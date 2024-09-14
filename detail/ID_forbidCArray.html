@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="C/C++ 安全编程要点：相比 C 数组，C++ 的 std::array、std::vector 等容器更安全，且提供成员函数，以及标准库支持。" />
+  <link type="text/css" rel="stylesheet" href="../css/detail.css" />
+  <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
+  <script src="../js/search.js"></script>
+  <script src="../js/iconfont.js"></script>
+  <title>在 C++ 代码中用容器代替 C 数组 - C/C++ 安全规则</title>
+</head>
+<div class="footer-holder">
+<nav>
+  <span class="nav-icon">☰</span>
+  <ul class="nav-list">
+    <li><a href="../index.html">首页</a></li>
+    <li><a href="../index.html#rules-class-title">规则分类</a></li>
+    <li><a href="./introduction.html">项目介绍</a></li>
+  </ul>
+  <div class="nav-stuff"></div>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search..." onkeydown="onKeyDownForSearch(event)" />
+    <img alt="search" id="search-icon" src="../img/search.svg" onclick="onClickSearchIcon(this)"/>
+  </div>
+  <span class="nav-ellipsis">•••</span>
+</nav>
+<article>
+<header>
+  <h1>在 C++ 代码中用容器代替 C 数组</h1>
+  <div id="subtitle">
+    <div id="subtitle-id">6.4.9 ID_forbidCArray</div>
+    <div id="subtitle-tags">
+      <svg class="icon" aria-hidden="true"><use xlink:href="#icon-standard"></use></svg><a class="rule-toc-link" href="../index.html#declaration.declarator">目录</a> › <a class="rule-toc-link" href="./ID_missingParamName.html">next</a> › <a class="rule-toc-link" href="./ID_mixedDeclarations.html">previous</a>
+    </div>
+  </div>
+  <hr class="solid-hr"/>
+</header>
+<main>
+<p>相比 C 数组，C++ 的 std::array、std::vector 等容器更安全，且提供成员函数，以及标准库支持。</p>
+
+<p>示例：</p>
+<pre><code>int a[3]{}, b[3]{};
+array&lt;int, 3&gt; c{}, d{};
+
+if (a &gt;= b) {  //<i> Undefined behavior</i>
+    ....
+}
+if (c &gt;= d) {  //<i> Well defined</i>
+    ....
+}</code></pre>
+<p>C 数组可以退化成指针，例中 a &gt;= b 比较指针的大小，但比较未指向同一数组的指针会导致未定义的行为；c 和 d 是标准容器，不会退化成指针，比较运算符也由标准库明确定义。</p>
+
+</main>
+
+<h3>相关</h3>
+<div class="ref-items"><a href="./ID_invalidParamArraySize.html" class="related-link">ID_invalidParamArraySize</a></div>
+
+
+<h3>参考</h3>
+<div class="ref-items"><a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#slcon1-prefer-using-stl-array-or-vector-instead-of-a-c-array" target="_blank" class="related-link">C++ Core Guidelines SL.con.1</a>
+<a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r14-avoid--parameters-prefer-span" target="_blank" class="related-link">C++ Core Guidelines R.14</a></div>
+</article>
+</div>
+<footer>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">Copyright©2024 360 Security Technology Inc., Licensed under the Apache-2.0 license.</a>
+</footer>
+</html>
