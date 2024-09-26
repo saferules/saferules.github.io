@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：对象的动态类型在其构造过程中不生效。" />
+  <meta name="description" content="C/C++ 安全编程要点：对象的“动态类型（dynamic type）”在其构造过程中不生效。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>在构造函数中不应使用动态类型 - C/C++ 安全规则</title>
+  <title>在对象的构造函数中不应使用其动态类型 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>在构造函数中不应使用动态类型</h1>
+  <h1>在对象的构造函数中不应使用其动态类型</h1>
   <div id="subtitle">
     <div id="subtitle-id">8.15 ID_virtualCallInConstructor</div>
     <div id="subtitle-tags">
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>对象的动态类型在其构造过程中不生效。</p>
+<p>对象的“<a href="https://en.cppreference.com/w/cpp/language/type#Dynamic_type" target="_blank" class="dashed-link">动态类型（dynamic type）</a>”在其构造过程中不生效。</p>
 
 <p>执行基类构造函数时，派生类对象尚未构造完毕，基类构造函数不能使用派生类动态类型。</p>
 
@@ -73,6 +73,8 @@ B b;  //<i> ‘b.tag’ is 1</i></code></pre>
 
 </main>
 
+<h3>相关</h3>
+<div class="ref-items"><a href="./ID_virtualCallInDestructor.html" class="related-link">ID_virtualCallInDestructor</a></div>
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 14882:2003 10.4(6)-undefined

@@ -41,20 +41,22 @@
 <p>空指针未指向任何对象或函数，解引用空指针会导致未定义的行为。</p>
 
 <p>示例：</p>
-<pre><code>struct T {
+<pre><code>int* a = nullptr;
+*a = 1;            //<i> Undefined behavior</i>
+a[5] = 2;          //<i> Undefined behavior</i>
+memset(a, 0, 10);  //<i> Undefined behavior</i>
+
+struct T {
     int i;
-
-    int foo() { return i; }
-    int bar() { return 0; }
-
-    static int baz();
+    int f();
 };
-
 T* p = nullptr;
+p-&gt;i = 0;          //<i> Undefined behavior</i>
+p-&gt;f();            //<i> Undefined behavior</i>
 
-p-&gt;foo();   //<i> Undefined behavior</i>
-p-&gt;bar();   //<i> Undefined behavior</i>
-p-&gt;baz();   //<i> Well-defined, ‘baz’ is a static member</i></code></pre>
+using F = void (*)();
+F fp = nullptr;
+fp();              //<i> Undefined behavior</i></code></pre>
 
 </main>
 <h3>依据</h3>

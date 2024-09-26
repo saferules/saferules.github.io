@@ -45,9 +45,11 @@
 
 <p>示例：</p>
 <pre><code>void foo(size_t n) {
-    char* p = (char*)malloc(n);
-    p[n - 1] = &#x27;\0&#x27;;              //<i> Non-compliant, check ‘p’ first</i>
-    ....
+    if (n != 0) {
+        char* p = (char*)malloc(n);
+        p[n - 1] = &#x27;\0&#x27;;              //<i> Non-compliant, check ‘p’ first</i>
+        ....
+    }
 }</code></pre>
 <p>示例代码未检查 p 的有效性便直接使用是不符合要求的。</p>
 

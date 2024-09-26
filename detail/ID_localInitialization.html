@@ -39,7 +39,7 @@
 <main>
 <p>未初始化的局部对象具有不确定的值，读取未初始化的对象会导致标准未定义的行为。</p>
 
-<p>在函数作用域内定义的，具有“<a href="https://en.cppreference.com/book/storage_durations" target="_blank" class="dashed-link">自动存储期（automatic storage duration）</a>”的对象简称局部对象，具有“<a href="https://en.cppreference.com/w/cpp/named_req/ScalarType" target="_blank" class="dashed-link">标量类型（scalar type）</a>”的对象简称基本变量，如果不明确指定初始值，局部基本变量的初始值是不确定的。</p>
+<p>在函数作用域内定义的，具有“<a href="https://en.cppreference.com/w/cpp/language/storage_duration#Automatic_storage_duration" target="_blank" class="dashed-link">自动存储期（automatic storage duration）</a>”的对象简称局部对象，具有“<a href="https://en.cppreference.com/w/cpp/named_req/ScalarType" target="_blank" class="dashed-link">标量类型（scalar type）</a>”的对象简称基本变量，如果不明确指定初始值，局部基本变量的初始值是不确定的。</p>
 
 <p>当局部基本变量作为类成员或数组元素时，这个问题同样存在，如果类对象或数组含有不确定的值，其整体状态也是不确定的，所以应在构造函数或初始化列表中妥善初始化各成员或元素的值。</p>
 

@@ -39,7 +39,9 @@
 <main>
 <p>空指针解引用会导致标准未定义的行为。</p>
 
-<p>使用 *、-&gt;、.*、-&gt;*、[]、() 等运算符，通过指针的值访问指针指向的数据称为“解引用（dereference）”。使用 nullptr、NULL、0 等常量初始化的指针是空指针，未指向任何对象或函数，解引用空指针属于逻辑错误，也是一种严重的运行时错误。</p>
+<p>使用 *、-&gt;、.*、-&gt;*、[]、() 等运算符，通过指针的值访问指针指向的数据称为“解引用（dereference）”。使用 nullptr、NULL、0 等常量初始化的指针是空指针，未指向任何对象或函数，解引用空指针属于逻辑错误。</p>
+
+<p>空指针与任何已指向对象或函数的指针均不相等，通过空指针访问对象是非法的，其后果在语言标准中是未定义的，执行环境一般会拒绝程序访问空指针对应的地址，使程序无法正常运行。</p>
 
 <p>示例：</p>
 <pre><code>int foo(int i) {
@@ -49,20 +51,48 @@
     }
     return *p;    //<i> Non-compliant</i>
 }</code></pre>
-<p>例中指针 p 为空的状态可以到达解引用处，往往会引发“<a href="https://en.wikipedia.org/wiki/Segmentation_fault" target="_blank" class="dashed-link">段错误</a>”等严重后果。</p>
+<p>如果例中条件表达式 cond 为假，p 为空指针，*p 往往会引发“<a href="https://en.wikipedia.org/wiki/Segmentation_fault" target="_blank" class="dashed-link">段错误</a>”等严重后果。</p>
 
 <p>例外：</p>
+<pre><code>int* p = NULL;
+int* q = &amp;*p;    //<i> Compliant in C</i></code></pre>
+<p>根据 C 标准，不论指针 p 是否为空，&amp;*p 均等同于 p，故例中 q 也是空指针，虽然 C++ 编译器会兼容 C 标准，但应注意 C++ 标准并无此规定。</p>
+
+<p>在 C++ 理论体系中，如果 P 为指针类型的表达式， *P 总应指代有效的对象或函数，形如 P-&gt;M、P-&gt;*M 的表达式等同于 (*P).M、(*P).*M，形如 P[N] 的表达式等同于 *(P + N)，如果 P 或 P + N 没有指向有效的对象或函数，程序的行为是未定义的。在任何情况下，解引用运算符均不应作用于空指针等未指向有效对象的指针。</p>
+
+<p>如通过空指针访问静态成员是不符合要求的：</p>
 <pre><code>struct T {
-    int foo() { return 0; }
     static int bar() { return 1; }
 };
-
 T* p = nullptr;
-int b = p-&gt;bar();   //<i> Compliant, but bad, use ‘T::bar()’ instead</i>
-int c = p-&gt;foo();   //<i> Non-compliant, even if it may not crash</i></code></pre>
-<p>在 C++ 代码中通过指针访问静态成员不算作解引用，可不受本规则约束，但这种风格易引起维护者的疑虑而增加维护成本。</p>
+cout &lt;&lt; p-&gt;bar();   //<i> Non-compliant, use ‘T::bar()’ instead</i></code></pre>
+<p>访问类的静态成员不需要对象实例，通过空指针访问静态成员一般不会造成实际错误，但这种情况下程序的行为是未定义的，可参见“<a href="https://cplusplus.github.io/CWG/issues/315.html" target="_blank" class="dashed-link">CWG issue 315</a>”、“<a href="https://cplusplus.github.io/CWG/issues/2823.html" target="_blank" class="dashed-link">CWG issue 2823</a>”。另外，通过 . 或 -&gt; 访问的静态成员会被误认作非静态成员，例中 p-&gt;bar() 应改为 T::bar()，以遵循标准并提高可读性。</p>
 
-<p>注意，非静态成员函数是对象数据的访问方法，即使非静态成员函数没有实际地访问对象数据，也不应通过空指针调用非静态成员函数，否则仍属于逻辑错误，而且如果调用的是虚函数或虚基类的成员函数也会造成崩溃。</p>
+<p>避免空指针解引用的措施：</p>
+<ul>
+<li>非必要不使用指针，或使用引用、迭代器、智能指针等方式代替指针</li>
+<li>封装指针，避免外界直接操作指针，并进行充分的单元测试</li>
+<li>接口文档应明确标注是否接受空指针作为参数，以及返回值是否有可能为空指针</li>
+<li>对于有可能为空的指针，在使用前均需判断其是否为空指针</li>
+<li>利用代码分析工具定期检查代码，并将这种检查作为开发流程的一部分</li>
+
+</ul>
+<p>示例：</p>
+<pre><code>size_t len(const T* p) {
+    return p-&gt;size();     //<i> Bad, missing documentation or validation</i>
+}</code></pre>
+<p>例中函数不接受空指针作为参数，如果是设计使然，应使用断言进行标注，否则应对参数为空指针的情况作出处理。</p>
+
+<p>断言也是接口文档的重要组成部分，可显著提高可读性，并进行运行时检查，如：</p>
+<pre><code>size_t len(const T* p) {
+    assert(p != NULL);    //<i> Good</i>
+    return p-&gt;size();
+}
+</code></pre>
+<p>在 C++ 代码中也可以使用引用代替不为空的参数：</p>
+<pre><code>size_t len(const T&amp; r) {  //<i> Safe and brief</i>
+    return r.size();
+}</code></pre>
 
 </main>
 
@@ -71,9 +101,9 @@ int c = p-&gt;foo();   //<i> Non-compliant, even if it may not crash</i></code><
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 6.3.2.1(1)-undefined
-ISO/IEC 9899:1999 6.5.3.2(4)-undefined
+ISO/IEC 9899:1999 6.5.3.2(3 4)-undefined
 ISO/IEC 9899:2011 6.3.2.1(1)-undefined
-ISO/IEC 9899:2011 6.5.3.2(4)-undefined
+ISO/IEC 9899:2011 6.5.3.2(3 4)-undefined
 ISO/IEC 14882:2003 8.3.2(4)-undefined
 ISO/IEC 14882:2011 8.3.2(5)-undefined</div>
 

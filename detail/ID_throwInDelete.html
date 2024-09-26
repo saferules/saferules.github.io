@@ -42,16 +42,13 @@
 <p>抛出异常后，从 throw 表达式到相应 catch 子句各层调用栈中的对象会被自动析构，并释放内存空间，如果在这个过程中抛出异常便违反了异常处理机制，导致未定义的行为。</p>
 
 <p>示例：</p>
-<pre><code>class A {
-    ....
-public:
-    void operator delete(void* p) {
-        if (!p) {
-            throw Exception();    //<i> Non-compliant, undefined behavior</i>
-        }
-        ....
+<pre><code>void operator delete(void* p) {
+    if (check_invalid(p)) {
+        throw Exception();    //<i> Non-compliant, undefined behavior</i>
     }
-};</code></pre>
+    deallocate(p);
+}</code></pre>
+<p>例中 operator delete 通过自定义内存管理方法拒绝非法地址，但不应抛出异常，应直接终止程序的执行。</p>
 
 </main>
 

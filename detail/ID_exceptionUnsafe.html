@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：保证异常安全。" />
+  <meta name="description" content="C/C++ 安全编程要点：异常安全（exception safety）即保证不会因抛出异常而造成错误或资源泄漏等问题。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,65 +37,84 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>当产生异常时，保证：</p>
-<ul>
-<li>相关资源不会泄漏</li>
-<li>相关对象处于正确状态</li>
+<p>异常安全（exception safety）即保证不会因抛出异常而造成错误或资源泄漏等问题。</p>
 
-</ul>
-<p>是 C++ 异常机制可以正确工作的重要基础。</p>
+<p>异常安全的级别：</p>
+<ol>
+<li>基本保证（basic guarantee）：抛出异常后，保证无资源泄漏，所有对象均处于有效状态</li>
+<li>强保证（strong guarantee）：如果某个过程抛出异常，保证程序的状态与执行该过程之前相同</li>
+<li>不抛异常保证（nothrow guarantee）：保证操作不会失败，也不会抛出任何异常</li>
+
+</ol>
+<p>程序应至少提供基本保证，关键过程应实现强保证，与异常机制相关的过程，如析构函数、资源回收函数等，则应实现不抛异常保证。</p>
 
 <p>示例：</p>
-<pre><code>void foo() {
+<pre><code>void foo(vector&lt;T&gt;&amp; v) {
+    v.push_back(T());      //<i> Strong guarantee</i>
+}</code></pre>
+<p>例中标准容器 vector 的 push_back 函数提供强保证，如果抛出异常，容器中的元素以及容器的容量均不会发生任何变化。</p>
+
+<p>又如：</p>
+<pre><code>void bar() {
     lock();
-    procedure_may_throw();  //<i> Unsafe</i>
+    procedure_may_throw();   //<i> Non-compliant</i>
     unlock();
 }</code></pre>
-<p>设 lock 是某种获取资源的操作，unlock 是释放资源的操作，procedure_may_throw 是可能抛出异常的过程，那么 foo 函数就不是异常安全的，一旦有异常抛出会导致死锁或泄漏等问题。</p>
+<p>设 lock 是某种获取资源的操作，unlock 是释放资源的操作，procedure_may_throw 是可能抛出异常的过程，那么 bar 函数就不是异常安全的，一旦抛出异常就会导致死锁或泄漏等问题。</p>
 
-<p>应保证资源从分配到回收的过程不被异常中断，采用对象化管理方法，使分配和回收得以自动完成：</p>
-<pre><code>void foo() {
-    LockOwner object;
-    procedure_may_throw();  //<i> Safe</i>
+<p>应保证资源从分配到回收的过程不被异常中断，如捕获异常，在重新抛出异常前释放资源：</p>
+<pre><code>void bar() {
+    lock();
+    try {
+        procedure_may_throw();   //<i> Compliant, but verbose</i>
+    } catch (...) {
+        unlock();
+        throw;
+    }
+    unlock();
 }</code></pre>
-<p>将 lock 和 unlock 分别由 object 的构造和析构函数完成，即使 procedure_may_throw 抛出异常，相关资源也可被自动回收，实现了异常安全，资源的对象化管理方法可参见 <a href="./ID_ownerlessResource.html" class="dashed-link">ID_ownerlessResource</a>。</p>
+<p>但分散的回收操作容易出错，显式的 try-cath 语句也不利于维护。</p>
 
-<p>异常安全的另一个重要方面是抛出异常时应保证相关对象的状态是正确的，事务或算法在处理对象时可能要分多个步骤处理对象的多个成员，要注意中途抛出异常会造成数据不一致等问题。</p>
+<p>将资源托管于类对象，使资源的生命周期协同于对象的生命周期，自动完成分配和回收是更好的方式：</p>
+<pre><code>void bar() {
+    LockOwner object;        //<i> Safe and brief</i>
+    procedure_may_throw();   //<i> Compliant</i>
+}</code></pre>
+<p>使 lock 和 unlock 分别由 object 的构造和析构函数完成，即使 procedure_may_throw 抛出异常，相关资源也会被自动回收，资源的对象化管理方法可参见 <a href="./ID_ownerlessResource.html" class="dashed-link">ID_ownerlessResource</a> 的进一步讨论。</p>
+
+<p>异常安全的另一个重要方面是抛出异常时应保证对象的状态是正确的，事务或算法在处理对象时可能要分多个步骤处理对象的多个成员，要注意中途抛出异常会造成数据不一致等问题。</p>
 <pre><code>class X {
     T a, b;
 
 public:
-    void foo() {
-        proc(a);
-        //<i> ... if throw an exception ...</i>
-        proc(b);
+    void job() {
+        proc(a);   //<i> May throw exceptions</i>
+        proc(b);   //<i> Unsafe, ‘a’ and ‘b’ may be inconsistent</i>
     }
 };</code></pre>
-<p>设 a 和 b 是两个密切相关的成员，如账号和金额等，foo 是一个处理事务的函数，如果在中途抛出异常就会使对象处于错误的状态，解决方法可以考虑“复制 - 交换”模式，如：</p>
+<p>设 a 和 b 是两个密切相关的成员，如账号和金额等，job 是处理事务的函数，如果在中途抛出异常就会使对象处于错误的状态，解决方法可以考虑“复制 - 交换”模式，如：</p>
 <pre><code>class X {
     T a, b;
 
 public:
-    void foo() {
+    void job() {
         X copy(*this);
         proc(copy.a);
         proc(copy.b);
-        this-&gt;swap(copy);
+        swap(copy);     //<i> Copy-and-swap idiom</i>
     }
 
-    void swap(X&amp; v) noexcept {
-        ....
-    }
+    void swap(X&amp;) noexcept;   //<i> Nothrow guarantee</i>
 };</code></pre>
-<p>事务先处理对象的副本，处理成功后交换副本与对象的数据，交换过程需要保证不抛出异常，这样从对象副本的生成到事务处理完毕的过程中即使抛出异常也不影响对象的状态。</p>
-
-<p>swap 过程不可抛出异常也是一个规则，参见 <a href="./ID_throwInSwap.html" class="dashed-link">ID_throwInSwap</a>。</p>
+<p>先处理对象的副本，处理成功后交换副本与对象的数据，交换过程需要保证不抛出异常，这样从对象副本的生成到事务处理完毕的过程中即使抛出异常也不影响对象的状态，实现了强保证。</p>
 
 </main>
 
 <h3>相关</h3>
 <div class="ref-items"><a href="./ID_resourceLeak.html" class="related-link">ID_resourceLeak</a>
 <a href="./ID_ownerlessResource.html" class="related-link">ID_ownerlessResource</a>
+<a href="./ID_throwInDestructor.html" class="related-link">ID_throwInDestructor</a>
+<a href="./ID_throwInDelete.html" class="related-link">ID_throwInDelete</a>
 <a href="./ID_throwInSwap.html" class="related-link">ID_throwInSwap</a></div>
 
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：构造函数抛出异常表示对象构造失败，不会再执行相关析构函数，需要保证已分配的资源被有效回收。" />
+  <meta name="description" content="C/C++ 安全编程要点：如果构造函数抛出异常，对应的析构函数将不会被执行，因此应保证已分配的资源能够被有效回收。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>构造函数抛出异常表示对象构造失败，不会再执行相关析构函数，需要保证已分配的资源被有效回收。</p>
+<p>如果构造函数抛出异常，对应的析构函数将不会被执行，因此应保证已分配的资源能够被有效回收。</p>
 
 <p>示例：</p>
 <pre><code>class A {
@@ -58,7 +58,7 @@ public:
         delete[] b;
     }
 };</code></pre>
-<p>例中内存分配可能会失败，抛出 bad_alloc 异常，在某种条件下还会抛出自定义的异常，任何一种异常被抛出析构函数就不会被执行，已分配的资源就无法被回收，但已构造完毕的对象还是会正常析构的，所以应采用对象化资源管理方法，使资源可以被自动回收。</p>
+<p>例中内存分配可能会失败，抛出 bad_alloc 异常，在某种条件下还会抛出自定义的异常，任何一种异常被抛出析构函数就不会被执行，已分配的资源就无法被回收，但已构造完毕的基类对象和成员对象还是会正常析构的，所以应采用对象化资源管理方法，使资源可以被自动回收，可参见 <a href="./ID_ownerlessResource.html" class="dashed-link">ID_ownerlessResource</a> 的进一步讨论。</p>
 
 <p>可改为：</p>
 <pre><code>A::A(size_t n) {
@@ -86,7 +86,7 @@ public:
         ....
     }
 };</code></pre>
-<p>保证已分配的资源时刻有对象负责回收是重要的设计原则，可参见 <a href="./ID_ownerlessResource.html" class="dashed-link">ID_ownerlessResource</a> 的进一步讨论。</p>
+<p>保证已分配的资源时刻有对象负责回收是重要的设计原则。</p>
 
 <p>注意，“未成功初始化的对象”在 C++ 语言中是不存在的，应避免相关逻辑错误，如：</p>
 <pre><code>struct T {

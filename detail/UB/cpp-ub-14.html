@@ -41,7 +41,7 @@
 <p>示例：</p>
 <pre><code>void foo(size_t n) {
     int* p = new int[n];
-    *p = 123;              //<i> Undefined behavior if ‘n’ is zero</i>
+    p[0] = 123;            //<i> Undefined behavior if ‘n’ is zero</i>
     ....
     delete[] p;
 }</code></pre>

@@ -39,12 +39,12 @@
 </header>
 <main>
 <p>示例：</p>
-<pre><code>struct T { .... };
+<pre><code>struct T { int i; };
+T obj{0};
+int T::* mp = nullptr;
 
-int foo(T&amp; obj) {
-    int T::* mp = nullptr;
-    return obj.*mp;          //<i> Undefined behavior</i>
-}</code></pre>
+cout &lt;&lt; obj.*mp;        //<i> Undefined behavior</i>
+cout &lt;&lt; (&amp;obj)-&gt;*mp;    //<i> Undefined behavior</i></code></pre>
 
 </main>
 <h3>依据</h3>

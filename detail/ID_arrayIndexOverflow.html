@@ -48,18 +48,22 @@
 
 </ul>
 <p>示例：</p>
-<pre><code>int a[10];
-int *p, *e;
+<pre><code>int a[10];         //<i> 10 elements</i>
 
-p = a + 0;    //<i> Compliant</i>
-p = a + 5;    //<i> Compliant</i>
-e = a + 10;   //<i> Compliant, won&#x27;t overflow</i>
+int* u = a + 5;    //<i> Compliant</i>
+int* v = a + 10;   //<i> Compliant</i>
 
-p = a - 1;    //<i> Non-compliant, the array subscript is -1, which exceeds [0, N]</i>
-e = a + 11;   //<i> Non-compliant, the array subscript is 11, which exceeds [0, N]</i>
+int* w = a - 1;    //<i> Non-compliant, -1 exceeds [0, 10]</i>
+int* x = a + 11;   //<i> Non-compliant, 11 exceeds [0, 10]</i>
 
---p;          //<i> Non-compliant, may overflow</i>
-e++;          //<i> Non-compliant, may overflow</i></code></pre>
+int* y = &amp;a[0];    //<i> Compliant</i>
+int* z = &amp;a[10];   //<i> Compliant in C</i></code></pre>
+<p>C 标准规定，形如 &amp;(E1[E2]) 的表达式等同于 (E1 + E2)，C++ 编译器可以兼容 C 标准，但 C++ 标准并无此规定。在 C++ 标准中，E1[E2] 应指代有效的对象或函数，否则程序的行为是未定义的，可参见“<a href="https://cplusplus.github.io/CWG/issues/232.html" target="_blank" class="dashed-link">CWG issue 232</a>”的最新讨论。</p>
+
+<p>在 C++ 代码中应使用容器代替数组，使用迭代器代替指针，如：</p>
+<pre><code>array&lt;int, 10&gt; a;
+auto b = a.begin();
+auto e = a.end();     //<i> Safe and brief</i></code></pre>
 
 </main>
 
@@ -67,7 +71,9 @@ e++;          //<i> Non-compliant, may overflow</i></code></pre>
 <div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a></div>
 
 <h3>依据</h3>
-<div class="ref-items">ISO/IEC 9899:1999 6.5.6(8)-undefined
+<div class="ref-items">ISO/IEC 9899:1999 6.5.3.2(3)
+ISO/IEC 9899:1999 6.5.6(8)-undefined
+ISO/IEC 9899:2011 6.5.3.2(3)
 ISO/IEC 9899:2011 6.5.6(8)-undefined
 ISO/IEC 14882:2003 5.7(5)-undefined
 ISO/IEC 14882:2011 5.7(5)-undefined</div>
