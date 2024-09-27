@@ -40,7 +40,7 @@
 <p>明确标注函数是否会抛出异常可以提升可读性，有助于异常安全理念的实施，编译器也可以其为依据进行优化。</p>
 
 <p>示例：</p>
-<pre><code>double area(double x) noexcept {
+<pre><code>double area(double x) noexcept {   //<i> Compliant</i>
     double s = x * 3 / 2;
     return sqrt(s * pow(s - x, 3));
 }</code></pre>

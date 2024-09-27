@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：局部对象的生命周期结束后，其地址或引用也会失效，如果继续访问会导致标准未定义的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：函数的参数以及在函数作用域内定义，不受 static、extern、local_thread 等关键字限定的对象简称局部对象，局部对象的生命周期在函数返回后结束，其地址或引用也会失效，如果继续访问会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>局部对象的生命周期结束后，其地址或引用也会失效，如果继续访问会导致标准未定义的行为。</p>
+<p>函数的参数以及在函数作用域内定义，不受 static、extern、local_thread 等关键字限定的对象简称局部对象，局部对象的生命周期在函数返回后结束，其地址或引用也会失效，如果继续访问会导致标准未定义的行为。</p>
 
 <p>示例：</p>
 <pre><code>int* foo() {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：成员的声明和使用相距较远，更容易造成未初始化先使用的问题，所以应在声明处或构造函数中初始化所有成员。" />
+  <meta name="description" content="C/C++ 安全编程要点：声明成员和使用成员的位置在代码中相距较远，易产生未初始化先使用的问题，所以应在成员声明处或构造函数的成员初始化列表中初始化所有成员。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>成员的声明和使用相距较远，更容易造成未初始化先使用的问题，所以应在声明处或构造函数中初始化所有成员。</p>
+<p>声明成员和使用成员的位置在代码中相距较远，易产生未初始化先使用的问题，所以应在成员声明处或构造函数的成员初始化列表中初始化所有成员。</p>
 
 <p>示例：</p>
 <pre><code>struct A {
@@ -45,20 +45,25 @@
     int y = 0;
     int z;
 
-    A(int i): x(i) {  //<i> Non-compliant, Missing the initialization for ‘z’</i>
+    A(int i): x(i) {  //<i> Non-compliant, missing the initialization for ‘z’</i>
     }
 };</code></pre>
-<p>例中构造函数没有对 z 初始化是不符合要求的，尤其是 public 成员出现这种问题时会造成更大的风险。</p>
+<p>例中 x 和 y 被正确初始化，而 z 未被初始化是不符合要求的。</p>
 
-<p>建议所有成员都在声明处初始化：</p>
-<pre><code>struct A {
-    int x = 0;  //<i> Good</i>
-    int y = 0;  //<i> Good</i>
-    int z = 0;  //<i> Good</i>
-
-    A(int i): x(i) {  //<i> Compliant</i>
+<p>应在成员声明处或构造函数的成员初始化列表中初始化所有成员，下列代码也是不符合要求的：</p>
+<pre><code>struct T {
+    string s;
+    T(const char* p) {
+        s = p;          //<i> Bad, assignment is not initialization</i>
     }
 };</code></pre>
+<p>程序会先调用 s 的默认构造函数对其进行默认初始化，再调用其赋值运算符，产生不必要的开销，如果将其移到成员初始化列表中：</p>
+<pre><code>struct T {
+    string s;
+    T(const char* p): s(p) {  //<i> Good</i>
+    }
+};</code></pre>
+<p>这样 s 会被直接初始化，提高了效率，也提高了可读性。</p>
 
 </main>
 
