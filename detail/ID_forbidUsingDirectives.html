@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：通过 using directive 将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。" />
+  <meta name="description" content="C/C++ 安全编程要点：通过 using 指令将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>全局及命名空间作用域中禁用 using directive - C/C++ 安全规则</title>
+  <title>全局及命名空间作用域中禁用 using 指令 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>全局及命名空间作用域中禁用 using directive</h1>
+  <h1>全局及命名空间作用域中禁用 using 指令</h1>
   <div id="subtitle">
     <div id="subtitle-id">4.13 ID_forbidUsingDirectives</div>
     <div id="subtitle-tags">
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>通过 using directive 将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。</p>
+<p>通过 using 指令将其他命名空间中的名称一并引入当前命名空间，是对命名空间机制的破坏，会造成难以预料的冲突与混乱。</p>
 
 <p>示例：</p>
 <pre><code>//<i> In global namespace</i>
@@ -45,7 +45,7 @@ using namespace std;           //<i> Non-compliant</i>
 using namespace myspace;       //<i> Non-compliant</i>
 
 namespace myspace {
-    using namespace hisspace   //<i> Non-compliant</i>
+    using namespace hisspace;  //<i> Non-compliant</i>
 }
 </code></pre>
 <p>在函数作用域内可适当放宽要求，如：</p>
@@ -56,10 +56,10 @@ namespace myspace {
     some_fun(x);               //<i> Using mysapce::some_fun</i>
 }
 </code></pre>
-<p>建议用 using declaration 代替 using directive：</p>
+<p>建议用 using 声明 代替 using 指令：</p>
 <pre><code>void foo() {
-    using myspace::type;       //<i> Compliant</i>
-    using myspace::some_fun;   //<i> Compliant</i>
+    using myspace::type;       //<i> Compliant, using-declaration</i>
+    using myspace::some_fun;   //<i> Compliant, using-declaration</i>
 
     type x;
     some_fun(x);

@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：在头文件的全局作用域中使用 using directive 极易造成命名冲突，且影响范围难以控制。" />
+  <meta name="description" content="C/C++ 安全编程要点：在头文件的全局作用域中使用 using 指令极易造成命名冲突，且影响范围难以控制。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>不应在头文件中使用 using directive - C/C++ 安全规则</title>
+  <title>不应在头文件中使用 using 指令 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>不应在头文件中使用 using directive</h1>
+  <h1>不应在头文件中使用 using 指令</h1>
   <div id="subtitle">
     <div id="subtitle-id">4.4 ID_usingNamespaceInHeader</div>
     <div id="subtitle-tags">
@@ -37,9 +37,9 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>在头文件的全局作用域中使用 using directive 极易造成命名冲突，且影响范围难以控制。</p>
+<p>在头文件的全局作用域中使用 using 指令极易造成命名冲突，且影响范围难以控制。</p>
 
-<p>如果代码涉及多个命名空间，而这些命名空间中又有名称相同且功能相似的代码元素时，将造成难以排查的混乱。对于库的头文件，更应该严禁使用全局的 using directive，否则造成对用户命名空间的干扰。</p>
+<p>如果代码涉及多个命名空间，而这些命名空间中又有名称相同且功能相似的代码元素时，将造成难以排查的混乱。对于库的头文件，更应该严禁使用全局的 using 指令，否则造成对用户命名空间的干扰。</p>
 
 <p>示例：</p>
 <pre><code>//<i> In a header file</i>
@@ -47,8 +47,8 @@ namespace NS {
     void foo(short);
 }
 
-using namespace NS;   //<i> Non-compliant</i>
-using namespace std;  //<i> Non-compliant</i>
+using namespace NS;   //<i> Non-compliant, a using-directive in a header</i>
+using namespace std;  //<i> Non-compliant, a using-directive in a header</i>
 </code></pre>
 <p>下例展示的问题是头文件不同的包含顺序竟导致同一函数产生了不同的行为：</p>
 <pre><code>//<i> In a.h</i>
@@ -81,7 +81,7 @@ void fun1() {
 void fun2() {
     bar();      //<i> ‘bar’ calls ‘foo(int)’</i>
 }</code></pre>
-<p>头文件 a.h 和 b.h 以不同的顺序被包含，使 bar 函数调用了不同的 foo 函数，导致这种混乱的正是 b.h 中的 using directive。</p>
+<p>头文件 a.h 和 b.h 以不同的顺序被包含，使 bar 函数调用了不同的 foo 函数，导致这种混乱的正是 b.h 中的 using 指令。</p>
 
 </main>
 

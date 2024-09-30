@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：不应使用 == 或 != 判断浮点数是否相等。" />
+  <meta name="description" content="C/C++ 安全编程要点：用 == 或 != 判断浮点数（float、double、long double）是否相等会得到非预期的结果。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,9 +37,9 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>一般来说，除了可以记作 a * 2<sup>n</sup>（a、n 为整数）的浮点数值可以被精确存储之外，其他均为近似值。用 == 或 != 判断浮点数（float、double、long double）是否相等往往得不到预期的结果。</p>
+<p>用 == 或 != 判断浮点数（float、double、long double）是否相等会得到非预期的结果。</p>
 
-<p>如 0、1、2、3、1.5、1.25、… 可以被精确存储，而除此之外绝大部分数值如 0.1、0.2、0.3、… 只能存储其近似值。</p>
+<p>一般来说，除了可以记作 a * 2<sup>n</sup>（a、n 为整数）的浮点数值可以被精确存储之外，其他均为近似值，如 0、1、2.5、… 可以被精确存储，而除此之外绝大部分数值如 0.1、0.2、0.3、… 只能存储其近似值。</p>
 
 <p>示例：</p>
 <pre><code>float f = 1;
@@ -49,8 +49,7 @@ if (f == 0.1) {     //<i> Non-compliant, do not use ‘==’ or ‘!=’</i>
 } else {
     cout &lt;&lt; &quot;Oops&quot;;
 }</code></pre>
-<p>输出 Oops，这是因为 f == 0.1 在运算时将变量和常量转为 double 型，而转换过程中生成了两个不同的对 0.1 的近似值（如 0.10000000149011611938 和 0.10000000000000000555），其结果自然为 false。</p>
-<p>这非常容易造成意料之外的混乱，所以判断浮点数是否相等不应直接使用 == 或 != 运算符，即使浮点数可以被精确存储。</p>
+<p>输出 Oops，这是因为 f == 0.1 在运算时将变量和常量转为 double 型，而转换过程中生成了两个不同的对 0.1 的近似值（如 0.10000000149011611938 和 0.10000000000000000555），其结果自然为 false，这非常容易造成意料之外的错误，所以判断浮点数是否相等不应直接使用 == 或 != 运算符，即使浮点数可以被精确存储。</p>
 
 <p>解决方法：</p>
 <pre><code>bool feq(float a, float b, float e = 0.000001f) {
@@ -60,14 +59,14 @@ if (f == 0.1) {     //<i> Non-compliant, do not use ‘==’ or ‘!=’</i>
 <pre><code>if (feq(f, 0.1)) {   //<i> Compliant</i>
     cout &lt;&lt; &quot;OK&quot;;
 }</code></pre>
-<p>在实际代码中，对于 float、double、long double 等不同的浮点类型，可以分别使用 float.h 中定义的 FLT_EPSILON、DBL_EPSILON、LDBL_EPSILON 作为 e 的值，在 C++ 代码中也可以使用 std::numeric_limits&lt;T&gt;::epsilon()，T 为浮点类型。</p>
+<p>在实际代码中，对于 float、double、long double 等不同的浮点类型，可以分别使用在标准头文件 float.h 中定义的宏 FLT_EPSILON、DBL_EPSILON、LDBL_EPSILON 作为 e 的值，在 C++ 代码中，也可以使用标准模板库提供的 std::numeric_limits&lt;T&gt;::epsilon()，其中 T 为指定的浮点类型。</p>
 
 </main>
 
 
 
 <h3>参考</h3>
-<div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/1025.html" target="_blank" class="related-link">CWE-1025</a>
+<div class="ref-items"><a href="https://cwe.mitre.org/data/definitions/1077.html" target="_blank" class="related-link">CWE-1077</a>
 MISRA C 2004 13.3
 MISRA C++ 2008 6-2-2</div>
 </article>

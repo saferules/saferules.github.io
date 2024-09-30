@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：对缓冲区的读写应在有效边界内进行。" />
+  <meta name="description" content="C/C++ 安全编程要点：缓冲区溢出是一种高度危险的安全漏洞，而且广泛存在于各类软件系统中。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,6 +37,8 @@
   <hr class="solid-hr"/>
 </header>
 <main>
+<p>缓冲区溢出是一种高度危险的安全漏洞，而且广泛存在于各类软件系统中。</p>
+
 <p>“缓冲区（buffer）”的本意是指内存等高速设备上的区域，程序在这种区域内接收或处理数据，之后再一并输出到网络或磁盘等低速环境，起到提高效率的作用，故称缓冲区。连续的内存区域均可称为缓冲区，在 C/C++ 语言中对应数组等结构。</p>
 
 <p>缓冲区之外可能是程序的其他数据，也可能是函数返回地址、资源分配信息等重要数据，对缓冲区的越界读写往往意味着逻辑错误，而且会使程序遭到破坏。</p>
