@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：在函数作用域内定义，不受 static、extern、local_thread 等关键字限定的对象简称局部对象，未初始化的局部对象具有不确定的值，读取未初始化的对象会导致标准未定义的行为。" />
+  <meta name="description" content="C/C++ 安全编程要点：在函数作用域内定义的，不受 static、extern、local_thread 等关键字限定的对象简称局部对象，未初始化的局部对象具有不确定的值，读取未初始化的对象会导致标准未定义的行为。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,7 +37,7 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>在函数作用域内定义，不受 static、extern、local_thread 等关键字限定的对象简称局部对象，未初始化的局部对象具有不确定的值，读取未初始化的对象会导致标准未定义的行为。</p>
+<p>在函数作用域内定义的，不受 static、extern、local_thread 等关键字限定的对象简称局部对象，未初始化的局部对象具有不确定的值，读取未初始化的对象会导致标准未定义的行为。</p>
 
 <p>示例：</p>
 <pre><code>int foo() {

@@ -59,7 +59,7 @@ struct T {
 #pragma pack(pop)
 </code></pre>
 <p>注意，敏感数据可能会残留在填充数据中，所以当存储或传输对象前有必要清理填充数据的值，如：</p>
-<pre><code>T obj;
+<pre><code>struct T obj;
 memset(&amp;obj, 0, sizeof(obj));   //<i> Required</i>
 ....
 fwrite(&amp;obj, sizeof(obj), 1, fp);</code></pre>

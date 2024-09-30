@@ -47,9 +47,9 @@ int arr[3] = { [0] = 0, [1] = 1, [1] = 2 };   //<i> Non-compliant</i></code></pr
 
 <p>C++20 对类对象的初始化也引入了指派符，但要求更为严格，重复的或颠倒次序的指派符无法通过编译，如：</p>
 <pre><code>struct T { int x, y; };
-T a = { .y = 0, .x = 1 };   //<i> Compile error in C++20</i>
-T b = { .x = 0, .x = 1 };   //<i> Compile error in C++20</i>
-T c = { .x = 0, .y = 1 };   //<i> OK</i></code></pre>
+T a { .y = 0, .x = 1 };   //<i> Compile error in C++20</i>
+T b { .x = 0, .x = 1 };   //<i> Compile error in C++20</i>
+T c { .x = 0, .y = 1 };   //<i> OK</i></code></pre>
 
 </main>
 

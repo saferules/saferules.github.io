@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C++ undefined behavior: 将对象的值赋给具有部分重叠区域的对象" />
+  <meta name="description" content="C++ undefined behavior: 将对象的值赋给具有部分重叠区域的另一个对象" />
   <link type="text/css" rel="stylesheet" href="../../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../../favicon.png" />
   <script src="../../js/search.js"></script>
   <script src="../../js/iconfont.js"></script>
-  <title>将对象的值赋给具有部分重叠区域的对象 - C++ undefined behavior</title>
+  <title>将对象的值赋给具有部分重叠区域的另一个对象 - C++ undefined behavior</title>
 </head>
 
 <div class="footer-holder">
@@ -28,7 +28,7 @@
 </nav>
 <article>
 <header>
-  <h1>将对象的值赋给具有部分重叠区域的对象</h1>
+  <h1>将对象的值赋给具有部分重叠区域的另一个对象</h1>
   <div id="subtitle">
     <div id="subtitle-id">C++-Undefined-Behavior-49</div>
     <div id="subtitle-tags">
@@ -39,24 +39,17 @@
 </header>
 <main>
 <p>示例：</p>
-<pre><code>struct T {
-    int a[10];
+<pre><code>int a[3] {1, 2, 3};
+
+struct A {
+    int x, y;
 };
 
-struct W {
-    int i;
-    T t;
-};
+A* p = reinterpret_cast&lt;A*&gt;(a);
+A* q = reinterpret_cast&lt;A*&gt;(a + 1);
 
-union U {
-    T t;
-    W w;
-};
-
-void foo(U&amp; u) {
-    u.w.t = u.t;    //<i> Undefined behavior</i>
-}</code></pre>
-<p>例中 u.w.t 和 u.t 具有部分重叠区域，导致未定义的行为。</p>
+*p = *q;   //<i> Undefined behavior</i></code></pre>
+<p>例中 p 和 q 指向的对象具有部分重叠的区域，*p = *q 或 *q = *p 均会导致未定义的行为。</p>
 
 </main>
 <h3>依据</h3>

@@ -44,31 +44,50 @@
 public:
     String(int capacity);   //<i> Non-compliant, missing ‘explicit’</i>
     ....
-};
+};</code></pre>
+<p>例中 String 是一个字符串类，String(int) 用于设定字符串对象的初始容量，但下列代码可以通过编译：</p>
+<pre><code>String foo = 100;   //<i> Odd, the string is &quot;100&quot;?</i>
 
-void foo(const String&amp;);
+void bar(const String&amp;);
 
-int bar() {
-    foo(100);   //<i> Can be compiled, but very odd</i>
+void baz() {
+    bar(100);   //<i> Unexpected implicit conversion</i>
 }</code></pre>
-<p>由于 String 类的构造函数接受一个 int 型参数，foo(100) 相当于将 100 隐式转为 String 类的对象，这种隐式转换是怪异的，也往往意味着意料之外的错误。</p>
+<p>由于 String 类的构造函数接受一个 int 型参数，例中整数 100 可以被隐式转换为 String 类的对象，这种转换易造成意料之外的错误或开销。</p>
 
-<p>应改为：</p>
+<p>应使用 explicit 关键字限定可接受一个参数的构造函数：</p>
 <pre><code>class String {
 public:
     explicit String(int capacity);   //<i> Compliant</i>
     ....
 };</code></pre>
-<p>这样 foo(100) 这种写法便不会通过编译。</p>
+<p>这样从 int 到 String 的隐式转换会被禁止。在接口设计中，应尽量减少隐式转换以避免意料之外的问题。</p>
 
 <p>例外：</p>
 <pre><code>class String {
 public:
-    String(const String&amp;);   //<i> Explicit or not depends on your design intent</i>
-    String(String&amp;&amp;);        //<i> ditto</i>
+    String(const String&amp;);   //<i> Compliant</i>
+    String(String&amp;&amp;);        //<i> Compliant</i>
     ....
 };</code></pre>
-<p>拷贝、移动构造函数可不受本规则约束，如果将拷贝、移动构造函数声明为 explicit 则无法再按值传递参数或按值返回对象。在类的接口设计中，应尽量减少隐式转换以避免不易察觉的问题。</p>
+<p>拷贝、移动构造函数可不受本规则约束，如果拷贝、移动构造函数被 explicit 关键字限定则无法再按值传递参数或按值返回对象。</p>
+
+<p>另外，为了提高易用性，在类是构造函数参数的扩展、视图等情况下，可以不使用 explicit 关键字，但相关设计需要通过评审，本规则不放宽对这种情况的要求，如：</p>
+<pre><code>class String {
+public:
+    String(const char*);   //<i> Non-compliant, manual review is required</i>
+    ....
+};
+
+class StringView {
+public:
+    StringView(const String&amp;);   //<i> Non-compliant, ditto</i>
+    ....
+};
+
+String s = &quot;a&quot;;     //<i> Easy to understand</i>
+StringView v = s;   //<i> Ditto</i></code></pre>
+<p>例中字符串字面常量转为字符串类对象、字符串对象转为字符串视图是易于理解的，但可能不便于审计工具进行量化分析，需要人工评审。</p>
 
 </main>
 

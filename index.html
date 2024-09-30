@@ -133,7 +133,7 @@
   <li><a href="./detail/ID_copiedStream.html">流式资源对象不应被复制</a></li>
   <li><a href="./detail/ID_variableLengthArray.html">避免使用变长数组</a></li>
   <li><a href="./detail/ID_stackAllocation.html">避免使用在栈上动态分配内存的函数</a></li>
-  <li><a href="./detail/ID_unsuitableArraySize.html">局部数组不应过大</a></li>
+  <li><a href="./detail/ID_unsuitableArraySize.html">非动态分配的数组不应过大</a></li>
   <li><a href="./detail/ID_unnecessaryAllocation.html">避免不必要的内存分配</a></li>
   <li><a href="./detail/ID_zeroLengthAllocation.html">避免分配大小为零的内存空间</a></li>
   <li><a href="./detail/ID_dynamicAllocation.html">避免动态内存分配</a></li>
@@ -573,7 +573,7 @@
   <li><a href="./detail/ID_repeatedUnaryOperators.html">不应重复使用一元运算符</a></li>
 </ol></li>
 <li id="expression.assignment" class="rules-toc-section">Assignment<ol>
-  <li><a href="./detail/ID_overlappingAssignment.html">不可将对象的值赋给具有部分重叠区域的对象</a></li>
+  <li><a href="./detail/ID_overlappingAssignment.html">不可将对象的值赋给具有部分重叠区域的另一个对象</a></li>
   <li><a href="./detail/ID_illFormedCompoundAssignment.html">不应出现复合赋值的错误形式</a></li>
   <li><a href="./detail/ID_suspiciousCompoundAssignment.html">避免出现复合赋值的可疑形式</a></li>
   <li><a href="./detail/ID_stickyAssignmentOperator.html">注意赋值运算符与一元运算符的空格方式</a></li>

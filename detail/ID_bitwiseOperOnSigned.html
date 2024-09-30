@@ -52,7 +52,14 @@ int bar(signed s, unsigned u) {
     }
     return 0;
 }</code></pre>
-<p>例中 s 为有符号整数，其符号位对位运算没有意义，对负数左移会导致标准未定义的行为，对负数右移则由实现定义。</p>
+<p>例中参数 s 可以是负数，对负数左移会导致未定义的行为，对负数右移则由实现定义。</p>
+
+<p>又如：</p>
+<pre><code>unsigned absolute(signed v) {
+    signed m = v &gt;&gt; (sizeof(signed) * CHAR_BIT - 1);  //<i> Non-compliant</i>
+    return (v + m) ^ m;                               //<i> Non-compliant</i>
+}</code></pre>
+<p>例中函数可以获取有符号整数的绝对值，利用补码的特性通过位运算免去了条件判断，而且在大部分环境中均可正常运行，但这属于特殊的优化措施，应在文档中有所说明，否则会对代码的可移植性造成难以排查的影响。</p>
 
 </main>
 
@@ -61,7 +68,11 @@ int bar(signed s, unsigned u) {
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 6.5.7(3)-undefined
+ISO/IEC 9899:1999 6.5.7(4)-undefined
+ISO/IEC 9899:1999 6.5.7(5)-implementation
 ISO/IEC 9899:2011 6.5.7(3)-undefined
+ISO/IEC 9899:2011 6.5.7(4)-undefined
+ISO/IEC 9899:2011 6.5.7(5)-implementation
 ISO/IEC 14882:2003 5.8(2)
 ISO/IEC 14882:2003 5.8(3)-implementation
 ISO/IEC 14882:2011 5.8(2)-undefined

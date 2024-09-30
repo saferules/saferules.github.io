@@ -8,7 +8,7 @@
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>不可将对象的值赋给具有部分重叠区域的对象 - C/C++ 安全规则</title>
+  <title>不可将对象的值赋给具有部分重叠区域的另一个对象 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>不可将对象的值赋给具有部分重叠区域的对象</h1>
+  <h1>不可将对象的值赋给具有部分重叠区域的另一个对象</h1>
   <div id="subtitle">
     <div id="subtitle-id">10.4.1 ID_overlappingAssignment</div>
     <div id="subtitle-tags">
@@ -47,7 +47,7 @@
 } u;
 
 u.x = u.y;   //<i> Compliant</i>
-u.z = u.x;   //<i> Non-compliant</i></code></pre>
+u.z = u.x;   //<i> Non-compliant, undefined behavior</i></code></pre>
 <p>例中 x 和 y 的存储区域完全重叠且类型相同，可以相互赋值；x 和 z 有部分重叠，不可相互赋值。</p>
 
 </main>

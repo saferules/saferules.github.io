@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：局部数组在栈上分配空间，如果占用空间过大会导致栈溢出错误。" />
+  <meta name="description" content="C/C++ 安全编程要点：对于不具备动态存储期的数组，如果分配失败，难以做出相应处理。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>局部数组不应过大 - C/C++ 安全规则</title>
+  <title>非动态分配的数组不应过大 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>局部数组不应过大</h1>
+  <h1>非动态分配的数组不应过大</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.21 ID_unsuitableArraySize</div>
     <div id="subtitle-tags">
@@ -37,16 +37,16 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>局部数组在栈上分配空间，如果占用空间过大会导致栈溢出错误。</p>
+<p>对于不具备动态存储期的数组，如果分配失败，难以做出相应处理。</p>
 
-<p>应关注具有较大数组的函数，评估其在运行时的最大资源消耗是否符合执行环境的要求。</p>
+<p>应重点关注大型数组，评估其在运行时的最大资源占用是否符合执行环境的要求。</p>
 
 <p>示例：</p>
 <pre><code>void foo() {
     int arr[1024][1024][1024];   //<i> Non-compliant, too large</i>
     ....
 }</code></pre>
-<p>在栈上分配空间难以控制失败情况，如果条件允许可改用动态内存分配：</p>
+<p>如果条件允许应改用动态内存分配，对分配失败的情况作出处理：</p>
 <pre><code>void foo() {
     int* arr = (int*)malloc(1024 * 1024 * 1024 * sizeof(int));   //<i> Compliant</i>
     if (arr) {
@@ -58,7 +58,9 @@
 
 </main>
 <h3>配置</h3>
-<div class="ref-items">maxLocalArraySize: 函数内局部数组空间之和的上限，超过则报出</div>
+<div class="ref-items">maxStaticArraySize: 静态数组空间之和的上限，超过则报出
+maxLocalArraySize: 函数内局部数组空间之和的上限，超过则报出
+maxLocalThreadArraySize: 具有线程存储期的数组空间之和的上限，超过则报出</div>
 
 
 

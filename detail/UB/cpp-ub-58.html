@@ -39,10 +39,17 @@
 </header>
 <main>
 <p>示例：</p>
-<pre><code>void foo(void* p) {
-    delete (T*)p;      //<i> Undefined if delete an object of type other than T</i>
+<pre><code>struct T { .... };
+struct U { .... };
+
+void foo(void* p) {
+    delete static_cast&lt;T*&gt;(p);   //<i> Undefined behavior</i>
+}
+
+void bar() {
+    foo(new U);
 }</code></pre>
-<p>如果例中 p 指向的不是 T 类型的对象会导致未定义的行为。</p>
+<p>例中 p 实际指向的不是 T 类型的对象，程序的行为是未定义的。</p>
 
 </main>
 <h3>依据</h3>

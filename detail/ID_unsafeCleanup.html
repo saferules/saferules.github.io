@@ -49,14 +49,14 @@
 }</code></pre>
 <p>示例代码调用 memset 覆盖敏感数据以达到清理目的，然而保存敏感信息的 password 为局部数组且 memset 之后没有再被引用，根据相关标准，编译器可将 memset 过程去掉，使敏感数据没有得到有效清理。C11 提供了 memset_s 函数以避免这种问题，某些平台和库也提供了相关支持，如 SecureZeroMemory、explicit_bzero、OPENSSL_cleanse 等不会被优化掉的函数。</p>
 
-<p>在 C++ 代码中，可用 volatile 限定相关数据以避免编译器的优化，再用 std::fill_n 等方法清理，如：</p>
+<p>在 C++ 代码中，可使用 volatile 关键字限定相关对象以避免编译器的优化，再使用 std::fill_n 等方法清理，如：</p>
 <pre><code>void foo() {
     char password[8] = {};
     ....
-    volatile char  v_padding = 0;
     volatile char* v_address = password;
-    std::fill_n(v_address, sizeof(password), v_padding);  //<i> Compliant</i>
+    std::fill_n(v_address, sizeof(password), &#x27;\0&#x27;);  //<i> Compliant</i>
 }</code></pre>
+<p>例中 v_address 指向的对象由 volatile 关键字限定，对 *v_address 的读写不会被优化。</p>
 
 </main>
 

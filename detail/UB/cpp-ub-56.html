@@ -43,7 +43,7 @@
 struct B { .... };
 
 int bar(void* p) {
-    return ((A*)p)-&gt;foo();
+    return static_cast&lt;T*&gt;(p)-&gt;foo();
 }
 
 int main() {

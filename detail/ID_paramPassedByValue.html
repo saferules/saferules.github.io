@@ -58,7 +58,7 @@ void foo(S s) {   //<i> Non-compliant</i>
 <pre><code>void bar(const S s);   //<i> Non-compliant, missing ‘&amp;’</i>
 </code></pre>
 <p>当参数在函数体内被修改，也可能是有意让形式参数作为实际参数的副本，这种情况可不受本规则约束，但也可能是漏写了引用符号，审计工具不妨根据配置给出提醒，如：</p>
-<pre><code>S lower(S s) {  //<i> Let it go?</i>
+<pre><code>S lower(S s) {   //<i> Let it go?</i>
     transform(
         s.begin(), s.end(), s.begin(),
         [](unsigned char c) { return static_cast&lt;char&gt;(tolower(c)); }

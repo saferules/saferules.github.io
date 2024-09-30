@@ -44,7 +44,7 @@
 a = b = a;   //<i> Non-compliant</i></code></pre>
 <p>有时这种代码被用来消除编译警告，编译器可能会报出没有被用到的参数，将参数赋值给自身可去除警告，但这并不是一种好方法，引入了没有实际意义的代码，改进方法可参见 <a href="./ID_paramNotUsed.html" class="dashed-link">ID_paramNotUsed</a>。</p>
 
-<p>有时为了设置调试断点，但又找不到合适的位置，可以增加这种代码作为断点，但这种非正式的代码是不应被保留的。</p>
+<p>有时为了设置调试断点，但又找不到合适的位置，可以增加这种代码作为断点，但这种非正式的代码不应被保留。</p>
 
 <p>又如：</p>
 <pre><code>class A {
@@ -52,7 +52,7 @@ a = b = a;   //<i> Non-compliant</i></code></pre>
 public:
     A(int a) { a = a; }   //<i> Non-compliant, ‘a’ is not the member</i>
 };</code></pre>
-<p>例中构造函数对成员 a 的赋值是无效的，应改为 this-&gt;a = a，或在初始化列中完成赋值。</p>
+<p>例中对成员 a 的赋值是无效的，如果是为了初始化则应在构造函数的成员初始化列表中完成，还应避免参数与成员重名。</p>
 
 </main>
 

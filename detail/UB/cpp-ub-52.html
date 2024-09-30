@@ -44,13 +44,14 @@
     int j;
 };
 
-const T obj;
-obj.i++;            //<i> Well-defined</i>
-obj.j++;            //<i> Ill-formed</i>
+const T obj {};
+T* p = const_cast&lt;T*&gt;(&amp;obj);
 
-T* p = (T*)&amp;obj;
-p-&gt;i = 0;           //<i> Well-defined</i>
-p-&gt;j = 1;           //<i> Undefined behavior</i></code></pre>
+obj.i++;   //<i> Well-defined</i>
+obj.j++;   //<i> Ill-formed, compile error</i>
+
+p-&gt;i = 0;  //<i> Well-defined</i>
+p-&gt;j = 1;  //<i> Undefined behavior</i></code></pre>
 
 </main>
 <h3>依据</h3>
