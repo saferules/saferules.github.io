@@ -43,18 +43,24 @@
 <pre><code>void fun(char a[10]) {
     memset(a, 0, sizeof(a));   //<i> Non-compliant</i>
 }</code></pre>
-<p>例中参数 a 是一个指针，sizeof(a) 等同于 sizeof(char*)。</p>
+<p>例中参数 a 是一个指针，sizeof(a) 等同于 sizeof(char*)，而不是 sizeof(char[10])。</p>
 
-<p>在 C++ 代码中，如果有必要将参数设为数组，建议使用引用的方式，如：</p>
+<p>在 C++ 代码中，如果有必要将参数设为数组，可以使用引用的方式，如：</p>
 <pre><code>void fun(char (&amp;a)[10]) {
     memset(a, 0, sizeof(a));   //<i> Compliant</i>
 }</code></pre>
 <p>这样 sizeof(a) 便等同于 sizeof(char[10])。</p>
 
+<p>更好的方法是用安全性更高的 std::array 等容器代替 C 数组，如：</p>
+<pre><code>void fun(array&lt;char, 10&gt;&amp; a) {
+    a.fill(0);                   //<i> Safe and brief</i>
+}</code></pre>
+
 </main>
 
 <h3>相关</h3>
-<div class="ref-items"><a href="./ID_invalidParamArraySize.html" class="related-link">ID_invalidParamArraySize</a></div>
+<div class="ref-items"><a href="./ID_invalidParamArraySize.html" class="related-link">ID_invalidParamArraySize</a>
+<a href="./ID_forbidCArray.html" class="related-link">ID_forbidCArray</a></div>
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 6.7.5.3(7)

@@ -8,7 +8,7 @@
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>不可失去对已分配内存的控制 - C/C++ 安全规则</title>
+  <title>避免内存泄露 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>不可失去对已分配内存的控制</h1>
+  <h1>避免内存泄露</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.2 ID_memoryLeak</div>
     <div id="subtitle-tags">
@@ -64,6 +64,8 @@
 }</code></pre>
 <p>当 realloc 函数分配失败时会返回空指针，p 指向的原内存空间不会被释放，但 p 被赋值为空，导致内存泄漏，这是一种常见错误。</p>
 
+<p>在 C++ 语言中，将资源托管于类对象，将资源管理简化为对象管理，避免在复杂的流程分枝中手工分配回收资源是 C++ 程序设计的重要准则，也是避免资源泄露的有效措施，可参见 <a href="./ID_ownerlessResource.html" class="dashed-link">ID_ownerlessResource</a> 的进一步介绍。</p>
+
 </main>
 
 <h3>相关</h3>
@@ -71,7 +73,8 @@
 <a href="./ID_ownerlessResource.html" class="related-link">ID_ownerlessResource</a>
 <a href="./ID_throwInConstructor.html" class="related-link">ID_throwInConstructor</a>
 <a href="./ID_memberDeallocation.html" class="related-link">ID_memberDeallocation</a>
-<a href="./ID_multiAllocation.html" class="related-link">ID_multiAllocation</a></div>
+<a href="./ID_multiAllocation.html" class="related-link">ID_multiAllocation</a>
+<a href="./ID_exceptionUnsafe.html" class="related-link">ID_exceptionUnsafe</a></div>
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 7.20.3(1)

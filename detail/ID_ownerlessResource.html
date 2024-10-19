@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：将资源托管于类的对象，使资源的生命周期协同于对象的生命周期，避免分散处理分配与回收等问题，是 C++ 程序设计中的重要方法。" />
+  <meta name="description" content="C/C++ 安全编程要点：将资源托管于类的对象，使资源的生命周期协同于对象的生命周期，避免分散地分配回收资源，是 C++ 程序设计的重要方法。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,9 +37,9 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>将资源托管于类的对象，使资源的生命周期协同于对象的生命周期，避免分散处理分配与回收等问题，是 C++ 程序设计中的重要方法。</p>
+<p>将资源托管于类的对象，使资源的生命周期协同于对象的生命周期，避免分散地分配回收资源，是 C++ 程序设计的重要方法。</p>
 
-<p>动态申请的资源如果只能通过普通指针或变量访问，不受对象的构造和析构等机制控制，则称为“无主”资源，极易产生泄漏或死锁等问题。应尽量使用标准库提供的容器、智能指针以及资源对应的类，避免直接使用 new、delete 以及底层资源管理接口。</p>
+<p>动态分配的资源如果只能通过普通指针或变量访问，不受类对象的构造和析构等机制控制，则称为“无主”资源，极易产生泄漏或死锁等问题。应尽量使用容器、智能指针以及资源对应的类，避免直接使用 malloc、free、new、delete 等底层资源管理接口。</p>
 
 <p>示例：</p>
 <pre><code>int* p = new int[8];   //<i> Non-compliant, ownerless</i>
@@ -55,29 +55,40 @@ delete[] p;     //<i> Non-compliant, explicit delete</i>
 delete[] x.p;   //<i> Non-compliant</i></code></pre>
 <p>例中用不受析构函数控制的指针保存 new 表达式的结果，以及对应的 delete 表达式均不符合要求。</p>
 
-<p>应将资源托管于类的对象：</p>
-<pre><code>class Mgr {
+<p>应将资源托管于类对象，在构造函数中进行资源分配，在析构函数中完成资源回收，落实拷贝、移动接口，并由成员函数提供访问资源的方法，这样便使资源的生命周期协同于对象的生命周期，将资源管理简化为对象管理，如：</p>
+<pre><code>class Owner {
     int* p;
+    size_t n;
 public:
-    Mgr(size_t n): p(new int[n]) {}
-   ~Mgr() { delete[] p; }
-};
+    Owner(size_t n) : p(new int[n]()), n(n) {}   //<i> Compliant</i>
+   ~Owner() { delete[] p; }                      //<i> Compliant</i>
+    ....
+};</code></pre>
+<p>例中 Owner 类掌管动态分配的内存资源，如果按下列方式使用：</p>
+<pre><code>int foo() {
+    Owner obj(8);   //<i> Safe and brief, ‘obj’ is the owner of the resource</i>
+    if (cond1) {
+        return 0;   //<i> No need to release memory manually</i>
+    }
+    if (cond2) {
+        throw Exception();   //<i> Ditto</i>
+    }
+    ....
+}</code></pre>
+<p>则称 Owner 类的对象 obj 拥有资源的所有权，当 obj 的生命周期结束后，相关资源会被自动回收，从而避免了在复杂的流程分枝中手工回收资源，有效提高了资源管理的安全性。注意，由于篇幅有限，示例代码未展示拷贝、移动构造函数和相关赋值运算符，在实际代码中均应妥善实现，可参见 <a href="./ID_violateRuleOfFive.html" class="dashed-link">ID_violateRuleOfFive</a> 的进一步介绍。</p>
 
-Mgr m(8);   //<i> Compliant, ‘m’ is the owner of the resource</i></code></pre>
-<p>例中 m 对象负责资源的分配与回收，称 m 对象拥有资源的所有权，相关资源的生命周期与对象的生命周期一致，有效避免了资源泄漏或错误回收等问题。针对成员的 new、delete 可不受本规则限制，但应优先使用容器或智能指针。</p>
+<p>本规则是 C++ 核心资源管理准则 — “<a href="https://en.cppreference.com/w/cpp/language/raii" target="_blank" class="dashed-link">RAII（Resource Acquisition Is Initialization）</a>”的量化体现，在构造函数中与成员绑定的底层分配接口以及在析构函数中对应的底层回收接口可不受本规则约束，但应优先使用容器或智能指针。</p>
 
-<p>资源的所有权可以发生转移，但应保证转移前后均有对象负责管理资源，并且在转移过程中不会产生异常。进一步理解对象化管理方法，可参见“<a href="https://en.cppreference.com/w/cpp/language/raii" target="_blank" class="dashed-link">RAII（Resource Acquisition Is Initialization）</a>”等机制。</p>
+<p>资源的所有权可以发生转移，但应保证转移前后均有类对象负责管理资源，并且在转移过程中不会产生异常，可参见 <a href="./ID_throwInConstructor.html" class="dashed-link">ID_throwInConstructor</a>、<a href="./ID_exceptionUnsafe.html" class="dashed-link">ID_exceptionUnsafe</a> 的进一步介绍。</p>
 
-<p>另外，底层资源管理接口也不应直接在业务代码中使用，如：</p>
+<p>下面给出使用智能指针管理资源的例子：</p>
 <pre><code>void foo(const TCHAR* path) {
     WIN32_FIND_DATA ffd;
     HANDLE h = FindFirstFile(path, &amp;ffd);  //<i> Non-compliant, ownerless</i>
     ....
     CloseHandle(h);  //<i> Is it right?</i>
 }</code></pre>
-<p>例中 FindFirstFile 是 Windows API，返回的资源句柄对应“无主”资源，需要显式回收。</p>
-
-<p>应对其合理封装：</p>
+<p>例中 FindFirstFile 是用于资源分配的底层 Windows API，返回的资源句柄对应“无主”资源，需要显式回收，应使其接受类对象的管理：</p>
 <pre><code>class MY_FIND_DATA
 {
     struct HANDLE_DELETER
@@ -97,6 +108,12 @@ public:
 
 </main>
 
+<h3>相关</h3>
+<div class="ref-items"><a href="./ID_resourceLeak.html" class="related-link">ID_resourceLeak</a>
+<a href="./ID_memoryLeak.html" class="related-link">ID_memoryLeak</a>
+<a href="./ID_throwInConstructor.html" class="related-link">ID_throwInConstructor</a>
+<a href="./ID_violateRuleOfFive.html" class="related-link">ID_violateRuleOfFive</a>
+<a href="./ID_exceptionUnsafe.html" class="related-link">ID_exceptionUnsafe</a></div>
 
 
 <h3>参考</h3>

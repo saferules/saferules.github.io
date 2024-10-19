@@ -30,7 +30,7 @@
   <header>
     <div id="header-wrapper">
       <div id="titles">
-        <h1 id="main-title">360 安全规则集合 <img id="version-tag" alt="version-1.3.2" src="https://img.shields.io/badge/version-1.3.2-brightgreen"></h1>
+        <h1 id="main-title">360 安全规则集合 <img id="version-tag" alt="version-1.4.0" src="https://img.shields.io/badge/version-1.4.0-brightgreen"></h1>
         <blockquote>Bjarne Stroustrup: “C makes it easy to shoot yourself in the foot; C++ makes it harder, but when you do it blows your whole leg off.” </blockquote>
       </div>
       <div>
@@ -113,8 +113,8 @@
   <li><a href="./detail/ID_unsafeCompileOption.html">禁用不安全的编译选项</a></li>
 </ol></li>
 <li id="resource" class="rules-toc-chapter">Resource<ol>
-  <li><a href="./detail/ID_resourceLeak.html">不可失去对已分配资源的控制</a></li>
-  <li><a href="./detail/ID_memoryLeak.html">不可失去对已分配内存的控制</a></li>
+  <li><a href="./detail/ID_resourceLeak.html">避免资源泄露</a></li>
+  <li><a href="./detail/ID_memoryLeak.html">避免内存泄露</a></li>
   <li><a href="./detail/ID_illAccess.html">不可访问未初始化或已释放的资源</a></li>
   <li><a href="./detail/ID_ownerlessResource.html">使资源接受对象化管理</a></li>
   <li><a href="./detail/ID_incompleteNewDeletePair.html">资源的分配与回收方法应成对提供</a></li>
@@ -225,7 +225,7 @@
 <li id="type" class="rules-toc-chapter">Type<ol>
 <li id="type.class" class="rules-toc-section">Class<ol>
   <li><a href="./detail/ID_nonPrivateData.html">类的非常量数据成员均应为 private</a></li>
-  <li><a href="./detail/ID_protectedData.html">类的非常量数据成员不应定义为 protected</a></li>
+  <li><a href="./detail/ID_protectedData.html">类的非常量数据成员不应为 protected</a></li>
   <li><a href="./detail/ID_mixPublicPrivateData.html">类不应既有 public 数据成员又有 private 数据成员</a></li>
   <li><a href="./detail/ID_missingVirtualDestructor.html">有虚函数的基类应具有虚析构函数</a></li>
   <li><a href="./detail/ID_diamondInheritance.html">避免多重继承自同一非虚基类</a></li>

@@ -46,11 +46,15 @@ int bar() {
     int a[5] = {0};
     return foo(a);    //<i> Non-compliant</i>
 }</code></pre>
+<p>例中 foo 函数的形式参数被声明为具有 10 个元素的数组，而实际传入的数组只有 5 个参数，但这种代码可以通过编译。</p>
+
+<p>在 C++ 代码中建议使用 std::array 等容器代替 C 数组，可参见 <a href="./ID_forbidCArray.html" class="dashed-link">ID_forbidCArray</a> 的进一步讨论。</p>
 
 </main>
 
 <h3>相关</h3>
-<div class="ref-items"><a href="./ID_invalidParamArraySize.html" class="related-link">ID_invalidParamArraySize</a></div>
+<div class="ref-items"><a href="./ID_invalidParamArraySize.html" class="related-link">ID_invalidParamArraySize</a>
+<a href="./ID_forbidCArray.html" class="related-link">ID_forbidCArray</a></div>
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 6.7.5.3(7)

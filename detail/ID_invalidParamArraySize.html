@@ -49,24 +49,25 @@ int main() {
 }</code></pre>
 <p>例中 foo 函数声明的数组参数有 5 个元素，传入的实际参数只有 3 个元素，往往意味着错误，但可以通过编译。</p>
 
-<p>建议在 C++ 代码中采用数组引用或模板的方式：</p>
-<pre><code>void foo(int (&amp;a)[5]);    //<i> Compliant</i>
+<p>在 C++ 代码中可以采用数组引用或模板的方式，建议使用 std::array 代替 C 数组：</p>
+<pre><code>void foo(int(&amp;a)[5]);    //<i> Compliant</i>
 
 template &lt;size_t n&gt;
-void foo(int (&amp;a)[n]) {   //<i> Compliant</i>
-    ....
-}</code></pre>
+void foo(int(&amp;a)[n]);    //<i> Compliant</i>
+
+void foo(array&lt;int, 5&gt;&amp; a);    //<i> Good</i></code></pre>
 <p>这样数组大小不一致便无法通过编译。</p>
 
 <p>例外：</p>
 <pre><code>int foo(int a[], int n);   //<i> Let it go</i></code></pre>
-<p>用空的方括号声明数组，并用另一个参数表示数组大小的情况可不受本规则限制。</p>
+<p>用空的方括号声明数组，并用另一个参数表示数组大小的情况可不受本规则限制，但在 C++ 代码中不建议使用这种方式。</p>
 
 </main>
 
 <h3>相关</h3>
 <div class="ref-items"><a href="./ID_inconsistentArraySize.html" class="related-link">ID_inconsistentArraySize</a>
-<a href="./ID_forbidCArray.html" class="related-link">ID_forbidCArray</a></div>
+<a href="./ID_forbidCArray.html" class="related-link">ID_forbidCArray</a>
+<a href="./ID_sizeof_arrayParameter.html" class="related-link">ID_sizeof_arrayParameter</a></div>
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 6.7.5.3(7)

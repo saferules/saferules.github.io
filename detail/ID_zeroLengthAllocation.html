@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：当申请分配的内存空间大小为 0 时，malloc、calloc、realloc 等函数的行为是由实现定义的。" />
+  <meta name="description" content="C/C++ 安全编程要点：为了避免意料之外的错误，并提高可移植性，不应分配大小为零的内存空间。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,29 +37,45 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>当申请分配的内存空间大小为 0 时，malloc、calloc、realloc 等函数的行为是由实现定义的。</p>
+<p>为了避免意料之外的错误，并提高可移植性，不应分配大小为零的内存空间。</p>
+
+<p>当申请分配的内存空间大小为 0 时，malloc、calloc、realloc 等函数的行为是由实现定义的，可以分配元素个数为 0 的数组，也可以不进行任何分配，直接返回空指针。</p>
+
+<p>在这种情况下，C++ 语言的 new 运算符会分配元素个数为 0 的数组，但这种数组往往没有实际价值，而且要注意元素个数为 0 的数组也需要被释放。</p>
 
 <p>示例：</p>
-<pre><code>int n = user_input();
-if (n &gt;= 0) {
-    int* p = (int*)malloc(n * sizeof(int));   //<i> Non-compliant</i>
-    if (p == NULL)
-        log(&quot;Required too much memory&quot;);   //<i> ‘n’ may also be zero</i>
-    else
-        ....
+<pre><code>char* mkstr(size_t n) {
+    char* p = (char*)malloc(n * sizeof(char));   //<i> ‘n’ may be zero</i>
+    if (p != NULL) {
+        p[0] = &#x27;\0&#x27;;   //<i> May overflow</i>
+    }
+    return p;
 }</code></pre>
-<p>当例中 n 为 0 时，malloc 可能会分配元素个数为 0 的数组，也可能会返回空指针。</p>
+<p>如果 malloc 的返回值不为空，并不能保证其分配的内存空间是可用的，如果不加判断就直接访问会导致缓冲区溢出等问题。</p>
 
+<p>应改为：</p>
+<pre><code>char* mkstr(size_t n) {
+    char* p = NULL;
+    if (n != 0) {
+        p = (char*)malloc(n * sizeof(char));
+        if (p != NULL) {
+            p[0] = &#x27;\0&#x27;;   //<i> OK</i>
+        }
+    }
+    return p;
+}
+</code></pre>
 <p>又如：</p>
 <pre><code>int* p = (int*)malloc(n * sizeof(int));
 ....
 realloc(p, 0);   //<i> Non-compliant, use free(p) instead</i></code></pre>
 <p>C90 规定当 realloc 函数的长度参数为 0 时会释放内存，与 free(p) 相同，但在后续标准中废弃了这一特性，不应继续使用。</p>
 
-<p>这种情况下 C++ 语言的 new 运算符会分配元素个数为 0 的数组，但这种数组往往没有实际价值，而且要注意，在 C 和 C++ 语言中元素个数为 0 的数组也需要被释放。</p>
-
 </main>
 
+<h3>相关</h3>
+<div class="ref-items"><a href="./ID_bufferOverflow.html" class="related-link">ID_bufferOverflow</a>
+<a href="./ID_insufficientBuffer.html" class="related-link">ID_insufficientBuffer</a></div>
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1990 7.10.3.4

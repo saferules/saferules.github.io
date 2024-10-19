@@ -8,7 +8,7 @@
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
   <script src="../js/iconfont.js"></script>
-  <title>不可失去对已分配资源的控制 - C/C++ 安全规则</title>
+  <title>避免资源泄露 - C/C++ 安全规则</title>
 </head>
 <div class="footer-holder">
 <nav>
@@ -27,7 +27,7 @@
 </nav>
 <article>
 <header>
-  <h1>不可失去对已分配资源的控制</h1>
+  <h1>避免资源泄露</h1>
   <div id="subtitle">
     <div id="subtitle-id">2.1 ID_resourceLeak</div>
     <div id="subtitle-tags">
@@ -46,7 +46,7 @@
 <li>所在线程均被终止</li>
 
 </ul>
-<p>相关资源便失去了控制，无法再通过正常手段访问相关资源。</p>
+<p>相关资源便失去了控制，无法再通过正常手段访问。</p>
 
 <p>示例：</p>
 <pre><code>int fd;
@@ -56,11 +56,23 @@ fd = open(&quot;b&quot;, O_RDONLY);   //<i> Non-compliant, the previous descript
 read(fd, buf2, 100);</code></pre>
 <p>例中变量 fd 记录文件资源描述符，在回收资源之前对其重新赋值会导致资源泄漏。</p>
 
+<p>另外，动态分配的资源均应在合理的时机回收，避免占用的资源只增不减，最终导致资源耗尽。对于长期运行的服务类程序，如果攻击者能够掌握导致资源分配而又不会释放的外部操作，便形成了可被利用的安全漏洞，攻击者可以耗尽资源使系统瘫痪，这也是“<a href="https://en.wikipedia.org/wiki/Denial-of-service_attack" target="_blank" class="dashed-link">拒绝服务攻击</a>”的一种形式。</p>
+
+<p>任何动态分配的资源均应有回收过程与之对应，不应依赖进程退出时的自动回收，这一点对于可以多次动态加载的库而言犹为重要。</p>
+
+<p>关于避免资源泄露的方法和措施，可参见本规则相关规则的进一步介绍。</p>
+
 </main>
 
 <h3>相关</h3>
 <div class="ref-items"><a href="./ID_memoryLeak.html" class="related-link">ID_memoryLeak</a>
-<a href="./ID_asynchronousTermination.html" class="related-link">ID_asynchronousTermination</a></div>
+<a href="./ID_memberDeallocation.html" class="related-link">ID_memberDeallocation</a>
+<a href="./ID_ownerlessResource.html" class="related-link">ID_ownerlessResource</a>
+<a href="./ID_throwInConstructor.html" class="related-link">ID_throwInConstructor</a>
+<a href="./ID_multiAllocation.html" class="related-link">ID_multiAllocation</a>
+<a href="./ID_unnecessaryAllocation.html" class="related-link">ID_unnecessaryAllocation</a>
+<a href="./ID_asynchronousTermination.html" class="related-link">ID_asynchronousTermination</a>
+<a href="./ID_exceptionUnsafe.html" class="related-link">ID_exceptionUnsafe</a></div>
 
 
 <h3>参考</h3>

@@ -41,7 +41,7 @@
 
 <p>使用 *、-&gt;、.*、-&gt;*、[]、() 等运算符，通过指针的值访问指针指向的数据称为“解引用（dereference）”。使用 nullptr、NULL、0 等常量初始化的指针是空指针，未指向任何对象或函数，解引用空指针属于逻辑错误。</p>
 
-<p>空指针与任何已指向对象或函数的指针均不相等，通过空指针访问对象是非法的，其后果在语言标准中是未定义的，执行环境一般会拒绝程序访问空指针对应的地址，使程序无法正常运行。</p>
+<p>空指针与任何已指向对象或函数的指针均不相等，通过空指针访问对象或函数是非法的，其后果在语言标准中是未定义的。执行环境可以拒绝程序访问空指针对应的地址，终止程序运行，但并非所有环境都具备相关机制。</p>
 
 <p>示例：</p>
 <pre><code>int foo(int i) {
@@ -51,7 +51,9 @@
     }
     return *p;    //<i> Non-compliant</i>
 }</code></pre>
-<p>如果例中条件表达式 cond 为假，p 为空指针，*p 往往会引发“<a href="https://en.wikipedia.org/wiki/Segmentation_fault" target="_blank" class="dashed-link">段错误</a>”等严重后果。</p>
+<p>如果例中条件表达式 cond 为假，p 为空指针，*p 可以引发“<a href="https://en.wikipedia.org/wiki/Segmentation_fault" target="_blank" class="dashed-link">段错误</a>”，使程序无法继续运行。</p>
+
+<p>对于服务类程序，如果攻击者能够掌握导致空指针解引用的外部操作，会使系统遭受“<a href="https://en.wikipedia.org/wiki/Denial-of-service_attack" target="_blank" class="dashed-link">拒绝服务攻击</a>”。在特殊环境中，如某些嵌入式系统或某些超级计算机等，空指针对应的地址是可以被访问的，但其后果是不可预期的，甚至会导致恶意代码的执行。</p>
 
 <p>例外：</p>
 <pre><code>int* p = NULL;
@@ -83,7 +85,7 @@ cout &lt;&lt; p-&gt;bar();   //<i> Non-compliant, use ‘T::bar()’ instead</i>
 }</code></pre>
 <p>例中函数不接受空指针作为参数，如果是设计使然，应使用断言进行标注，否则应对参数为空指针的情况作出处理。</p>
 
-<p>断言也是接口文档的重要组成部分，可显著提高可读性，并进行运行时检查，如：</p>
+<p>断言也是接口文档的重要组成部分，可显著提高可读性，并提供运行时检查，如：</p>
 <pre><code>size_t len(const T* p) {
     assert(p != NULL);    //<i> Good</i>
     return p-&gt;size();

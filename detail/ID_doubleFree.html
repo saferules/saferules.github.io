@@ -39,22 +39,42 @@
 <main>
 <p>重复释放资源会导致标准未定义的行为。</p>
 
-<p>由于多种原因，资源管理系统难以甚至无法预先判断资源是否已被回收，一旦重复释放资源，可能会直接破坏资源管理系统的数据结构，导致不可预期的错误。</p>
+<p>由于多种原因，动态资源管理机制可能难以甚至无法预先判断资源是否已被回收，一旦重复释放资源，会直接破坏程序结构，导致不可预期的错误。</p>
+
+<p>在特殊情况下，重复释放内存或写入已被释放的内存会为攻击者构造的恶意指令提供执行机会，严重威胁系统安全。</p>
 
 <p>示例：</p>
-<pre><code>void foo(const char* path) {
-    FILE* p = fopen(path, &quot;r&quot;);
-    if (p) {
-        ....
-        fclose(p);
-    }
-    fclose(p);  //<i> Non-compliant, closed twice, undefined behavior</i>
-}</code></pre>
+<pre><code>void* p = malloc(n);
+free(p);
+void* q = malloc(n);
+free(p);               //<i> Non-compliant, double free, undefined behavior</i></code></pre>
+<p>例中指针 p 被连续释放两次，导致未定义的行为，这是一种复制粘贴错误，另一种导致这种问题的常见原因是资源在异常处理流程中被释放，而在正常处理流程中被再次释放。</p>
+
+<p>规则 <a href="./ID_missingResetNull.html" class="dashed-link">ID_missingResetNull</a> 提供了一种解决方法。在 C++ 代码中，应使资源接受类对象的管理，避免分散地分配回收操作，可以更有效地解决这种问题，可参见 <a href="./ID_ownerlessResource.html" class="dashed-link">ID_ownerlessResource</a> 的进一步介绍。</p>
+
+<p>又如：</p>
+<pre><code>class T {
+    char* p;
+public:
+    T(const char* s): p(strdup(s)) {}
+   ~T() { free(p); }
+};</code></pre>
+<p>例中类 T 在构造函数中分配资源，在析构函数中释放资源，但缺少合理的拷贝构造函数和复制赋值运算符，复制对象仍然会导致重复释放：</p>
+<pre><code>void foo() {
+    T a(&quot;xyz&quot;);
+    T b = a;     //<i> Shallow copy</i>
+    ....
+}                //<i> Double free</i></code></pre>
+<p>例中对象 b 由对象 a 复制而成，a 和 b 在析构时会重复释放同一成员指针，所以存在任一拷贝、移动、析构相关的函数时，应定义所有相关函数，可参见 <a href="./ID_violateRuleOfFive.html" class="dashed-link">ID_violateRuleOfFive</a> 的进一步讨论。</p>
 
 </main>
 
 <h3>相关</h3>
-<div class="ref-items"><a href="./ID_missingResetNull.html" class="related-link">ID_missingResetNull</a></div>
+<div class="ref-items"><a href="./ID_missingResetNull.html" class="related-link">ID_missingResetNull</a>
+<a href="./ID_ownerlessResource.html" class="related-link">ID_ownerlessResource</a>
+<a href="./ID_missingCopyConstructor.html" class="related-link">ID_missingCopyConstructor</a>
+<a href="./ID_missingCopyAssignOperator.html" class="related-link">ID_missingCopyAssignOperator</a>
+<a href="./ID_violateRuleOfFive.html" class="related-link">ID_violateRuleOfFive</a></div>
 
 <h3>依据</h3>
 <div class="ref-items">ISO/IEC 9899:1999 7.20.3.2(2)-undefined

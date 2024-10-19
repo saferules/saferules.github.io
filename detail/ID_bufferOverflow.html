@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="C/C++ 安全编程要点：缓冲区溢出是一种高度危险的安全漏洞，而且广泛存在于各类软件系统中。" />
+  <meta name="description" content="C/C++ 安全编程要点：缓冲区溢出是一种高度危险的安全漏洞，也是很多安全问题的根源。" />
   <link type="text/css" rel="stylesheet" href="../css/detail.css" />
   <link type="image/x-icon" rel="shortcut icon" href="../favicon.png" />
   <script src="../js/search.js"></script>
@@ -37,45 +37,55 @@
   <hr class="solid-hr"/>
 </header>
 <main>
-<p>缓冲区溢出是一种高度危险的安全漏洞，而且广泛存在于各类软件系统中。</p>
+<p>缓冲区溢出是一种高度危险的安全漏洞，也是很多安全问题的根源。</p>
 
-<p>“缓冲区（buffer）”的本意是指内存等高速设备上的区域，程序在这种区域内接收或处理数据，之后再一并输出到网络或磁盘等低速环境，起到提高效率的作用，故称缓冲区。连续的内存区域均可称为缓冲区，在 C/C++ 语言中对应数组等结构。</p>
+<p>“缓冲区（buffer）”的本意是指内存等高速设备上的区域，程序在这种区域内接收或处理数据，之后再一并输出到网络或磁盘等低速环境，起到提高效率的作用，故称缓冲区。连续的内存区域均可称为缓冲区，如数组等。对缓冲区的越界读写称为“<a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" class="dashed-link">缓冲区溢出（buffer overflow）</a>”。</p>
 
-<p>缓冲区之外可能是程序的其他数据，也可能是函数返回地址、资源分配信息等重要数据，对缓冲区的越界读写往往意味着逻辑错误，而且会使程序遭到破坏。</p>
-
-<p>示例：</p>
-<pre><code>void foo(const char* s) {
-    char buf[100];
-    strcpy(buf, s);   //<i> Non-compliant</i>
-    ....
-}
-
-int main() {
-    foo(userInput());
-}</code></pre>
-<p>例中 userInput 函数返回用户输入的字符串，其长度不确定，而缓冲区 buf 的长度为 100 字节，如果用户输入超过这个长度就会使程序遭到破坏，这种问题称为“<a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" class="dashed-link">缓冲区溢出（buffer overflow）</a>”，也是程序遭受攻击的常见原因。</p>
-
-<p>缓冲区溢出可造成严重危害，如：</p>
+<p>缓冲区之外可能是其他对象的数据，也可能是函数返回地址、资源分配信息等重要数据，缓冲区溢出往往会造成严重后果，如：</p>
 <ul>
-<li>破坏堆、栈等进程结构，扰乱程序执行</li>
-<li>改写关键信息，篡改程序行为</li>
-<li>注入并运行恶意代码</li>
-<li>攻击高权限进程获取非法权限</li>
+<li>导致程序崩溃，或产生其他形式的拒绝服务漏洞</li>
+<li>使攻击者能够篡改程序的行为，窃取或损坏敏感信息</li>
+<li>为恶意代码的执行提供可乘之机</li>
+<li>助力攻击者获取非法权限，威胁系统安全</li>
 
 </ul>
-<p>所以将读写限定在缓冲区边界之内是十分重要的，示例代码应改为：</p>
-<pre><code>void foo(const char* s) {
-    char buf[100] = &quot;&quot;;
-    strncpy(buf, s, sizeof(buf) - 1);   //<i> Compliant</i>
-    ....
+<p>示例：</p>
+<pre><code>int buffer[10];
+for (int i = 0; i &lt;= 10; i++) {  //<i> Off-by-one error</i>
+    buffer[i] = 0;               //<i> Overflow when ‘i’ is 10</i>
 }</code></pre>
-<p>strncpy 与 strcpy 不同，当源字符串长度超过指定限制时会结束复制，但要注意 strncpy 对空字符的处理。</p>
+<p>例中循环变量 i 等于 10 时，buffer[i] = 0 便造成了缓冲区溢出，此为常见笔误，应将循环条件改为 i != 10。</p>
+
+<p>又如：</p>
+<pre><code>int auth() {
+    char pswd[8];
+    gets(pswd);                    //<i> May overflow</i>
+    return !strcmp(pswd, &quot;abc&quot;);
+}</code></pre>
+<p>例中 auth 函数验证用户输入的密码，密码存于数组 pswd 中，gets 函数接收用户输入，但不检查输入长度，一旦输入超过 8 个字符就会造成缓冲区溢出。由于 gets 函数过于危险，已被 C11 标准弃用，但在自定义的缓冲区操作中，仍然需要对这种问题保持高度警惕。</p>
+
+<p>如果按下列方式调用 auth 函数：</p>
+<pre><code>int main() {
+    int ret = auth();
+    if (!ret) {
+        return -1;   //<i> May be invalid under attack</i>
+    }
+    show_secret();
+}</code></pre>
+<p>在进程的实际内存布局中，pswd 数组之后可以是 auth 函数的返回地址，如果攻击者利用缓冲区溢出将其篡改，便可以扰乱程序的执行，甚至可以绕过用于判断的 if 语句，直接执行用于显示敏感信息的 show_secret 函数，造成敏感信息泄露。</p>
+
+<p>关于避免缓冲区溢出的方法和防御措施，可参见本规则相关规则的进一步介绍。</p>
 
 </main>
 
 <h3>相关</h3>
-<div class="ref-items"><a href="./ID_arrayIndexOverflow.html" class="related-link">ID_arrayIndexOverflow</a>
-<a href="./ID_unsafeStringFunction.html" class="related-link">ID_unsafeStringFunction</a></div>
+<div class="ref-items"><a href="./ID_insufficientBuffer.html" class="related-link">ID_insufficientBuffer</a>
+<a href="./ID_improperNullTermination.html" class="related-link">ID_improperNullTermination</a>
+<a href="./ID_zeroLengthAllocation.html" class="related-link">ID_zeroLengthAllocation</a>
+<a href="./ID_unsafeStringFunction.html" class="related-link">ID_unsafeStringFunction</a>
+<a href="./ID_dangerousFunction.html" class="related-link">ID_dangerousFunction</a>
+<a href="./ID_missingHardening.html" class="related-link">ID_missingHardening</a>
+<a href="./ID_arrayIndexOverflow.html" class="related-link">ID_arrayIndexOverflow</a></div>
 
 
 <h3>参考</h3>
